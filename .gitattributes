@@ -1,0 +1,9 @@
+*				text=auto
+*.vcproj	text eol=crlf
+*.sh			text eol=lf
+
+/** linguist-detectable
+/**.json -linguist-detectable
+/**.md -linguist-detectable
+/**.txt -linguist-detectable
+/**.xml -linguist-detectable
