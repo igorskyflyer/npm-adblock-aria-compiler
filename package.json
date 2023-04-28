@@ -1,0 +1,44 @@
+{
+	"name": "@igor.dvlpr/$1",
+	"version": "1.0.0",
+	"description": "$2",
+	"sideEffects": false,
+	"engines": {
+		"node": ">=16.0"
+	},
+	"types": "./dist/index.d.ts",
+	"main": "./dist/index.js",
+	"files": [
+		"dist"
+	],
+	"scripts": {
+		"build": "tsc",
+		"test": "ts-mocha test/*.ts",
+		"pub": "npm test && npm run build && npm publish --access public"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/igorskyflyer/$3.git"
+	},
+	"keywords": [
+		"igorskyflyer",
+		"igor.dvlpr",
+		$4
+	],
+	"author": "Igor Dimitrijević <igor.dvlpr@gmail.com> (https://github.com/igorskyflyer)",
+	"license": "MIT",
+	"funding": "https://ko-fi.com/igorskyflyer",
+	"bugs": {
+		"url": "https://github.com/igorskyflyer/$3/issues"
+	},
+	"homepage": "https://github.com/igorskyflyer/$3#readme",
+	"devDependencies": {
+		"@types/chai": "^4.3.1",
+		"@types/mocha": "^9.1.1",
+		"@types/node": "^12.17.0",
+		"chai": "^4.3.6",
+		"mocha": "^10.0.0",
+		"ts-mocha": "^10.0.0",
+		"typescript": "^4.7.4"
+	}
+}
