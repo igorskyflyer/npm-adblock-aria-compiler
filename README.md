@@ -1,5 +1,5 @@
-# $1
-$2
+# aria-compiler
+🧬 Meet Aria, an efficient Adblock filter list compiler, with many features that make your maintenance of Adblock filter lists a breeze! 🗡
 
 <br>
 
@@ -17,7 +17,7 @@ $2
 Install it by executing:
 
 ```shell
-npm i "@igor.dvlpr/$1"
+npm i "@igor.dvlpr/aria-compiler"
 ```
 
 <br>
