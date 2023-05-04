@@ -54,6 +54,9 @@ export class Aria {
   // TODO: implement seek()
   // #seek(count: number=1):boolean{}
 
+  // TODO: implement peek()
+  // #peek():boolean{return this.#seek()}
+
   #parseComment(line: string, i: number, j: number): AriaNode {
     const comment = line.substring(1)
     return this.#node(AriaNodeType.comment, this.#pos(i, j), comment)
