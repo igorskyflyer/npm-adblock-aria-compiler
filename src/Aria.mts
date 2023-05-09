@@ -57,6 +57,12 @@ export class Aria {
   // TODO: implement peek()
   // #peek():boolean{return this.#seek()}
 
+  #chunk(size: number): string
+  #chunk(start: number, size: number): string
+  #chunk(p1: number, p2?: number): string {
+    return this.#source.substring(p2 ?? 0, p1)
+  }
+
   #parseComment(line: string, i: number, j: number): AriaNode {
     const comment = line.substring(1)
     return this.#node(AriaNodeType.comment, this.#pos(i, j), comment)
