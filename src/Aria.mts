@@ -9,17 +9,20 @@ type LogLevel = 'log' | 'warn' | 'error' | 'info'
 
 export class Aria {
   #source: string
+  #shouldLog: boolean
+
   #line: string
   #char: string
-  #cursor: number
+  #lineCursor: number
+  #cursorInLine: number
   #position: AriaSourcePosition
-  #shouldLog: boolean
 
   constructor(source: string, shouldLog: boolean = false) {
     this.#source = source
     this.#line = ''
     this.#char = ''
-    this.#cursor = 0
+    this.#cursorInLine = 0
+    this.#lineCursor = 0
     this.#position = this.#pos(-1, -1)
     this.#shouldLog ??= shouldLog
   }
@@ -52,12 +55,12 @@ export class Aria {
 
   // @ts-ignore
   #seek(count: number = 1): boolean {
-    this.#cursor += count
+    this.#cursorInLine += count
     return true
   }
 
   #peek(count: number = 1): string {
-    return this.#line.charAt(this.#cursor + count)
+    return this.#line.charAt(this.#cursorInLine + count)
   }
 
   #chunk(start: number, end?: number): string {
@@ -119,25 +122,26 @@ export class Aria {
 
     const lines: string[] = this.#source.split(/\r?\n/gm)
     const linesCount: number = lines.length
-    let i: number = 0
     let done: boolean = false
 
-    while (i < linesCount) {
-      this.#line = lines[i]
+    this.#lineCursor = 0
+
+    while (this.#lineCursor < linesCount) {
+      this.#line = lines[this.#lineCursor]
       const lineLength = this.#line.trim().length
 
       done = false
 
-      this.log(`Processing line: ${i}`)
+      this.log(`Processing line: ${this.#lineCursor}`)
 
       if (lineLength === 0) {
-        this.log(`Blank line: ${i}, skipping...`)
-        i++
+        this.log(`Blank line: ${this.#lineCursor}, skipping...`)
+        this.#lineCursor++
         continue
       }
 
-      for (this.#cursor = 0; this.#cursor < lineLength; this.#cursor++) {
-        this.#char = this.#line.charAt(this.#cursor)
+      for (this.#cursorInLine = 0; this.#cursorInLine < lineLength; this.#cursorInLine++) {
+        this.#char = this.#line.charAt(this.#cursorInLine)
 
         if (this.#char === ' ') {
           continue
@@ -151,7 +155,7 @@ export class Aria {
             done = true
             break
           } else {
-            this.log(`Found internal comment at char(${this.#cursor}), skipping line...`)
+            this.log(`Found internal comment at char(${this.#cursorInLine}), skipping line...`)
           }
           done = true
           break
@@ -180,7 +184,7 @@ export class Aria {
         }
       }
 
-      i++
+      this.#lineCursor++
 
       this.log()
 
