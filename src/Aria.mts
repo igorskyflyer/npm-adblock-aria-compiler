@@ -124,7 +124,7 @@ export class Aria {
 
     while (i < linesCount) {
       this.#line = lines[i]
-      const lineLength = this.#line.length
+      const lineLength = this.#line.trim().length
 
       done = false
 
