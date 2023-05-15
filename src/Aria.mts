@@ -1,5 +1,3 @@
-import { PathLike, writeFileSync } from 'fs'
-import { join } from 'path'
 import { AriaAst } from './AriaAst.mjs'
 import { AriaNode } from './AriaNode.mjs'
 import { AriaNodeType } from './AriaNodeType.mjs'
@@ -117,10 +115,7 @@ export class Aria {
   }
 
   parse(): AriaAst {
-    const ast: AriaAst = {
-      nodesCount: 0,
-      nodes: [],
-    }
+    const ast: AriaAst = new AriaAst()
 
     const lines: string[] = this.#source.split(/\r?\n/gm)
     const linesCount: number = lines.length
