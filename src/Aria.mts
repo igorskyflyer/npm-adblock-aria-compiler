@@ -117,10 +117,6 @@ export class Aria {
     const ast: AriaAst = {
       nodesCount: 0,
       nodes: [],
-      _state: {
-        imports: 0,
-        exports: 0,
-      },
     }
 
     const lines: string[] = this.#source.split(/\r?\n/gm)
@@ -175,20 +171,16 @@ export class Aria {
           this.log('Found import operator...')
           ast.nodes.push(this.#parseImport(line, i, j))
           ast.nodesCount++
-          ast._state.imports++
           done = true
           break
         }
 
         if (char === AriaOperators.export) {
-          if (ast._state.exports === 1) {
-            throw 'Only 1 export is allowed per template!'
-          }
+          // TODO: reimplement imports/exports counter
 
           this.log('Found export operator...')
           ast.nodes.push(this.#parseExport(line, i, j))
           ast.nodesCount++
-          ast._state.exports++
           done = true
           break
         }
@@ -201,10 +193,6 @@ export class Aria {
       if (done) {
         continue
       }
-    }
-
-    if (ast._state.imports > 0 && ast._state.exports === 0) {
-      this.log(`Found ${ast._state.imports} import(s) but no exports. Did you forget to export the filter list?`, 'warn')
     }
 
     if (path) {
