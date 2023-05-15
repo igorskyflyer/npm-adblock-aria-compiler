@@ -13,7 +13,6 @@ export class Aria {
   #source: string
   #line: string
   #char: string
-  // @ts-ignore
   #position: AriaSourcePosition
   #shouldLog: boolean
 
@@ -25,7 +24,9 @@ export class Aria {
     this.#shouldLog ??= shouldLog
   }
 
-  #node(type: AriaNodeType, position: AriaSourcePosition, operand?: string, flags?: string[]): AriaNode {
+  #node(type: AriaNodeType, operand?: string, flags?: string[]): AriaNode {
+    const position = this.#position
+
     const node: AriaNode = {
       type,
       position,
@@ -55,54 +56,52 @@ export class Aria {
   // TODO: implement peek()
   // #peek():boolean{return this.#seek()}
 
-  #chunk(size: number): string
-  #chunk(start: number, size: number): string
-  #chunk(p1: number, p2?: number): string {
-    return this.#source.substring(p2 ?? 0, p1)
+  #chunk(start: number, end?: number): string {
+    return this.#line.substring(start, end)
   }
 
-  #parseComment(line: string, i: number, j: number): AriaNode {
-    const comment = line.substring(1)
-    return this.#node(AriaNodeType.comment, this.#pos(i, j), comment)
+  #parseComment(): AriaNode {
+    const comment = this.#chunk(1)
+    return this.#node(AriaNodeType.comment, comment)
   }
 
-  #parseHeaderImport(line: string, i: number, j: number): AriaNode {
-    const path = AriaRules.headerImport.exec(line)
+  #parseHeaderImport(): AriaNode {
+    const path = AriaRules.headerImport.exec(this.#line)
 
     if (!path || path.length < 2) {
       this.log({ path })
       throw 'No path found'
     }
 
-    return this.#node(AriaNodeType.header, this.#pos(i, j), path[1])
+    return this.#node(AriaNodeType.header, path[1])
   }
 
-  #parseImport(line: string, i: number, j: number): AriaNode {
-    const path = AriaRules.import.exec(line)
+  #parseImport(): AriaNode {
+    const path = AriaRules.import.exec(this.#line)
 
     if (!path || path.length < 2) {
       this.log({ path })
       throw 'No path found'
     }
 
-    return this.#node(AriaNodeType.import, this.#pos(i, j), path[1])
+    return this.#node(AriaNodeType.import, path[1])
   }
 
-  #parseExport(line: string, i: number, j: number): AriaNode {
-    const path = AriaRules.export.exec(line)
+  #parseExport(): AriaNode {
+    const path = AriaRules.export.exec(this.#line)
 
     if (!path || path.length < 2) {
       this.log({ path })
       throw 'No path found'
     }
 
-    const match = AriaRules.flagsExport.exec(line) || []
+    const match = AriaRules.flagsExport.exec(this.#line) || []
 
     this.log({ match })
 
     const flags = match.slice(1)
 
-    return this.#node(AriaNodeType.export, this.#pos(i, j), path[1], flags)
+    return this.#node(AriaNodeType.export, path[1], flags)
   }
 
   log(message: any = '', logLevel: LogLevel = 'log'): void {
@@ -146,7 +145,7 @@ export class Aria {
         if (this.#char === AriaOperators.comment) {
           if (this.#line.charAt(j + 1) === AriaOperators.comment) {
             this.log('Found exported comment...')
-            ast.nodes.push(this.#parseComment(this.#line, i, lineLength - 1))
+            ast.nodes.push(this.#parseComment())
             ast.nodesCount++
             done = true
             break
@@ -159,7 +158,7 @@ export class Aria {
 
         if (this.#char === AriaOperators.headerImport) {
           this.log('Found header import operator...')
-          ast.nodes.push(this.#parseHeaderImport(this.#line, i, j))
+          ast.nodes.push(this.#parseHeaderImport())
           ast.nodesCount++
           done = true
           break
@@ -167,7 +166,7 @@ export class Aria {
 
         if (this.#char === AriaOperators.import) {
           this.log('Found import operator...')
-          ast.nodes.push(this.#parseImport(this.#line, i, j))
+          ast.nodes.push(this.#parseImport())
           ast.nodesCount++
           done = true
           break
@@ -176,7 +175,7 @@ export class Aria {
         if (this.#char === AriaOperators.export) {
           // TODO: reimplement imports/exports counter
           this.log('Found export operator...')
-          ast.nodes.push(this.#parseExport(this.#line, i, j))
+          ast.nodes.push(this.#parseExport())
           ast.nodesCount++
           done = true
           break
