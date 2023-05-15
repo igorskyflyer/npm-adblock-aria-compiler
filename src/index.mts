@@ -5,7 +5,7 @@ const template = readFileSync('./data/test.adbt')
 const source = template?.toString()
 
 const aria = new Aria(source, true)
-const ast = aria.parse('./')
+const ast = aria.parse()
 
 console.time('perf')
 console.log(ast)
