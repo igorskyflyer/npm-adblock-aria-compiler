@@ -7,6 +7,8 @@ const source = template?.toString()
 const aria = new Aria(source, true)
 const ast = aria.parse()
 
+ast.export('./')
+
 console.time('perf')
 console.log(ast)
 console.timeEnd('perf')
