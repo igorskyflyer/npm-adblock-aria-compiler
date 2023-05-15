@@ -12,7 +12,6 @@ type LogLevel = 'log' | 'warn' | 'error' | 'info'
 export class Aria {
   #source: string
   #line: string
-  // @ts-ignore
   #char: string
   // @ts-ignore
   #position: AriaSourcePosition
@@ -138,13 +137,13 @@ export class Aria {
       }
 
       for (let j = 0; j < lineLength; j++) {
-        const char: string = this.#line.charAt(j)
+        this.#char = this.#line.charAt(j)
 
-        if (char === ' ') {
+        if (this.#char === ' ') {
           continue
         }
 
-        if (char === AriaOperators.comment) {
+        if (this.#char === AriaOperators.comment) {
           if (this.#line.charAt(j + 1) === AriaOperators.comment) {
             this.log('Found exported comment...')
             ast.nodes.push(this.#parseComment(this.#line, i, lineLength - 1))
@@ -158,7 +157,7 @@ export class Aria {
           break
         }
 
-        if (char === AriaOperators.headerImport) {
+        if (this.#char === AriaOperators.headerImport) {
           this.log('Found header import operator...')
           ast.nodes.push(this.#parseHeaderImport(this.#line, i, j))
           ast.nodesCount++
@@ -166,7 +165,7 @@ export class Aria {
           break
         }
 
-        if (char === AriaOperators.import) {
+        if (this.#char === AriaOperators.import) {
           this.log('Found import operator...')
           ast.nodes.push(this.#parseImport(this.#line, i, j))
           ast.nodesCount++
@@ -174,9 +173,8 @@ export class Aria {
           break
         }
 
-        if (char === AriaOperators.export) {
+        if (this.#char === AriaOperators.export) {
           // TODO: reimplement imports/exports counter
-
           this.log('Found export operator...')
           ast.nodes.push(this.#parseExport(this.#line, i, j))
           ast.nodesCount++
