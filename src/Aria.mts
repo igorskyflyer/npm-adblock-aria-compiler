@@ -13,6 +13,7 @@ export class Aria {
   #source: string
   #line: string
   #char: string
+  #cursor: number
   #position: AriaSourcePosition
   #shouldLog: boolean
 
@@ -20,6 +21,7 @@ export class Aria {
     this.#source = source
     this.#line = ''
     this.#char = ''
+    this.#cursor = 0
     this.#position = this.#pos(-1, -1)
     this.#shouldLog ??= shouldLog
   }
@@ -50,11 +52,15 @@ export class Aria {
     }
   }
 
-  // TODO: implement seek()
-  // #seek(count: number=1):boolean{}
+  // @ts-ignore
+  #seek(count: number = 1): boolean {
+    this.#cursor += count
+    return true
+  }
 
-  // TODO: implement peek()
-  // #peek():boolean{return this.#seek()}
+  #peek(count: number): string {
+    return this.#line.charAt(this.#cursor + count)
+  }
 
   #chunk(start: number, end?: number): string {
     return this.#line.substring(start, end)
@@ -110,7 +116,7 @@ export class Aria {
     }
   }
 
-  parse(path?: PathLike): AriaAst {
+  parse(): AriaAst {
     const ast: AriaAst = {
       nodesCount: 0,
       nodes: [],
@@ -135,22 +141,22 @@ export class Aria {
         continue
       }
 
-      for (let j = 0; j < lineLength; j++) {
-        this.#char = this.#line.charAt(j)
+      for (this.#cursor = 0; this.#cursor < lineLength; this.#cursor++) {
+        this.#char = this.#line.charAt(this.#cursor)
 
         if (this.#char === ' ') {
           continue
         }
 
         if (this.#char === AriaOperators.comment) {
-          if (this.#line.charAt(j + 1) === AriaOperators.comment) {
+          if (this.#peek(1) === AriaOperators.comment) {
             this.log('Found exported comment...')
             ast.nodes.push(this.#parseComment())
             ast.nodesCount++
             done = true
             break
           } else {
-            this.log(`Found internal comment at char(${j}), skipping line...`)
+            this.log(`Found internal comment at char(${this.#cursor}), skipping line...`)
           }
           done = true
           break
@@ -189,10 +195,6 @@ export class Aria {
       if (done) {
         continue
       }
-    }
-
-    if (path) {
-      writeFileSync(join(path.toString(), 'ast.json'), JSON.stringify(ast))
     }
 
     return ast
