@@ -11,7 +11,6 @@ type LogLevel = 'log' | 'warn' | 'error' | 'info'
 
 export class Aria {
   #source: string
-  // @ts-ignore
   #line: string
   // @ts-ignore
   #char: string
@@ -125,8 +124,8 @@ export class Aria {
     let done: boolean = false
 
     while (i < linesCount) {
-      const line: string = lines[i]
-      const lineLength = line.length
+      this.#line = lines[i]
+      const lineLength = this.#line.length
 
       done = false
 
@@ -139,16 +138,16 @@ export class Aria {
       }
 
       for (let j = 0; j < lineLength; j++) {
-        const char: string = line.charAt(j)
+        const char: string = this.#line.charAt(j)
 
         if (char === ' ') {
           continue
         }
 
         if (char === AriaOperators.comment) {
-          if (line.charAt(j + 1) === AriaOperators.comment) {
+          if (this.#line.charAt(j + 1) === AriaOperators.comment) {
             this.log('Found exported comment...')
-            ast.nodes.push(this.#parseComment(line, i, lineLength - 1))
+            ast.nodes.push(this.#parseComment(this.#line, i, lineLength - 1))
             ast.nodesCount++
             done = true
             break
@@ -161,7 +160,7 @@ export class Aria {
 
         if (char === AriaOperators.headerImport) {
           this.log('Found header import operator...')
-          ast.nodes.push(this.#parseHeaderImport(line, i, j))
+          ast.nodes.push(this.#parseHeaderImport(this.#line, i, j))
           ast.nodesCount++
           done = true
           break
@@ -169,7 +168,7 @@ export class Aria {
 
         if (char === AriaOperators.import) {
           this.log('Found import operator...')
-          ast.nodes.push(this.#parseImport(line, i, j))
+          ast.nodes.push(this.#parseImport(this.#line, i, j))
           ast.nodesCount++
           done = true
           break
@@ -179,7 +178,7 @@ export class Aria {
           // TODO: reimplement imports/exports counter
 
           this.log('Found export operator...')
-          ast.nodes.push(this.#parseExport(line, i, j))
+          ast.nodes.push(this.#parseExport(this.#line, i, j))
           ast.nodesCount++
           done = true
           break
