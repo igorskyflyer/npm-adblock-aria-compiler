@@ -56,7 +56,7 @@ export class Aria {
     return true
   }
 
-  #peek(count: number): string {
+  #peek(count: number = 1): string {
     return this.#line.charAt(this.#cursor + count)
   }
 
@@ -144,10 +144,10 @@ export class Aria {
         }
 
         if (this.#char === AriaOperators.comment) {
-          if (this.#peek(1) === AriaOperators.comment) {
+          if (this.#peek() === AriaOperators.comment) {
             this.log('Found exported comment...')
-            ast.nodes.push(this.#parseComment())
-            ast.nodesCount++
+            ast.addNode(this.#parseComment())
+
             done = true
             break
           } else {
@@ -159,16 +159,14 @@ export class Aria {
 
         if (this.#char === AriaOperators.headerImport) {
           this.log('Found header import operator...')
-          ast.nodes.push(this.#parseHeaderImport())
-          ast.nodesCount++
+          ast.addNode(this.#parseHeaderImport())
           done = true
           break
         }
 
         if (this.#char === AriaOperators.import) {
           this.log('Found import operator...')
-          ast.nodes.push(this.#parseImport())
-          ast.nodesCount++
+          ast.addNode(this.#parseImport())
           done = true
           break
         }
@@ -176,8 +174,7 @@ export class Aria {
         if (this.#char === AriaOperators.export) {
           // TODO: reimplement imports/exports counter
           this.log('Found export operator...')
-          ast.nodes.push(this.#parseExport())
-          ast.nodesCount++
+          ast.addNode(this.#parseExport())
           done = true
           break
         }
