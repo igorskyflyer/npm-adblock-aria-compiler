@@ -7,7 +7,9 @@ const source = template?.toString()
 const aria = new Aria(source, true)
 const ast = aria.parse()
 
-ast.export('./')
+if (ast.export('./a.json')) {
+  console.log('Wrote to JSON')
+}
 
 console.time('perf')
 console.log(ast)
