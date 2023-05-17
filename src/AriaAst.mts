@@ -1,4 +1,4 @@
-import { PathLike, accessSync, writeFileSync } from 'node:fs'
+import { PathLike, accessSync, readFileSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { AriaNode } from './AriaNode.mjs'
 import { AriaState } from './AriaState.mjs'
@@ -77,10 +77,26 @@ export class AriaAst {
         case AriaNodeType.nodeHeader: {
           const path: string | undefined = node.value
 
+          if (path && this.#pathExists(path)) {
+            const header = readFileSync(path)
+            contents += header
+          } else {
+            throw new Error(`Couldn't read the header file located at: "${path}".`)
+          }
+
           break
         }
 
         case AriaNodeType.nodeImport: {
+          const path: string | undefined = node.value
+
+          if (path && this.#pathExists(path)) {
+            const filter = readFileSync(path)
+            contents += filter
+          } else {
+            throw new Error(`Couldn't read the filter file located at: "${path}".`)
+          }
+
           break
         }
 
@@ -89,6 +105,8 @@ export class AriaAst {
         }
       }
     }
+
+    console.log(contents)
 
     return false
   }
