@@ -4,9 +4,7 @@ import { AriaNode } from './AriaNode.mjs'
 import { AriaState } from './AriaState.mjs'
 import { AriaNodeType } from './AriaNodeType.mjs'
 
-type AriaFilePath<extension extends string> = `${string}.${extension}`
-
-type AriaAstPath = AriaFilePath<'json'>
+type AriaAstPath = `${string}.json`
 
 export class AriaAst {
   #nodes: AriaNode[]
