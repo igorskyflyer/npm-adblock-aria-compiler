@@ -35,8 +35,6 @@ export class AriaAst {
         path = join(path, '.json')
       }
 
-      console.log({ path })
-
       writeFileSync(path, JSON.stringify(this.#nodes))
       return true
     } catch {}
