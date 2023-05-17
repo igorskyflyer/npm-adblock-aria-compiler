@@ -242,6 +242,8 @@ export class Aria {
       const template: Buffer = readFileSync(templatePath)
       const contents: string = template.toString()
       this.parse(contents)
-    } catch {}
+    } catch (e) {
+      throw e
+    }
   }
 }
