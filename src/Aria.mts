@@ -1,3 +1,4 @@
+import { readFileSync } from 'fs'
 import { AriaAst } from './AriaAst.mjs'
 import { AriaNode } from './AriaNode.mjs'
 import { AriaNodeType } from './AriaNodeType.mjs'
@@ -230,5 +231,17 @@ export class Aria {
         continue
       }
     }
+  }
+
+  parseFile(templatePath: AriaTemplatePath): void {
+    if (typeof templatePath !== 'string') {
+      return
+    }
+
+    try {
+      const template: Buffer = readFileSync(templatePath)
+      const contents: string = template.toString()
+      this.parse(contents)
+    } catch {}
   }
 }
