@@ -49,8 +49,7 @@ export class AriaAst {
 
     try {
       if (!path.toLowerCase().endsWith('.json')) {
-        // @ts-ignore
-        path = join(path, '.json')
+        path = join(path, '.json') as AriaAstPath
       }
 
       writeFileSync(path, JSON.stringify(this.#nodes))
