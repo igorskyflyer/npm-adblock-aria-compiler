@@ -12,5 +12,5 @@ if (ast.export('./a.json')) {
 }
 
 console.time('perf')
-console.log(ast)
+console.log(ast.nodes)
 console.timeEnd('perf')
