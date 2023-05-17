@@ -27,7 +27,7 @@ export class Aria {
     this.#shouldLog ??= shouldLog
   }
 
-  #node(type: AriaNodeType, operand?: string, flags?: string[]): AriaNode {
+  #node(type: AriaNodeType, value?: string, flags?: string[]): AriaNode {
     const position = this.#position
 
     const node: AriaNode = {
@@ -35,8 +35,8 @@ export class Aria {
       position,
     }
 
-    if (operand) {
-      node.operand = operand
+    if (value) {
+      node.value = value
     }
 
     if (flags) {
@@ -69,7 +69,7 @@ export class Aria {
 
   #parseComment(): AriaNode {
     const comment = this.#chunk(1)
-    return this.#node(AriaNodeType.comment, comment)
+    return this.#node(AriaNodeType.nodeComment, comment)
   }
 
   #parseHeaderImport(): AriaNode {
@@ -80,7 +80,7 @@ export class Aria {
       throw 'No path found'
     }
 
-    return this.#node(AriaNodeType.header, path[1])
+    return this.#node(AriaNodeType.nodeHeader, path[1])
   }
 
   #parseImport(): AriaNode {
@@ -91,7 +91,7 @@ export class Aria {
       throw 'No path found'
     }
 
-    return this.#node(AriaNodeType.import, path[1])
+    return this.#node(AriaNodeType.nodeImport, path[1])
   }
 
   #parseExport(): AriaNode {
@@ -108,7 +108,7 @@ export class Aria {
 
     const flags = match.slice(1)
 
-    return this.#node(AriaNodeType.export, path[1], flags)
+    return this.#node(AriaNodeType.nodeExport, path[1], flags)
   }
 
   log(message: any = '', logLevel: LogLevel = 'log'): void {
