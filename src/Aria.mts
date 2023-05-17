@@ -162,7 +162,7 @@ export class Aria {
     return this.#ast
   }
 
-  parse(source: string): void {
+  parse(source: string): AriaAst {
     this.#source = source
 
     const lines: string[] = this.#source.split(/\r?\n/gm)
@@ -235,6 +235,8 @@ export class Aria {
         continue
       }
     }
+
+    return this.#ast
   }
 
   parseFile(templatePath: AriaTemplatePath): void {
