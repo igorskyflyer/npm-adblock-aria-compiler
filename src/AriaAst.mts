@@ -27,6 +27,10 @@ export class AriaAst {
     return this.#nodes
   }
 
+  get state(): AriaState {
+    return this.#state
+  }
+
   public addNode(node: AriaNode): void {
     if (node.type === AriaNodeType.nodeImport) {
       this.#state.imports++
