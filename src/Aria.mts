@@ -83,6 +83,10 @@ export class Aria {
     let path: string = ''
 
     while (this.#read()) {
+      if (closedString) {
+        throw new Error(`Extraneous input found after the path.`)
+      }
+
       if (!shouldCapture) {
         if (this.#char === ' ') continue
         if (this.#char === "'") {
