@@ -4,7 +4,7 @@ import { Aria } from './Aria.mjs'
 const template = readFileSync('./data/test.adbt')
 const source = template?.toString()
 
-const aria = new Aria(source, false)
+const aria = new Aria(source, true)
 aria.parse()
 
 // if (ast.export('./a.json')) {
@@ -12,5 +12,5 @@ aria.parse()
 // }
 
 console.time('perf')
-console.log(aria.ast)
+console.log(aria.ast.nodes)
 console.timeEnd('perf')
