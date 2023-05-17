@@ -74,6 +74,13 @@ export class AriaAst {
       const node = this.#nodes[i]
 
       switch (node.type) {
+        case AriaNodeType.nodeComment: {
+          if (node.value) {
+            contents += node.value
+          }
+          break
+        }
+
         case AriaNodeType.nodeHeader: {
           const path: string | undefined = node.value
 
