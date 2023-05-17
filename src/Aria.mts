@@ -2,7 +2,6 @@ import { AriaAst } from './AriaAst.mjs'
 import { AriaNode } from './AriaNode.mjs'
 import { AriaNodeType } from './AriaNodeType.mjs'
 import { AriaOperators } from './AriaOperators.mjs'
-import { AriaRules } from './AriaRules.mjs'
 import { AriaSourcePosition } from './AriaSourcePosition.mjs'
 
 type LogLevel = 'log' | 'warn' | 'error' | 'info'
