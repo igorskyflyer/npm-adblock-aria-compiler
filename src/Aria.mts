@@ -14,7 +14,9 @@ export class Aria {
   #line: string
   #char: string
   #lineCursor: number
+  #lineLength: number
   #cursorInLine: number
+  // @ts-ignore
   #position: AriaSourcePosition
 
   constructor(source: string, shouldLog: boolean = false) {
@@ -23,12 +25,13 @@ export class Aria {
     this.#char = ''
     this.#cursorInLine = 0
     this.#lineCursor = 0
+    this.#lineLength = 0
     this.#position = this.#pos(-1, -1)
     this.#shouldLog ??= shouldLog
   }
 
   #node(type: AriaNodeType, value?: string, flags?: string[]): AriaNode {
-    const position = this.#position
+    const position: AriaSourcePosition = this.#pos(this.#lineCursor, 1)
 
     const node: AriaNode = {
       type,
@@ -53,10 +56,14 @@ export class Aria {
     }
   }
 
-  // @ts-ignore
-  #seek(count: number = 1): boolean {
-    this.#cursorInLine += count
-    return true
+  #read(count: number = 1): boolean {
+    if (this.#cursorInLine + count < this.#lineLength) {
+      this.#cursorInLine += count
+      this.#char = this.#line.charAt(this.#cursorInLine)
+
+      return true
+    }
+    return false
   }
 
   #peek(count: number = 1): string {
@@ -67,46 +74,57 @@ export class Aria {
     return this.#line.substring(start, end)
   }
 
+  #parsePath(): string {
+    let shouldCapture: boolean = false
+    let closedString: boolean = false
+    let path: string = ''
+
+    while (this.#read()) {
+      if (!shouldCapture) {
+        if (this.#char === ' ') continue
+        if (this.#char === "'") {
+          shouldCapture = true
+        } else {
+          throw new Error(`Expected a string path for import but found "${this.#char}..." at line: ${this.#position.line}.`)
+        }
+      } else {
+        if (this.#char === "'") {
+          shouldCapture = false
+          closedString = true
+        } else {
+          path += this.#char
+        }
+      }
+    }
+
+    if (!closedString) {
+      throw new Error(`Unclosed file path string.`)
+    }
+
+    return path
+  }
+
   #parseComment(): AriaNode {
-    const comment = this.#chunk(1)
+    const comment: string = this.#chunk(1)
     return this.#node(AriaNodeType.nodeComment, comment)
   }
 
   #parseHeaderImport(): AriaNode {
-    const path = AriaRules.headerImport.exec(this.#line)
-
-    if (!path || path.length < 2) {
-      this.log({ path })
-      throw 'No path found'
-    }
-
-    return this.#node(AriaNodeType.nodeHeader, path[1])
+    const path: string = this.#parsePath()
+    console.log({ path })
+    return this.#node(AriaNodeType.nodeHeader, path)
   }
 
   #parseImport(): AriaNode {
-    const path = AriaRules.import.exec(this.#line)
-
-    if (!path || path.length < 2) {
-      this.log({ path })
-      throw 'No path found'
-    }
-
-    return this.#node(AriaNodeType.nodeImport, path[1])
+    const path: string = this.#parsePath()
+    console.log({ path })
+    return this.#node(AriaNodeType.nodeImport, path)
   }
 
   #parseExport(): AriaNode {
-    const path = AriaRules.export.exec(this.#line)
-
-    if (!path || path.length < 2) {
-      this.log({ path })
-      throw 'No path found'
-    }
-
-    const match = AriaRules.flagsExport.exec(this.#line) || []
-
-    this.log({ match })
-
-    const flags = match.slice(1)
+    const path: string = this.#parsePath()
+    console.log({ path })
+    const flags: string[] = []
 
     return this.#node(AriaNodeType.nodeExport, path[1], flags)
   }
@@ -128,19 +146,19 @@ export class Aria {
 
     while (this.#lineCursor < linesCount) {
       this.#line = lines[this.#lineCursor]
-      const lineLength = this.#line.trim().length
+      this.#lineLength = this.#line.trim().length
 
       done = false
 
       this.log(`Processing line: ${this.#lineCursor}`)
 
-      if (lineLength === 0) {
+      if (this.#lineLength === 0) {
         this.log(`Blank line: ${this.#lineCursor}, skipping...`)
         this.#lineCursor++
         continue
       }
 
-      for (this.#cursorInLine = 0; this.#cursorInLine < lineLength; this.#cursorInLine++) {
+      for (this.#cursorInLine = 0; this.#cursorInLine < this.#lineLength; this.#cursorInLine++) {
         this.#char = this.#line.charAt(this.#cursorInLine)
 
         if (this.#char === ' ') {
