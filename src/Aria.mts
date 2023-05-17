@@ -5,6 +5,7 @@ import { AriaOperators } from './AriaOperators.mjs'
 import { AriaSourcePosition } from './AriaSourcePosition.mjs'
 
 type LogLevel = 'log' | 'warn' | 'error' | 'info'
+type AriaTemplatePath = `${string}.adbt`
 
 export class Aria {
   #source: string
