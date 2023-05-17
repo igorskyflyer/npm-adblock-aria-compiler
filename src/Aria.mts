@@ -19,10 +19,10 @@ export class Aria {
   #position: AriaSourcePosition
   #ast: AriaAst
 
-  constructor(source: string, shouldLog: boolean = false) {
-    this.#source = source
+  constructor(shouldLog: boolean = false) {
     this.#shouldLog ??= shouldLog
 
+    this.#source = ''
     this.#line = ''
     this.#char = ''
     this.#cursorInLine = 0
@@ -140,6 +140,7 @@ export class Aria {
   }
 
   #reset(): void {
+    this.#source = ''
     this.#line = ''
     this.#char = ''
     this.#cursorInLine = 0
@@ -159,7 +160,9 @@ export class Aria {
     return this.#ast
   }
 
-  parse(): void {
+  parse(source: string): void {
+    this.#source = source
+
     const lines: string[] = this.#source.split(/\r?\n/gm)
     const linesCount: number = lines.length
     let done: boolean = false
