@@ -4,6 +4,6 @@ import { AriaSourcePosition } from './AriaSourcePosition.mjs'
 export type AriaNode = {
   type: AriaNodeType
   position: AriaSourcePosition
-  operand?: string
+  value?: string
   flags?: string[]
 }
