@@ -15,7 +15,6 @@ export class Aria {
   #lineCursor: number
   #lineLength: number
   #cursorInLine: number
-  // @ts-ignore
   #position: AriaSourcePosition
   #ast: AriaAst
 
@@ -115,7 +114,6 @@ export class Aria {
 
   #parseHeaderImport(): boolean {
     const path: string = this.#parsePath()
-    console.log({ path })
     this.#ast.addNode(this.#node(AriaNodeType.nodeHeader, path))
 
     return true
@@ -123,7 +121,6 @@ export class Aria {
 
   #parseImport(): boolean {
     const path: string = this.#parsePath()
-    console.log({ path })
     this.#ast.addNode(this.#node(AriaNodeType.nodeImport, path))
 
     return true
@@ -131,10 +128,9 @@ export class Aria {
 
   #parseExport(): boolean {
     const path: string = this.#parsePath()
-    console.log({ path })
     const flags: string[] = []
 
-    this.#ast.addNode(this.#node(AriaNodeType.nodeExport, path[1], flags))
+    this.#ast.addNode(this.#node(AriaNodeType.nodeExport, path, flags))
 
     return true
   }
