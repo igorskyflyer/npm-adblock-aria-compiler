@@ -239,15 +239,15 @@ export class Aria {
     return this.#ast
   }
 
-  parseFile(templatePath: AriaTemplatePath): void {
+  parseFile(templatePath: AriaTemplatePath): AriaAst {
     if (typeof templatePath !== 'string') {
-      return
+      throw new Error('No valid templated path provided.')
     }
 
     try {
       const template: Buffer = readFileSync(templatePath)
       const contents: string = template.toString()
-      this.parse(contents)
+      return this.parse(contents)
     } catch (e) {
       throw e
     }
