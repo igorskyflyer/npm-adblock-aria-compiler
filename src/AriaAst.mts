@@ -59,4 +59,28 @@ export class AriaAst {
 
     return false
   }
+
+  public compile(): boolean {
+    if (this.#nodesCount === 0) return true
+
+    for (let i = 0; i < this.#nodesCount; i++) {
+      const node = this.#nodes[i]
+
+      switch (node.type) {
+        case AriaNodeType.nodeHeader: {
+          break
+        }
+
+        case AriaNodeType.nodeImport: {
+          break
+        }
+
+        case AriaNodeType.nodeExport: {
+          break
+        }
+      }
+    }
+
+    return false
+  }
 }
