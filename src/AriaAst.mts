@@ -88,6 +88,11 @@ export class AriaAst {
       const node = this.#nodes[i]
 
       switch (node.type) {
+        case AriaNodeType.nodeNewLine: {
+          contents += String.fromCharCode(10)
+          break
+        }
+
         case AriaNodeType.nodeComment: {
           if (node.value) {
             contents += this.#block(node.value)
