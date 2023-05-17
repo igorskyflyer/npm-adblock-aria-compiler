@@ -17,16 +17,19 @@ export class Aria {
   #cursorInLine: number
   // @ts-ignore
   #position: AriaSourcePosition
+  #ast: AriaAst
 
   constructor(source: string, shouldLog: boolean = false) {
     this.#source = source
+    this.#shouldLog ??= shouldLog
+
     this.#line = ''
     this.#char = ''
     this.#cursorInLine = 0
     this.#lineCursor = 0
     this.#lineLength = 0
     this.#position = this.#pos(-1, -1)
-    this.#shouldLog ??= shouldLog
+    this.#ast = new AriaAst()
   }
 
   #node(type: AriaNodeType, value?: string, flags?: string[]): AriaNode {
@@ -103,45 +106,61 @@ export class Aria {
     return path
   }
 
-  #parseComment(): AriaNode {
+  #parseComment(): boolean {
     const comment: string = this.#chunk(1)
-    return this.#node(AriaNodeType.nodeComment, comment)
+    this.#ast.addNode(this.#node(AriaNodeType.nodeComment, comment))
+
+    return true
   }
 
-  #parseHeaderImport(): AriaNode {
+  #parseHeaderImport(): boolean {
     const path: string = this.#parsePath()
     console.log({ path })
-    return this.#node(AriaNodeType.nodeHeader, path)
+    this.#ast.addNode(this.#node(AriaNodeType.nodeHeader, path))
+
+    return true
   }
 
-  #parseImport(): AriaNode {
+  #parseImport(): boolean {
     const path: string = this.#parsePath()
     console.log({ path })
-    return this.#node(AriaNodeType.nodeImport, path)
+    this.#ast.addNode(this.#node(AriaNodeType.nodeImport, path))
+
+    return true
   }
 
-  #parseExport(): AriaNode {
+  #parseExport(): boolean {
     const path: string = this.#parsePath()
     console.log({ path })
     const flags: string[] = []
 
-    return this.#node(AriaNodeType.nodeExport, path[1], flags)
+    this.#ast.addNode(this.#node(AriaNodeType.nodeExport, path[1], flags))
+
+    return true
   }
 
-  log(message: any = '', logLevel: LogLevel = 'log'): void {
+  #reset(): void {
+    this.#line = ''
+    this.#char = ''
+    this.#cursorInLine = 0
+    this.#lineCursor = 0
+    this.#lineLength = 0
+    this.#position = this.#pos(-1, -1)
+    this.#ast = new AriaAst()
+  }
+
+  #log(message: any = '', logLevel: LogLevel = 'log'): void {
     if (this.#shouldLog) {
       console[logLevel](message)
     }
   }
 
-  parse(): AriaAst {
-    const ast: AriaAst = new AriaAst()
-
+  parse(): void {
     const lines: string[] = this.#source.split(/\r?\n/gm)
     const linesCount: number = lines.length
     let done: boolean = false
 
-    this.#lineCursor = 0
+    this.#reset()
 
     while (this.#lineCursor < linesCount) {
       this.#line = lines[this.#lineCursor]
@@ -149,10 +168,10 @@ export class Aria {
 
       done = false
 
-      this.log(`Processing line: ${this.#lineCursor}`)
+      this.#log(`Processing line: ${this.#lineCursor}`)
 
       if (this.#lineLength === 0) {
-        this.log(`Blank line: ${this.#lineCursor}, skipping...`)
+        this.#log(`Blank line: ${this.#lineCursor}, skipping...`)
         this.#lineCursor++
         continue
       }
@@ -166,49 +185,46 @@ export class Aria {
 
         if (this.#char === AriaOperators.comment) {
           if (this.#peek() === AriaOperators.comment) {
-            this.log('Found exported comment...')
-            ast.addNode(this.#parseComment())
-            done = true
+            this.#log('Found exported comment...')
+            done = this.#parseComment()
             break
           } else {
-            this.log(`Found internal comment at char(${this.#cursorInLine}), skipping line...`)
+            this.#log(`Found internal comment at char(${this.#cursorInLine}), skipping line...`)
           }
           done = true
           break
         }
 
         if (this.#char === AriaOperators.headerImport) {
-          this.log('Found header import operator...')
-          ast.addNode(this.#parseHeaderImport())
-          done = true
+          this.#log('Found header import operator...')
+          done = this.#parseHeaderImport()
           break
         }
 
         if (this.#char === AriaOperators.import) {
-          this.log('Found import operator...')
-          ast.addNode(this.#parseImport())
-          done = true
+          this.#log('Found import operator...')
+          done = this.#parseImport()
           break
         }
 
         if (this.#char === AriaOperators.export) {
-          // TODO: reimplement imports/exports counter
-          this.log('Found export operator...')
-          ast.addNode(this.#parseExport())
-          done = true
+          if (this.#ast.state.exports === 1) {
+            throw new Error('Only 1 export can exist per template!')
+          }
+
+          this.#log('Found export operator...')
+          done = this.#parseExport()
           break
         }
       }
 
       this.#lineCursor++
 
-      this.log()
+      this.#log()
 
       if (done) {
         continue
       }
     }
-
-    return ast
   }
 }
