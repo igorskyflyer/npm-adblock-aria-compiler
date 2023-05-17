@@ -90,7 +90,7 @@ export class AriaAst {
       switch (node.type) {
         case AriaNodeType.nodeComment: {
           if (node.value) {
-            contents += node.value
+            contents += this.#block(node.value)
           }
           break
         }
@@ -99,8 +99,8 @@ export class AriaAst {
           const path: string | undefined = node.value
 
           if (path && this.#pathExists(path)) {
-            const header = readFileSync(path)
-            contents += header
+            const header = readFileSync(path).toString()
+            contents += this.#block(header)
           } else {
             throw new Error(`Couldn't read the header file located at: "${path}".`)
           }
@@ -112,7 +112,7 @@ export class AriaAst {
           const path: string | undefined = node.value
 
           if (path && this.#pathExists(path)) {
-            const filter = readFileSync(path)
+            const filter = readFileSync(path).toString()
             contents += filter
           } else {
             throw new Error(`Couldn't read the filter file located at: "${path}".`)
