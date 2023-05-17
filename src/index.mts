@@ -8,5 +8,3 @@ ast.compile()
 if (ast.export('./data/ast.json')) {
   console.log('Wrote to JSON')
 }
-
-console.log(ast.nodes)
