@@ -155,6 +155,10 @@ export class Aria {
     }
   }
 
+  get ast(): AriaAst {
+    return this.#ast
+  }
+
   parse(): void {
     const lines: string[] = this.#source.split(/\r?\n/gm)
     const linesCount: number = lines.length
