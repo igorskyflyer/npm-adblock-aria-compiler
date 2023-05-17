@@ -25,6 +25,20 @@ export class AriaAst {
     return false
   }
 
+  #block(value: string): string {
+    if (typeof value !== 'string') return ''
+
+    if (value.trim().length === 0) {
+      return ''
+    }
+
+    if (value.charCodeAt(value.length - 1) !== 10) {
+      return `${value}\n`
+    }
+
+    return value
+  }
+
   get nodesCount(): number {
     return this.#nodesCount
   }
