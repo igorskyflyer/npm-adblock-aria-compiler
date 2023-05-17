@@ -1,4 +1,4 @@
-import { writeFileSync } from 'node:fs'
+import { PathLike, accessSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { AriaNode } from './AriaNode.mjs'
 import { AriaState } from './AriaState.mjs'
@@ -15,6 +15,14 @@ export class AriaAst {
     this.#nodesCount = 0
     this.#nodes = []
     this.#state = { imports: 0, exports: 0 }
+  }
+
+  #pathExists(path: PathLike): boolean {
+    try {
+      accessSync(path)
+      return true
+    } catch {}
+    return false
   }
 
   get nodesCount(): number {
@@ -60,11 +68,15 @@ export class AriaAst {
   public compile(): boolean {
     if (this.#nodesCount === 0) return true
 
+    let contents = ''
+
     for (let i = 0; i < this.#nodesCount; i++) {
       const node = this.#nodes[i]
 
       switch (node.type) {
         case AriaNodeType.nodeHeader: {
+          const path: string | undefined = node.value
+
           break
         }
 
