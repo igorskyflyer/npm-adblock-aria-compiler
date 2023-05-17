@@ -192,6 +192,13 @@ export class Aria {
           continue
         }
 
+        if (this.#char === AriaOperators.newLine) {
+          this.#log('Found an explicit new line...')
+          this.#ast.addNode(this.#node(AriaNodeType.nodeNewLine))
+          done = true
+          break
+        }
+
         if (this.#char === AriaOperators.comment) {
           if (this.#peek() === AriaOperators.comment) {
             this.#log('Found exported comment...')
