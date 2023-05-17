@@ -19,6 +19,10 @@ export class AriaAst {
     return this.#nodesCount
   }
 
+  get nodes(): AriaNode[] {
+    return this.#nodes
+  }
+
   public addNode(node: AriaNode): void {
     this.#nodes.push(node)
     this.#nodesCount++
