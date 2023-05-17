@@ -151,7 +151,6 @@ export class Aria {
           if (this.#peek() === AriaOperators.comment) {
             this.log('Found exported comment...')
             ast.addNode(this.#parseComment())
-
             done = true
             break
           } else {
