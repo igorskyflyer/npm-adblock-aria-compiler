@@ -29,16 +29,14 @@ export class Aria {
     this.#cursorInLine = 0
     this.#lineCursor = 0
     this.#lineLength = 0
-    this.#position = this.#pos(-1, -1)
+    this.#position = this.#pos(-1, [-1, -1])
     this.#ast = new AriaAst()
   }
 
   #node(type: AriaNodeType, value?: string, flags?: string[]): AriaNode {
-    const position: AriaSourcePosition = this.#pos(this.#lineCursor, 1)
-
     const node: AriaNode = {
       type,
-      position,
+      position: this.#position,
     }
 
     if (value) {
@@ -52,10 +50,10 @@ export class Aria {
     return node
   }
 
-  #pos(lineNumber: number, column: number): AriaSourcePosition {
+  #pos(lineNumber: number, range: [number, number]): AriaSourcePosition {
     return {
       line: lineNumber,
-      range: [0, column],
+      range,
     }
   }
 
@@ -113,6 +111,7 @@ export class Aria {
 
   #parseComment(): boolean {
     const comment: string = this.#chunk(1)
+    this.#position = this.#pos(this.#lineCursor, [1, comment.length - 1])
     this.#ast.addNode(this.#node(AriaNodeType.nodeComment, comment))
 
     return true
@@ -148,7 +147,7 @@ export class Aria {
     this.#cursorInLine = 0
     this.#lineCursor = 0
     this.#lineLength = 0
-    this.#position = this.#pos(-1, -1)
+    this.#position = this.#pos(-1, [-1, -1])
     this.#ast = new AriaAst()
   }
 
