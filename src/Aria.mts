@@ -39,11 +39,11 @@ export class Aria {
       range: this.#range,
     }
 
-    if (value) {
+    if (typeof value === 'string') {
       node.value = value
     }
 
-    if (flags) {
+    if (flags instanceof Array && flags.length > 0) {
       node.flags = flags
     }
 
