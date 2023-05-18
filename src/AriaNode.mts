@@ -1,9 +1,9 @@
 import { AriaNodeType } from './AriaNodeType.mjs'
-import { AriaSourcePosition } from './AriaSourcePosition.mjs'
 
 export type AriaNode = {
   type: AriaNodeType
-  position: AriaSourcePosition
+  line: number
+  range: [number, number]
   value?: string
   flags?: string[]
 }
