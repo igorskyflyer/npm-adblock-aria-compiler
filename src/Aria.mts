@@ -162,12 +162,11 @@ export class Aria {
   }
 
   parse(source: string): AriaAst {
+    this.#reset()
     this.#source = source
 
     const lines: string[] = this.#source.split(/\r?\n/gm)
     const linesCount: number = lines.length
-
-    this.#reset()
 
     while (this.#lineCursor < linesCount) {
       this.#line = lines[this.#lineCursor]
