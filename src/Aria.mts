@@ -3,7 +3,6 @@ import { AriaAst } from './AriaAst.mjs'
 import { AriaNode } from './AriaNode.mjs'
 import { AriaNodeType } from './AriaNodeType.mjs'
 import { AriaOperators } from './AriaOperators.mjs'
-import { AriaSourcePosition } from './AriaSourcePosition.mjs'
 
 type LogLevel = 'log' | 'warn' | 'error' | 'info'
 type AriaTemplatePath = `${string}.adbt`
@@ -17,7 +16,7 @@ export class Aria {
   #lineCursor: number
   #lineLength: number
   #cursorInLine: number
-  #position: AriaSourcePosition
+  #range: [number, number]
   #ast: AriaAst
 
   constructor(shouldLog: boolean = false) {
@@ -29,14 +28,15 @@ export class Aria {
     this.#cursorInLine = 0
     this.#lineCursor = 0
     this.#lineLength = 0
-    this.#position = this.#pos(-1, [-1, -1])
+    this.#range = [-1, -1]
     this.#ast = new AriaAst()
   }
 
   #node(type: AriaNodeType, value?: string, flags?: string[]): AriaNode {
     const node: AriaNode = {
       type,
-      position: this.#position,
+      line: this.#lineCursor,
+      range: this.#range,
     }
 
     if (value) {
@@ -48,13 +48,6 @@ export class Aria {
     }
 
     return node
-  }
-
-  #pos(lineNumber: number, range: [number, number]): AriaSourcePosition {
-    return {
-      line: lineNumber,
-      range,
-    }
   }
 
   #read(count: number = 1): boolean {
@@ -90,7 +83,7 @@ export class Aria {
         if (this.#char === "'") {
           shouldCapture = true
         } else {
-          throw new Error(`Expected a string path for import but found "${this.#char}..." at line: ${this.#position.line}.`)
+          throw new Error(`Expected a string path for import but found "${this.#char}..." at line: ${this.#lineCursor}.`)
         }
       } else {
         if (this.#char === "'") {
@@ -111,7 +104,7 @@ export class Aria {
 
   #parseComment(): boolean {
     const comment: string = this.#chunk(1)
-    this.#position = this.#pos(this.#lineCursor, [1, comment.length - 1])
+    this.#range = [1, comment.length - 1]
     this.#ast.addNode(this.#node(AriaNodeType.nodeComment, comment))
 
     return true
@@ -147,7 +140,7 @@ export class Aria {
     this.#cursorInLine = 0
     this.#lineCursor = 0
     this.#lineLength = 0
-    this.#position = this.#pos(-1, [-1, -1])
+    this.#range = [-1, -1]
     this.#ast = new AriaAst()
   }
 
@@ -171,8 +164,6 @@ export class Aria {
     while (this.#lineCursor < linesCount) {
       this.#line = lines[this.#lineCursor]
       this.#lineLength = this.#line.trim().length
-
-      this.#position.line = this.#lineCursor
 
       this.#log(`Processing line: ${this.#lineCursor}...`)
 
