@@ -166,7 +166,6 @@ export class Aria {
 
     const lines: string[] = this.#source.split(/\r?\n/gm)
     const linesCount: number = lines.length
-    let done: boolean = false
 
     this.#reset()
 
@@ -174,12 +173,13 @@ export class Aria {
       this.#line = lines[this.#lineCursor]
       this.#lineLength = this.#line.trim().length
 
-      done = false
+      this.#position.line = this.#lineCursor
 
-      this.#log(`Processing line: ${this.#lineCursor}`)
+      this.#log(`Processing line: ${this.#lineCursor}...`)
 
       if (this.#lineLength === 0) {
         this.#log(`Blank line: ${this.#lineCursor}, skipping...`)
+        this.#log()
         this.#lineCursor++
         continue
       }
@@ -193,32 +193,35 @@ export class Aria {
 
         if (this.#char === AriaOperators.newLine) {
           this.#log('Found an explicit new line...')
+          this.#log()
           this.#ast.addNode(this.#node(AriaNodeType.nodeNewLine))
-          done = true
           break
         }
 
         if (this.#char === AriaOperators.comment) {
           if (this.#peek() === AriaOperators.comment) {
             this.#log('Found exported comment...')
-            done = this.#parseComment()
+            this.#log()
+            this.#parseComment()
             break
           } else {
             this.#log(`Found internal comment at char(${this.#cursorInLine}), skipping line...`)
+            this.#log()
+            break
           }
-          done = true
-          break
         }
 
         if (this.#char === AriaOperators.headerImport) {
           this.#log('Found header import operator...')
-          done = this.#parseHeaderImport()
+          this.#log()
+          this.#parseHeaderImport()
           break
         }
 
         if (this.#char === AriaOperators.import) {
           this.#log('Found import operator...')
-          done = this.#parseImport()
+          this.#log()
+          this.#parseImport()
           break
         }
 
@@ -228,18 +231,13 @@ export class Aria {
           }
 
           this.#log('Found export operator...')
-          done = this.#parseExport()
+          this.#log()
+          this.#parseExport()
           break
         }
       }
 
       this.#lineCursor++
-
-      this.#log()
-
-      if (done) {
-        continue
-      }
     }
 
     return this.#ast
