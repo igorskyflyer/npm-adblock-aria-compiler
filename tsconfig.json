@@ -7,7 +7,7 @@
 		"test/**/*"
 	],
 	"compilerOptions": {
-		"target": "ES6",
+		"target": "ES2022",
 		"declaration": true,
 		"outDir": "./dist",
 		"skipLibCheck": true,
@@ -17,6 +17,7 @@
 		"noEmitOnError": true,
 		"strict": true,
 		"noUnusedLocals": true,
-		"noUnusedParameters": true
+		"noUnusedParameters": true,
+		"noImplicitAny": true
 	}
 }
