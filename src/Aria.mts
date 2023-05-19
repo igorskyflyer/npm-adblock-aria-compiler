@@ -11,12 +11,18 @@ export class Aria {
   #source: string
   #shouldLog: boolean
 
+  // global
   #line: string
   #char: string
+  #cursor: number
+  #rangeStart: number
+  #rangeEnd: number
+
+  // per-line
   #lineCursor: number
   #lineLength: number
   #cursorInLine: number
-  #range: [number, number]
+
   #ast: AriaAst
 
   constructor(shouldLog: boolean = false) {
@@ -25,10 +31,12 @@ export class Aria {
     this.#source = ''
     this.#line = ''
     this.#char = ''
+    this.#cursor = 0
     this.#cursorInLine = 0
     this.#lineCursor = 0
     this.#lineLength = 0
-    this.#range = [-1, -1]
+    this.#rangeStart = 0
+    this.#rangeEnd = 0
     this.#ast = new AriaAst()
   }
 
@@ -54,6 +62,7 @@ export class Aria {
     if (this.#cursorInLine + count < this.#lineLength) {
       this.#cursorInLine += count
       this.#char = this.#line.charAt(this.#cursorInLine)
+      this.#cursor++
 
       return true
     }
@@ -79,7 +88,7 @@ export class Aria {
       }
 
       if (!shouldCapture) {
-        if (this.#char === ' ') continue
+        if (this.#isWhitespace()) continue
         if (this.#char === "'") {
           shouldCapture = true
         } else {
@@ -96,7 +105,7 @@ export class Aria {
     }
 
     if (!closedString) {
-      throw new Error(`Unclosed file path string.`)
+      throw new Error(`Unterminated file path string.`)
     }
 
     return path
@@ -104,7 +113,6 @@ export class Aria {
 
   #parseComment(): boolean {
     const comment: string = this.#chunk(1)
-    this.#range = [1, comment.length - 1]
     this.#ast.addNode(this.#node(AriaNodeType.nodeComment, comment))
 
     return true
@@ -112,6 +120,7 @@ export class Aria {
 
   #parseHeaderImport(): boolean {
     const path: string = this.#parsePath()
+    this.#rangeEnd = this.#cursor
     this.#ast.addNode(this.#node(AriaNodeType.nodeHeader, path))
 
     return true
@@ -119,6 +128,7 @@ export class Aria {
 
   #parseImport(): boolean {
     const path: string = this.#parsePath()
+    this.#rangeEnd = this.#cursor
     this.#ast.addNode(this.#node(AriaNodeType.nodeImport, path))
 
     return true
@@ -128,6 +138,7 @@ export class Aria {
     const path: string = this.#parsePath()
     const flags: string[] = []
 
+    this.#rangeEnd = this.#cursor
     this.#ast.addNode(this.#node(AriaNodeType.nodeExport, path, flags))
 
     return true
@@ -137,10 +148,12 @@ export class Aria {
     this.#source = ''
     this.#line = ''
     this.#char = ''
+    this.#cursor = 0
     this.#cursorInLine = 0
     this.#lineCursor = 0
     this.#lineLength = 0
-    this.#range = [-1, -1]
+    this.#rangeStart = 0
+    this.#rangeEnd = 0
     this.#ast = new AriaAst()
   }
 
@@ -148,6 +161,14 @@ export class Aria {
     if (this.#shouldLog) {
       console[logLevel](message)
     }
+  }
+
+  #isWhitespace(): boolean {
+    return this.#char === ' ' || this.#char === '\t'
+  }
+
+  get #range(): [number, number] {
+    return [this.#rangeStart, this.#rangeEnd]
   }
 
   get ast(): AriaAst {
@@ -163,38 +184,53 @@ export class Aria {
 
     while (this.#lineCursor < linesCount) {
       this.#line = lines[this.#lineCursor]
-      this.#lineLength = this.#line.trim().length
+
+      if (typeof this.#line !== 'string') break
+
+      this.#lineLength = this.#line.length
 
       this.#log(`Processing line: ${this.#lineCursor}...`)
 
-      if (this.#lineLength === 0) {
+      if (this.#line.trim().length === 0) {
         this.#log(`Blank line: ${this.#lineCursor}, skipping...`)
         this.#log()
+        this.#rangeStart = this.#cursor
+        this.#rangeEnd += this.#lineLength
         this.#lineCursor++
         continue
       }
 
       for (this.#cursorInLine = 0; this.#cursorInLine < this.#lineLength; this.#cursorInLine++) {
         this.#char = this.#line.charAt(this.#cursorInLine)
+        this.#cursor++
 
-        if (this.#char === ' ') {
+        if (this.#isWhitespace()) {
           continue
         }
 
         if (this.#char === AriaOperators.newLine) {
+          this.#rangeStart = this.#cursor - 1
+          this.#rangeEnd = this.#cursor
+          this.#ast.addNode(this.#node(AriaNodeType.nodeNewLine))
           this.#log('Found an explicit new line...')
           this.#log()
-          this.#ast.addNode(this.#node(AriaNodeType.nodeNewLine))
           break
         }
 
         if (this.#char === AriaOperators.comment) {
           if (this.#peek() === AriaOperators.comment) {
+            this.#rangeStart = this.#cursor - 1
+            this.#cursor += this.#lineLength - this.#cursorInLine - 1
+            this.#rangeEnd = this.#cursor
+            this.#parseComment()
             this.#log('Found exported comment...')
             this.#log()
-            this.#parseComment()
             break
           } else {
+            this.#rangeStart = this.#cursor
+            this.#cursor += this.#lineLength - this.#cursorInLine - 1
+            this.#rangeEnd = this.#cursor
+            this.#log({ range: this.#range })
             this.#log(`Found internal comment at char(${this.#cursorInLine}), skipping line...`)
             this.#log()
             break
@@ -202,16 +238,18 @@ export class Aria {
         }
 
         if (this.#char === AriaOperators.headerImport) {
+          this.#rangeStart = this.#cursor - 1
+          this.#parseHeaderImport()
           this.#log('Found header import operator...')
           this.#log()
-          this.#parseHeaderImport()
           break
         }
 
         if (this.#char === AriaOperators.import) {
+          this.#rangeStart = this.#cursor - 1
+          this.#parseImport()
           this.#log('Found import operator...')
           this.#log()
-          this.#parseImport()
           break
         }
 
@@ -220,9 +258,10 @@ export class Aria {
             throw new Error('Only 1 export can exist per template!')
           }
 
+          this.#rangeStart = this.#cursor - 1
+          this.#parseExport()
           this.#log('Found export operator...')
           this.#log()
-          this.#parseExport()
           break
         }
       }
@@ -235,7 +274,7 @@ export class Aria {
 
   parseFile(templatePath: AriaTemplatePath): AriaAst {
     if (typeof templatePath !== 'string') {
-      throw new Error('No valid templated path provided.')
+      throw new Error('No valid template path provided.')
     }
 
     try {
