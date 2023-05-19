@@ -103,10 +103,14 @@ export class AriaAst {
         case AriaNodeType.nodeHeader: {
           const path: string | undefined = node.value
 
-          if (path && this.#pathExists(path)) {
-            const header = readFileSync(path).toString()
-            contents += this.#block(header)
-          } else {
+          try {
+            if (path && this.#pathExists(path)) {
+              const header = readFileSync(path).toString()
+              contents += this.#block(header)
+            } else {
+              throw new Error(`Couldn't read the header file located at: "${path}".`)
+            }
+          } catch {
             throw new Error(`Couldn't read the header file located at: "${path}".`)
           }
 
@@ -116,10 +120,14 @@ export class AriaAst {
         case AriaNodeType.nodeImport: {
           const path: string | undefined = node.value
 
-          if (path && this.#pathExists(path)) {
-            const filter = readFileSync(path).toString()
-            contents += filter
-          } else {
+          try {
+            if (path && this.#pathExists(path)) {
+              const filter = readFileSync(path).toString()
+              contents += filter
+            } else {
+              throw new Error(`Couldn't read the filter file located at: "${path}".`)
+            }
+          } catch {
             throw new Error(`Couldn't read the filter file located at: "${path}".`)
           }
 
@@ -129,15 +137,24 @@ export class AriaAst {
         case AriaNodeType.nodeExport: {
           const path: string | undefined = node.value
 
-          if (path) {
-            console.log(`Exporting to "${path}"`)
+          try {
+            if (path) {
+              if (this.#pathExists(path)) {
+                throw new Error(`File marked as export "${path}" already exists!`)
+              } else {
+                writeFileSync(path, contents)
+              }
+            } else {
+              throw new Error(`Invalid export path!`)
+            }
+          } catch {
+            throw new Error(`Couldn't export to file "${path}"!`)
           }
+
           break
         }
       }
     }
-
-    console.log(contents)
 
     return false
   }
