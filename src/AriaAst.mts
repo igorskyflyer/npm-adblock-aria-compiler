@@ -127,6 +127,11 @@ export class AriaAst {
         }
 
         case AriaNodeType.nodeExport: {
+          const path: string | undefined = node.value
+
+          if (path) {
+            console.log(`Exporting to "${path}"`)
+          }
           break
         }
       }
