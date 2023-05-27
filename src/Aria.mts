@@ -5,6 +5,7 @@ import { AriaNodeType } from './AriaNodeType.mjs'
 import { AriaOperators } from './AriaOperators.mjs'
 import { AriaError } from './errors/AriaError.mjs'
 import { AriaException } from './errors/AriaException.mjs'
+import { AriaExceptionInfo } from './errors/AriaExceptionInfo.mjs'
 
 type LogLevel = 'log' | 'warn' | 'error' | 'info'
 type AriaTemplatePath = `${string}.adbt`
@@ -40,6 +41,10 @@ export class Aria {
     this.#rangeStart = 0
     this.#rangeEnd = 0
     this.#ast = new AriaAst()
+  }
+
+  #ariaError(info: AriaExceptionInfo, ...args: any[]): AriaError {
+    return new AriaError(info, this.#lineCursor, this.#range, args)
   }
 
   #node(type: AriaNodeType, value?: string, flags?: string[]): AriaNode {
@@ -86,7 +91,7 @@ export class Aria {
 
     while (this.#read()) {
       if (closedString) {
-        throw new AriaError(AriaException.extraneousInput, path, this.#lineCursor)
+        throw this.#ariaError(AriaException.extraneousInput, path)
       }
 
       if (!shouldCapture) {
@@ -94,7 +99,7 @@ export class Aria {
         if (this.#char === "'") {
           shouldCapture = true
         } else {
-          throw new AriaError(AriaException.importPath, this.#char, this.#lineCursor)
+          throw this.#ariaError(AriaException.importPath, this.#char)
         }
       } else {
         if (this.#char === "'") {
@@ -107,7 +112,7 @@ export class Aria {
     }
 
     if (!closedString) {
-      throw new AriaError(AriaException.unterminatedPath, this.#lineCursor)
+      throw this.#ariaError(AriaException.unterminatedPathr)
     }
 
     return path
@@ -257,7 +262,7 @@ export class Aria {
 
         if (this.#char === AriaOperators.export) {
           if (this.#ast.state.exports === 1) {
-            throw new AriaError(AriaException.oneExportOnly, this.#lineCursor)
+            throw this.#ariaError(AriaException.oneExportOnly, this.#lineCursor)
           }
 
           this.#rangeStart = this.#cursor - 1
@@ -274,9 +279,9 @@ export class Aria {
     return this.#ast
   }
 
-  parseFile(templatePath: AriaTemplatePath): AriaAst {
+  parseFile(templatePath: AriaTemplatePath): AriaAst | undefined {
     if (typeof templatePath !== 'string') {
-      throw new AriaError(AriaException.noTemplate)
+      throw this.#ariaError(AriaException.noTemplate)
     }
 
     try {
@@ -284,8 +289,14 @@ export class Aria {
       const contents: string = template.toString()
       return this.parse(contents)
     } catch (e: any) {
-      throw new AriaError(AriaException.native, e.message)
+      if (e instanceof AriaError) {
+        throw e
+      } else {
+        throw new AriaError(AriaException.native, 0, [1, 1])
+      }
     }
+
+    return
   }
 }
 
