@@ -2,12 +2,14 @@ export class AriaError extends Error {
   #message: string
   #name: string
   #id: number
+  #args: string[]
 
   constructor(id: number, message: string, ...args: string[]) {
     super(message)
     this.#id = id
     this.#message = message
     this.#name = 'AR'
+    this.#args = args
   }
 
   formatError(): string {
