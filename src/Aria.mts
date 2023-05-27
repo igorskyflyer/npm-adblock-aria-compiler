@@ -3,6 +3,8 @@ import { AriaAst } from './AriaAst.mjs'
 import { AriaNode } from './AriaNode.mjs'
 import { AriaNodeType } from './AriaNodeType.mjs'
 import { AriaOperators } from './AriaOperators.mjs'
+import { AriaError } from './errors/AriaError.mjs'
+import { AriaException } from './errors/AriaException.mjs'
 
 type LogLevel = 'log' | 'warn' | 'error' | 'info'
 type AriaTemplatePath = `${string}.adbt`
@@ -84,7 +86,7 @@ export class Aria {
 
     while (this.#read()) {
       if (closedString) {
-        throw new Error(`Extraneous input found after the path.`)
+        throw new AriaError(AriaException.extraneousInput, path, this.#lineCursor)
       }
 
       if (!shouldCapture) {
@@ -92,7 +94,7 @@ export class Aria {
         if (this.#char === "'") {
           shouldCapture = true
         } else {
-          throw new Error(`Expected a string path for import but found "${this.#char}..." at line: ${this.#lineCursor}.`)
+          throw new AriaError(AriaException.importPath, this.#char, this.#lineCursor)
         }
       } else {
         if (this.#char === "'") {
@@ -105,7 +107,7 @@ export class Aria {
     }
 
     if (!closedString) {
-      throw new Error(`Unterminated file path string.`)
+      throw new AriaError(AriaException.unterminatedPath, this.#lineCursor)
     }
 
     return path
@@ -255,7 +257,7 @@ export class Aria {
 
         if (this.#char === AriaOperators.export) {
           if (this.#ast.state.exports === 1) {
-            throw new Error('Only 1 export can exist per template!')
+            throw new AriaError(AriaException.oneExportOnly, this.#lineCursor)
           }
 
           this.#rangeStart = this.#cursor - 1
@@ -274,15 +276,22 @@ export class Aria {
 
   parseFile(templatePath: AriaTemplatePath): AriaAst {
     if (typeof templatePath !== 'string') {
-      throw new Error('No valid template path provided.')
+      throw new AriaError(AriaException.noTemplate)
     }
 
     try {
       const template: Buffer = readFileSync(templatePath)
       const contents: string = template.toString()
       return this.parse(contents)
-    } catch (e) {
-      throw e
+    } catch (e: any) {
+      throw new AriaError(AriaException.native, e.message)
     }
   }
 }
+
+function handleUncaughtException(error: AriaError) {
+  console.error(error.formatError())
+  process.exit(1)
+}
+
+process.on('uncaughtException', handleUncaughtException)
