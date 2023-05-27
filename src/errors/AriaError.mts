@@ -21,8 +21,8 @@ export class AriaError extends Error {
   formatError(): string {
     const exception = 'error'
     return zing(
-      `\x1b[31m${exception}\x1b[90m ${this.#name}${this.#info.id} at line ${this.#line},[${
-        (this.#range[0], this.#range[1])
+      `\x1b[31m${exception}\x1b[90m ${this.#name}${this.#info.id} at line ${this.#line},[${this.#range[0]}, ${
+        this.#range[1]
       }]: \x1b[0m${this.#info.message}\x1b[0m`,
       ...this.#args
     )
