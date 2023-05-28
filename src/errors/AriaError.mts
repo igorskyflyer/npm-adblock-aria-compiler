@@ -19,11 +19,15 @@ export class AriaError extends Error {
   }
 
   formatError(): string {
-    const exception = 'error'
+    const exception: string = 'error'
+
+    const line: number = this.#line + 1
+    const range: number[] = this.#range.map((num) => num + 1)
+
     return zing(
-      `\x1b[31m${exception}\x1b[90m ${this.#name}${this.#info.id} at line ${this.#line},[${this.#range[0]}, ${
-        this.#range[1]
-      }]: \x1b[0m${this.#info.message}\x1b[0m`,
+      `\x1b[31m${exception}\x1b[90m ${this.#name}${this.#info.id} at line ${line} [${range[0]}, ${range[1]}]: \x1b[0m${
+        this.#info.message
+      }\x1b[0m`,
       ...this.#args
     )
   }
