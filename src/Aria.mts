@@ -235,7 +235,7 @@ export class Aria {
             break
           } else {
             this.#rangeStart = this.#cursor
-            this.#cursor += this.#lineLength - this.#cursorInLine - 1
+            this.#cursor += this.#lineLength - this.#cursorInLine
             this.#rangeEnd = this.#cursor
             this.#log({ range: this.#range })
             this.#log(`Found internal comment at char(${this.#cursorInLine}), skipping line...`)
