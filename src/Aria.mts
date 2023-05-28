@@ -112,7 +112,7 @@ export class Aria {
     }
 
     if (!closedString) {
-      throw this.#ariaError(AriaException.unterminatedPathr)
+      throw this.#ariaError(AriaException.unterminatedPath)
     }
 
     return path
@@ -292,16 +292,20 @@ export class Aria {
       if (e instanceof AriaError) {
         throw e
       } else {
-        throw new AriaError(AriaException.native, 0, [1, 1])
+        console.log(e)
+        throw new AriaError({ id: '', message: '' }, 0, [1, 1])
       }
     }
-
-    return
   }
 }
 
-function handleUncaughtException(error: AriaError) {
-  console.error(error.formatError())
+function handleUncaughtException(error: Error) {
+  if (error instanceof AriaError) {
+    console.error(error.formatError())
+  } else {
+    console.error(error)
+  }
+
   process.exit(1)
 }
 
