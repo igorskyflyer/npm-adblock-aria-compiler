@@ -50,7 +50,7 @@ function hasVersion(header: string): boolean {
   return hasSemVer(header) || hasTimestamp(header) || hasVersionPlaceholder(header)
 }
 
-function getHeaderVersion(header: string): HeaderVersion {
+function getHeaderSemVer(header: string): HeaderVersion {
   if (typeof header !== 'string') {
     return null
   }
@@ -65,7 +65,7 @@ function getHeaderVersion(header: string): HeaderVersion {
 }
 
 function constructVersion(header: string, mode: AriaHeaderVersion): string {
-  const version: HeaderVersion = getHeaderVersion(header)
+  const version: HeaderVersion = getHeaderSemVer(header)
 
   if (mode === 'timestamp') {
     return Date.now().toString()
