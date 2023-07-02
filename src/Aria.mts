@@ -18,7 +18,6 @@ export class Aria {
   // global
   #line: string
   #char: string
-  #cursor: number
 
   // per-line
   #lineCursor: number
@@ -33,7 +32,6 @@ export class Aria {
     this.#source = ''
     this.#line = ''
     this.#char = ''
-    this.#cursor = 0
     this.#cursorInLine = 0
     this.#lineCursor = 0
     this.#lineLength = 0
@@ -65,7 +63,6 @@ export class Aria {
     if (this.#cursorInLine + count < this.#lineLength) {
       this.#cursorInLine += count
       this.#char = this.#line.charAt(this.#cursorInLine)
-      this.#cursor++
 
       return true
     }
@@ -123,7 +120,6 @@ export class Aria {
 
   #parseHeaderImport(): boolean {
     const path: string = this.#parsePath()
-    this.#cursor++
     this.#ast.addNode(this.#node(AriaNodeType.nodeHeader, path))
 
     return true
@@ -149,7 +145,6 @@ export class Aria {
     this.#source = ''
     this.#line = ''
     this.#char = ''
-    this.#cursor = 0
     this.#cursorInLine = 0
     this.#lineCursor = 0
     this.#lineLength = 0
@@ -190,7 +185,6 @@ export class Aria {
         this.#log(`Blank line: ${this.#lineCursor + 1}, skipping...`)
         this.#log()
         this.#lineCursor++
-        this.#cursor += 1
         continue
       }
 
@@ -198,7 +192,6 @@ export class Aria {
         this.#char = this.#line.charAt(this.#cursorInLine)
 
         if (this.#isWhitespace()) {
-          this.#cursor++
           continue
         }
 
@@ -206,19 +199,16 @@ export class Aria {
           this.#ast.addNode(this.#node(AriaNodeType.nodeNewLine))
           this.#log('Found an explicit new line...')
           this.#log()
-          this.#cursor += this.#lineLength
           break
         }
 
         if (this.#char === AriaOperators.comment) {
           if (this.#peek() === AriaOperators.comment) {
-            this.#cursor += this.#lineLength - this.#cursorInLine
             this.#parseComment()
             this.#log('Found exported comment...')
             this.#log()
             break
           } else {
-            this.#cursor += this.#lineLength
             this.#log(`Found internal comment at char(${this.#cursorInLine}), skipping line...`)
             this.#log()
             break
@@ -249,8 +239,6 @@ export class Aria {
           this.#log()
           break
         }
-
-        this.#cursor++
       }
 
       this.#lineCursor++
