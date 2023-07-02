@@ -75,6 +75,14 @@ function constructVersion(header: string, mode: AriaHeaderVersion): string {
   return version.toString()
 }
 
+export function injectVersionPlaceholder(header: string): string {
+  if (!hasVersion(header)) {
+    header = '! Version: $v'
+  }
+
+  return header
+}
+
 export function transformHeader(header: string, mode: AriaHeaderVersion): string {
   if (typeof header !== 'string') {
     return ''
