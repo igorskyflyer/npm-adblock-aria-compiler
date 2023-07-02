@@ -2,9 +2,9 @@ import { Keppo } from '@igor.dvlpr/keppo'
 
 type HeaderVersion = Keppo | string | null
 
-const semVerPattern: RegExp = /Version:\s*(\d+\.\d+\.\d+)/gim
-const timestampPattern: RegExp = /Version:\s*(\d+)$/gim
-const versionPattern: RegExp = /Version:.*$/gim
+const semVerPattern: RegExp = /! Version:\s*(\d+\.\d+\.\d+)/gim
+const timestampPattern: RegExp = /! Version:\s*(\d+)$/gim
+const versionPattern: RegExp = /! Version:.*$/gim
 
 function hasPattern(header: string, pattern: RegExp): boolean {
   if (typeof header !== 'string') {
