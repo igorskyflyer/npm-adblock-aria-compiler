@@ -4,6 +4,7 @@ import { join } from 'node:path'
 import {
   AriaHeaderVersion,
   constructVersion,
+  hasVersion,
   injectVersionPlaceholder,
   replaceVersionPlaceholder,
   transformHeader,
@@ -122,7 +123,11 @@ export class AriaAst {
           try {
             if (path && this.#pathExists(path)) {
               let header: string = new NormalizedString(readFileSync(path).toString()).value
-              header = injectVersionPlaceholder(header)
+
+              if (!hasVersion(header)) {
+                header = injectVersionPlaceholder(header)
+              }
+
               contents += this.#block(header)
             } else {
               throw new Error(`Couldn't read the header file located at: "${path}".`)
@@ -157,12 +162,15 @@ export class AriaAst {
           try {
             if (path) {
               if (this.#pathExists(path)) {
-                const oldContents: string = new NormalizedString(readFileSync(path).toString()).value
-                const oldVersion: string = constructVersion(oldContents, this.headerVersion)
-                contents = replaceVersionPlaceholder(oldContents, oldVersion)
-              }
+                const oldFile: string = new NormalizedString(readFileSync(path).toString()).value
 
-              contents = transformHeader(contents, this.headerVersion)
+                if (hasVersion(oldFile)) {
+                  const oldVersion: string = constructVersion(oldFile, this.headerVersion)
+                  contents = replaceVersionPlaceholder(contents, oldVersion)
+                }
+              } else {
+                contents = transformHeader(contents, this.headerVersion)
+              }
 
               writeFileSync(path, new NormalizedString(contents).value, { encoding: 'utf8', flag: 'w' })
             } else {
