@@ -4,6 +4,7 @@ type HeaderVersion = Keppo | null
 
 const semVerPattern: RegExp = /! Version:\s*(\d+\.\d+\.\d+)/gim
 const timestampPattern: RegExp = /! Version:\s*(\d+)$/gim
+const versionPlaceholderPattern: RegExp = /! Version: \$v$/gim
 const versionPattern: RegExp = /! Version:.*$/gim
 
 function hasPattern(header: string, pattern: RegExp): boolean {
@@ -41,8 +42,12 @@ function hasTimestamp(header: string): boolean {
   return hasPattern(header, timestampPattern)
 }
 
+function hasVersionPlaceholder(header: string): boolean {
+  return hasPattern(header, versionPlaceholderPattern)
+}
+
 function hasVersion(header: string): boolean {
-  return hasSemVer(header) || hasTimestamp(header)
+  return hasSemVer(header) || hasTimestamp(header) || hasVersionPlaceholder(header)
 }
 
 function getHeaderVersion(header: string): HeaderVersion {
