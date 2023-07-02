@@ -64,7 +64,7 @@ function getHeaderSemVer(header: string): HeaderVersion {
   return null
 }
 
-function constructVersion(header: string, mode: AriaHeaderVersion): string {
+export function constructVersion(header: string, mode: AriaHeaderVersion): string {
   if (mode === 'timestamp') {
     return Date.now().toString()
   }
