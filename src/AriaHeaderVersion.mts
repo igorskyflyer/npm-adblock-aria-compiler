@@ -75,8 +75,8 @@ export function transformHeader(header: string): string {
     return ''
   }
 
-  const newHeader: string = constructVersion(header)
-  return header.replace(versionPattern, `Version: ${newHeader}`)
+  const newVersion: string = constructVersion(header)
+  return header.replace(versionPattern, `Version: ${newVersion}`)
 }
 
 export type AriaHeaderVersion = 'semver' | 'timestamp'
