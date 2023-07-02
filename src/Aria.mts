@@ -7,6 +7,7 @@ import { AriaError } from './errors/AriaError.mjs'
 import { AriaException } from './errors/AriaException.mjs'
 import { AriaExceptionInfo } from './errors/AriaExceptionInfo.mjs'
 import { NormalizedString } from '@igor.dvlpr/normalized-string'
+import { AriaHeaderVersion } from './AriaHeaderVersion.mjs'
 
 type LogLevel = 'log' | 'warn' | 'error' | 'info'
 type AriaTemplatePath = `${string}.adbt`
@@ -264,6 +265,10 @@ export class Aria {
         throw new AriaError({ id: '', message: '' }, 0, [1, 1])
       }
     }
+  }
+
+  headerVersion(version: AriaHeaderVersion): void {
+    this.#ast.setHeaderVersion(version)
   }
 }
 
