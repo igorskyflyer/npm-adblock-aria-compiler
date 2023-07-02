@@ -1,10 +1,10 @@
+import { NormalizedString } from '@igor.dvlpr/normalized-string'
 import { PathLike, accessSync, readFileSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
-import { AriaNode } from './AriaNode.mjs'
-import { AriaState } from './AriaState.mjs'
-import { AriaNodeType } from './AriaNodeType.mjs'
 import { AriaHeaderVersion, transformHeader } from './AriaHeaderVersion.mjs'
-import { NormalizedString } from '@igor.dvlpr/normalized-string'
+import { AriaNode } from './AriaNode.mjs'
+import { AriaNodeType } from './AriaNodeType.mjs'
+import { AriaState } from './AriaState.mjs'
 
 type AriaAstPath = `${string}.json`
 
@@ -150,8 +150,8 @@ export class AriaAst {
           try {
             if (path) {
               if (this.#pathExists(path)) {
-                let oldContents: string = new NormalizedString(readFileSync(path).toString()).value
-                oldContents = transformHeader(oldContents)
+                const oldContents: string = new NormalizedString(readFileSync(path).toString()).value
+                contents = transformHeader(oldContents)
               }
 
               writeFileSync(path, new NormalizedString(contents).value, { encoding: 'utf8', flag: 'w' })
