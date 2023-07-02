@@ -37,7 +37,7 @@ export class Aria {
     this.#lineCursor = 0
     this.#lineLength = 0
     this.#ast = new AriaAst()
-    this.#ast.headerVersion = options.version ?? 'semver'
+    this.#ast.headerVersion = options.versioning ?? 'semver'
   }
 
   #ariaError(info: AriaExceptionInfo, ...args: any[]): AriaError {
