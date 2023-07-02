@@ -65,11 +65,11 @@ function getHeaderSemVer(header: string): HeaderVersion {
 }
 
 function constructVersion(header: string, mode: AriaHeaderVersion): string {
-  const version: HeaderVersion = getHeaderSemVer(header)
-
   if (mode === 'timestamp') {
     return Date.now().toString()
   }
+
+  const version: HeaderVersion = getHeaderSemVer(header)
 
   if (version === null) {
     return new Keppo(1, 0, 0).toString()
