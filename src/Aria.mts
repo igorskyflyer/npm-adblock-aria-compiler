@@ -178,7 +178,7 @@ export class Aria {
     const linesCount: number = lines.length
 
     this.#log(`Total lines: ${linesCount}`)
-    this.#log(`Header version: ${this.#ast.versioning}`)
+    this.#log(`Versioning: ${this.#ast.versioning}`)
     this.#log()
 
     while (this.#lineCursor < linesCount) {
