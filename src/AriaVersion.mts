@@ -1,4 +1,5 @@
 import { Keppo } from '@igor.dvlpr/keppo'
+import { IAriaPlaceholders } from './IAriaPlaceholders.mjs'
 
 type HeaderVersion = Keppo | null
 
@@ -6,6 +7,10 @@ const semVerPattern: RegExp = /! Version:\s*(\d+\.\d+\.\d+)/gim
 const timestampPattern: RegExp = /! Version:\s*(\d+)$/gim
 const versionPlaceholderPattern: RegExp = /! Version: \$\(version\)$/gim
 const versionPattern: RegExp = /! Version:.*$/gim
+const placeholderInfo: object = {
+  Title: 'filename',
+  Version: 'version',
+}
 
 function hasPattern(header: string, pattern: RegExp): boolean {
   if (typeof header !== 'string') {
@@ -96,12 +101,16 @@ export function injectVersionPlaceholder(header: string): string {
   return header
 }
 
-export function replacePlaceholders(header: string, version: string): string {
+export function replacePlaceholders(header: string, placeholders: IAriaPlaceholders): string {
   if (typeof header !== 'string') {
     return ''
   }
 
-  return header.replace(versionPlaceholderPattern, `! Version: ${version}`)
+  for (const [label, value] of Object.entries(placeholderInfo)) {
+    header = header.replace(new RegExp(`! ${label}: \\$\\(${value}\\)$`, 'gim'), `! ${label}: ${placeholders[value]}`)
+  }
+
+  return header
 }
 
 export function transformHeader(header: string, mode: AriaVersion): string {
