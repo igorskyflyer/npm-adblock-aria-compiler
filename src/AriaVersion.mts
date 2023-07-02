@@ -69,7 +69,7 @@ function getHeaderSemVer(header: string): HeaderVersion {
   return null
 }
 
-export function constructVersion(header: string, mode: AriaVersion): string {
+export function constructVersion(header: string, mode: AriaVersioning): string {
   if (mode === 'timestamp') {
     return Date.now().toString()
   }
@@ -113,7 +113,7 @@ export function replacePlaceholders(header: string, placeholders: IAriaPlacehold
   return header
 }
 
-export function transformHeader(header: string, mode: AriaVersion): string {
+export function transformHeader(header: string, mode: AriaVersioning): string {
   if (typeof header !== 'string') {
     return ''
   }
@@ -127,4 +127,4 @@ export function transformHeader(header: string, mode: AriaVersion): string {
   }
 }
 
-export type AriaVersion = 'semver' | 'timestamp'
+export type AriaVersioning = 'semver' | 'timestamp'
