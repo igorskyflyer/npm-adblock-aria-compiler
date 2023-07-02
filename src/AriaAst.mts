@@ -1,13 +1,7 @@
 import { NormalizedString } from '@igor.dvlpr/normalized-string'
 import { PathLike, accessSync, readFileSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
-import {
-  AriaVersion,
-  constructVersion,
-  injectVersionPlaceholder,
-  replaceVersionPlaceholder,
-  transformHeader,
-} from './AriaVersion.mjs'
+import { AriaVersion, constructVersion, injectVersionPlaceholder, replacePlaceholders, transformHeader } from './AriaVersion.mjs'
 import { AriaNode } from './AriaNode.mjs'
 import { AriaNodeType } from './AriaNodeType.mjs'
 import { AriaState } from './AriaState.mjs'
@@ -159,7 +153,7 @@ export class AriaAst {
               if (this.#pathExists(path)) {
                 const oldFile: string = new NormalizedString(readFileSync(path).toString()).value
                 const oldVersion: string = constructVersion(oldFile, this.headerVersion)
-                contents = replaceVersionPlaceholder(contents, oldVersion)
+                contents = replacePlaceholders(contents, oldVersion)
               } else {
                 contents = transformHeader(contents, this.headerVersion)
               }
