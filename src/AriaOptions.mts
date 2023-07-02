@@ -1,4 +1,4 @@
-import { AriaVersion } from './AriaHeaderVersion.mjs'
+import { AriaVersion } from './AriaVersion.mjs'
 
 export interface AriaOptions {
   shouldLog?: boolean
