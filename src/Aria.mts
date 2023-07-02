@@ -4,7 +4,7 @@ import { AriaAst } from './AriaAst.mjs'
 import { AriaNode } from './AriaNode.mjs'
 import { AriaNodeType } from './AriaNodeType.mjs'
 import { AriaOperators } from './AriaOperators.mjs'
-import { AriaOptions } from './AriaOptions.mjs'
+import { IAriaOptions } from './AriaOptions.mjs'
 import { AriaError } from './errors/AriaError.mjs'
 import { AriaException } from './errors/AriaException.mjs'
 import { AriaExceptionInfo } from './errors/AriaExceptionInfo.mjs'
@@ -27,7 +27,7 @@ export class Aria {
 
   #ast: AriaAst
 
-  constructor(options: AriaOptions) {
+  constructor(options: IAriaOptions) {
     this.#shouldLog = options.shouldLog ?? false
 
     this.#source = ''
