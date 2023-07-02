@@ -7,7 +7,7 @@ import {
   injectVersionPlaceholder,
   replaceVersionPlaceholder,
   transformHeader,
-} from './AriaHeaderVersion.mjs'
+} from './AriaVersion.mjs'
 import { AriaNode } from './AriaNode.mjs'
 import { AriaNodeType } from './AriaNodeType.mjs'
 import { AriaState } from './AriaState.mjs'
