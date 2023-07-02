@@ -5,6 +5,6 @@ const ast = aria.parseFile('./data/test.adbt')
 
 if (ast) {
   console.log(ast.nodes)
-  // ast.compile()
+  ast.compile()
   // ast.export('./data/ast.json')
 }
