@@ -1,10 +1,10 @@
 import { Aria } from './Aria.mjs'
 
-const aria = new Aria(false)
+const aria = new Aria(true)
 const ast = aria.parseFile('./data/test.adbt')
 
-ast?.compile()
-
-if (ast?.export('./data/ast.json')) {
-  console.log('Wrote to JSON')
+if (ast) {
+  console.log(ast.nodes)
+  // ast.compile()
+  // ast.export('./data/ast.json')
 }
