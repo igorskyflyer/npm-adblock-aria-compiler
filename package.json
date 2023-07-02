@@ -53,6 +53,7 @@
 		"typescript": "^4.7.4"
 	},
 	"dependencies": {
+		"@igor.dvlpr/normalized-string": "^1.0.1",
 		"@igor.dvlpr/zing": "^1.0.2"
 	}
 }
