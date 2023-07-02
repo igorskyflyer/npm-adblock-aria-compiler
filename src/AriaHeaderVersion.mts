@@ -92,6 +92,14 @@ export function injectVersionPlaceholder(header: string): string {
   return header
 }
 
+export function replaceVersionPlaceholder(header: string, version: string): string {
+  if (typeof header !== 'string') {
+    return ''
+  }
+
+  return header.replace(versionPlaceholderPattern, `! Version: ${version}`)
+}
+
 export function transformHeader(header: string, mode: AriaHeaderVersion): string {
   if (typeof header !== 'string') {
     return ''
