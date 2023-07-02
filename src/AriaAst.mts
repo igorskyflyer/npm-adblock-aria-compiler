@@ -151,7 +151,9 @@ export class AriaAst {
             if (path) {
               if (this.#pathExists(path)) {
                 const oldContents: string = new NormalizedString(readFileSync(path).toString()).value
-                contents = transformHeader(oldContents)
+                contents = transformHeader(oldContents, this.headerVersion)
+              } else {
+                contents = transformHeader(contents, this.headerVersion)
               }
 
               writeFileSync(path, new NormalizedString(contents).value, { encoding: 'utf8', flag: 'w' })
