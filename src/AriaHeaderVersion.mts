@@ -41,6 +41,10 @@ function hasTimestamp(header: string): boolean {
   return hasPattern(header, timestampPattern)
 }
 
+function hasVersion(header: string): boolean {
+  return hasSemVer(header) || hasTimestamp(header)
+}
+
 function getHeaderVersion(header: string): HeaderVersion {
   if (typeof header !== 'string') {
     return null
@@ -57,10 +61,14 @@ function getHeaderVersion(header: string): HeaderVersion {
   return null
 }
 
-function constructVersion(header: string): string {
-  let version: HeaderVersion = getHeaderVersion(header)
+function constructVersion(header: string, mode: AriaHeaderVersion): string {
+  const version: HeaderVersion = getHeaderVersion(header)
 
   if (version === null) {
+    if (mode === 'timestamp') {
+      return Date.now().toString()
+    }
+
     return new Keppo(1, 0, 0).toString()
   } else if (typeof version === 'string') {
     return Date.now().toString()
@@ -70,13 +78,18 @@ function constructVersion(header: string): string {
   }
 }
 
-export function transformHeader(header: string): string {
+export function transformHeader(header: string, mode: AriaHeaderVersion): string {
   if (typeof header !== 'string') {
     return ''
   }
 
-  const newVersion: string = constructVersion(header)
-  return header.replace(versionPattern, `Version: ${newVersion}`)
+  const newVersion: string = constructVersion(header, mode)
+
+  if (hasVersion(header)) {
+    return header.replace(versionPattern, `Version: ${newVersion}`)
+  } else {
+    return `${header}\nVersion: ${newVersion}`
+  }
 }
 
 export type AriaHeaderVersion = 'semver' | 'timestamp'
