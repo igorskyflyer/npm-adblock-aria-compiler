@@ -1,10 +1,10 @@
 import { NormalizedString } from '@igor.dvlpr/normalized-string'
 import { PathLike, accessSync, readFileSync, writeFileSync } from 'node:fs'
-import { join } from 'node:path'
-import { AriaVersion, constructVersion, injectVersionPlaceholder, replacePlaceholders, transformHeader } from './AriaVersion.mjs'
+import { join, parse } from 'node:path'
 import { AriaNode } from './AriaNode.mjs'
 import { AriaNodeType } from './AriaNodeType.mjs'
 import { AriaState } from './AriaState.mjs'
+import { AriaVersion, constructVersion, injectVersionPlaceholder, replacePlaceholders, transformHeader } from './AriaVersion.mjs'
 
 type AriaAstPath = `${string}.json`
 
@@ -150,10 +150,12 @@ export class AriaAst {
 
           try {
             if (path) {
+              const filename: string = parse(path).name
+
               if (this.#pathExists(path)) {
                 const oldFile: string = new NormalizedString(readFileSync(path).toString()).value
                 const oldVersion: string = constructVersion(oldFile, this.headerVersion)
-                contents = replacePlaceholders(contents, oldVersion)
+                contents = replacePlaceholders(contents, { version: oldVersion, filename: filename })
               } else {
                 contents = transformHeader(contents, this.headerVersion)
               }
