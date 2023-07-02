@@ -1,7 +1,7 @@
 import { NormalizedString } from '@igor.dvlpr/normalized-string'
 import { PathLike, accessSync, readFileSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
-import { AriaHeaderVersion, transformHeader } from './AriaHeaderVersion.mjs'
+import { AriaHeaderVersion, injectVersionPlaceholder, transformHeader } from './AriaHeaderVersion.mjs'
 import { AriaNode } from './AriaNode.mjs'
 import { AriaNodeType } from './AriaNodeType.mjs'
 import { AriaState } from './AriaState.mjs'
@@ -115,7 +115,8 @@ export class AriaAst {
 
           try {
             if (path && this.#pathExists(path)) {
-              const header: string = new NormalizedString(readFileSync(path).toString()).value
+              let header: string = new NormalizedString(readFileSync(path).toString()).value
+              header = injectVersionPlaceholder(header)
               contents += this.#block(header)
             } else {
               throw new Error(`Couldn't read the header file located at: "${path}".`)
