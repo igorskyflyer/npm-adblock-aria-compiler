@@ -1,6 +1,6 @@
 import { Keppo } from '@igor.dvlpr/keppo'
 
-export type AriaHeaderVersion = 'semver' | 'timestamp' | 'time'
+export type AriaHeaderVersion = 'semver' | 'timestamp'
 
 const semVerPattern: RegExp = /Version:[^\d]*((?:\d+\.\d+\.\d+)|(?:\d+)$)/gim
 
