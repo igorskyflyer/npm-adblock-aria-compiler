@@ -6,6 +6,7 @@ import { AriaOperators } from './AriaOperators.mjs'
 import { AriaError } from './errors/AriaError.mjs'
 import { AriaException } from './errors/AriaException.mjs'
 import { AriaExceptionInfo } from './errors/AriaExceptionInfo.mjs'
+import { NormalizedString } from '@igor.dvlpr/normalized-string'
 
 type LogLevel = 'log' | 'warn' | 'error' | 'info'
 type AriaTemplatePath = `${string}.adbt`
@@ -18,8 +19,6 @@ export class Aria {
   #line: string
   #char: string
   #cursor: number
-  #rangeStart: number
-  #rangeEnd: number
 
   // per-line
   #lineCursor: number
@@ -38,20 +37,17 @@ export class Aria {
     this.#cursorInLine = 0
     this.#lineCursor = 0
     this.#lineLength = 0
-    this.#rangeStart = 0
-    this.#rangeEnd = 0
     this.#ast = new AriaAst()
   }
 
   #ariaError(info: AriaExceptionInfo, ...args: any[]): AriaError {
-    return new AriaError(info, this.#lineCursor, this.#range, args)
+    return new AriaError(info, this.#lineCursor, args)
   }
 
   #node(type: AriaNodeType, value?: string, flags?: string[]): AriaNode {
     const node: AriaNode = {
       type,
       line: this.#lineCursor,
-      range: this.#range,
     }
 
     if (typeof value === 'string') {
@@ -127,7 +123,7 @@ export class Aria {
 
   #parseHeaderImport(): boolean {
     const path: string = this.#parsePath()
-    this.#rangeEnd = this.#cursor
+    this.#cursor++
     this.#ast.addNode(this.#node(AriaNodeType.nodeHeader, path))
 
     return true
@@ -135,7 +131,6 @@ export class Aria {
 
   #parseImport(): boolean {
     const path: string = this.#parsePath()
-    this.#rangeEnd = this.#cursor
     this.#ast.addNode(this.#node(AriaNodeType.nodeImport, path))
 
     return true
@@ -145,7 +140,6 @@ export class Aria {
     const path: string = this.#parsePath()
     const flags: string[] = []
 
-    this.#rangeEnd = this.#cursor
     this.#ast.addNode(this.#node(AriaNodeType.nodeExport, path, flags))
 
     return true
@@ -159,8 +153,6 @@ export class Aria {
     this.#cursorInLine = 0
     this.#lineCursor = 0
     this.#lineLength = 0
-    this.#rangeStart = 0
-    this.#rangeEnd = 0
     this.#ast = new AriaAst()
   }
 
@@ -174,19 +166,15 @@ export class Aria {
     return this.#char === ' ' || this.#char === '\t'
   }
 
-  get #range(): [number, number] {
-    return [this.#rangeStart, this.#rangeEnd]
-  }
-
   get ast(): AriaAst {
     return this.#ast
   }
 
   parse(source: string): AriaAst {
     this.#reset()
-    this.#source = source
+    this.#source = new NormalizedString(source).value
 
-    const lines: string[] = this.#source.split(/\r?\n/gm)
+    const lines: string[] = this.#source.split(/\n/gm)
     const linesCount: number = lines.length
 
     while (this.#lineCursor < linesCount) {
@@ -199,45 +187,38 @@ export class Aria {
       this.#log(`Processing line: ${this.#lineCursor}...`)
 
       if (this.#line.trim().length === 0) {
-        this.#log(`Blank line: ${this.#lineCursor}, skipping...`)
+        this.#log(`Blank line: ${this.#lineCursor + 1}, skipping...`)
         this.#log()
-        this.#rangeStart = this.#cursor
-        this.#rangeEnd += this.#lineLength
         this.#lineCursor++
+        this.#cursor += 1
         continue
       }
 
       for (this.#cursorInLine = 0; this.#cursorInLine < this.#lineLength; this.#cursorInLine++) {
         this.#char = this.#line.charAt(this.#cursorInLine)
-        this.#cursor++
 
         if (this.#isWhitespace()) {
+          this.#cursor++
           continue
         }
 
         if (this.#char === AriaOperators.newLine) {
-          this.#rangeStart = this.#cursor - 1
-          this.#rangeEnd = this.#cursor
           this.#ast.addNode(this.#node(AriaNodeType.nodeNewLine))
           this.#log('Found an explicit new line...')
           this.#log()
+          this.#cursor += this.#lineLength
           break
         }
 
         if (this.#char === AriaOperators.comment) {
           if (this.#peek() === AriaOperators.comment) {
-            this.#rangeStart = this.#cursor - 1
-            this.#cursor += this.#lineLength - this.#cursorInLine - 1
-            this.#rangeEnd = this.#cursor
+            this.#cursor += this.#lineLength - this.#cursorInLine
             this.#parseComment()
             this.#log('Found exported comment...')
             this.#log()
             break
           } else {
-            this.#rangeStart = this.#cursor
-            this.#cursor += this.#lineLength - this.#cursorInLine
-            this.#rangeEnd = this.#cursor
-            this.#log({ range: this.#range })
+            this.#cursor += this.#lineLength
             this.#log(`Found internal comment at char(${this.#cursorInLine}), skipping line...`)
             this.#log()
             break
@@ -245,7 +226,6 @@ export class Aria {
         }
 
         if (this.#char === AriaOperators.headerImport) {
-          this.#rangeStart = this.#cursor - 1
           this.#parseHeaderImport()
           this.#log('Found header import operator...')
           this.#log()
@@ -253,7 +233,6 @@ export class Aria {
         }
 
         if (this.#char === AriaOperators.import) {
-          this.#rangeStart = this.#cursor - 1
           this.#parseImport()
           this.#log('Found import operator...')
           this.#log()
@@ -265,12 +244,13 @@ export class Aria {
             throw this.#ariaError(AriaException.oneExportOnly, this.#lineCursor)
           }
 
-          this.#rangeStart = this.#cursor - 1
           this.#parseExport()
           this.#log('Found export operator...')
           this.#log()
           break
         }
+
+        this.#cursor++
       }
 
       this.#lineCursor++
