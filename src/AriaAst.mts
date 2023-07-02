@@ -4,7 +4,13 @@ import { join, parse } from 'node:path'
 import { AriaNode } from './AriaNode.mjs'
 import { AriaNodeType } from './AriaNodeType.mjs'
 import { AriaState } from './AriaState.mjs'
-import { AriaVersion, constructVersion, injectVersionPlaceholder, replacePlaceholders, transformHeader } from './AriaVersion.mjs'
+import {
+  AriaVersioning,
+  constructVersion,
+  injectVersionPlaceholder,
+  replacePlaceholders,
+  transformHeader,
+} from './AriaVersion.mjs'
 
 type AriaAstPath = `${string}.json`
 
@@ -13,7 +19,7 @@ export class AriaAst {
   #nodesCount: number
   #state: AriaState
 
-  versioning: AriaVersion
+  versioning: AriaVersioning
 
   constructor() {
     this.#nodesCount = 0
