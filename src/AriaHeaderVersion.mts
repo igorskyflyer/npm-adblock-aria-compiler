@@ -1,6 +1,6 @@
 import { Keppo } from '@igor.dvlpr/keppo'
 
-type HeaderVersion = Keppo | string | null
+type HeaderVersion = Keppo | null
 
 const semVerPattern: RegExp = /! Version:\s*(\d+\.\d+\.\d+)/gim
 const timestampPattern: RegExp = /! Version:\s*(\d+)$/gim
@@ -54,8 +54,6 @@ function getHeaderVersion(header: string): HeaderVersion {
     const versionString = getSemVer(header)
     const version = new Keppo(versionString)
     return version
-  } else if (hasTimestamp(header)) {
-    return Date.now().toString()
   }
 
   return null
@@ -64,18 +62,17 @@ function getHeaderVersion(header: string): HeaderVersion {
 function constructVersion(header: string, mode: AriaHeaderVersion): string {
   const version: HeaderVersion = getHeaderVersion(header)
 
-  if (version === null) {
-    if (mode === 'timestamp') {
-      return Date.now().toString()
-    }
-
-    return new Keppo(1, 0, 0).toString()
-  } else if (typeof version === 'string') {
+  if (mode === 'timestamp') {
     return Date.now().toString()
+  }
+
+  if (version === null) {
+    return new Keppo(1, 0, 0).toString()
   } else {
     version.increasePatch()
-    return version.toString()
   }
+
+  return version.toString()
 }
 
 export function transformHeader(header: string, mode: AriaHeaderVersion): string {
