@@ -37,7 +37,7 @@ export class Aria {
     this.#lineCursor = 0
     this.#lineLength = 0
     this.#ast = new AriaAst()
-    this.#ast.headerVersion = options.versioning ?? 'semver'
+    this.#ast.versioning = options.versioning ?? 'semver'
   }
 
   #ariaError(info: AriaExceptionInfo, ...args: any[]): AriaError {
@@ -151,9 +151,9 @@ export class Aria {
     this.#lineCursor = 0
     this.#lineLength = 0
 
-    const oldHeaderVersion = this.#ast.headerVersion
+    const oldHeaderVersion = this.#ast.versioning
     this.#ast = new AriaAst()
-    this.#ast.headerVersion = oldHeaderVersion
+    this.#ast.versioning = oldHeaderVersion
   }
 
   #log(message: any = '', logLevel: LogLevel = 'log'): void {
@@ -178,7 +178,7 @@ export class Aria {
     const linesCount: number = lines.length
 
     this.#log(`Total lines: ${linesCount}`)
-    this.#log(`Header version: ${this.#ast.headerVersion}`)
+    this.#log(`Header version: ${this.#ast.versioning}`)
     this.#log()
 
     while (this.#lineCursor < linesCount) {
