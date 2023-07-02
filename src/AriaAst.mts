@@ -4,6 +4,7 @@ import { AriaNode } from './AriaNode.mjs'
 import { AriaState } from './AriaState.mjs'
 import { AriaNodeType } from './AriaNodeType.mjs'
 import { AriaHeaderVersion, transformHeader } from './AriaHeaderVersion.mjs'
+import { NormalizedString } from '@igor.dvlpr/normalized-string'
 
 type AriaAstPath = `${string}.json`
 
@@ -31,7 +32,9 @@ export class AriaAst {
   }
 
   #block(value: string): string {
-    if (typeof value !== 'string') return ''
+    if (typeof value !== 'string') {
+      return ''
+    }
 
     if (value.trim().length === 0) {
       return ''
@@ -54,10 +57,6 @@ export class AriaAst {
 
   get state(): AriaState {
     return this.#state
-  }
-
-  public setHeaderVersion(version: AriaHeaderVersion): void {
-    this.headerVersion = version
   }
 
   public addNode(node: AriaNode): void {
@@ -83,7 +82,7 @@ export class AriaAst {
         path = join(path, '.json') as AriaAstPath
       }
 
-      writeFileSync(path, JSON.stringify(this.#nodes))
+      writeFileSync(path, JSON.stringify(this.#nodes), { encoding: 'utf8', flag: 'w' })
       return true
     } catch {}
 
@@ -116,7 +115,7 @@ export class AriaAst {
 
           try {
             if (path && this.#pathExists(path)) {
-              const header = readFileSync(path).toString()
+              const header: string = new NormalizedString(readFileSync(path).toString()).value
               contents += this.#block(header)
             } else {
               throw new Error(`Couldn't read the header file located at: "${path}".`)
@@ -133,7 +132,7 @@ export class AriaAst {
 
           try {
             if (path && this.#pathExists(path)) {
-              const filter = readFileSync(path).toString()
+              const filter: string = new NormalizedString(readFileSync(path).toString()).value
               contents += filter
             } else {
               throw new Error(`Couldn't read the filter file located at: "${path}".`)
@@ -151,11 +150,11 @@ export class AriaAst {
           try {
             if (path) {
               if (this.#pathExists(path)) {
-                let oldContents: string = readFileSync(path).toString()
+                let oldContents: string = new NormalizedString(readFileSync(path).toString()).value
                 oldContents = transformHeader(oldContents)
-                console.log(oldContents)
               }
-              writeFileSync(path, contents)
+
+              writeFileSync(path, new NormalizedString(contents).value, { encoding: 'utf8', flag: 'w' })
             } else {
               throw new Error(`Invalid export path!`)
             }
