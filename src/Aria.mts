@@ -1,13 +1,13 @@
+import { NormalizedString } from '@igor.dvlpr/normalized-string'
 import { readFileSync } from 'fs'
 import { AriaAst } from './AriaAst.mjs'
 import { AriaNode } from './AriaNode.mjs'
 import { AriaNodeType } from './AriaNodeType.mjs'
 import { AriaOperators } from './AriaOperators.mjs'
+import { AriaOptions } from './AriaOptions.mjs'
 import { AriaError } from './errors/AriaError.mjs'
 import { AriaException } from './errors/AriaException.mjs'
 import { AriaExceptionInfo } from './errors/AriaExceptionInfo.mjs'
-import { NormalizedString } from '@igor.dvlpr/normalized-string'
-import { AriaHeaderVersion } from './AriaHeaderVersion.mjs'
 
 type LogLevel = 'log' | 'warn' | 'error' | 'info'
 type AriaTemplatePath = `${string}.adbt`
@@ -27,8 +27,8 @@ export class Aria {
 
   #ast: AriaAst
 
-  constructor(shouldLog: boolean = false) {
-    this.#shouldLog ??= shouldLog
+  constructor(options: AriaOptions) {
+    this.#shouldLog = options.shouldLog ?? false
 
     this.#source = ''
     this.#line = ''
@@ -37,6 +37,7 @@ export class Aria {
     this.#lineCursor = 0
     this.#lineLength = 0
     this.#ast = new AriaAst()
+    this.#ast.headerVersion = options.headerVersion ?? 'semver'
   }
 
   #ariaError(info: AriaExceptionInfo, ...args: any[]): AriaError {
@@ -152,7 +153,7 @@ export class Aria {
 
     const oldHeaderVersion = this.#ast.headerVersion
     this.#ast = new AriaAst()
-    this.headerVersion(oldHeaderVersion)
+    this.#ast.headerVersion = oldHeaderVersion
   }
 
   #log(message: any = '', logLevel: LogLevel = 'log'): void {
@@ -272,10 +273,6 @@ export class Aria {
         throw new AriaError({ id: '', message: '' }, 0, [1, 1])
       }
     }
-  }
-
-  headerVersion(version: AriaHeaderVersion): void {
-    this.#ast.setHeaderVersion(version)
   }
 }
 
