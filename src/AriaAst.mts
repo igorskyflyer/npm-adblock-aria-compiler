@@ -3,6 +3,7 @@ import { join } from 'node:path'
 import { AriaNode } from './AriaNode.mjs'
 import { AriaState } from './AriaState.mjs'
 import { AriaNodeType } from './AriaNodeType.mjs'
+import { AriaHeaderVersion, constructSemVer } from './AriaHeaderVersion.mjs'
 
 type AriaAstPath = `${string}.json`
 
@@ -11,10 +12,14 @@ export class AriaAst {
   #nodesCount: number
   #state: AriaState
 
+  headerVersion: AriaHeaderVersion
+
   constructor() {
     this.#nodesCount = 0
     this.#nodes = []
     this.#state = { imports: 0, exports: 0 }
+
+    this.headerVersion = 'semver'
   }
 
   #pathExists(path: PathLike): boolean {
@@ -49,6 +54,10 @@ export class AriaAst {
 
   get state(): AriaState {
     return this.#state
+  }
+
+  public setHeaderVersion(version: AriaHeaderVersion): void {
+    this.headerVersion = version
   }
 
   public addNode(node: AriaNode): void {
@@ -108,6 +117,7 @@ export class AriaAst {
           try {
             if (path && this.#pathExists(path)) {
               const header = readFileSync(path).toString()
+              console.log(constructSemVer(header))
               contents += this.#block(header)
             } else {
               throw new Error(`Couldn't read the header file located at: "${path}".`)
