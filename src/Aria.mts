@@ -182,7 +182,7 @@ export class Aria {
       this.#log(`Processing line: ${this.#lineCursor}...`)
 
       if (this.#line.trim().length === 0) {
-        this.#log(`Blank line: ${this.#lineCursor + 1}, skipping...`)
+        this.#log(`Blank line: ${this.#lineCursor}, skipping...`)
         this.#log()
         this.#lineCursor++
         continue
