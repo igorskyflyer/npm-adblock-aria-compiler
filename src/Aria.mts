@@ -149,7 +149,10 @@ export class Aria {
     this.#cursorInLine = 0
     this.#lineCursor = 0
     this.#lineLength = 0
+
+    const oldHeaderVersion = this.#ast.headerVersion
     this.#ast = new AriaAst()
+    this.headerVersion(oldHeaderVersion)
   }
 
   #log(message: any = '', logLevel: LogLevel = 'log'): void {
@@ -172,6 +175,10 @@ export class Aria {
 
     const lines: string[] = this.#source.split(/\n/gm)
     const linesCount: number = lines.length
+
+    this.#log(`Total lines: ${linesCount}`)
+    this.#log(`Header version: ${this.#ast.headerVersion}`)
+    this.#log()
 
     while (this.#lineCursor < linesCount) {
       this.#line = lines[this.#lineCursor]
