@@ -2,7 +2,7 @@ import { NormalizedString } from '@igor.dvlpr/normalized-string'
 import { PathLike, accessSync, readFileSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import {
-  AriaHeaderVersion,
+  AriaVersion,
   constructVersion,
   injectVersionPlaceholder,
   replaceVersionPlaceholder,
@@ -19,7 +19,7 @@ export class AriaAst {
   #nodesCount: number
   #state: AriaState
 
-  headerVersion: AriaHeaderVersion
+  headerVersion: AriaVersion
 
   constructor() {
     this.#nodesCount = 0
