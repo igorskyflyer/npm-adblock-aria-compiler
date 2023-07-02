@@ -86,9 +86,9 @@ export function transformHeader(header: string, mode: AriaHeaderVersion): string
   const newVersion: string = constructVersion(header, mode)
 
   if (hasVersion(header)) {
-    return header.replace(versionPattern, `Version: ${newVersion}`)
+    return header.replace(versionPattern, `! Version: ${newVersion}`)
   } else {
-    return `${header}\nVersion: ${newVersion}`
+    return `${header}\n! Version: ${newVersion}`
   }
 }
 
