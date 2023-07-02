@@ -10,7 +10,7 @@ import {
   injectVersionPlaceholder,
   replacePlaceholders,
   transformHeader,
-} from './AriaVersion.mjs'
+} from './AriaVersioning.mjs'
 
 type AriaAstPath = `${string}.json`
 
