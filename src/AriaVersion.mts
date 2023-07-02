@@ -96,7 +96,7 @@ export function injectVersionPlaceholder(header: string): string {
   return header
 }
 
-export function replaceVersionPlaceholder(header: string, version: string): string {
+export function replacePlaceholders(header: string, version: string): string {
   if (typeof header !== 'string') {
     return ''
   }
