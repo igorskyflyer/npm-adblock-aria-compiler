@@ -3,7 +3,7 @@ import { join } from 'node:path'
 import { AriaNode } from './AriaNode.mjs'
 import { AriaState } from './AriaState.mjs'
 import { AriaNodeType } from './AriaNodeType.mjs'
-import { AriaHeaderVersion, constructSemVer } from './AriaHeaderVersion.mjs'
+import { AriaHeaderVersion, transformHeader } from './AriaHeaderVersion.mjs'
 
 type AriaAstPath = `${string}.json`
 
@@ -117,7 +117,6 @@ export class AriaAst {
           try {
             if (path && this.#pathExists(path)) {
               const header = readFileSync(path).toString()
-              console.log(constructSemVer(header))
               contents += this.#block(header)
             } else {
               throw new Error(`Couldn't read the header file located at: "${path}".`)
@@ -152,10 +151,11 @@ export class AriaAst {
           try {
             if (path) {
               if (this.#pathExists(path)) {
-                throw new Error(`File marked as export "${path}" already exists!`)
-              } else {
-                writeFileSync(path, contents)
+                let oldContents: string = readFileSync(path).toString()
+                oldContents = transformHeader(oldContents)
+                console.log(oldContents)
               }
+              writeFileSync(path, contents)
             } else {
               throw new Error(`Invalid export path!`)
             }
