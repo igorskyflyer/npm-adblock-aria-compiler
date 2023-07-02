@@ -46,7 +46,7 @@ function hasVersionPlaceholder(header: string): boolean {
   return hasPattern(header, versionPlaceholderPattern)
 }
 
-function hasVersion(header: string): boolean {
+export function hasVersion(header: string): boolean {
   return hasSemVer(header) || hasTimestamp(header) || hasVersionPlaceholder(header)
 }
 
