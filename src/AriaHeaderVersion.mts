@@ -57,7 +57,7 @@ function getHeaderVersion(header: string): HeaderVersion {
   return null
 }
 
-function constructHeader(header: string): string {
+function constructVersion(header: string): string {
   let version: HeaderVersion = getHeaderVersion(header)
 
   if (version === null) {
@@ -75,7 +75,7 @@ export function transformHeader(header: string): string {
     return ''
   }
 
-  const newHeader: string = constructHeader(header)
+  const newHeader: string = constructVersion(header)
   return header.replace(versionPattern, `Version: ${newHeader}`)
 }
 
