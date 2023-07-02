@@ -13,14 +13,14 @@ export class AriaAst {
   #nodesCount: number
   #state: AriaState
 
-  headerVersion: AriaVersion
+  versioning: AriaVersion
 
   constructor() {
     this.#nodesCount = 0
     this.#nodes = []
     this.#state = { imports: 0, exports: 0 }
 
-    this.headerVersion = 'semver'
+    this.versioning = 'semver'
   }
 
   #pathExists(path: PathLike): boolean {
@@ -154,10 +154,10 @@ export class AriaAst {
 
               if (this.#pathExists(path)) {
                 const oldFile: string = new NormalizedString(readFileSync(path).toString()).value
-                const oldVersion: string = constructVersion(oldFile, this.headerVersion)
+                const oldVersion: string = constructVersion(oldFile, this.versioning)
                 contents = replacePlaceholders(contents, { version: oldVersion, filename: filename })
               } else {
-                contents = transformHeader(contents, this.headerVersion)
+                contents = transformHeader(contents, this.versioning)
               }
 
               writeFileSync(path, new NormalizedString(contents).value, { encoding: 'utf8', flag: 'w' })
