@@ -1,4 +1,4 @@
-export interface IAriaPlaceholder {
+export interface IAriaPlaceholder<valueType> {
   alias: string
-  value: string | number
+  value: valueType
 }
