@@ -53,6 +53,7 @@
 		"typescript": "^5.1.6"
 	},
 	"dependencies": {
+		"@igor.dvlpr/adblock-filter-counter": "^1.0.0",
 		"@igor.dvlpr/keppo": "^1.1.0",
 		"@igor.dvlpr/normalized-string": "^1.0.1",
 		"@igor.dvlpr/zing": "^1.0.2"
