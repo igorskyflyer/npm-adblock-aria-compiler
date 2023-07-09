@@ -11,6 +11,8 @@ import {
   replacePlaceholders,
   transformHeader,
 } from './AriaVersioning.mjs'
+import { IAriaPlaceholders } from './IAriaPlaceholders.mjs'
+import { countRules } from '@igor.dvlpr/adblock-filter-counter'
 
 type AriaAstPath = `${string}.json`
 
@@ -157,15 +159,23 @@ export class AriaAst {
           try {
             if (path) {
               const filename: string = parse(path).name
+              const placeholders: IAriaPlaceholders = {
+                filename: filename,
+                version: '',
+                entries: 0,
+              }
 
               if (this.#pathExists(path)) {
                 const oldFile: string = new NormalizedString(readFileSync(path).toString()).value
                 const oldVersion: string = constructVersion(oldFile, this.versioning)
-                contents = replacePlaceholders(contents, { version: oldVersion, filename: filename })
+                placeholders.version = oldVersion
               } else {
                 contents = transformHeader(contents, this.versioning)
               }
 
+              placeholders.entries = countRules(contents)
+
+              contents = replacePlaceholders(contents, placeholders)
               writeFileSync(path, new NormalizedString(contents).value, { encoding: 'utf8', flag: 'w' })
             } else {
               throw new Error(`Invalid export path!`)
