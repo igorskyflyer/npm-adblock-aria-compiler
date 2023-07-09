@@ -3,4 +3,5 @@ export interface IAriaPlaceholders {
   version: string
   filename: string
   entries: number
+  lastModified: string
 }
