@@ -8,9 +8,10 @@ const timestampPattern: RegExp = /! Version:\s*(\d+)$/gim
 const versionPlaceholderPattern: RegExp = /! Version: \$\(version\)$/gim
 const versionPattern: RegExp = /! Version:.*$/gim
 const placeholderInfo: object = {
-  Title: 'filename',
-  Version: 'version',
-  Entries: 'entries',
+  'Title': 'filename',
+  'Version': 'version',
+  'Entries': 'entries',
+  'Last modified': 'now',
 }
 
 function hasPattern(header: string, pattern: RegExp): boolean {
@@ -70,7 +71,7 @@ function getHeaderSemVer(header: string): HeaderVersion {
   return null
 }
 
-function getCurrentISOTime(): string {
+export function getCurrentISOTime(): string {
   const now: Date = new Date()
   const timeZoneOffset: number = now.getTimezoneOffset()
   const isoString: string = now.toISOString()
