@@ -1,5 +1,5 @@
 export interface IAriaPlaceholders {
   [key: string]: string
-  versioning: string
+  version: string
   filename: string
 }
