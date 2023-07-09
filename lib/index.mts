@@ -2,7 +2,7 @@ import { Aria } from './Aria.mjs'
 
 const aria = new Aria({
   shouldLog: true,
-  versioning: 'timestamp',
+  versioning: 'semver',
 })
 const ast = aria.parseFile('./data/test.adbt')
 
