@@ -1,7 +1,9 @@
+import { IAriaPlaceholder } from './IAriaPlaceholder.mjs'
+
 export interface IAriaPlaceholders {
   [key: string]: any
-  version: string
-  filename: string
-  entries: number
-  lastModified: string
+  version: IAriaPlaceholder<string>
+  filename: IAriaPlaceholder<string>
+  entries: IAriaPlaceholder<number>
+  lastModified: IAriaPlaceholder<string>
 }
