@@ -7,6 +7,7 @@ import { AriaState } from './AriaState.mjs'
 import {
   AriaVersioning,
   constructVersion,
+  getCurrentISOTime,
   injectVersionPlaceholder,
   replacePlaceholders,
   transformHeader,
@@ -163,6 +164,7 @@ export class AriaAst {
                 filename: filename,
                 version: '',
                 entries: 0,
+                lastModified: getCurrentISOTime(),
               }
 
               if (this.#pathExists(path)) {
