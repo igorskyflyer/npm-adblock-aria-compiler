@@ -70,6 +70,22 @@ function getHeaderSemVer(header: string): HeaderVersion {
   return null
 }
 
+function getCurrentISOTime(): string {
+  const now: Date = new Date()
+  const timeZoneOffset: number = now.getTimezoneOffset()
+  const isoString: string = now.toISOString()
+
+  const offsetHours: string = Math.floor(Math.abs(timeZoneOffset) / 60)
+    .toString()
+    .padStart(2, '0')
+  const offsetMinutes: string = (Math.abs(timeZoneOffset) % 60).toString().padStart(2, '0')
+  const offsetSign: string = timeZoneOffset >= 0 ? '-' : '+'
+
+  const offsetString: string = `${offsetSign}${offsetHours}:${offsetMinutes}`
+
+  return isoString.replace('Z', offsetString)
+}
+
 export function constructVersion(header: string, mode: AriaVersioning): string {
   if (mode === 'timestamp') {
     return Date.now().toString()
