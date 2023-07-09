@@ -6,8 +6,8 @@
 	"engines": {
 		"node": ">=16.0"
 	},
-	"types": "./dist/index.d.ts",
-	"main": "./dist/index.js",
+	"types": "./dist/lib/index.d.ts",
+	"main": "./dist/bin/aria.js",
 	"bin": {
 		"aria": "./dist/bin/aria.js"
 	},
