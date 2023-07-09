@@ -10,6 +10,7 @@ const versionPattern: RegExp = /! Version:.*$/gim
 const placeholderInfo: object = {
   Title: 'filename',
   Version: 'version',
+  Entries: 'entries',
 }
 
 function hasPattern(header: string, pattern: RegExp): boolean {
