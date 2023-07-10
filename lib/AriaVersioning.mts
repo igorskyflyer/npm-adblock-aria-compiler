@@ -145,4 +145,4 @@ export function transformHeader(header: string, mode: AriaVersioning): string {
   }
 }
 
-export type AriaVersioning = 'semver' | 'timestamp'
+export type AriaVersioning = 'semver' | 'timestamp' | 'auto'
