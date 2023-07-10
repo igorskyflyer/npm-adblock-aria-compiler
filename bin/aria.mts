@@ -1,3 +1,5 @@
+#! /usr/bin/env node
+
 // Author: Igor Dimitrijević (@igorskyflyer)
 
 import { Aria } from '../lib/Aria.mjs'
