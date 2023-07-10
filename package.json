@@ -7,9 +7,9 @@
 		"node": ">=16.0"
 	},
 	"types": "./dist/lib/index.d.ts",
-	"main": "./dist/bin/aria.js",
+	"main": "./dist/bin/aria.mjs",
 	"bin": {
-		"aria": "./dist/bin/aria.js"
+		"aria": "./dist/bin/aria.mjs"
 	},
 	"files": [
 		"dist"
