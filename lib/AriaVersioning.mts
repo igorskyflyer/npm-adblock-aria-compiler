@@ -109,7 +109,7 @@ export function injectVersionPlaceholder(header: string): string {
       header += '\n'
     }
 
-    header += '! Version: $v'
+    header += '! Version: $(version)'
   }
 
   return header
