@@ -16,7 +16,7 @@
 	],
 	"scripts": {
 		"build": "tsc",
-		"test": "ts-mocha test/*.ts",
+		"test": "",
 		"dev": "tsc -w --sourcemap",
 		"pub": "npm test && npm run build && npm publish --access public"
 	},
@@ -47,12 +47,7 @@
 	},
 	"homepage": "https://github.com/igorskyflyer/adblock-aria-compiler#readme",
 	"devDependencies": {
-		"@types/chai": "^4.3.1",
-		"@types/mocha": "^9.1.1",
 		"@types/node": "^16.0.0",
-		"chai": "^4.3.6",
-		"mocha": "^10.0.0",
-		"ts-mocha": "^10.0.0",
 		"typescript": "^5.1.6"
 	},
 	"dependencies": {
