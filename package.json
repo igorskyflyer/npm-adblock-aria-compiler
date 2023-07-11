@@ -1,6 +1,6 @@
 {
 	"name": "@igor.dvlpr/aria-compiler",
-	"version": "1.0.0",
+	"version": "1.0.0-alpha",
 	"description": "🧬 Meet Aria, an efficient Adblock filter list compiler, with many features that make your maintenance of Adblock filter lists a breeze! 🗡",
 	"sideEffects": false,
 	"engines": {
