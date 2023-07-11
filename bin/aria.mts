@@ -3,12 +3,15 @@
 // Author: Igor Dimitrijević (@igorskyflyer)
 
 import { Aria } from '../lib/Aria.mjs'
+import { AriaAst } from '../lib/AriaAst.mjs'
 
-const aria = new Aria({
+type AriaAstParsed = AriaAst | undefined
+
+const aria: Aria = new Aria({
   shouldLog: true,
   versioning: 'auto',
 })
-const ast = aria.parseFile('./data/test.adbt')
+const ast: AriaAstParsed = aria.parseFile('./data/tesst.adbt')
 
 if (ast) {
   console.log(ast.nodes)
