@@ -11,7 +11,7 @@
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}\\dist\\index.mjs",
+			"program": "${workspaceFolder}\\dist\\lib\\index.mjs",
 			"preLaunchTask": "tsc",
 			"outFiles": [
 				"${workspaceFolder}/dist/**/*.mjs"
