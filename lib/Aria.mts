@@ -1,5 +1,5 @@
 import { NormalizedString } from '@igor.dvlpr/normalized-string'
-import { readFileSync } from 'fs'
+import { PathLike, accessSync, readFileSync } from 'fs'
 import { AriaAst } from './AriaAst.mjs'
 import { AriaNode } from './AriaNode.mjs'
 import { AriaNodeType } from './AriaNodeType.mjs'
@@ -166,6 +166,14 @@ export class Aria {
     return this.#char === ' ' || this.#char === '\t'
   }
 
+  #pathExists(path: PathLike): boolean {
+    try {
+      accessSync(path)
+      return true
+    } catch {}
+    return false
+  }
+
   get ast(): AriaAst {
     return this.#ast
   }
@@ -258,6 +266,10 @@ export class Aria {
 
   parseFile(templatePath: AriaTemplatePath): AriaAst | undefined {
     if (typeof templatePath !== 'string') {
+      throw this.#ariaError(AriaException.noTemplate)
+    }
+
+    if (!this.#pathExists(templatePath)) {
       throw this.#ariaError(AriaException.noTemplate)
     }
 
