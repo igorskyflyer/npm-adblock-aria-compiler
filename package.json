@@ -4,7 +4,7 @@
 	"description": "🧬 Meet Aria, an efficient Adblock filter list compiler, with many features that make your maintenance of Adblock filter lists a breeze! 🗡",
 	"sideEffects": false,
 	"engines": {
-		"node": ">=16.0"
+		"node": ">=18.0"
 	},
 	"types": "./dist/lib/index.d.ts",
 	"main": "./dist/bin/aria.mjs",
@@ -47,7 +47,7 @@
 	},
 	"homepage": "https://github.com/igorskyflyer/adblock-aria-compiler#readme",
 	"devDependencies": {
-		"@types/node": "^16.0.0",
+		"@types/node": "^18.0.0",
 		"typescript": "^5.1.6"
 	},
 	"dependencies": {
