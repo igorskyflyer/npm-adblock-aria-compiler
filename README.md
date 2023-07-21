@@ -26,4 +26,4 @@ npm i "@igor.dvlpr/aria-compiler"
 
 <br>
 
-## 🤹🏼‍♂️ API
+## 🤹🏼‍♂️ Usage
