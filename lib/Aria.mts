@@ -8,6 +8,7 @@ import { IAriaOptions } from './IAriaOptions.mjs'
 import { AriaError } from './errors/AriaError.mjs'
 import { AriaException } from './errors/AriaException.mjs'
 import { AriaExceptionInfo } from './errors/AriaExceptionInfo.mjs'
+import { resolve } from 'node:path'
 
 type LogLevel = 'log' | 'warn' | 'error' | 'info'
 type AriaTemplatePath = `${string}.adbt`
@@ -274,6 +275,7 @@ export class Aria {
     }
 
     try {
+      this.#log(`Resolved filepath: ${resolve(templatePath)}`)
       const template: Buffer = readFileSync(templatePath)
       const contents: string = template.toString()
       return this.parse(contents)
