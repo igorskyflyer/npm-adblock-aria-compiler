@@ -165,6 +165,10 @@ export class Aria {
     }
   }
 
+  #logNewline(): void {
+    this.#log()
+  }
+
   #isWhitespace(): boolean {
     return this.#char === ' ' || this.#char === '\t'
   }
@@ -190,7 +194,8 @@ export class Aria {
 
     this.#log(`Total lines: ${linesCount}`)
     this.#log(`Versioning: ${this.#ast.versioning}`)
-    this.#log()
+
+    this.#logNewline()
 
     while (this.#lineCursor < linesCount) {
       this.#line = lines[this.#lineCursor]
@@ -203,7 +208,7 @@ export class Aria {
 
       if (this.#line.trim().length === 0) {
         this.#log(`Blank line: ${this.#lineCursor}, skipping...`)
-        this.#log()
+        this.#logNewline()
         this.#lineCursor++
         continue
       }
@@ -218,7 +223,7 @@ export class Aria {
         if (this.#char === AriaOperators.newLine) {
           this.#ast.addNode(this.#node(AriaNodeType.nodeNewLine))
           this.#log('Found an explicit new line...')
-          this.#log()
+          this.#logNewline()
           break
         }
 
@@ -226,11 +231,11 @@ export class Aria {
           if (this.#peek() === AriaOperators.comment) {
             this.#parseComment()
             this.#log('Found exported comment...')
-            this.#log()
+            this.#logNewline()
             break
           } else {
             this.#log(`Found internal comment at char(${this.#cursorInLine}), skipping line...`)
-            this.#log()
+            this.#logNewline()
             break
           }
         }
@@ -238,14 +243,14 @@ export class Aria {
         if (this.#char === AriaOperators.headerImport) {
           this.#parseHeaderImport()
           this.#log('Found header import operator...')
-          this.#log()
+          this.#logNewline()
           break
         }
 
         if (this.#char === AriaOperators.import) {
           this.#parseImport()
           this.#log('Found import operator...')
-          this.#log()
+          this.#logNewline()
           break
         }
 
@@ -256,7 +261,7 @@ export class Aria {
 
           this.#parseExport()
           this.#log('Found export operator...')
-          this.#log()
+          this.#logNewline()
           break
         }
       }
@@ -281,8 +286,10 @@ export class Aria {
 
       if (hasMeta(templatePath)) {
         const metaPath: string = getMetaPath(templatePath) as string
-        console.log(`Resolved meta: ${resolve(metaPath)}`)
+        this.#log(`Resolved meta: ${resolve(metaPath)}`)
       }
+
+      this.#logNewline()
 
       const template: Buffer = readFileSync(templatePath)
       const contents: string = template.toString()
