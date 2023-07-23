@@ -33,17 +33,7 @@ export function parseMeta(templatePath: AriaTemplatePath): AriaMeta | null {
   return meta
 }
 
-function fileExists(filePath: string): boolean {
-  try {
-    accessSync(filePath)
-  } catch {
-    return false
-  }
-
-  return true
-}
-
-function getMetaPath(templatePath: AriaTemplatePath): string | null {
+export function getMetaPath(templatePath: AriaTemplatePath): string | null {
   if (typeof templatePath !== 'string') {
     return null
   }
@@ -51,7 +41,7 @@ function getMetaPath(templatePath: AriaTemplatePath): string | null {
   return templatePath.replace(/(.*)\..*$/i, '$1.meta.json')
 }
 
-function hasMeta(templatePath: AriaTemplatePath): boolean {
+export function hasMeta(templatePath: AriaTemplatePath): boolean {
   if (typeof templatePath !== 'string') {
     return false
   }
@@ -63,4 +53,14 @@ function hasMeta(templatePath: AriaTemplatePath): boolean {
   }
 
   return false
+}
+
+function fileExists(filePath: string): boolean {
+  try {
+    accessSync(filePath)
+  } catch {
+    return false
+  }
+
+  return true
 }
