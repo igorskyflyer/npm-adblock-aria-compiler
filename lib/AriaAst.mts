@@ -15,6 +15,8 @@ import {
 import { IAriaPlaceholders } from './IAriaPlaceholders.mjs'
 import { countRules } from '@igor.dvlpr/adblock-filter-counter'
 import { AriaPlaceholderData } from './AriaPlaceholderData.mjs'
+import { AriaMeta } from './AriaMeta.mjs'
+import { parseMeta } from './AriaMetaUtils.mjs'
 
 type AriaAstPath = `${string}.json`
 
@@ -102,6 +104,7 @@ export class AriaAst {
   public compile(): boolean {
     if (this.#nodesCount === 0) return true
 
+    const meta: AriaMeta = {}
     let contents = ''
 
     for (let i = 0; i < this.#nodesCount; i++) {
@@ -125,9 +128,14 @@ export class AriaAst {
 
           try {
             if (path && this.#pathExists(path)) {
+              const headerMeta: AriaMeta | null = parseMeta(path)
               let header: string = new NormalizedString(readFileSync(path).toString()).value
               header = injectVersionPlaceholder(header)
               contents += this.#block(header)
+
+              meta.title = headerMeta?.title
+              meta.description = headerMeta?.description
+              meta.versioning = headerMeta?.versioning
             } else {
               throw new Error(`Couldn't read the header file located at: "${path}".`)
             }
@@ -163,14 +171,15 @@ export class AriaAst {
               const filename: string = parse(path).name
               const placeholders: IAriaPlaceholders = AriaPlaceholderData
 
-              placeholders.filename!.value = filename
+              placeholders.filename!.value = meta.title || filename
               placeholders.version!.value = ''
               placeholders.entries!.value = 0
+              placeholders.description!.value = meta.description! ?? ''
               placeholders.lastModified!.value = getCurrentISOTime()
 
               if (this.#pathExists(path)) {
                 const oldFile: string = new NormalizedString(readFileSync(path).toString()).value
-                const oldVersion: string = constructVersion(oldFile, this.versioning)
+                const oldVersion: string = constructVersion(oldFile, meta.versioning || this.versioning)
                 placeholders.version!.value = oldVersion
               } else {
                 contents = transformHeader(contents, this.versioning)
