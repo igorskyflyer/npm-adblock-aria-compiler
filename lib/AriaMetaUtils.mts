@@ -1,4 +1,4 @@
-import { accessSync, readFileSync } from 'fs'
+import { accessSync, readFileSync } from 'node:fs'
 import { AriaMeta } from './AriaMeta.mjs'
 
 export function parseMeta(filterPath: string): AriaMeta | null {
