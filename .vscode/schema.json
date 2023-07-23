@@ -1,0 +1,25 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"type": "object",
+	"properties": {
+		"title": {
+			"type": "string",
+			"description": "The title use in the resulting filter rules file."
+		},
+		"description": {
+			"type": "string",
+			"description": "The description to use in the resulting filter rules file."
+		},
+		"versioning": {
+			"type": "string",
+			"description": "The versioning system to use in the resulting filter rules file.\n\n\"auto\" - inherit from the previous version of the file or let Aria decide,\n\"semver\" - use SemVer versioning,\n\"timestamp\" - use current Unix timestamp",
+			"enum": [
+				"auto",
+				"semver",
+				"timestamp"
+			]
+		}
+	},
+	"required": [],
+	"additionalProperties": false
+}
