@@ -11,7 +11,7 @@
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}\\dist\\lib\\index.mjs",
+			"program": "${workspaceFolder}\\dist\\bin\\aria.mjs",
 			"preLaunchTask": "tsc",
 			"outFiles": [
 				"${workspaceFolder}/dist/**/*.mjs"
