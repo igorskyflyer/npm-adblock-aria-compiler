@@ -1,19 +1,20 @@
 import { accessSync, readFileSync } from 'node:fs'
 import { AriaMeta } from './AriaMeta.mjs'
+import { AriaTemplatePath } from './AriaTemplatePath.mjs'
 
-export function parseMeta(filterPath: string): AriaMeta | null {
+export function parseMeta(templatePath: AriaTemplatePath): AriaMeta | null {
   const meta: AriaMeta = {}
 
-  if (typeof filterPath !== 'string') {
+  if (typeof templatePath !== 'string') {
     return null
   }
 
-  if (!hasMeta(filterPath)) {
+  if (!hasMeta(templatePath)) {
     return null
   }
 
   try {
-    const metaPath: string | null = getMetaPath(filterPath)
+    const metaPath: string | null = getMetaPath(templatePath)
     const contents: string = readFileSync(metaPath!).toString()
     const json: any = JSON.parse(contents)
 
@@ -39,20 +40,20 @@ function fileExists(filePath: string): boolean {
   return true
 }
 
-function getMetaPath(filterPath: string): string | null {
-  if (typeof filterPath !== 'string') {
+function getMetaPath(templatePath: AriaTemplatePath): string | null {
+  if (typeof templatePath !== 'string') {
     return null
   }
 
-  return filterPath.replace(/(.*)\..*$/i, '$1.meta.json')
+  return templatePath.replace(/(.*)\..*$/i, '$1.meta.json')
 }
 
-function hasMeta(filterPath: string): boolean {
-  if (typeof filterPath !== 'string') {
+function hasMeta(templatePath: AriaTemplatePath): boolean {
+  if (typeof templatePath !== 'string') {
     return false
   }
 
-  const metaFile: string | null = getMetaPath(filterPath)
+  const metaFile: string | null = getMetaPath(templatePath)
 
   if (metaFile != null) {
     return fileExists(metaFile)
