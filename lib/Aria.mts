@@ -9,9 +9,9 @@ import { AriaError } from './errors/AriaError.mjs'
 import { AriaException } from './errors/AriaException.mjs'
 import { AriaExceptionInfo } from './errors/AriaExceptionInfo.mjs'
 import { resolve } from 'node:path'
+import { AriaTemplatePath } from './AriaTemplatePath.mjs'
 
 type LogLevel = 'log' | 'warn' | 'error' | 'info'
-type AriaTemplatePath = `${string}.adbt`
 
 export class Aria {
   #source: string
