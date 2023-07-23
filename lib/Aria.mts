@@ -12,6 +12,7 @@ import { resolve } from 'node:path'
 import { AriaTemplatePath } from './AriaTemplatePath.mjs'
 import { getMetaPath, hasMeta, parseMeta } from './AriaMetaUtils.mjs'
 import { AriaMeta } from './AriaMeta.mjs'
+import { parse } from 'path'
 
 type LogLevel = 'log' | 'warn' | 'error' | 'info'
 
@@ -284,9 +285,20 @@ export class Aria {
     try {
       this.#log(`Resolved filepath: ${resolve(templatePath)}`)
 
+      const metaPath: string = getMetaPath(templatePath) as string
+
       if (hasMeta(templatePath)) {
-        const metaPath: string = getMetaPath(templatePath) as string
         this.#log(`Resolved meta: ${resolve(metaPath)}`)
+      } else {
+        this.#log(`Resolved meta: N/A`)
+        this.#logNewline()
+
+        this.#log(
+          `WARNING: meta file could not be resolved, if necessary, create a file named ${
+            parse(metaPath).base
+          } for extra customizability of the output filter file.`,
+          'warn'
+        )
       }
 
       this.#logNewline()
