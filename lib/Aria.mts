@@ -10,6 +10,8 @@ import { AriaException } from './errors/AriaException.mjs'
 import { AriaExceptionInfo } from './errors/AriaExceptionInfo.mjs'
 import { resolve } from 'node:path'
 import { AriaTemplatePath } from './AriaTemplatePath.mjs'
+import { getMetaPath, hasMeta, parseMeta } from './AriaMetaUtils.mjs'
+import { AriaMeta } from './AriaMeta.mjs'
 
 type LogLevel = 'log' | 'warn' | 'error' | 'info'
 
@@ -276,10 +278,24 @@ export class Aria {
 
     try {
       this.#log(`Resolved filepath: ${resolve(templatePath)}`)
-      this.#ast.templatePath = templatePath
+
+      if (hasMeta(templatePath)) {
+        const metaPath: string = getMetaPath(templatePath) as string
+        console.log(`Resolved meta: ${resolve(metaPath)}`)
+      }
+
       const template: Buffer = readFileSync(templatePath)
       const contents: string = template.toString()
-      return this.parse(contents)
+
+      this.parse(contents)
+
+      const meta: AriaMeta | null = parseMeta(templatePath)
+
+      if (meta != null) {
+        this.#ast.meta = meta
+      }
+
+      return this.#ast
     } catch (e: any) {
       if (e instanceof AriaError) {
         throw e
