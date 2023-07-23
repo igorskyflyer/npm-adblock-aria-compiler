@@ -16,7 +16,6 @@ import { IAriaPlaceholders } from './IAriaPlaceholders.mjs'
 import { countRules } from '@igor.dvlpr/adblock-filter-counter'
 import { AriaPlaceholderData } from './AriaPlaceholderData.mjs'
 import { AriaMeta } from './AriaMeta.mjs'
-import { parseMeta } from './AriaMetaUtils.mjs'
 import { AriaTemplatePath } from './AriaTemplatePath.mjs'
 
 type AriaAstPath = `${string}.json`
