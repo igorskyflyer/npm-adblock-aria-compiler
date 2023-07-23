@@ -55,7 +55,7 @@ const ast: AriaAstParsed = aria.parseFile(cliArgs.file)
 if (ast) {
   if (cliArgs.dry) {
     console.log(ast.nodes)
+  } else {
+    ast.compile()
   }
-
-  ast.compile()
 }
