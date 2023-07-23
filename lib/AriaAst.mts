@@ -26,6 +26,7 @@ export class AriaAst {
   #nodesCount: number
   #state: AriaState
   templatePath: AriaTemplatePath
+  meta: AriaMeta
 
   versioning: AriaVersioning
 
@@ -35,6 +36,7 @@ export class AriaAst {
     this.#state = { imports: 0, exports: 0 }
     this.templatePath = '' as AriaTemplatePath
     this.versioning = 'semver'
+    this.meta = { description: '', title: '', versioning: 'auto' }
   }
 
   #pathExists(path: PathLike): boolean {
