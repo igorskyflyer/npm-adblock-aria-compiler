@@ -168,17 +168,16 @@ export class AriaAst {
             if (path) {
               const filename: string = parse(path).name
               const placeholders: IAriaPlaceholders = AriaPlaceholderData
-              const meta: AriaMeta | null = parseMeta(this.templatePath)
 
-              placeholders.filename!.value = meta?.title || filename
+              placeholders.filename!.value = this.meta.title || filename
               placeholders.version!.value = ''
               placeholders.entries!.value = 0
-              placeholders.description!.value = meta?.description! ?? ''
+              placeholders.description!.value = this.meta.description! ?? ''
               placeholders.lastModified!.value = getCurrentISOTime()
 
               if (this.#pathExists(path)) {
                 const oldFile: string = new NormalizedString(readFileSync(path).toString()).value
-                const oldVersion: string = constructVersion(oldFile, meta?.versioning || this.versioning)
+                const oldVersion: string = constructVersion(oldFile, this.meta.versioning || this.versioning)
                 placeholders.version!.value = oldVersion
               } else {
                 contents = transformHeader(contents, this.versioning)
