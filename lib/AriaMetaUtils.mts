@@ -13,7 +13,8 @@ export function parseMeta(filterPath: string): AriaMeta | null {
   }
 
   try {
-    const contents: string = readFileSync(filterPath).toString()
+    const metaPath: string | null = getMetaPath(filterPath)
+    const contents: string = readFileSync(metaPath!).toString()
     const json: any = JSON.parse(contents)
 
     // we copy only the props we need
