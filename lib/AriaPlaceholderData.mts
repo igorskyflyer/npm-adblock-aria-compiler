@@ -34,4 +34,10 @@ export const AriaPlaceholderData: Record<string, IAriaPlaceholder> = {
     pattern: generatePattern('Last modified', ['date', 'now']),
     value: '',
   },
+  description: {
+    label: 'Description',
+    alias: ['description', 'about'],
+    pattern: generatePattern('Description', ['description', 'about']),
+    value: '',
+  },
 }
