@@ -6,4 +6,5 @@ export interface IAriaPlaceholders {
   filename?: IAriaPlaceholder
   entries?: IAriaPlaceholder
   lastModified?: IAriaPlaceholder
+  description?: IAriaPlaceholder
 }
