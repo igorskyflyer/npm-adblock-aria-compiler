@@ -4,6 +4,7 @@ import { AriaTemplatePath } from './AriaTemplatePath.mjs'
 
 export function parseMeta(templatePath: AriaTemplatePath): AriaMeta | null {
   const meta: AriaMeta = {}
+  console.log(templatePath)
 
   if (typeof templatePath !== 'string') {
     return null
@@ -23,6 +24,8 @@ export function parseMeta(templatePath: AriaTemplatePath): AriaMeta | null {
     meta.title = json.title ?? ''
     meta.description = json.description ?? ''
     meta.versioning = json.versioning ?? 'auto'
+
+    console.log(`Found metafile at "${metaPath}".`)
   } catch {
     return null
   }
