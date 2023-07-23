@@ -31,3 +31,25 @@ function fileExists(filePath: string): boolean {
 
   return true
 }
+
+function getMetaPath(filterPath: string): string | null {
+  if (typeof filterPath !== 'string') {
+    return null
+  }
+
+  return filterPath.replace(/(.*)\..*$/i, '$1.meta.json')
+}
+
+function hasMeta(filterPath: string): boolean {
+  if (typeof filterPath !== 'string') {
+    return false
+  }
+
+  const metaFile: string | null = getMetaPath(filterPath)
+
+  if (metaFile != null) {
+    return fileExists(metaFile)
+  }
+
+  return false
+}
