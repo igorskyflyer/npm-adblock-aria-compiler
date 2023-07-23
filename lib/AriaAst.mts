@@ -1,6 +1,6 @@
 import { NormalizedString } from '@igor.dvlpr/normalized-string'
 import { PathLike, accessSync, readFileSync, writeFileSync } from 'node:fs'
-import { join, parse } from 'node:path'
+import { join, parse, resolve } from 'node:path'
 import { AriaNode } from './AriaNode.mjs'
 import { AriaNodeType } from './AriaNodeType.mjs'
 import { AriaState } from './AriaState.mjs'
@@ -17,6 +17,7 @@ import { countRules } from '@igor.dvlpr/adblock-filter-counter'
 import { AriaPlaceholderData } from './AriaPlaceholderData.mjs'
 import { AriaMeta } from './AriaMeta.mjs'
 import { parseMeta } from './AriaMetaUtils.mjs'
+import { AriaTemplatePath } from './AriaTemplatePath.mjs'
 
 type AriaAstPath = `${string}.json`
 
@@ -24,6 +25,7 @@ export class AriaAst {
   #nodes: AriaNode[]
   #nodesCount: number
   #state: AriaState
+  templatePath: AriaTemplatePath
 
   versioning: AriaVersioning
 
@@ -31,7 +33,7 @@ export class AriaAst {
     this.#nodesCount = 0
     this.#nodes = []
     this.#state = { imports: 0, exports: 0 }
-
+    this.templatePath = '' as AriaTemplatePath
     this.versioning = 'semver'
   }
 
@@ -104,7 +106,6 @@ export class AriaAst {
   public compile(): boolean {
     if (this.#nodesCount === 0) return true
 
-    const meta: AriaMeta = {}
     let contents = ''
 
     for (let i = 0; i < this.#nodesCount; i++) {
@@ -128,19 +129,14 @@ export class AriaAst {
 
           try {
             if (path && this.#pathExists(path)) {
-              const headerMeta: AriaMeta | null = parseMeta(path)
               let header: string = new NormalizedString(readFileSync(path).toString()).value
               header = injectVersionPlaceholder(header)
               contents += this.#block(header)
-
-              meta.title = headerMeta?.title
-              meta.description = headerMeta?.description
-              meta.versioning = headerMeta?.versioning
             } else {
-              throw new Error(`Couldn't read the header file located at: "${path}".`)
+              throw new Error(`Couldn't read the header file located at: "${resolve(path!)}".`)
             }
           } catch {
-            throw new Error(`Couldn't read the header file located at: "${path}".`)
+            throw new Error(`Couldn't read the header file located at: "${resolve(path!)}".`)
           }
 
           break
@@ -170,16 +166,17 @@ export class AriaAst {
             if (path) {
               const filename: string = parse(path).name
               const placeholders: IAriaPlaceholders = AriaPlaceholderData
+              const meta: AriaMeta | null = parseMeta(this.templatePath)
 
-              placeholders.filename!.value = meta.title || filename
+              placeholders.filename!.value = meta?.title || filename
               placeholders.version!.value = ''
               placeholders.entries!.value = 0
-              placeholders.description!.value = meta.description! ?? ''
+              placeholders.description!.value = meta?.description! ?? ''
               placeholders.lastModified!.value = getCurrentISOTime()
 
               if (this.#pathExists(path)) {
                 const oldFile: string = new NormalizedString(readFileSync(path).toString()).value
-                const oldVersion: string = constructVersion(oldFile, meta.versioning || this.versioning)
+                const oldVersion: string = constructVersion(oldFile, meta?.versioning || this.versioning)
                 placeholders.version!.value = oldVersion
               } else {
                 contents = transformHeader(contents, this.versioning)
