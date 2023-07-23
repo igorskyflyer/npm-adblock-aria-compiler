@@ -276,6 +276,7 @@ export class Aria {
 
     try {
       this.#log(`Resolved filepath: ${resolve(templatePath)}`)
+      this.#ast.templatePath = templatePath
       const template: Buffer = readFileSync(templatePath)
       const contents: string = template.toString()
       return this.parse(contents)
