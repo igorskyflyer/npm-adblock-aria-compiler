@@ -4,7 +4,11 @@ import { AriaMeta } from './AriaMeta.mjs'
 export function parseMeta(filterPath: string): AriaMeta | null {
   const meta: AriaMeta = {}
 
-  if (typeof filterPath !== 'string' || !fileExists(filterPath)) {
+  if (typeof filterPath !== 'string') {
+    return null
+  }
+
+  if (!hasMeta(filterPath)) {
     return null
   }
 
@@ -17,7 +21,9 @@ export function parseMeta(filterPath: string): AriaMeta | null {
     meta.title = json.title ?? ''
     meta.description = json.description ?? ''
     meta.versioning = json.versioning ?? 'auto'
-  } catch {}
+  } catch {
+    return null
+  }
 
   return meta
 }
