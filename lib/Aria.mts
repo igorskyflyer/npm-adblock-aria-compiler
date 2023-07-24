@@ -271,7 +271,7 @@ export class Aria {
     }
 
     try {
-      AriaLog.log(`Resolved filepath: ${resolve(templatePath)}`)
+      AriaLog.log(`Resolved template: ${resolve(templatePath)}`)
 
       const metaPath: string = getMetaPath(templatePath) as string
 
@@ -283,7 +283,7 @@ export class Aria {
 
         AriaLog.log(
           chalk.dim(
-            `WARNING: meta file could not be resolved, if necessary, create a file named ${
+            `${chalk.bgYellow('WARNING')}: meta file could not be resolved, if necessary, create a file named ${
               parse(metaPath).base
             } for extra customizability of the output filter file.`
           ),
