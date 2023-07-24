@@ -318,7 +318,7 @@ function handleUncaughtException(error: Error) {
   if (error instanceof AriaError) {
     AriaLog.textError(error.formatError())
   } else {
-    console.error(error)
+    AriaLog.textError(error)
   }
 
   process.exit(1)
