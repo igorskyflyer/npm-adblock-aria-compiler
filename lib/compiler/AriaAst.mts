@@ -159,7 +159,7 @@ export class AriaAst {
               const filter: string = new NormalizedString(readFileSync(path).toString()).value
               contents += filter
             } else {
-              throw new Error(`Couldn't read the filter file located at: "${path}".`)
+              throw AriaLog.ariaError(AriaException.filterNotFound)
             }
           } catch {
             throw new Error(`Couldn't read the filter file located at: "${path}".`)
