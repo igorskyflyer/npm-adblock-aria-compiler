@@ -11,6 +11,7 @@ import { Aria } from '../lib/compiler/Aria.mjs'
 import { AriaAstParsed } from '../lib/models/AriaAstParsed.mjs'
 import { AriaCliArgs } from '../lib/models/AriaCliArgs.mjs'
 import { AriaLog } from '../lib/utils/AriaLog.mjs'
+import { isArgsEmpty } from '../lib/utils/AriaCliUtil.mjs'
 
 const ariaVersion: string = '1.0.0-alpha (ae898ba)'
 const program = new Command()
@@ -45,10 +46,14 @@ if (cliArgs.api) {
 }
 
 if (typeof cliArgs.file !== 'string' || cliArgs.file.length === 0) {
-  AriaLog.textError('missing template path.')
-  AriaLog.newline()
-  program.help()
-  exit(1)
+  if (isArgsEmpty(cliArgs)) {
+    program.help()
+    exit(0)
+  } else {
+    AriaLog.textError('missing template path.')
+    AriaLog.newline()
+    exit(1)
+  }
 }
 
 const aria: Aria = new Aria({
