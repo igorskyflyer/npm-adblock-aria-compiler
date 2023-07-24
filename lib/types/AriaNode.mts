@@ -1,4 +1,4 @@
-import { AriaNodeType } from '../AriaNodeType.mjs'
+import { AriaNodeType } from './AriaNodeType.mjs'
 
 export type AriaNode = {
   type: AriaNodeType
