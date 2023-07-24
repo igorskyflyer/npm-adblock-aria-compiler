@@ -37,7 +37,7 @@ export class Aria {
     this.#lineCursor = 0
     this.#lineLength = 0
     this.#ast = new AriaAst()
-    this.#ast.versioning = options.versioning ?? 'semver'
+    this.#ast.versioning = options.versioning ?? 'auto'
 
     AriaLog.shouldLog = options.shouldLog ?? false
   }
