@@ -9,7 +9,7 @@ import figlet from 'figlet'
 import { exit } from 'process'
 import { Aria } from '../lib/compiler/Aria.mjs'
 import { AriaAstParsed } from '../lib/models/AriaAstParsed.mjs'
-import { AriaCliArgs } from '../lib/models/AriaCliArgs.mjs'
+import { IAriaCliArgs } from '../lib/models/IAriaCliArgs.mjs'
 import { AriaLog } from '../lib/utils/AriaLog.mjs'
 import { isArgsEmpty } from '../lib/utils/AriaCliUtil.mjs'
 
@@ -35,7 +35,7 @@ program
   )
   .parse(process.argv)
 
-const cliArgs: AriaCliArgs = program.opts()
+const cliArgs: IAriaCliArgs = program.opts()
 
 if (cliArgs.api) {
   AriaLog.text(chalk.italic('📘 Opening the official documentation...'))
