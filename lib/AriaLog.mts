@@ -23,6 +23,10 @@ export class AriaLog {
     console.error(`${chalk.bgRedBright(' ERROR ')} ${text}`)
   }
 
+  static textSuccess(text: string): void {
+    console.log(`${chalk.bgGreenBright(' SUCCESS ')} ${text}`)
+  }
+
   static logNewline(): void {
     this.log()
   }
