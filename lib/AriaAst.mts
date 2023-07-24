@@ -35,7 +35,7 @@ export class AriaAst {
     this.#nodes = []
     this.#state = { imports: 0, exports: 0 }
     this.templatePath = '' as AriaTemplatePath
-    this.versioning = 'semver'
+    this.versioning = 'auto'
     this.meta = { description: '', title: '', versioning: 'auto' }
   }
 
