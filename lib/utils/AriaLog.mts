@@ -14,16 +14,16 @@ export class AriaLog {
     console.log(text)
   }
 
-  static textWarning(text: any): void {
-    console.warn(`${chalk.bgYellowBright(' WARNING ')} ${chalk.dim(text)}`)
+  static textWarning(message: any): void {
+    console.warn(`${chalk.bgYellowBright(' WARNING ')} ${chalk.dim(message)}`)
   }
 
-  static textError(text: any): void {
-    console.error(`${chalk.bgRedBright(' ERROR ')} ${text}`)
+  static textError(message: any): void {
+    console.error(`${chalk.bgRedBright(' ERROR ')} ${message}`)
   }
 
-  static textSuccess(text: any): void {
-    console.log(`${chalk.bgGreen(' SUCCESS ')} ${text}`)
+  static textSuccess(message: any): void {
+    console.log(`${chalk.bgGreen(' SUCCESS ')} ${message}`)
   }
 
   static newline(): void {
