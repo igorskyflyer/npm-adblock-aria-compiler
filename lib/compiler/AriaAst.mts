@@ -2,7 +2,7 @@ import { countRules } from '@igor.dvlpr/adblock-filter-counter'
 import { NormalizedString } from '@igor.dvlpr/normalized-string'
 import { PathLike, accessSync, readFileSync, writeFileSync } from 'node:fs'
 import { join, parse, resolve } from 'node:path'
-import { AriaMeta } from '../models/IAriaMeta.mjs'
+import { IAriaMeta } from '../models/IAriaMeta.mjs'
 import { AriaAstPath } from '../models/AriaAstPath.mjs'
 import { AriaNode } from '../models/AriaNode.mjs'
 import { AriaNodeType } from '../models/AriaNodeType.mjs'
@@ -25,7 +25,7 @@ export class AriaAst {
   #nodesCount: number
   #state: AriaState
   templatePath: AriaTemplatePath
-  meta: AriaMeta
+  meta: IAriaMeta
 
   versioning: AriaVersioning
 
