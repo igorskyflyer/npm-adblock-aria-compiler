@@ -11,8 +11,8 @@ export class AriaLog {
     }
   }
 
-  static text(message: any = ''): void {
-    console.log(message)
+  static text(text: any = ''): void {
+    console.log(text)
   }
 
   static textWarning(text: string): void {
