@@ -162,7 +162,7 @@ export class AriaAst {
               throw AriaLog.ariaError(AriaException.filterNotFound, -1, path)
             }
           } catch {
-            throw new Error(`Couldn't read the filter file located at: "${path}".`)
+            throw AriaLog.ariaError(AriaException.filterRead, -1, path)
           }
 
           break
