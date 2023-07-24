@@ -8,7 +8,7 @@ import { AriaException } from '../errors/AriaException.mjs'
 import { AriaExceptionInfo } from '../errors/AriaExceptionInfo.mjs'
 import { IAriaMeta } from '../models/IAriaMeta.mjs'
 import { getMetaPath, hasMeta, parseMeta } from '../utils/AriaMetaUtils.mjs'
-import { AriaNode } from '../models/AriaNode.mjs'
+import { IAriaNode } from '../models/IAriaNode.mjs'
 import { AriaNodeType } from '../models/AriaNodeType.mjs'
 import { AriaTemplatePath } from '../models/AriaTemplatePath.mjs'
 import { IAriaOptions } from '../models/IAriaOptions.mjs'
@@ -46,8 +46,8 @@ export class Aria {
     return new AriaError(info, this.#lineCursor, args)
   }
 
-  #node(type: AriaNodeType, value?: string, flags?: string[]): AriaNode {
-    const node: AriaNode = {
+  #node(type: AriaNodeType, value?: string, flags?: string[]): IAriaNode {
+    const node: IAriaNode = {
       type,
       line: this.#lineCursor,
     }
