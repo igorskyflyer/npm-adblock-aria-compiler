@@ -45,6 +45,8 @@ if (cliArgs.api) {
 }
 
 if (typeof cliArgs.file !== 'string' || cliArgs.file.length === 0) {
+  AriaLog.textError('missing template path.')
+  AriaLog.newline()
   program.help()
   exit(1)
 }
