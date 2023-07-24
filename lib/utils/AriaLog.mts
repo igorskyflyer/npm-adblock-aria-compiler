@@ -32,6 +32,10 @@ export class AriaLog {
     console.log()
   }
 
+  static logNewline(): void {
+    this.log()
+  }
+
   static ariaError(info: IAriaExceptionInfo, lineCursor: number = -1, ...args: any[]): AriaError {
     return new AriaError(info, lineCursor, args)
   }
