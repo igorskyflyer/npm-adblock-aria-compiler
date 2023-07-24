@@ -1,7 +1,7 @@
 import { Keppo } from '@igor.dvlpr/keppo'
 import { AriaPlaceholderData } from './AriaPlaceholderData.mjs'
-import { IAriaPlaceholders } from './IAriaPlaceholders.mjs'
-import { IAriaPlaceholder } from './IAriaPlaceholder.mjs'
+import { IAriaPlaceholders } from './types/IAriaPlaceholders.mjs'
+import { IAriaPlaceholder } from './types/IAriaPlaceholder.mjs'
 
 type HeaderVersion = Keppo | null
 
