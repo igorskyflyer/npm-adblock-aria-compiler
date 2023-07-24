@@ -19,6 +19,7 @@ import {
   replacePlaceholders,
   transformHeader,
 } from '../utils/AriaVersioning.mjs'
+import { AriaException } from '../errors/AriaException.mjs'
 
 export class AriaAst {
   #nodes: IAriaNode[]
@@ -141,7 +142,7 @@ export class AriaAst {
               header = injectVersionPlaceholder(header)
               contents += this.#block(header)
             } else {
-              throw new Error(`Couldn't read the header file located at: "${resolve(path!)}".`)
+              throw AriaLog.ariaError(AriaException.headerRead)
             }
           } catch {
             throw new Error(`Couldn't read the header file located at: "${resolve(path!)}".`)
