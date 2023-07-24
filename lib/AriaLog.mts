@@ -1,3 +1,5 @@
+import chalk from 'chalk'
+
 type LogLevel = 'log' | 'warn' | 'error' | 'info'
 
 export class AriaLog {
@@ -11,6 +13,10 @@ export class AriaLog {
 
   static text(message: any = ''): void {
     console.log(message)
+  }
+
+  static textWarning(message: string): void {
+    console.warn(`${chalk.bgYellowBright(' WARNING ')} ${chalk.dim(message)}`)
   }
 
   static logNewline(): void {
