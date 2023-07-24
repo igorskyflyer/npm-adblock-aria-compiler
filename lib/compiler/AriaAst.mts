@@ -1,9 +1,9 @@
 import { NormalizedString } from '@igor.dvlpr/normalized-string'
 import { PathLike, accessSync, readFileSync, writeFileSync } from 'node:fs'
 import { join, parse, resolve } from 'node:path'
-import { AriaNode } from './types/AriaNode.mjs'
-import { AriaNodeType } from './types/AriaNodeType.mjs'
-import { AriaState } from './types/AriaState.mjs'
+import { AriaNode } from '../types/AriaNode.mjs'
+import { AriaNodeType } from '../types/AriaNodeType.mjs'
+import { AriaState } from '../types/AriaState.mjs'
 import {
   AriaVersioning,
   constructVersion,
@@ -11,13 +11,13 @@ import {
   injectVersionPlaceholder,
   replacePlaceholders,
   transformHeader,
-} from './AriaVersioning.mjs'
-import { IAriaPlaceholders } from './IAriaPlaceholders.mjs'
+} from '../AriaVersioning.mjs'
+import { IAriaPlaceholders } from '../IAriaPlaceholders.mjs'
 import { countRules } from '@igor.dvlpr/adblock-filter-counter'
-import { AriaPlaceholderData } from './AriaPlaceholderData.mjs'
-import { AriaMeta } from './meta/AriaMeta.mjs'
-import { AriaTemplatePath } from './types/AriaTemplatePath.mjs'
-import { AriaLog } from './AriaLog.mjs'
+import { AriaPlaceholderData } from '../AriaPlaceholderData.mjs'
+import { AriaMeta } from '../meta/AriaMeta.mjs'
+import { AriaTemplatePath } from '../types/AriaTemplatePath.mjs'
+import { AriaLog } from '../AriaLog.mjs'
 
 type AriaAstPath = `${string}.json`
 
