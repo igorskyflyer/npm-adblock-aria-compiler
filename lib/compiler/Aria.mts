@@ -42,10 +42,6 @@ export class Aria {
     AriaLog.shouldLog = options.shouldLog ?? false
   }
 
-  #ariaError(info: IAriaExceptionInfo, ...args: any[]): AriaError {
-    return new AriaError(info, this.#lineCursor, args)
-  }
-
   #node(type: AriaNodeType, value?: string, flags?: string[]): IAriaNode {
     const node: IAriaNode = {
       type,
@@ -88,7 +84,7 @@ export class Aria {
 
     while (this.#read()) {
       if (closedString) {
-        throw this.#ariaError(AriaException.extraneousInput, path)
+        throw AriaLog.ariaError(AriaException.extraneousInput, this.#lineCursor, path)
       }
 
       if (!shouldCapture) {
@@ -96,7 +92,7 @@ export class Aria {
         if (this.#char === "'") {
           shouldCapture = true
         } else {
-          throw this.#ariaError(AriaException.importPath, this.#char)
+          throw AriaLog.ariaError(AriaException.importPath, this.#lineCursor, this.#char)
         }
       } else {
         if (this.#char === "'") {
@@ -109,7 +105,7 @@ export class Aria {
     }
 
     if (!closedString) {
-      throw this.#ariaError(AriaException.unterminatedPath)
+      throw AriaLog.ariaError(AriaException.unterminatedPath, this.#lineCursor)
     }
 
     return path
@@ -245,7 +241,7 @@ export class Aria {
 
         if (this.#char === AriaOperators.export) {
           if (this.#ast.state.exports === 1) {
-            throw this.#ariaError(AriaException.oneExportOnly, this.#lineCursor)
+            throw AriaLog.ariaError(AriaException.oneExportOnly, this.#lineCursor)
           }
 
           this.#parseExport()
@@ -263,11 +259,11 @@ export class Aria {
 
   parseFile(templatePath: AriaTemplatePath): AriaAst | undefined {
     if (typeof templatePath !== 'string') {
-      throw this.#ariaError(AriaException.noTemplate)
+      throw AriaLog.ariaError(AriaException.noTemplate, this.#lineCursor)
     }
 
     if (!this.#pathExists(templatePath)) {
-      throw this.#ariaError(AriaException.noTemplate)
+      throw AriaLog.ariaError(AriaException.noTemplate, this.#lineCursor)
     }
 
     try {
