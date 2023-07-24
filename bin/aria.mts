@@ -9,14 +9,16 @@ import figlet from 'figlet'
 import { exit } from 'process'
 import { Aria } from '../lib/Aria.mjs'
 import { AriaAst } from '../lib/AriaAst.mjs'
+import { AriaTemplatePath } from '../lib/AriaTemplatePath.mjs'
+import { AriaLog } from '../lib/AriaLog.mjs'
 
 type AriaAstParsed = AriaAst | undefined
 
 const ariaVersion: string = '1.0.0-alpha (<commit hash>)'
 const program = new Command()
 
-console.log(chalk.bold(figlet.textSync('ARIA', 'Slant')))
-console.log(chalk.dim.italic(`v${ariaVersion}\n\n`))
+AriaLog.text(chalk.bold(figlet.textSync('ARIA', 'Slant')))
+AriaLog.text(chalk.dim.italic(`v${ariaVersion}\n\n`))
 
 program
   .version(ariaVersion, '--version')
@@ -40,9 +42,14 @@ program
 const cliArgs = program.opts()
 
 if (cliArgs.api) {
-  console.log(chalk.italic('📘 Opening the official documentation...'))
+  AriaLog.text(chalk.italic('📘 Opening the official documentation...'))
   execSync(`start "" https://github.com/igorskyflyer/adblock-aria-compiler#readme`)
   exit(0)
+}
+
+if (typeof cliArgs.file !== 'string' || cliArgs.file.length === 0) {
+  program.help()
+  exit(1)
 }
 
 const aria: Aria = new Aria({
@@ -50,11 +57,11 @@ const aria: Aria = new Aria({
   versioning: cliArgs.versioning ?? 'auto',
 })
 
-const ast: AriaAstParsed = aria.parseFile(cliArgs.file)
+const ast: AriaAstParsed = aria.parseFile(cliArgs.file as AriaTemplatePath)
 
 if (ast) {
   if (cliArgs.dry) {
-    console.log(ast.nodes)
+    AriaLog.text(ast.nodes)
   } else {
     ast.compile()
   }
