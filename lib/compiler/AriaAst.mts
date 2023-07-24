@@ -3,7 +3,7 @@ import { NormalizedString } from '@igor.dvlpr/normalized-string'
 import { PathLike, accessSync, readFileSync, writeFileSync } from 'node:fs'
 import { join, parse, resolve } from 'node:path'
 import { AriaAstPath } from '../models/AriaAstPath.mjs'
-import { AriaNode } from '../models/AriaNode.mjs'
+import { IAriaNode } from '../models/IAriaNode.mjs'
 import { AriaNodeType } from '../models/AriaNodeType.mjs'
 import { AriaTemplatePath } from '../models/AriaTemplatePath.mjs'
 import { IAriaMeta } from '../models/IAriaMeta.mjs'
@@ -21,7 +21,7 @@ import {
 } from '../utils/AriaVersioning.mjs'
 
 export class AriaAst {
-  #nodes: AriaNode[]
+  #nodes: IAriaNode[]
   #nodesCount: number
   #state: IAriaState
   templatePath: AriaTemplatePath
@@ -66,7 +66,7 @@ export class AriaAst {
     return this.#nodesCount
   }
 
-  get nodes(): AriaNode[] {
+  get nodes(): IAriaNode[] {
     return this.#nodes
   }
 
@@ -74,7 +74,7 @@ export class AriaAst {
     return this.#state
   }
 
-  public addNode(node: AriaNode): void {
+  public addNode(node: IAriaNode): void {
     if (node.type === AriaNodeType.nodeImport) {
       this.#state.imports++
     } else if (node.type === AriaNodeType.nodeExport) {
