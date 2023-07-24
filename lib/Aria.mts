@@ -14,6 +14,7 @@ import { IAriaOptions } from './IAriaOptions.mjs'
 import { AriaError } from './errors/AriaError.mjs'
 import { AriaException } from './errors/AriaException.mjs'
 import { AriaExceptionInfo } from './errors/AriaExceptionInfo.mjs'
+import chalk from 'chalk'
 
 export class Aria {
   #source: string
@@ -283,9 +284,11 @@ export class Aria {
         AriaLog.logNewline()
 
         AriaLog.log(
-          `WARNING: meta file could not be resolved, if necessary, create a file named ${
-            parse(metaPath).base
-          } for extra customizability of the output filter file.`,
+          chalk.dim(
+            `WARNING: meta file could not be resolved, if necessary, create a file named ${
+              parse(metaPath).base
+            } for extra customizability of the output filter file.`
+          ),
           'warn'
         )
       }
