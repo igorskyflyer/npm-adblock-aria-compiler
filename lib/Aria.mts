@@ -18,8 +18,6 @@ import chalk from 'chalk'
 
 export class Aria {
   #source: string
-  #shouldLog: boolean
-
   // global
   #line: string
   #char: string
@@ -32,8 +30,6 @@ export class Aria {
   #ast: AriaAst
 
   constructor(options: IAriaOptions) {
-    this.#shouldLog = options.shouldLog ?? false
-
     this.#source = ''
     this.#line = ''
     this.#char = ''
@@ -42,6 +38,8 @@ export class Aria {
     this.#lineLength = 0
     this.#ast = new AriaAst()
     this.#ast.versioning = options.versioning ?? 'semver'
+
+    AriaLog.shouldLog = options.shouldLog ?? false
   }
 
   #ariaError(info: AriaExceptionInfo, ...args: any[]): AriaError {
