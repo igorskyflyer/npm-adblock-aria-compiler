@@ -32,7 +32,7 @@ export class AriaLog {
     console.log()
   }
 
-  static ariaError(info: IAriaExceptionInfo, lineCursor: number, ...args: any[]): AriaError {
+  static ariaError(info: IAriaExceptionInfo, lineCursor: number = -1, ...args: any[]): AriaError {
     return new AriaError(info, lineCursor, args)
   }
 }
