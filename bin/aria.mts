@@ -12,7 +12,7 @@ import { AriaAstParsed } from '../lib/models/AriaAstParsed.mjs'
 import { AriaCliArgs } from '../lib/models/AriaCliArgs.mjs'
 import { AriaLog } from '../lib/utils/AriaLog.mjs'
 
-const ariaVersion: string = '1.0.0-alpha (68f3c94)'
+const ariaVersion: string = '1.0.0-alpha (ae898ba)'
 const program = new Command()
 
 AriaLog.text(chalk.bold(figlet.textSync('ARIA', 'Slant')))
