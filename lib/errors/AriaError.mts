@@ -17,9 +17,13 @@ export class AriaError extends Error {
   }
 
   formatError(): string {
-    return zing(
-      `${chalk.italic.bold(`${this.#name}${this.#info.id}`)} at line ${this.#line + 1}: ${this.#info.message}`,
-      ...this.#args
-    )
+    if (this.#line > -1) {
+      return zing(
+        `${chalk.italic.bold(`${this.#name}${this.#info.id}`)} at line ${this.#line + 1}: ${this.#info.message}`,
+        ...this.#args
+      )
+    } else {
+      return zing(`${chalk.italic.bold(`${this.#name}${this.#info.id}`)}: ${this.#info.message}`, ...this.#args)
+    }
   }
 }
