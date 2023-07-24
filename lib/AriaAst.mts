@@ -17,6 +17,7 @@ import { countRules } from '@igor.dvlpr/adblock-filter-counter'
 import { AriaPlaceholderData } from './AriaPlaceholderData.mjs'
 import { AriaMeta } from './AriaMeta.mjs'
 import { AriaTemplatePath } from './AriaTemplatePath.mjs'
+import { AriaLog } from './AriaLog.mjs'
 
 type AriaAstPath = `${string}.json`
 
@@ -187,7 +188,7 @@ export class AriaAst {
               contents = replacePlaceholders(contents, placeholders)
               writeFileSync(path, new NormalizedString(contents).value, { encoding: 'utf8', flag: 'w' })
 
-              console.log(`✅ Successfully written ${placeholders.entries?.value} rules to ${filename}!`)
+              AriaLog.text(`✅ Successfully written ${placeholders.entries?.value} rules to ${filename}!`)
             } else {
               throw new Error(`Invalid export path!`)
             }
