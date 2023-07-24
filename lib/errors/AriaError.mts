@@ -1,13 +1,13 @@
 import { zing } from '@igor.dvlpr/zing'
-import { AriaExceptionInfo } from './AriaExceptionInfo.mjs'
+import { IAriaExceptionInfo } from './IAriaExceptionInfo.mjs'
 
 export class AriaError extends Error {
   #name: string
   #args: any[]
-  #info: AriaExceptionInfo
+  #info: IAriaExceptionInfo
   #line: number
 
-  constructor(info: AriaExceptionInfo, line: number, ...args: any[]) {
+  constructor(info: IAriaExceptionInfo, line: number, ...args: any[]) {
     super(info.message)
     this.#name = 'AR'
     this.#args = args
