@@ -12,7 +12,7 @@ import {
   replacePlaceholders,
   transformHeader,
 } from '../AriaVersioning.mjs'
-import { IAriaPlaceholders } from '../IAriaPlaceholders.mjs'
+import { IAriaPlaceholders } from '../types/IAriaPlaceholders.mjs'
 import { countRules } from '@igor.dvlpr/adblock-filter-counter'
 import { AriaPlaceholderData } from '../AriaPlaceholderData.mjs'
 import { AriaMeta } from '../meta/AriaMeta.mjs'
