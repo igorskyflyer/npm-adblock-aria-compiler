@@ -1,4 +1,6 @@
-export const AriaException = {
+import { IAriaExceptionInfo } from './IAriaExceptionInfo.mjs'
+
+export const AriaException: Record<string, IAriaExceptionInfo> = {
   native: { id: '000', message: '{0}' },
   noTemplate: { id: '001', message: 'no valid template path provided' },
   extraneousInput: { id: '002', message: 'extraneous input found after the import path "{0}"' },
