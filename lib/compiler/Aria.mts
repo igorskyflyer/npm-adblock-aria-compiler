@@ -5,7 +5,7 @@ import { resolve } from 'node:path'
 import { parse } from 'path'
 import { AriaError } from '../errors/AriaError.mjs'
 import { AriaException } from '../errors/AriaException.mjs'
-import { AriaExceptionInfo } from '../errors/AriaExceptionInfo.mjs'
+import { IAriaExceptionInfo } from '../errors/IAriaExceptionInfo.mjs'
 import { IAriaMeta } from '../models/IAriaMeta.mjs'
 import { getMetaPath, hasMeta, parseMeta } from '../utils/AriaMetaUtils.mjs'
 import { IAriaNode } from '../models/IAriaNode.mjs'
@@ -42,7 +42,7 @@ export class Aria {
     AriaLog.shouldLog = options.shouldLog ?? false
   }
 
-  #ariaError(info: AriaExceptionInfo, ...args: any[]): AriaError {
+  #ariaError(info: IAriaExceptionInfo, ...args: any[]): AriaError {
     return new AriaError(info, this.#lineCursor, args)
   }
 
