@@ -27,7 +27,7 @@ export class AriaLog {
     console.log(`${chalk.bgGreenBright(' SUCCESS ')} ${text}`)
   }
 
-  static logNewline(): void {
+  static newline(): void {
     this.log()
   }
 }
