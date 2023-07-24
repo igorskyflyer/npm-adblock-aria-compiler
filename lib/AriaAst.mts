@@ -110,6 +110,7 @@ export class AriaAst {
 
     if (this.#state.exports === 0) {
       AriaLog.textError("the template doesn't contain a single, valid file export path.")
+      AriaLog.newline()
       AriaLog.text('Aborting the compilation...')
       return true
     }
