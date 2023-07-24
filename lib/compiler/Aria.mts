@@ -299,12 +299,7 @@ export class Aria {
 
       return this.#ast
     } catch (e: any) {
-      if (e instanceof AriaError) {
-        throw e
-      } else {
-        AriaLog.log(e)
-        throw new AriaError({ id: '', message: '' }, 0, [1, 1])
-      }
+      throw e
     }
   }
 }
