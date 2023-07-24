@@ -108,6 +108,12 @@ export class AriaAst {
   public compile(): boolean {
     if (this.#nodesCount === 0) return true
 
+    if (this.#state.exports === 0) {
+      AriaLog.textError("the template doesn't contain a single, valid file export path.")
+      AriaLog.text('Aborting the compilation...')
+      return true
+    }
+
     let contents = ''
 
     for (let i = 0; i < this.#nodesCount; i++) {
