@@ -15,7 +15,7 @@ export const AriaException: Record<string, IAriaExceptionInfo> = {
   },
   importPath: {
     id: '003',
-    message: `expected a string path for import but found "{0}...".`,
+    message: 'expected a string path for import but found "{0}"',
   },
   unterminatedPath: {
     id: '004',
