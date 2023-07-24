@@ -8,7 +8,7 @@ import { Command, Option } from 'commander'
 import figlet from 'figlet'
 import { exit } from 'process'
 import { Aria } from '../lib/compiler/Aria.mjs'
-import { AriaAst } from '../lib/AriaAst.mjs'
+import { AriaAst } from '../lib/compiler/AriaAst.mjs'
 import { AriaTemplatePath } from '../lib/types/AriaTemplatePath.mjs'
 import { AriaLog } from '../lib/AriaLog.mjs'
 
