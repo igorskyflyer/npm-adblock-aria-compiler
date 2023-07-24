@@ -54,7 +54,7 @@ if (typeof cliArgs.file !== 'string' || cliArgs.file.length === 0) {
 }
 
 const aria: Aria = new Aria({
-  shouldLog: !cliArgs.quiet ?? true,
+  shouldLog: cliArgs.log ?? false,
   versioning: cliArgs.versioning ?? 'auto',
 })
 
