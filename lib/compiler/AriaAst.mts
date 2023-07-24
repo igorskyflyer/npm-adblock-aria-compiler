@@ -11,13 +11,13 @@ import {
   injectVersionPlaceholder,
   replacePlaceholders,
   transformHeader,
-} from '../AriaVersioning.mjs'
+} from '../utils/AriaVersioning.mjs'
 import { IAriaPlaceholders } from '../types/IAriaPlaceholders.mjs'
 import { countRules } from '@igor.dvlpr/adblock-filter-counter'
 import { AriaPlaceholderData } from '../AriaPlaceholderData.mjs'
 import { AriaMeta } from '../meta/AriaMeta.mjs'
 import { AriaTemplatePath } from '../types/AriaTemplatePath.mjs'
-import { AriaLog } from '../AriaLog.mjs'
+import { AriaLog } from '../utils/AriaLog.mjs'
 
 type AriaAstPath = `${string}.json`
 
