@@ -8,11 +8,9 @@ import { Command, Option } from 'commander'
 import figlet from 'figlet'
 import { exit } from 'process'
 import { Aria } from '../lib/compiler/Aria.mjs'
-import { AriaAst } from '../lib/compiler/AriaAst.mjs'
 import { AriaTemplatePath } from '../lib/models/AriaTemplatePath.mjs'
 import { AriaLog } from '../lib/utils/AriaLog.mjs'
-
-type AriaAstParsed = AriaAst | undefined
+import { AriaAstParsed } from '../lib/models/AriaAstParsed.mjs'
 
 const ariaVersion: string = '1.0.0-alpha (68f3c94)'
 const program = new Command()
