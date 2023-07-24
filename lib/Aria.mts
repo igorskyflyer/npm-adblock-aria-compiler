@@ -184,7 +184,7 @@ export class Aria {
     AriaLog.log(`Total lines: ${linesCount}`)
     AriaLog.log(`Versioning: ${this.#ast.versioning}`)
 
-    AriaLog.logNewline()
+    AriaLog.newline()
 
     while (this.#lineCursor < linesCount) {
       this.#line = lines[this.#lineCursor]
@@ -197,7 +197,7 @@ export class Aria {
 
       if (this.#line.trim().length === 0) {
         AriaLog.log(`Blank line, skipping...`)
-        AriaLog.logNewline()
+        AriaLog.newline()
         this.#lineCursor++
         continue
       }
@@ -212,7 +212,7 @@ export class Aria {
         if (this.#char === AriaOperators.newLine) {
           this.#ast.addNode(this.#node(AriaNodeType.nodeNewLine))
           AriaLog.log('Found an explicit new line...')
-          AriaLog.logNewline()
+          AriaLog.newline()
           break
         }
 
@@ -220,11 +220,11 @@ export class Aria {
           if (this.#peek() === AriaOperators.comment) {
             this.#parseComment()
             AriaLog.log('Found exported comment...')
-            AriaLog.logNewline()
+            AriaLog.newline()
             break
           } else {
             AriaLog.log(`Found internal comment at char(${this.#cursorInLine}), skipping line...`)
-            AriaLog.logNewline()
+            AriaLog.newline()
             break
           }
         }
@@ -232,14 +232,14 @@ export class Aria {
         if (this.#char === AriaOperators.headerImport) {
           this.#parseHeaderImport()
           AriaLog.log('Found header import operator...')
-          AriaLog.logNewline()
+          AriaLog.newline()
           break
         }
 
         if (this.#char === AriaOperators.import) {
           this.#parseImport()
           AriaLog.log('Found import operator...')
-          AriaLog.logNewline()
+          AriaLog.newline()
           break
         }
 
@@ -250,7 +250,7 @@ export class Aria {
 
           this.#parseExport()
           AriaLog.log('Found export operator...')
-          AriaLog.logNewline()
+          AriaLog.newline()
           break
         }
       }
@@ -279,7 +279,7 @@ export class Aria {
         AriaLog.log(`Resolved meta: ${resolve(metaPath)}`)
       } else {
         AriaLog.log(`Resolved meta: N/A`)
-        AriaLog.logNewline()
+        AriaLog.newline()
         AriaLog.log(
           `${chalk.bgYellowBright(' WARNING ')} ${chalk.dim(
             `meta file could not be resolved, if necessary, create a file named ${chalk.bold.white(
@@ -290,7 +290,7 @@ export class Aria {
         )
       }
 
-      AriaLog.logNewline()
+      AriaLog.newline()
 
       const template: Buffer = readFileSync(templatePath)
       const contents: string = template.toString()
