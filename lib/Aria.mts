@@ -271,22 +271,21 @@ export class Aria {
     }
 
     try {
-      AriaLog.log(`Resolved template: ${resolve(templatePath)}`)
+      AriaLog.text(`Resolved template: ${resolve(templatePath)}`)
 
       const metaPath: string = getMetaPath(templatePath) as string
 
       if (hasMeta(templatePath)) {
-        AriaLog.log(`Resolved meta: ${resolve(metaPath)}`)
+        AriaLog.text(`Resolved meta: ${resolve(metaPath)}`)
       } else {
-        AriaLog.log(`Resolved meta: N/A`)
+        AriaLog.text(`Resolved meta: N/A`)
         AriaLog.newline()
-        AriaLog.log(
-          `${chalk.bgYellowBright(' WARNING ')} ${chalk.dim(
+        AriaLog.textWarning(
+          `${chalk.dim(
             `meta file could not be resolved, if necessary, create a file named ${chalk.bold.white(
               parse(metaPath).base
             )} for extra customizability of the output filter file.`
-          )}`,
-          'warn'
+          )}`
         )
       }
 
