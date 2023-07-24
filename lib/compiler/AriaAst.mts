@@ -142,10 +142,10 @@ export class AriaAst {
               header = injectVersionPlaceholder(header)
               contents += this.#block(header)
             } else {
-              throw AriaLog.ariaError(AriaException.headerRead)
+              throw AriaLog.ariaError(AriaException.headerRead, -1, resolve(path!))
             }
           } catch {
-            throw new Error(`Couldn't read the header file located at: "${resolve(path!)}".`)
+            throw AriaLog.ariaError(AriaException.headerRead, -1, resolve(path!))
           }
 
           break
