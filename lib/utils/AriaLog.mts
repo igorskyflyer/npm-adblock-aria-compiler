@@ -27,6 +27,6 @@ export class AriaLog {
   }
 
   static newline(): void {
-    this.log()
+    console.log()
   }
 }
