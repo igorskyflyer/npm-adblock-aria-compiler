@@ -1,5 +1,5 @@
 import { accessSync, readFileSync } from 'node:fs'
-import { AriaMeta } from '../models/AriaMeta.mjs'
+import { AriaMeta } from '../models/IAriaMeta.mjs'
 import { AriaTemplatePath } from '../models/AriaTemplatePath.mjs'
 
 export function parseMeta(templatePath: AriaTemplatePath): AriaMeta | null {
