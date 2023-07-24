@@ -197,7 +197,7 @@ export class AriaAst {
 
               AriaLog.textSuccess(`successfully written ${placeholders.entries?.value} rules to ${filename}!`)
             } else {
-              throw new Error(`Invalid export path!`)
+              throw AriaLog.ariaError(AriaException.exportInvalid)
             }
           } catch {
             throw new Error(`Couldn't export to file "${path}"!`)
