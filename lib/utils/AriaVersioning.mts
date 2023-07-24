@@ -2,8 +2,7 @@ import { Keppo } from '@igor.dvlpr/keppo'
 import { AriaPlaceholderData } from './AriaPlaceholderData.mjs'
 import { IAriaPlaceholders } from '../models/IAriaPlaceholders.mjs'
 import { IAriaPlaceholder } from '../models/IAriaPlaceholder.mjs'
-
-type HeaderVersion = Keppo | null
+import { AriaHeaderVersion } from '../models/AriaHeaderVersion.mjs'
 
 const semVerPattern: RegExp = /! Version:\s*(\d+\.\d+\.\d+)/gim
 const timestampPattern: RegExp = /! Version:\s*(\d+)$/gim
@@ -53,7 +52,7 @@ function hasVersion(header: string): boolean {
   return hasSemVer(header) || hasTimestamp(header) || hasVersionPlaceholder(header)
 }
 
-function getHeaderSemVer(header: string): HeaderVersion {
+function getHeaderSemVer(header: string): AriaHeaderVersion {
   if (typeof header !== 'string') {
     return null
   }
@@ -88,7 +87,7 @@ export function constructVersion(header: string, mode: AriaVersioning): string {
     return Date.now().toString()
   }
 
-  const version: HeaderVersion = getHeaderSemVer(header)
+  const version: AriaHeaderVersion = getHeaderSemVer(header)
 
   if (version === null) {
     return new Keppo(1, 0, 0).toString()
