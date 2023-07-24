@@ -15,8 +15,8 @@ export class AriaLog {
     console.log(message)
   }
 
-  static textWarning(message: string): void {
-    console.warn(`${chalk.bgYellowBright(' WARNING ')} ${chalk.dim(message)}`)
+  static textWarning(text: string): void {
+    console.warn(`${chalk.bgYellowBright(' WARNING ')} ${chalk.dim(text)}`)
   }
 
   static textError(text: string): void {
