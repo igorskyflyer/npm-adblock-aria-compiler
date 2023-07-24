@@ -19,7 +19,7 @@ export class AriaLog {
   }
 
   static textError(message: any): void {
-    console.error(`${chalk.bgHex('#8B0000')(' ERROR ')} ${message}`)
+    console.error(`${chalk.bgHex('#8B0000').bold(' ERROR ')} ${message}`)
   }
 
   static textSuccess(message: any): void {
