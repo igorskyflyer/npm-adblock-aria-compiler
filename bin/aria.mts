@@ -9,7 +9,7 @@ import figlet from 'figlet'
 import { exit } from 'process'
 import { Aria } from '../lib/compiler/Aria.mjs'
 import { AriaAst } from '../lib/compiler/AriaAst.mjs'
-import { AriaTemplatePath } from '../lib/types/AriaTemplatePath.mjs'
+import { AriaTemplatePath } from '../lib/models/AriaTemplatePath.mjs'
 import { AriaLog } from '../lib/utils/AriaLog.mjs'
 
 type AriaAstParsed = AriaAst | undefined
