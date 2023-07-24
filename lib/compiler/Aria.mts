@@ -6,7 +6,7 @@ import { parse } from 'path'
 import { AriaError } from '../errors/AriaError.mjs'
 import { AriaException } from '../errors/AriaException.mjs'
 import { AriaExceptionInfo } from '../errors/AriaExceptionInfo.mjs'
-import { AriaMeta } from '../models/IAriaMeta.mjs'
+import { IAriaMeta } from '../models/IAriaMeta.mjs'
 import { getMetaPath, hasMeta, parseMeta } from '../utils/AriaMetaUtils.mjs'
 import { AriaNode } from '../models/AriaNode.mjs'
 import { AriaNodeType } from '../models/AriaNodeType.mjs'
@@ -296,7 +296,7 @@ export class Aria {
 
       this.parse(contents)
 
-      const meta: AriaMeta | null = parseMeta(templatePath)
+      const meta: IAriaMeta | null = parseMeta(templatePath)
 
       if (meta != null) {
         this.#ast.meta = meta
