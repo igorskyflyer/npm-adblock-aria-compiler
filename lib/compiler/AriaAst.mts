@@ -200,7 +200,7 @@ export class AriaAst {
               throw AriaLog.ariaError(AriaException.exportInvalid)
             }
           } catch {
-            throw new Error(`Couldn't export to file "${path}"!`)
+            throw AriaLog.ariaError(AriaException.exportUnsuccessful, -1, path)
           }
 
           break
