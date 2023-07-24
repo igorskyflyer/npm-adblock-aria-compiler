@@ -1,5 +1,7 @@
 import chalk from 'chalk'
 import { AriaLogLevel } from '../models/AriaLogLevel.mjs'
+import { AriaError } from '../errors/AriaError.mjs'
+import { IAriaExceptionInfo } from '../errors/IAriaExceptionInfo.mjs'
 
 export class AriaLog {
   static shouldLog: boolean = false
@@ -28,5 +30,9 @@ export class AriaLog {
 
   static newline(): void {
     console.log()
+  }
+
+  static ariaError(info: IAriaExceptionInfo, lineCursor: number, ...args: any[]): AriaError {
+    return new AriaError(info, lineCursor, args)
   }
 }
