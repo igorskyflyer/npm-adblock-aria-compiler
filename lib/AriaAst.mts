@@ -1,7 +1,7 @@
 import { NormalizedString } from '@igor.dvlpr/normalized-string'
 import { PathLike, accessSync, readFileSync, writeFileSync } from 'node:fs'
 import { join, parse, resolve } from 'node:path'
-import { AriaNode } from './AriaNode.mjs'
+import { AriaNode } from './types/AriaNode.mjs'
 import { AriaNodeType } from './AriaNodeType.mjs'
 import { AriaState } from './AriaState.mjs'
 import {
