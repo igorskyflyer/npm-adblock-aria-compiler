@@ -1,6 +1,6 @@
 import { accessSync, readFileSync } from 'node:fs'
 import { AriaMeta } from './AriaMeta.mjs'
-import { AriaTemplatePath } from './AriaTemplatePath.mjs'
+import { AriaTemplatePath } from '../AriaTemplatePath.mjs'
 
 export function parseMeta(templatePath: AriaTemplatePath): AriaMeta | null {
   const meta: AriaMeta = {}
