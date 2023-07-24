@@ -2,13 +2,13 @@ import { countRules } from '@igor.dvlpr/adblock-filter-counter'
 import { NormalizedString } from '@igor.dvlpr/normalized-string'
 import { PathLike, accessSync, readFileSync, writeFileSync } from 'node:fs'
 import { join, parse, resolve } from 'node:path'
-import { IAriaMeta } from '../models/IAriaMeta.mjs'
 import { AriaAstPath } from '../models/AriaAstPath.mjs'
 import { AriaNode } from '../models/AriaNode.mjs'
 import { AriaNodeType } from '../models/AriaNodeType.mjs'
-import { AriaState } from '../models/AriaState.mjs'
 import { AriaTemplatePath } from '../models/AriaTemplatePath.mjs'
+import { IAriaMeta } from '../models/IAriaMeta.mjs'
 import { IAriaPlaceholders } from '../models/IAriaPlaceholders.mjs'
+import { IAriaState } from '../models/IAriaState.mjs'
 import { AriaLog } from '../utils/AriaLog.mjs'
 import { AriaPlaceholderData } from '../utils/AriaPlaceholderData.mjs'
 import {
@@ -23,7 +23,7 @@ import {
 export class AriaAst {
   #nodes: AriaNode[]
   #nodesCount: number
-  #state: AriaState
+  #state: IAriaState
   templatePath: AriaTemplatePath
   meta: IAriaMeta
 
@@ -70,7 +70,7 @@ export class AriaAst {
     return this.#nodes
   }
 
-  get state(): AriaState {
+  get state(): IAriaState {
     return this.#state
   }
 
