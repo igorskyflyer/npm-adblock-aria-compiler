@@ -1,5 +1,6 @@
 import { zing } from '@igor.dvlpr/zing'
 import { IAriaExceptionInfo } from './IAriaExceptionInfo.mjs'
+import chalk from 'chalk'
 
 export class AriaError extends Error {
   #name: string
@@ -16,6 +17,9 @@ export class AriaError extends Error {
   }
 
   formatError(): string {
-    return zing(`${this.#name}${this.#info.id} at line ${this.#line + 1}: ${this.#info.message}`, ...this.#args)
+    return zing(
+      `${chalk.italic.bold(`${this.#name}${this.#info.id}`)} at line ${this.#line + 1}: ${this.#info.message}`,
+      ...this.#args
+    )
   }
 }
