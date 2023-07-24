@@ -188,7 +188,7 @@ export class AriaAst {
               contents = replacePlaceholders(contents, placeholders)
               writeFileSync(path, new NormalizedString(contents).value, { encoding: 'utf8', flag: 'w' })
 
-              AriaLog.text(`✅ Successfully written ${placeholders.entries?.value} rules to ${filename}!`)
+              AriaLog.text(`Successfully written ${placeholders.entries?.value} rules to ${filename}!`)
             } else {
               throw new Error(`Invalid export path!`)
             }
