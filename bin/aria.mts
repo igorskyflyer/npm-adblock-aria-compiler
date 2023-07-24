@@ -8,9 +8,9 @@ import { Command, Option } from 'commander'
 import figlet from 'figlet'
 import { exit } from 'process'
 import { Aria } from '../lib/compiler/Aria.mjs'
-import { AriaTemplatePath } from '../lib/models/AriaTemplatePath.mjs'
-import { AriaLog } from '../lib/utils/AriaLog.mjs'
 import { AriaAstParsed } from '../lib/models/AriaAstParsed.mjs'
+import { AriaCliArgs } from '../lib/models/AriaCliArgs.mjs'
+import { AriaLog } from '../lib/utils/AriaLog.mjs'
 
 const ariaVersion: string = '1.0.0-alpha (68f3c94)'
 const program = new Command()
@@ -37,7 +37,7 @@ program
   )
   .parse(process.argv)
 
-const cliArgs = program.opts()
+const cliArgs: AriaCliArgs = program.opts()
 
 if (cliArgs.api) {
   AriaLog.text(chalk.italic('📘 Opening the official documentation...'))
@@ -55,7 +55,7 @@ const aria: Aria = new Aria({
   versioning: cliArgs.versioning ?? 'auto',
 })
 
-const ast: AriaAstParsed = aria.parseFile(cliArgs.file as AriaTemplatePath)
+const ast: AriaAstParsed = aria.parseFile(cliArgs.file)
 
 if (ast) {
   if (cliArgs.dry) {
