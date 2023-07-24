@@ -9,6 +9,10 @@ export class AriaLog {
     }
   }
 
+  static message(message: any = ''): void {
+    console.log(message)
+  }
+
   static logNewline(): void {
     this.log()
   }
