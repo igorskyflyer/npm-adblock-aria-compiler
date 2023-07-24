@@ -196,7 +196,7 @@ export class AriaAst {
               contents = replacePlaceholders(contents, placeholders)
               writeFileSync(path, new NormalizedString(contents).value, { encoding: 'utf8', flag: 'w' })
 
-              AriaLog.textSuccess(`successfully written ${chalk.bold(placeholders.entries?.value)} rules to "${filename}"`)
+              AriaLog.textSuccess(`written ${chalk.bold(placeholders.entries?.value)} rules to "${filename}"`)
             } else {
               throw AriaLog.ariaError(AriaException.exportInvalid)
             }
