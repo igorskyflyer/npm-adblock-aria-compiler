@@ -9,4 +9,5 @@ export const AriaException = {
   headerNotFound: { id: '007', message: 'the header "{0}" doesn\'t exist' },
   filterRead: { id: '008', message: 'couldn\'t read the filter file located at: "{0}"' },
   filterNotFound: { id: '009', message: 'the filter file "{0}" doesn\'t exist' },
+  exportInvalid: { id: '010', message: 'invalid export path' },
 } as const
