@@ -14,15 +14,15 @@ export class AriaLog {
     console.log(text)
   }
 
-  static textWarning(text: string): void {
+  static textWarning(text: any): void {
     console.warn(`${chalk.bgYellowBright(' WARNING ')} ${chalk.dim(text)}`)
   }
 
-  static textError(text: string): void {
+  static textError(text: any): void {
     console.error(`${chalk.bgRedBright(' ERROR ')} ${text}`)
   }
 
-  static textSuccess(text: string): void {
+  static textSuccess(text: any): void {
     console.log(`${chalk.bgGreen(' SUCCESS ')} ${text}`)
   }
 
