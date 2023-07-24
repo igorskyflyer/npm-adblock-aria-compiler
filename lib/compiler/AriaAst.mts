@@ -18,8 +18,7 @@ import { AriaPlaceholderData } from '../utils/AriaPlaceholderData.mjs'
 import { AriaMeta } from '../meta/AriaMeta.mjs'
 import { AriaTemplatePath } from '../models/AriaTemplatePath.mjs'
 import { AriaLog } from '../utils/AriaLog.mjs'
-
-type AriaAstPath = `${string}.json`
+import { AriaAstPath } from '../models/AriaAstPath.mjs'
 
 export class AriaAst {
   #nodes: AriaNode[]
