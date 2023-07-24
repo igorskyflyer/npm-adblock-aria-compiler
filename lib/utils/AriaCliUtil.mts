@@ -1,6 +1,6 @@
-import { AriaCliArgs } from '../models/AriaCliArgs.mjs'
+import { IAriaCliArgs } from '../models/IAriaCliArgs.mjs'
 
-export function isArgsEmpty(args: AriaCliArgs): boolean {
+export function isArgsEmpty(args: IAriaCliArgs): boolean {
   for (let prop in args) {
     if (prop === 'file') continue
 
