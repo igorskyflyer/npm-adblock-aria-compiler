@@ -196,7 +196,7 @@ export class Aria {
       AriaLog.log(`Processing line: ${this.#lineCursor}...`)
 
       if (this.#line.trim().length === 0) {
-        AriaLog.log(`Blank line: ${this.#lineCursor}, skipping...`)
+        AriaLog.log(`Blank line, skipping...`)
         AriaLog.logNewline()
         this.#lineCursor++
         continue
@@ -280,13 +280,12 @@ export class Aria {
       } else {
         AriaLog.log(`Resolved meta: N/A`)
         AriaLog.logNewline()
-
         AriaLog.log(
-          chalk.dim(
-            `${chalk.bgYellow('WARNING')}: meta file could not be resolved, if necessary, create a file named ${
+          `${chalk.bgYellowBright(' WARNING ')} ${chalk.dim(
+            `meta file could not be resolved, if necessary, create a file named ${chalk.bold.white(
               parse(metaPath).base
-            } for extra customizability of the output filter file.`
-          ),
+            )} for extra customizability of the output filter file.`
+          )}`,
           'warn'
         )
       }
