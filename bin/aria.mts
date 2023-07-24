@@ -31,7 +31,7 @@ program
   .option('-d, --dry', 'do a dry-run and output the resulting AST')
   .option('-l, --log <path>', 'write log file')
   .addOption(
-    new Option('-v, --versioning [type]', 'the versioning to use')
+    new Option('-v, --versioning <type>', 'the versioning to use')
       .choices(['auto', 'semver', 'timestamp'])
       .default('auto', '"auto".')
   )
