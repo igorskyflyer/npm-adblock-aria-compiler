@@ -23,7 +23,7 @@ export class AriaLog {
   }
 
   static textSuccess(message: any): void {
-    console.log(`${chalk.bgGreen(' SUCCESS ')} ${message}`)
+    console.log(`${chalk.bgHex('#008000')(' SUCCESS ')} ${message}`)
   }
 
   static newline(): void {
