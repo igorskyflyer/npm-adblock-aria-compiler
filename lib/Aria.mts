@@ -1,20 +1,19 @@
 import { NormalizedString } from '@igor.dvlpr/normalized-string'
 import { PathLike, accessSync, readFileSync } from 'fs'
+import { resolve } from 'node:path'
+import { parse } from 'path'
 import { AriaAst } from './AriaAst.mjs'
+import { AriaLog } from './AriaLog.mjs'
+import { AriaMeta } from './AriaMeta.mjs'
+import { getMetaPath, hasMeta, parseMeta } from './AriaMetaUtils.mjs'
 import { AriaNode } from './AriaNode.mjs'
 import { AriaNodeType } from './AriaNodeType.mjs'
 import { AriaOperators } from './AriaOperators.mjs'
+import { AriaTemplatePath } from './AriaTemplatePath.mjs'
 import { IAriaOptions } from './IAriaOptions.mjs'
 import { AriaError } from './errors/AriaError.mjs'
 import { AriaException } from './errors/AriaException.mjs'
 import { AriaExceptionInfo } from './errors/AriaExceptionInfo.mjs'
-import { resolve } from 'node:path'
-import { AriaTemplatePath } from './AriaTemplatePath.mjs'
-import { getMetaPath, hasMeta, parseMeta } from './AriaMetaUtils.mjs'
-import { AriaMeta } from './AriaMeta.mjs'
-import { parse } from 'path'
-
-type LogLevel = 'log' | 'warn' | 'error' | 'info'
 
 export class Aria {
   #source: string
@@ -160,16 +159,6 @@ export class Aria {
     this.#ast.versioning = oldHeaderVersion
   }
 
-  #log(message: any = '', logLevel: LogLevel = 'log'): void {
-    if (this.#shouldLog) {
-      console[logLevel](message)
-    }
-  }
-
-  #logNewline(): void {
-    this.#log()
-  }
-
   #isWhitespace(): boolean {
     return this.#char === ' ' || this.#char === '\t'
   }
@@ -193,10 +182,10 @@ export class Aria {
     const lines: string[] = this.#source.split(/\n/gm)
     const linesCount: number = lines.length
 
-    this.#log(`Total lines: ${linesCount}`)
-    this.#log(`Versioning: ${this.#ast.versioning}`)
+    AriaLog.log(`Total lines: ${linesCount}`)
+    AriaLog.log(`Versioning: ${this.#ast.versioning}`)
 
-    this.#logNewline()
+    AriaLog.logNewline()
 
     while (this.#lineCursor < linesCount) {
       this.#line = lines[this.#lineCursor]
@@ -205,11 +194,11 @@ export class Aria {
 
       this.#lineLength = this.#line.length
 
-      this.#log(`Processing line: ${this.#lineCursor}...`)
+      AriaLog.log(`Processing line: ${this.#lineCursor}...`)
 
       if (this.#line.trim().length === 0) {
-        this.#log(`Blank line: ${this.#lineCursor}, skipping...`)
-        this.#logNewline()
+        AriaLog.log(`Blank line: ${this.#lineCursor}, skipping...`)
+        AriaLog.logNewline()
         this.#lineCursor++
         continue
       }
@@ -223,35 +212,35 @@ export class Aria {
 
         if (this.#char === AriaOperators.newLine) {
           this.#ast.addNode(this.#node(AriaNodeType.nodeNewLine))
-          this.#log('Found an explicit new line...')
-          this.#logNewline()
+          AriaLog.log('Found an explicit new line...')
+          AriaLog.logNewline()
           break
         }
 
         if (this.#char === AriaOperators.comment) {
           if (this.#peek() === AriaOperators.comment) {
             this.#parseComment()
-            this.#log('Found exported comment...')
-            this.#logNewline()
+            AriaLog.log('Found exported comment...')
+            AriaLog.logNewline()
             break
           } else {
-            this.#log(`Found internal comment at char(${this.#cursorInLine}), skipping line...`)
-            this.#logNewline()
+            AriaLog.log(`Found internal comment at char(${this.#cursorInLine}), skipping line...`)
+            AriaLog.logNewline()
             break
           }
         }
 
         if (this.#char === AriaOperators.headerImport) {
           this.#parseHeaderImport()
-          this.#log('Found header import operator...')
-          this.#logNewline()
+          AriaLog.log('Found header import operator...')
+          AriaLog.logNewline()
           break
         }
 
         if (this.#char === AriaOperators.import) {
           this.#parseImport()
-          this.#log('Found import operator...')
-          this.#logNewline()
+          AriaLog.log('Found import operator...')
+          AriaLog.logNewline()
           break
         }
 
@@ -261,8 +250,8 @@ export class Aria {
           }
 
           this.#parseExport()
-          this.#log('Found export operator...')
-          this.#logNewline()
+          AriaLog.log('Found export operator...')
+          AriaLog.logNewline()
           break
         }
       }
@@ -283,17 +272,17 @@ export class Aria {
     }
 
     try {
-      this.#log(`Resolved filepath: ${resolve(templatePath)}`)
+      AriaLog.log(`Resolved filepath: ${resolve(templatePath)}`)
 
       const metaPath: string = getMetaPath(templatePath) as string
 
       if (hasMeta(templatePath)) {
-        this.#log(`Resolved meta: ${resolve(metaPath)}`)
+        AriaLog.log(`Resolved meta: ${resolve(metaPath)}`)
       } else {
-        this.#log(`Resolved meta: N/A`)
-        this.#logNewline()
+        AriaLog.log(`Resolved meta: N/A`)
+        AriaLog.logNewline()
 
-        this.#log(
+        AriaLog.log(
           `WARNING: meta file could not be resolved, if necessary, create a file named ${
             parse(metaPath).base
           } for extra customizability of the output filter file.`,
@@ -301,7 +290,7 @@ export class Aria {
         )
       }
 
-      this.#logNewline()
+      AriaLog.logNewline()
 
       const template: Buffer = readFileSync(templatePath)
       const contents: string = template.toString()
@@ -319,7 +308,7 @@ export class Aria {
       if (e instanceof AriaError) {
         throw e
       } else {
-        console.log(e)
+        AriaLog.log(e)
         throw new AriaError({ id: '', message: '' }, 0, [1, 1])
       }
     }
