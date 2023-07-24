@@ -1,11 +1,10 @@
 import chalk from 'chalk'
-
-type LogLevel = 'log' | 'warn' | 'error' | 'info'
+import { AriaLogLevel } from '../models/AriaLogLevel.mjs'
 
 export class AriaLog {
   static shouldLog: boolean = false
 
-  static log(message: any = '', logLevel: LogLevel = 'log'): void {
+  static log(message: any = '', logLevel: AriaLogLevel = 'log'): void {
     if (this.shouldLog) {
       console[logLevel](message)
     }
