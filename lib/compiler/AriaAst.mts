@@ -20,6 +20,7 @@ import {
   transformHeader,
 } from '../utils/AriaVersioning.mjs'
 import { AriaException } from '../errors/AriaException.mjs'
+import chalk from 'chalk'
 
 export class AriaAst {
   #nodes: IAriaNode[]
@@ -195,7 +196,7 @@ export class AriaAst {
               contents = replacePlaceholders(contents, placeholders)
               writeFileSync(path, new NormalizedString(contents).value, { encoding: 'utf8', flag: 'w' })
 
-              AriaLog.textSuccess(`successfully written ${placeholders.entries?.value} rules to ${filename}!`)
+              AriaLog.textSuccess(`successfully written ${chalk.bold(placeholders.entries?.value)} rules to "${filename}"`)
             } else {
               throw AriaLog.ariaError(AriaException.exportInvalid)
             }
