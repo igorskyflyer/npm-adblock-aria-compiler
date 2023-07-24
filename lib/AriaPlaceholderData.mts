@@ -1,4 +1,4 @@
-import { IAriaPlaceholder } from './IAriaPlaceholder.mjs'
+import { IAriaPlaceholder } from './types/IAriaPlaceholder.mjs'
 
 function generatePattern(label: string, alias: string | string[]): RegExp {
   if (alias instanceof Array) {
