@@ -13,7 +13,7 @@ import { AriaCliArgs } from '../lib/models/AriaCliArgs.mjs'
 import { AriaLog } from '../lib/utils/AriaLog.mjs'
 import { isArgsEmpty } from '../lib/utils/AriaCliUtil.mjs'
 
-const ariaVersion: string = '1.0.0-alpha (ae898ba)'
+const ariaVersion: string = '1.0.0-alpha (e856673)'
 const program = new Command()
 
 AriaLog.text(chalk.bold(figlet.textSync('ARIA', 'Slant')))
@@ -31,9 +31,7 @@ program
   .option('-d, --dry', 'do a dry-run and output the resulting AST')
   .option('-l, --log <path>', 'write log file')
   .addOption(
-    new Option('-v, --versioning <type>', 'the versioning to use')
-      .choices(['auto', 'semver', 'timestamp'])
-      .default('auto', '"auto".')
+    new Option('-v, --versioning <type>', 'the versioning to use, default: auto').choices(['auto', 'semver', 'timestamp'])
   )
   .parse(process.argv)
 
@@ -46,13 +44,13 @@ if (cliArgs.api) {
 }
 
 if (typeof cliArgs.file !== 'string' || cliArgs.file.length === 0) {
-  if (isArgsEmpty(cliArgs)) {
-    program.help()
-    exit(0)
-  } else {
+  if (!isArgsEmpty(cliArgs)) {
     AriaLog.textError('missing template path.')
     AriaLog.newline()
     exit(1)
+  } else {
+    program.help()
+    exit(0)
   }
 }
 
