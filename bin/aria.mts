@@ -19,7 +19,6 @@ AriaLog.text(chalk.bold(figlet.textSync('ARIA', 'Slant')))
 AriaLog.text(chalk.dim.italic(`v${ariaVersion}\n\n`))
 
 program
-  .version(ariaVersion, '--version')
   .description(
     chalk.italic(
       '🧬 Meet Aria, an efficient Adblock filter list compiler, with many features that make your maintenance of Adblock filter lists a breeze! 🗡'
