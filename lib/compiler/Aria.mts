@@ -316,7 +316,7 @@ export class Aria {
 
 function handleUncaughtException(error: Error) {
   if (error instanceof AriaError) {
-    console.error(error.formatError())
+    AriaLog.textError(error.formatError())
   } else {
     console.error(error)
   }
