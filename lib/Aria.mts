@@ -1,11 +1,10 @@
 import { NormalizedString } from '@igor.dvlpr/normalized-string'
+import chalk from 'chalk'
 import { PathLike, accessSync, readFileSync } from 'fs'
 import { resolve } from 'node:path'
 import { parse } from 'path'
 import { AriaAst } from './AriaAst.mjs'
 import { AriaLog } from './AriaLog.mjs'
-import { AriaMeta } from './meta/AriaMeta.mjs'
-import { getMetaPath, hasMeta, parseMeta } from './AriaMetaUtils.mjs'
 import { AriaNode } from './AriaNode.mjs'
 import { AriaNodeType } from './AriaNodeType.mjs'
 import { AriaOperators } from './AriaOperators.mjs'
@@ -14,7 +13,8 @@ import { IAriaOptions } from './IAriaOptions.mjs'
 import { AriaError } from './errors/AriaError.mjs'
 import { AriaException } from './errors/AriaException.mjs'
 import { AriaExceptionInfo } from './errors/AriaExceptionInfo.mjs'
-import chalk from 'chalk'
+import { AriaMeta } from './meta/AriaMeta.mjs'
+import { getMetaPath, hasMeta, parseMeta } from './meta/AriaMetaUtils.mjs'
 
 export class Aria {
   #source: string
