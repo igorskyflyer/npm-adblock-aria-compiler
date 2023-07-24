@@ -192,7 +192,7 @@ export class Aria {
 
       if (this.#line.trim().length === 0) {
         AriaLog.log(`Blank line, skipping`)
-        AriaLog.newline()
+        AriaLog.logNewline()
         this.#lineCursor++
         continue
       }
@@ -207,7 +207,7 @@ export class Aria {
         if (this.#char === AriaOperators.newLine) {
           this.#ast.addNode(this.#node(AriaNodeType.nodeNewLine))
           AriaLog.log('Found an explicit new line')
-          AriaLog.newline()
+          AriaLog.logNewline()
           break
         }
 
@@ -215,11 +215,11 @@ export class Aria {
           if (this.#peek() === AriaOperators.comment) {
             this.#parseComment()
             AriaLog.log('Found exported comment')
-            AriaLog.newline()
+            AriaLog.logNewline()
             break
           } else {
             AriaLog.log(`Found internal comment at char(${this.#cursorInLine}), skipping line`)
-            AriaLog.newline()
+            AriaLog.logNewline()
             break
           }
         }
@@ -227,14 +227,14 @@ export class Aria {
         if (this.#char === AriaOperators.headerImport) {
           this.#parseHeaderImport()
           AriaLog.log('Found header import operator')
-          AriaLog.newline()
+          AriaLog.logNewline()
           break
         }
 
         if (this.#char === AriaOperators.import) {
           this.#parseImport()
           AriaLog.log('Found import operator')
-          AriaLog.newline()
+          AriaLog.logNewline()
           break
         }
 
@@ -245,7 +245,7 @@ export class Aria {
 
           this.#parseExport()
           AriaLog.log('Found export operator')
-          AriaLog.newline()
+          AriaLog.logNewline()
           break
         }
       }
