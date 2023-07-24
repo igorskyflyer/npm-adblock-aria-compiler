@@ -1,9 +1,16 @@
+import { countRules } from '@igor.dvlpr/adblock-filter-counter'
 import { NormalizedString } from '@igor.dvlpr/normalized-string'
 import { PathLike, accessSync, readFileSync, writeFileSync } from 'node:fs'
 import { join, parse, resolve } from 'node:path'
+import { AriaMeta } from '../meta/AriaMeta.mjs'
+import { AriaAstPath } from '../models/AriaAstPath.mjs'
 import { AriaNode } from '../models/AriaNode.mjs'
 import { AriaNodeType } from '../models/AriaNodeType.mjs'
 import { AriaState } from '../models/AriaState.mjs'
+import { AriaTemplatePath } from '../models/AriaTemplatePath.mjs'
+import { IAriaPlaceholders } from '../models/IAriaPlaceholders.mjs'
+import { AriaLog } from '../utils/AriaLog.mjs'
+import { AriaPlaceholderData } from '../utils/AriaPlaceholderData.mjs'
 import {
   AriaVersioning,
   constructVersion,
@@ -12,13 +19,6 @@ import {
   replacePlaceholders,
   transformHeader,
 } from '../utils/AriaVersioning.mjs'
-import { IAriaPlaceholders } from '../models/IAriaPlaceholders.mjs'
-import { countRules } from '@igor.dvlpr/adblock-filter-counter'
-import { AriaPlaceholderData } from '../utils/AriaPlaceholderData.mjs'
-import { AriaMeta } from '../meta/AriaMeta.mjs'
-import { AriaTemplatePath } from '../models/AriaTemplatePath.mjs'
-import { AriaLog } from '../utils/AriaLog.mjs'
-import { AriaAstPath } from '../models/AriaAstPath.mjs'
 
 export class AriaAst {
   #nodes: AriaNode[]
