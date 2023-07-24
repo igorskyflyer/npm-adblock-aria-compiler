@@ -17,7 +17,7 @@ export class AriaLog {
   }
 
   static textWarning(message: any): void {
-    console.warn(`${chalk.bgHex('#1E90FF').bold(' WARNING ')} ${chalk.dim(message)}`)
+    console.warn(`${chalk.bgHex('#1369BD').bold(' WARNING ')} ${chalk.dim(message)}`)
   }
 
   static textError(message: any): void {
