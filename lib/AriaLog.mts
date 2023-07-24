@@ -9,7 +9,7 @@ export class AriaLog {
     }
   }
 
-  static message(message: any = ''): void {
+  static text(message: any = ''): void {
     console.log(message)
   }
 
