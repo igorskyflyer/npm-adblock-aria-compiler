@@ -109,7 +109,7 @@ export class Aria {
   }
 
   #parseComment(): boolean {
-    const comment: string = this.#chunk(1)
+    const comment: string = this.#chunk(1).trim()
     this.#ast.addNode(this.#node(AriaNodeType.nodeComment, comment))
 
     return true
