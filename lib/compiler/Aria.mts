@@ -317,5 +317,3 @@ function handleUncaughtException(error: Error) {
 }
 
 process.on('uncaughtException', handleUncaughtException)
-
-new Aria({}).parseFile('./data/test.adbt')
