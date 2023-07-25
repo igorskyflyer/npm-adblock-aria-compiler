@@ -26,6 +26,7 @@ export class Aria {
   #lineLength: number
   #cursorInLine: number
   #buffer: string
+  #foundKeyword: boolean
 
   #ast: AriaAst
 
@@ -34,6 +35,7 @@ export class Aria {
     this.#line = ''
     this.#char = ''
     this.#buffer = ''
+    this.#foundKeyword = false
     this.#cursorInLine = 0
     this.#lineCursor = 0
     this.#lineLength = 0
@@ -44,6 +46,8 @@ export class Aria {
   }
 
   #node(type: AriaNodeType, value?: string, flags?: string[]): IAriaNode {
+    this.#foundKeyword = true
+
     const node: IAriaNode = {
       type,
       line: this.#lineCursor + 1,
@@ -143,6 +147,7 @@ export class Aria {
     this.#line = ''
     this.#char = ''
     this.#buffer = ''
+    this.#foundKeyword = false
     this.#cursorInLine = 0
     this.#lineCursor = 0
     this.#lineLength = 0
@@ -196,6 +201,7 @@ export class Aria {
       }
 
       this.#lineLength = this.#line.length
+      this.#foundKeyword = false
 
       for (this.#cursorInLine = 0; this.#cursorInLine < this.#lineLength; this.#cursorInLine++) {
         this.#char = this.#line.charAt(this.#cursorInLine)
@@ -250,6 +256,11 @@ export class Aria {
           AriaLog.logNewline()
           break
         }
+      }
+
+      if (!this.#foundKeyword) {
+        AriaLog.log('No valid identifier found', 'warn')
+        AriaLog.logNewline()
       }
 
       this.#lineCursor++
