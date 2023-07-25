@@ -1,4 +1,4 @@
-export const AriaOperators = {
+export const AriaKeywords = {
   commentInternal: '@',
   commentExported: '!',
   import: 'include',
