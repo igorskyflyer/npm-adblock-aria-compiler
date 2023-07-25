@@ -13,7 +13,7 @@ import { IAriaOptions } from '../models/IAriaOptions.mjs'
 import { AriaLog } from '../utils/AriaLog.mjs'
 import { getMetaPath, hasMeta, parseMeta } from '../utils/AriaMetaUtils.mjs'
 import { AriaAst } from './AriaAst.mjs'
-import { AriaOperators } from './AriaOperators.mjs'
+import { AriaOperators } from './AriaKeywords.mjs'
 
 export class Aria {
   #source: string
