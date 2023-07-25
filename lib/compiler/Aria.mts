@@ -13,7 +13,7 @@ import { IAriaOptions } from '../models/IAriaOptions.mjs'
 import { AriaLog } from '../utils/AriaLog.mjs'
 import { getMetaPath, hasMeta, parseMeta } from '../utils/AriaMetaUtils.mjs'
 import { AriaAst } from './AriaAst.mjs'
-import { AriaOperators } from './AriaKeywords.mjs'
+import { AriaKeywords } from './AriaKeywords.mjs'
 
 export class Aria {
   #source: string
@@ -206,41 +206,41 @@ export class Aria {
 
         this.#buffer += this.#char
 
-        if (this.#buffer === AriaOperators.newLine) {
+        if (this.#buffer === AriaKeywords.newLine) {
           this.#ast.addNode(this.#node(AriaNodeType.nodeNewLine))
           AriaLog.log('Found an explicit new line')
           AriaLog.logNewline()
           break
         }
 
-        if (this.#buffer === AriaOperators.commentInternal) {
+        if (this.#buffer === AriaKeywords.commentInternal) {
           AriaLog.log(`Found internal comment at char(${this.#cursorInLine}), skipping line`)
           AriaLog.logNewline()
           break
         }
 
-        if (this.#buffer === AriaOperators.commentExported) {
+        if (this.#buffer === AriaKeywords.commentExported) {
           this.#parseComment()
           AriaLog.log('Found exported comment')
           AriaLog.logNewline()
           break
         }
 
-        if (this.#buffer === AriaOperators.headerImport) {
+        if (this.#buffer === AriaKeywords.headerImport) {
           this.#parseHeaderImport()
           AriaLog.log('Found header import operator')
           AriaLog.logNewline()
           break
         }
 
-        if (this.#buffer === AriaOperators.import) {
+        if (this.#buffer === AriaKeywords.import) {
           this.#parseImport()
           AriaLog.log('Found import operator')
           AriaLog.logNewline()
           break
         }
 
-        if (this.#buffer === AriaOperators.export) {
+        if (this.#buffer === AriaKeywords.export) {
           if (this.#ast.state.exports === 1) {
             throw AriaLog.ariaError(AriaException.oneExportOnly, this.#lineCursor)
           }
