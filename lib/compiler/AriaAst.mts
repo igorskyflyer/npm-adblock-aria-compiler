@@ -129,7 +129,7 @@ export class AriaAst {
 
         case AriaNodeType.nodeComment: {
           if (node.value) {
-            contents += this.#block(node.value)
+            contents += this.#block(`! ${node.value}`)
           }
           break
         }
