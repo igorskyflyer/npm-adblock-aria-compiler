@@ -113,7 +113,7 @@ export class AriaAst {
       AriaLog.textError("the template doesn't contain a single, valid file export path.")
       AriaLog.newline()
       AriaLog.text('Aborting the compilation...')
-      return true
+      return false
     }
 
     let contents = ''
@@ -209,6 +209,6 @@ export class AriaAst {
       }
     }
 
-    return false
+    return true
   }
 }
