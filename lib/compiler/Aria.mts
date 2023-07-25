@@ -46,7 +46,7 @@ export class Aria {
   #node(type: AriaNodeType, value?: string, flags?: string[]): IAriaNode {
     const node: IAriaNode = {
       type,
-      line: this.#lineCursor,
+      line: this.#lineCursor + 1,
     }
 
     if (typeof value === 'string') {
@@ -81,7 +81,7 @@ export class Aria {
 
     while (this.#read()) {
       if (closedString) {
-        throw AriaLog.ariaError(AriaException.extraneousInput, this.#lineCursor, path)
+        throw AriaLog.ariaError(AriaException.extraneousInput, this.#lineCursor + 1, path)
       }
 
       if (!shouldCapture) {
@@ -89,7 +89,7 @@ export class Aria {
         if (this.#char === "'") {
           shouldCapture = true
         } else {
-          throw AriaLog.ariaError(AriaException.importPath, this.#lineCursor, this.#char)
+          throw AriaLog.ariaError(AriaException.importPath, this.#lineCursor + 1, this.#char)
         }
       } else {
         if (this.#char === "'") {
@@ -102,7 +102,7 @@ export class Aria {
     }
 
     if (!closedString) {
-      throw AriaLog.ariaError(AriaException.unterminatedPath, this.#lineCursor)
+      throw AriaLog.ariaError(AriaException.unterminatedPath, this.#lineCursor + 1)
     }
 
     return path
@@ -188,7 +188,7 @@ export class Aria {
 
       this.#lineLength = this.#line.length
 
-      AriaLog.log(`Processing line: ${this.#lineCursor}`)
+      AriaLog.log(`Processing line: ${this.#lineCursor + 1}`)
 
       if (this.#line.trim().length === 0) {
         AriaLog.log(`Blank line, skipping`)
@@ -242,7 +242,7 @@ export class Aria {
 
         if (this.#buffer === AriaKeywords.export) {
           if (this.#ast.state.exports === 1) {
-            throw AriaLog.ariaError(AriaException.oneExportOnly, this.#lineCursor)
+            throw AriaLog.ariaError(AriaException.oneExportOnly, this.#lineCursor + 1)
           }
 
           this.#parseExport()
@@ -260,11 +260,11 @@ export class Aria {
 
   parseFile(templatePath: AriaTemplatePath): AriaAst | undefined {
     if (typeof templatePath !== 'string') {
-      throw AriaLog.ariaError(AriaException.noTemplate, this.#lineCursor)
+      throw AriaLog.ariaError(AriaException.noTemplate, this.#lineCursor + 1)
     }
 
     if (!this.#pathExists(templatePath)) {
-      throw AriaLog.ariaError(AriaException.noTemplate, this.#lineCursor)
+      throw AriaLog.ariaError(AriaException.noTemplate, this.#lineCursor + 1)
     }
 
     try {
