@@ -45,6 +45,10 @@ export class Aria {
     AriaLog.shouldLog = options.shouldLog ?? false
   }
 
+  get sourceLine(): number {
+    return this.#lineCursor + 1
+  }
+
   #node(type: AriaNodeType, value?: string, flags?: string[]): IAriaNode {
     this.#foundKeyword = true
 
