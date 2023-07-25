@@ -45,7 +45,7 @@ export class Aria {
     AriaLog.shouldLog = options.shouldLog ?? false
   }
 
-  get sourceLine(): number {
+  #sourceLine(): number {
     return this.#lineCursor + 1
   }
 
@@ -54,7 +54,7 @@ export class Aria {
 
     const node: IAriaNode = {
       type,
-      line: this.#lineCursor + 1,
+      line: this.#sourceLine(),
     }
 
     if (typeof value === 'string') {
@@ -89,7 +89,7 @@ export class Aria {
 
     while (this.#read()) {
       if (closedString) {
-        throw AriaLog.ariaError(AriaException.extraneousInput, this.#lineCursor + 1, path)
+        throw AriaLog.ariaError(AriaException.extraneousInput, this.#sourceLine(), path)
       }
 
       if (!shouldCapture) {
@@ -97,7 +97,7 @@ export class Aria {
         if (this.#char === "'") {
           shouldCapture = true
         } else {
-          throw AriaLog.ariaError(AriaException.importPath, this.#lineCursor + 1, this.#char)
+          throw AriaLog.ariaError(AriaException.importPath, this.#sourceLine(), this.#char)
         }
       } else {
         if (this.#char === "'") {
@@ -110,7 +110,7 @@ export class Aria {
     }
 
     if (!closedString) {
-      throw AriaLog.ariaError(AriaException.unterminatedPath, this.#lineCursor + 1)
+      throw AriaLog.ariaError(AriaException.unterminatedPath, this.#sourceLine())
     }
 
     return path
@@ -195,7 +195,7 @@ export class Aria {
 
       if (typeof this.#line !== 'string') break
 
-      AriaLog.log(`Processing line: ${this.#lineCursor + 1}`)
+      AriaLog.log(`Processing line: ${this.#sourceLine()}`)
 
       if (this.#line.trim().length === 0) {
         AriaLog.log(`Blank line, skipping`)
@@ -247,7 +247,7 @@ export class Aria {
 
         if (this.#buffer === AriaKeywords.export) {
           if (this.#ast.state.exports === 1) {
-            throw AriaLog.ariaError(AriaException.oneExportOnly, this.#lineCursor + 1)
+            throw AriaLog.ariaError(AriaException.oneExportOnly, this.#sourceLine())
           }
 
           this.#parseExport()
@@ -270,11 +270,11 @@ export class Aria {
 
   parseFile(templatePath: AriaTemplatePath): AriaAst | undefined {
     if (typeof templatePath !== 'string') {
-      throw AriaLog.ariaError(AriaException.noTemplate, this.#lineCursor + 1)
+      throw AriaLog.ariaError(AriaException.noTemplate, this.#sourceLine())
     }
 
     if (!this.#pathExists(templatePath)) {
-      throw AriaLog.ariaError(AriaException.noTemplate, this.#lineCursor + 1)
+      throw AriaLog.ariaError(AriaException.noTemplate, this.#sourceLine())
     }
 
     try {
