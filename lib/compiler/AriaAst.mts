@@ -83,8 +83,6 @@ export class AriaAst {
       this.#state.exports++
     }
 
-    // 👇🏼 normalize line number (internal -> source)
-    node.line++
     this.#nodes.push(node)
     this.#nodesCount++
   }
