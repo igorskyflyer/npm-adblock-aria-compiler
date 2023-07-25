@@ -7,5 +7,6 @@ export interface IAriaCliArgs {
   file?: AriaTemplatePath
   dry?: boolean
   log?: boolean
+  tree?: boolean
   versioning?: AriaVersioning
 }
