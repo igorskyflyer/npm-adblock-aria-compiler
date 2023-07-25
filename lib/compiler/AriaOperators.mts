@@ -1,10 +1,8 @@
 export const AriaOperators = {
-  comment: '!',
-  flag: '-',
-  import: '*',
-  headerImport: '$',
-  export: '>',
-  newLine: '~',
-  setStart: '[',
-  setEnd: ']',
+  commentInternal: '@',
+  commentExported: '!',
+  import: 'include',
+  headerImport: 'header',
+  export: 'export',
+  newLine: 'nl',
 } as const
