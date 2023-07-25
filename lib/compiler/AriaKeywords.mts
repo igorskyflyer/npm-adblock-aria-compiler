@@ -1,6 +1,6 @@
 export const AriaKeywords = {
   commentInternal: '@',
-  commentExported: '!',
+  commentExported: '#',
   import: 'include',
   headerImport: 'header',
   export: 'export',
