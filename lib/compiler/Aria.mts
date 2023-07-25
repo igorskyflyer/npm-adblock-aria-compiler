@@ -25,6 +25,7 @@ export class Aria {
   #lineCursor: number
   #lineLength: number
   #cursorInLine: number
+  #buffer: string
 
   #ast: AriaAst
 
@@ -32,6 +33,7 @@ export class Aria {
     this.#source = ''
     this.#line = ''
     this.#char = ''
+    this.#buffer = ''
     this.#cursorInLine = 0
     this.#lineCursor = 0
     this.#lineLength = 0
@@ -66,10 +68,6 @@ export class Aria {
       return true
     }
     return false
-  }
-
-  #peek(count: number = 1): string {
-    return this.#line.charAt(this.#cursorInLine + count)
   }
 
   #chunk(start: number, end?: number): string {
@@ -144,6 +142,7 @@ export class Aria {
     this.#source = ''
     this.#line = ''
     this.#char = ''
+    this.#buffer = ''
     this.#cursorInLine = 0
     this.#lineCursor = 0
     this.#lineLength = 0
@@ -183,6 +182,7 @@ export class Aria {
 
     while (this.#lineCursor < linesCount) {
       this.#line = lines[this.#lineCursor]
+      this.#buffer = ''
 
       if (typeof this.#line !== 'string') break
 
@@ -204,41 +204,43 @@ export class Aria {
           continue
         }
 
-        if (this.#char === AriaOperators.newLine) {
+        this.#buffer += this.#char
+
+        if (this.#buffer === AriaOperators.newLine) {
           this.#ast.addNode(this.#node(AriaNodeType.nodeNewLine))
           AriaLog.log('Found an explicit new line')
           AriaLog.logNewline()
           break
         }
 
-        if (this.#char === AriaOperators.comment) {
-          if (this.#peek() === AriaOperators.comment) {
-            this.#parseComment()
-            AriaLog.log('Found exported comment')
-            AriaLog.logNewline()
-            break
-          } else {
-            AriaLog.log(`Found internal comment at char(${this.#cursorInLine}), skipping line`)
-            AriaLog.logNewline()
-            break
-          }
+        if (this.#buffer === AriaOperators.commentInternal) {
+          AriaLog.log(`Found internal comment at char(${this.#cursorInLine}), skipping line`)
+          AriaLog.logNewline()
+          break
         }
 
-        if (this.#char === AriaOperators.headerImport) {
+        if (this.#buffer === AriaOperators.commentExported) {
+          this.#parseComment()
+          AriaLog.log('Found exported comment')
+          AriaLog.logNewline()
+          break
+        }
+
+        if (this.#buffer === AriaOperators.headerImport) {
           this.#parseHeaderImport()
           AriaLog.log('Found header import operator')
           AriaLog.logNewline()
           break
         }
 
-        if (this.#char === AriaOperators.import) {
+        if (this.#buffer === AriaOperators.import) {
           this.#parseImport()
           AriaLog.log('Found import operator')
           AriaLog.logNewline()
           break
         }
 
-        if (this.#char === AriaOperators.export) {
+        if (this.#buffer === AriaOperators.export) {
           if (this.#ast.state.exports === 1) {
             throw AriaLog.ariaError(AriaException.oneExportOnly, this.#lineCursor)
           }
@@ -315,3 +317,5 @@ function handleUncaughtException(error: Error) {
 }
 
 process.on('uncaughtException', handleUncaughtException)
+
+new Aria({}).parseFile('./data/test.adbt')
