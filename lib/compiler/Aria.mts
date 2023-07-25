@@ -215,34 +215,29 @@ export class Aria {
         if (this.#buffer === AriaKeywords.newLine) {
           this.#ast.addNode(this.#node(AriaNodeType.nodeNewLine))
           AriaLog.log('Found an explicit new line')
-          AriaLog.logNewline()
           break
         }
 
         if (this.#buffer === AriaKeywords.commentInternal) {
           AriaLog.log(`Found internal comment at char(${this.#cursorInLine}), skipping line`)
-          AriaLog.logNewline()
           break
         }
 
         if (this.#buffer === AriaKeywords.commentExported) {
           this.#parseComment()
           AriaLog.log('Found exported comment')
-          AriaLog.logNewline()
           break
         }
 
         if (this.#buffer === AriaKeywords.headerImport) {
           this.#parseHeaderImport()
           AriaLog.log('Found header import operator')
-          AriaLog.logNewline()
           break
         }
 
         if (this.#buffer === AriaKeywords.import) {
           this.#parseImport()
           AriaLog.log('Found import operator')
-          AriaLog.logNewline()
           break
         }
 
@@ -253,15 +248,15 @@ export class Aria {
 
           this.#parseExport()
           AriaLog.log('Found export operator')
-          AriaLog.logNewline()
           break
         }
       }
 
       if (!this.#foundKeyword) {
         AriaLog.log('No valid identifier found', 'warn')
-        AriaLog.logNewline()
       }
+
+      AriaLog.logNewline()
 
       this.#lineCursor++
     }
