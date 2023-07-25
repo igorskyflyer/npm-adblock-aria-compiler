@@ -186,8 +186,6 @@ export class Aria {
 
       if (typeof this.#line !== 'string') break
 
-      this.#lineLength = this.#line.length
-
       AriaLog.log(`Processing line: ${this.#lineCursor + 1}`)
 
       if (this.#line.trim().length === 0) {
@@ -196,6 +194,8 @@ export class Aria {
         this.#lineCursor++
         continue
       }
+
+      this.#lineLength = this.#line.length
 
       for (this.#cursorInLine = 0; this.#cursorInLine < this.#lineLength; this.#cursorInLine++) {
         this.#char = this.#line.charAt(this.#cursorInLine)
