@@ -223,6 +223,7 @@ export class Aria {
         }
 
         if (this.#buffer === AriaKeywords.commentInternal) {
+          this.#foundKeyword = true
           AriaLog.log(`Found internal comment at char(${this.#cursorInLine}), skipping line`)
           break
         }
