@@ -50,9 +50,9 @@ npm i "@igor.dvlpr/aria"
 
 <br>
 
-Short: `-f`
-Long: `--file`
-Accepts: `path: string`
+Short: `-f`  
+Long: `--file`  
+Accepts: `path: string`  
 Required: **yes**
 
 Example
