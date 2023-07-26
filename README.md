@@ -134,8 +134,6 @@ aria -f './my-template.adbt' -t
 <br>
 <br>
 
-<a id="#log"></a>
-
 #### `Log`
 
 Enable compilation logging.
