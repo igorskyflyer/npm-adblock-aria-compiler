@@ -44,9 +44,20 @@ npm i "@igor.dvlpr/aria"
 
 <br>
 
-### Arguments
+### 🪄 Arguments
 
-`File` - input ADBT template file
+<br>
+
+`<None>`
+
+Will print the welcome + help screen.
+
+<br>
+<br>
+
+#### `File`
+
+Pass the input ADBT template file.
 
 <br>
 
@@ -66,7 +77,7 @@ aria -f './my-template.adbt'
 <br>
 <br>
 
-### Flags
+### 🪅 Flags
 
 #### `Dry`
 
