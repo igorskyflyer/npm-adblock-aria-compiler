@@ -41,3 +41,22 @@ npm i "@igor.dvlpr/aria"
 <br>
 
 ## 🤹🏼‍♂️ Usage
+
+<br>
+
+### Arguments
+
+`File` - input ADBT template file
+
+<br>
+
+Short: `-f`
+Long: `--file`
+Accepts: `path: string`
+Required: **yes**
+
+Example
+
+```shell
+aria -f './my-template.adbt'
+```
