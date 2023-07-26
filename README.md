@@ -64,7 +64,7 @@ You should read the official [ADBT API](https://github.com/igorskyflyer/file-for
 
 #### `File`
 
-Pass the input ADBT template file.
+Compile the input ADBT template file.
 
 <br>
 
