@@ -3,15 +3,15 @@
 // Author: Igor Dimitrijević (@igorskyflyer)
 
 import chalk from 'chalk'
-import { execSync } from 'child_process'
 import { Command, Option } from 'commander'
 import figlet from 'figlet'
 import { exit } from 'process'
 import { Aria } from '../lib/compiler/Aria.mjs'
 import { AriaAstParsed } from '../lib/models/AriaAstParsed.mjs'
 import { IAriaCliArgs } from '../lib/models/IAriaCliArgs.mjs'
-import { AriaLog } from '../lib/utils/AriaLog.mjs'
 import { isArgsEmpty } from '../lib/utils/AriaCliUtil.mjs'
+import { AriaLog } from '../lib/utils/AriaLog.mjs'
+import { AriaException } from '../lib/errors/AriaException.mjs'
 
 const ariaVersion: string = '1.0.0 (e856673)'
 const program = new Command()
@@ -19,13 +19,13 @@ const program = new Command()
 AriaLog.text(chalk.bold(figlet.textSync('ARIA', 'Slant')))
 AriaLog.text(chalk.dim.italic(`v${ariaVersion}\n\n`))
 
-program
-  .description(
-    chalk.italic(
-      '🧬 Meet Aria, an efficient Adblock filter list compiler, with many features that make your maintenance of Adblock filter lists a breeze! 🗡'
-    )
+program.description(
+  chalk.italic(
+    '🧬 Meet Aria, an efficient Adblock filter list compiler, with many features that make your maintenance of Adblock filter lists a breeze! 🗡'
   )
-  .option('--api', 'open the official API documentation')
+)
+
+program
   .option('-f, --file <path>', 'input template file')
   .option('-d, --dry', 'do a dry-run and print the resulting AST')
   .option('-t, --tree', 'print the resulting AST')
@@ -37,17 +37,9 @@ program
 
 const cliArgs: IAriaCliArgs = program.opts()
 
-if (cliArgs.api) {
-  AriaLog.text(chalk.italic('📘 Opening the official documentation...'))
-  execSync(`start "" https://github.com/igorskyflyer/adblock-aria-compiler#readme`)
-  exit(0)
-}
-
 if (typeof cliArgs.file !== 'string' || cliArgs.file.length === 0) {
   if (!isArgsEmpty(cliArgs)) {
-    AriaLog.textError('missing template path.')
-    AriaLog.newline()
-    exit(1)
+    throw AriaLog.ariaError(AriaException.templateMissing)
   } else {
     program.help()
     exit(0)
