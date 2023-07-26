@@ -3,3 +3,4 @@ dist/
 data/
 output/
 ast.json
+assets/*.afdesign
