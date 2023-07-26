@@ -50,7 +50,10 @@ npm i "@igor.dvlpr/aria"
 
 `<None>`
 
-Will print the welcome + help screen.
+<div align="center">
+	<img src="https://raw.githubusercontent.com/igorskyflyer/npm-adblock-aria-compiler/main/assets/screenshots/aria-cli.png" alt="Aria - Adblock template compiler CLI">
+<em>Will print the welcome + help screen</em>
+</div>
 
 <br>
 <br>
