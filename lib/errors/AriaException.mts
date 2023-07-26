@@ -9,44 +9,48 @@ export const AriaException: Record<string, IAriaExceptionInfo> = {
     id: '001',
     message: 'no valid template path provided',
   },
-  extraneousInput: {
+  templateMissing: {
     id: '002',
+    message: 'missing template path',
+  },
+  extraneousInput: {
+    id: '003',
     message: 'extraneous input found after the import path "{0}"',
   },
   importPath: {
-    id: '003',
+    id: '004',
     message: 'expected a string path for import but found "{0}"',
   },
   unterminatedPath: {
-    id: '004',
+    id: '005',
     message: 'unterminated file path string',
   },
   oneExportOnly: {
-    id: '005',
+    id: '006',
     message: 'only 1 export can exist per template',
   },
   headerRead: {
-    id: '006',
+    id: '007',
     message: 'couldn\'t read the header file located at: "{0}"',
   },
   headerNotFound: {
-    id: '007',
+    id: '008',
     message: 'the header "{0}" doesn\'t exist',
   },
   filterRead: {
-    id: '008',
+    id: '009',
     message: 'couldn\'t read the filter file located at: "{0}"',
   },
   filterNotFound: {
-    id: '009',
+    id: '010',
     message: 'the filter file "{0}" doesn\'t exist',
   },
   exportInvalid: {
-    id: '010',
+    id: '011',
     message: 'invalid export path',
   },
   exportUnsuccessful: {
-    id: '011',
+    id: '012',
     message: 'couldn\'t export to file "{0}"',
   },
 } as const
