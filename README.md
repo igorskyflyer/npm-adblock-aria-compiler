@@ -79,7 +79,7 @@ Example
 aria -f './my-template.adbt'
 ```
 
-> 💡 Templates files _should_ end with the `.adbt` extension.
+> 💡 Template files _should_ end with the `.adbt` extension.
 
 <br>
 <br>
