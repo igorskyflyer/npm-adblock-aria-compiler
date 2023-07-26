@@ -122,7 +122,7 @@ aria -f './my-template.adbt' -v semver
 ! Version: 1.8.1082
 ```
 
-Versioning takes care of the last line you see in the snippet above - so you don't have to!
+`Aria` takes care of the versioning, the last line you see in the snippet above - so you don't have to!
 
 <br>
 
