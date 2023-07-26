@@ -88,7 +88,7 @@ aria -f './my-template.adbt'
 
 The versioning to use, can be:
 
-- `auto`: **default**, let Aria decide which versioning system to use.  
+- `auto`: **default**, let `Aria` decide which versioning system to use.  
   If the resulting file already exists, i.e. `Aria` already compiled the template before, it will re-use the versioning found in the file, otherwise it will use `semver`,
 
 - `semver`: use valid SemVer versioning when exporting the filter file, e.g. `v1.0.0`, `v2.199.222`, etc.  
@@ -126,7 +126,7 @@ aria -f './my-template.adbt' -v semver
 
 <br>
 
-> ❗When using SemVer as the versioning system, Aria **will** always increase **only** the `patch` component of the version.
+> ❗When using SemVer as the versioning system, `Aria` **will** always increase **only** the `patch` component of the version.
 
 <br>
 
@@ -149,7 +149,7 @@ Example
 aria -f './my-template.adbt' -d
 ```
 
-> 💡 The template **will not** be compiled; Aria will only print out the log.
+> 💡 The template **will not** be compiled; `Aria` will only print out the log.
 
 > ❗ If you want to both compile and print the log, then use the [`log`](#log) flag.
 
@@ -201,7 +201,7 @@ Example
 aria -f './my-template.adbt' -l
 ```
 
-> 💡 The template **will** be compiled and Aria will log while compiling.
+> 💡 The template **will** be compiled and `Aria` will log while compiling.
 
 > ❗ If you only want to do a dry-run and don't compile the template, then use the [`dry`](#dry) flag.
 
