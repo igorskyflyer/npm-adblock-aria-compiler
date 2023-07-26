@@ -29,7 +29,7 @@ program
   .option('-f, --file <path>', 'input template file')
   .option('-d, --dry', 'do a dry-run and print the resulting AST')
   .option('-t, --tree', 'print the resulting AST')
-  .option('-l, --log [path]', 'enable compilation logging, if you pass a path to it, it will write the log to that file')
+  .option('-l, --log', 'enable compilation logging')
   .addOption(
     new Option('-v, --versioning <type>', 'the versioning to use, default: auto').choices(['auto', 'semver', 'timestamp'])
   )
