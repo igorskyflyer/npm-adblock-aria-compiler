@@ -88,10 +88,11 @@ aria -f './my-template.adbt'
 
 The versioning to use, can be:
 
-- `auto`: **default**, let Aria decide which versioning system to use.
+- `auto`: **default**, let Aria decide which versioning system to use.  
   If the resulting file already exists, i.e. `Aria` already compiled the template before, it will re-use the versioning found in the file, otherwise it will use `semver`,
 
-- `semver`: use valid SemVer versioning when exporting the filter file, e.g. `v1.0.0`, `v2.199.222`, etc. If no version is found the counting starts with `v1.0.0`,
+- `semver`: use valid SemVer versioning when exporting the filter file, e.g. `v1.0.0`, `v2.199.222`, etc.  
+  If no version is found the counting starts with `v1.0.0`,
 
 - `timestamp`: use current UNIX timestamp, e.g. `1690409508`.
 
