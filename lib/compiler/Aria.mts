@@ -271,11 +271,11 @@ export class Aria {
 
   parseFile(templatePath: AriaTemplatePath): AriaAst | undefined {
     if (typeof templatePath !== 'string') {
-      throw AriaLog.ariaError(AriaException.noTemplate, this.#sourceLine())
+      throw AriaLog.ariaError(AriaException.noTemplate)
     }
 
     if (!this.#pathExists(templatePath)) {
-      throw AriaLog.ariaError(AriaException.noTemplate, this.#sourceLine())
+      throw AriaLog.ariaError(AriaException.noTemplate)
     }
 
     try {
