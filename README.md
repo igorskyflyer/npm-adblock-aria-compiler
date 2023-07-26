@@ -80,6 +80,45 @@ aria -f './my-template.adbt'
 <br>
 <br>
 
+#### `Versioning`
+
+The versioning to use, can be:
+
+- `auto`: **default**, let Aria decide which versioning system to use, if the resulting file already exists, i.e. Aria already compiled the template before, it will re-use the versioning found in the file,
+- `semver`: use valid SemVer versioning when exporting the filter file, e.g. `v1.0.0`, `v2.199.222`, etc. If no version is found the counting starts with `v1.0.0`,
+- `timestamp`: use current UNIX timestamp, e.g. `1690409508`.
+
+<br>
+
+Short: `-v`  
+Long: `--versioning`  
+Accepts: `auto`, `semver`, `timestamp`  
+Required: **no**
+
+Example
+
+```shell
+aria -f './my-template.adbt' -v semver
+```
+
+> ℹ️ Versioning in Adblock filters
+>
+> Take this snippet from my [AdVoid]() filter list:
+
+```
+! Title: AdVoid.Core
+! Description: ✈ AdVoid is an efficient AdBlock filter that blocks ads, trackers, malwares and a lot more if you want it to! 👾
+! Version: 1.8.1082
+```
+
+Versioning takes care of the last line you see in the snippet above - so you don't have to!
+
+<br>
+
+> ❗When using SemVer as the versioning system, Aria **will** always increase **only** the `patch` component of the version.
+
+<br>
+
 ### 🪅 Flags
 
 #### `Dry`
