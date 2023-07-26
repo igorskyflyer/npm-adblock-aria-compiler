@@ -20,9 +20,19 @@ Adblock template (ADBT) compiler
 <br>
 <br>
 
-## 🕵🏼‍♂️ Usage
+## 🕵🏼‍♂️ Install
 
 Install it by executing:
+
+Global install
+
+```shell
+npm i -g "@igor.dvlpr/aria"
+```
+
+<br>
+
+Local install
 
 ```shell
 npm i "@igor.dvlpr/aria"
