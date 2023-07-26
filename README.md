@@ -60,3 +60,85 @@ Example
 ```shell
 aria -f './my-template.adbt'
 ```
+
+> 💡 Templates files _should_ end with the `.adbt` extension.
+
+<br>
+<br>
+
+### Flags
+
+#### `Dry`
+
+Do a dry-run and print the resulting AST.
+
+<br>
+
+Short: `-d`  
+Long: `--dry`  
+Accepts: `N/A`  
+Required: **no**
+
+Example
+
+```shell
+aria -f './my-template.adbt' -d
+```
+
+> 💡 The template **will not** be compiled; Aria will only print out the log.
+
+> ❗ If you want to both compile and print the log, then use the [`log`](#log) flag.
+
+<br>
+<br>
+
+#### `Tree`
+
+Will print the resulting AST.
+
+<br>
+
+Short: `-t`  
+Long: `--tree`  
+Accepts: `N/A`  
+Required: **no**
+
+Example
+
+```shell
+aria -f './my-template.adbt' -t
+```
+
+> 💡 This **will** compile and print out the resulting AST.
+
+<br>
+
+> 🤔 What is AST?
+>
+> _In computer science, an abstract syntax tree (AST), or just syntax tree, is a tree representation of the abstract syntactic structure of text (often source code) written in a formal language. Each node of the tree denotes a construct occurring in the text._ – Wikipedia
+
+<br>
+<br>
+
+<a id="#log"></a>
+
+#### `Log`
+
+Enable compilation logging.
+
+<br>
+
+Short: `-l`  
+Long: `--log`  
+Accepts: `N/A`  
+Required: **no**
+
+Example
+
+```shell
+aria -f './my-template.adbt' -l
+```
+
+> 💡 The template **will** be compiled and Aria will log while compiling.
+
+> ❗ If you only want to do a dry-run and don't compile the template, then use the [`dry`](#dry) flag.
