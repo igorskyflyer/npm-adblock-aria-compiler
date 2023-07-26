@@ -1,6 +1,6 @@
 {
 	"name": "@igor.dvlpr/aria-compiler",
-	"version": "1.0.0-alpha",
+	"version": "1.0.0",
 	"description": "🧬 Meet Aria, an efficient Adblock filter list compiler, with many features that make your maintenance of Adblock filter lists a breeze! 🗡",
 	"sideEffects": false,
 	"engines": {
@@ -21,7 +21,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/igorskyflyer/adblock-aria-compiler.git"
+		"url": "git+https://github.com/igorskyflyer/npm-adblock-aria-compiler.git"
 	},
 	"keywords": [
 		"igorskyflyer",
@@ -42,9 +42,9 @@
 	"license": "MIT",
 	"funding": "https://ko-fi.com/igorskyflyer",
 	"bugs": {
-		"url": "https://github.com/igorskyflyer/adblock-aria-compiler/issues"
+		"url": "https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues"
 	},
-	"homepage": "https://github.com/igorskyflyer/adblock-aria-compiler#readme",
+	"homepage": "https://github.com/igorskyflyer/npm-adblock-aria-compiler#readme",
 	"devDependencies": {
 		"@types/figlet": "^1.5.6",
 		"@types/node": "^18.0.0",
