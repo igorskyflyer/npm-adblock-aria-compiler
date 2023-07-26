@@ -9,11 +9,10 @@
 	],
 	"compilerOptions": {
 		"target": "ES2022",
-		"declaration": true,
+		"declaration": false,
 		"outDir": "./dist",
 		"skipLibCheck": true,
 		"forceConsistentCasingInFileNames": true,
-		"declarationDir": "./dist",
 		"moduleResolution": "node",
 		"noEmitOnError": true,
 		"strict": true,
