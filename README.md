@@ -101,13 +101,16 @@ Example
 aria -f './my-template.adbt' -v semver
 ```
 
+<br>
+<br>
+
 > ℹ️ Versioning in Adblock filters
 >
 > Take this snippet from my [AdVoid](https://github.com/igorskyflyer/ad-void) filter list:
 
 ```
 ! Title: AdVoid.Core
-! Description: ✈ AdVoid is an efficient AdBlock filter that blocks ads, trackers, malwares and a lot more if you want it to! 👾
+! Description: ✈ AdVoid is an efficient AdBlock filter that blocks ads! 👾
 ! Version: 1.8.1082
 ```
 
