@@ -103,7 +103,7 @@ aria -f './my-template.adbt' -v semver
 
 > ℹ️ Versioning in Adblock filters
 >
-> Take this snippet from my [AdVoid]() filter list:
+> Take this snippet from my [AdVoid](https://github.com/igorskyflyer/ad-void) filter list:
 
 ```
 ! Title: AdVoid.Core
