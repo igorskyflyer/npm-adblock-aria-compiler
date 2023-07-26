@@ -1,4 +1,4 @@
-# Aria
+# Aria 🪅
 
 Adblock template (ADBT) compiler
 
