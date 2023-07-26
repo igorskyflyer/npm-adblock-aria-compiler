@@ -100,7 +100,7 @@ The versioning to use, can be:
 
 Short: `-v`  
 Long: `--versioning`  
-Accepts: `auto`, `semver`, `timestamp`  
+Accepts: `auto`, `semver`, `timestamp`, `<none>`  
 Required: **no**
 
 Example
