@@ -3,7 +3,6 @@ import { AriaTemplatePath } from './AriaTemplatePath.mjs'
 
 export interface IAriaCliArgs {
   [key: string]: any
-  api?: boolean
   file?: AriaTemplatePath
   dry?: boolean
   log?: boolean
