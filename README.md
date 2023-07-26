@@ -196,3 +196,25 @@ aria -f './my-template.adbt' -l
 > 💡 The template **will** be compiled and Aria will log while compiling.
 
 > ❗ If you only want to do a dry-run and don't compile the template, then use the [`dry`](#dry) flag.
+
+<br>
+<br>
+
+#### `Help`
+
+Show the welcome + help screen.
+
+<br>
+
+Short: `-h`  
+Long: `--help`  
+Accepts: `N/A`  
+Required: **no**
+
+Example
+
+```shell
+aria --help
+```
+
+> 💡 This flag works the same as calling `aria` on its own - with 0 arguments.
