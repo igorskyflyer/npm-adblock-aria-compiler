@@ -7,6 +7,7 @@
 		"node": ">=18.0"
 	},
 	"main": "./dist/bin/aria.mjs",
+	"module": "./dist/bin/aria.mjs",
 	"bin": {
 		"aria": "./dist/bin/aria.mjs"
 	},
