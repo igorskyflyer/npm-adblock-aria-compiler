@@ -49,8 +49,12 @@ export const AriaException: Record<string, IAriaExceptionInfo> = {
     id: '011',
     message: 'invalid export path',
   },
-  exportUnsuccessful: {
+  exportNotSpecified: {
     id: '012',
+    message: "the template doesn't contain a single, valid file export path",
+  },
+  exportUnsuccessful: {
+    id: '013',
     message: 'couldn\'t export to file "{0}"',
   },
 } as const
