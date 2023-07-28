@@ -35,7 +35,7 @@ export function getMetaPath(templatePath: AriaTemplatePath): string | null {
     return null
   }
 
-  return templatePath.replace(/(.*)\..*$/i, '$1.meta.json')
+  return templatePath.replace(/(.*)\..*$/i, '$1.adbm')
 }
 
 export function hasMeta(templatePath: AriaTemplatePath): boolean {
