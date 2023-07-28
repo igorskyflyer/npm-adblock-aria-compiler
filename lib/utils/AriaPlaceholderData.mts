@@ -1,43 +1,33 @@
 import { IAriaPlaceholder } from '../models/IAriaPlaceholder.mjs'
 
-function generatePattern(label: string, alias: string | string[]): RegExp {
+function generatePattern(alias: string | string[]): RegExp {
   if (alias instanceof Array) {
     const allAliases: string = alias.join('|')
-    return new RegExp(`! ${label}: \\$\\((?:${allAliases})\\)$`, 'gim')
+    return new RegExp(`\\$\\((?:${allAliases})\\)$`, 'gim')
   } else {
-    return new RegExp(`! ${label}: \\$\\(${alias}\\)$`, 'gim')
+    return new RegExp(`\\$\\(${alias}\\)$`, 'gim')
   }
 }
 
 export const AriaPlaceholderData: Record<string, IAriaPlaceholder> = {
   filename: {
-    label: 'Title',
     alias: 'file',
-    pattern: generatePattern('Title', ['file', 'title']),
+    pattern: generatePattern('file'),
     value: '',
   },
   version: {
-    label: 'Version',
     alias: ['version', 'v'],
-    pattern: generatePattern('Version', ['version', 'v']),
+    pattern: generatePattern(['version', 'v']),
     value: '',
   },
   entries: {
-    label: 'Entries',
     alias: 'entries',
-    pattern: generatePattern('Entries', ['entries', 'count']),
+    pattern: generatePattern(['entries', 'count']),
     value: '',
   },
   lastModified: {
-    label: 'Last modified',
     alias: ['now', 'date'],
-    pattern: generatePattern('Last modified', ['date', 'now']),
-    value: '',
-  },
-  description: {
-    label: 'Description',
-    alias: ['description', 'about'],
-    pattern: generatePattern('Description', ['description', 'about']),
+    pattern: generatePattern(['date', 'now']),
     value: '',
   },
 }
