@@ -176,9 +176,9 @@ export class AriaAst {
               const placeholders: IAriaPlaceholders = AriaPlaceholderData
 
               placeholders.filename!.value = this.meta.title || filename
+              placeholders.description!.value = this.meta.description! ?? ''
               placeholders.version!.value = ''
               placeholders.entries!.value = 0
-              placeholders.description!.value = this.meta.description! ?? ''
               placeholders.lastModified!.value = getCurrentISOTime()
 
               if (this.#pathExists(path)) {
