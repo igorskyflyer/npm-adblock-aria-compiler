@@ -3,9 +3,9 @@ import { IAriaPlaceholder } from '../models/IAriaPlaceholder.mjs'
 function generatePattern(label: string, alias: string | string[]): RegExp {
   if (alias instanceof Array) {
     const allAliases: string = alias.join('|')
-    return new RegExp(`! ${label}: \\$\\((?:${allAliases})\\)$`, 'gim')
+    return new RegExp(`! ${label}: \\$\\{(?:${allAliases})\\}$`, 'gim')
   } else {
-    return new RegExp(`! ${label}: \\$\\(${alias}\\)$`, 'gim')
+    return new RegExp(`! ${label}: \\$\\{${alias}\\}$`, 'gim')
   }
 }
 
