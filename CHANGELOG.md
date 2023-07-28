@@ -4,6 +4,12 @@
 
 <br>
 
+# 1.0.1 - 28-Jul-2023
+
+- \[fix]: encode all files as UTF-8 ([#4](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/4))
+
+<br>
+
 ## 1.0.0 - 27-Jul-2023
 
 - initial release 🎉
