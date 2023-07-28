@@ -10,7 +10,7 @@ import { IAriaMeta } from '../models/IAriaMeta.mjs'
 import { IAriaPlaceholders } from '../models/IAriaPlaceholders.mjs'
 import { IAriaState } from '../models/IAriaState.mjs'
 import { AriaLog } from '../utils/AriaLog.mjs'
-import { AriaPlaceholderData } from '../utils/AriaPlaceholderData.mjs'
+import { AriaPlaceholderData } from '../utils/AriaCompileVar.mjs'
 import {
   AriaVersioning,
   constructVersion,
