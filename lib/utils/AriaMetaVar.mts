@@ -1,4 +1,4 @@
-import { IAriaMetaVar } from '../models/IAriaMetaVar.mjs'
+import { IAriaPlaceholder } from '../models/IAriaPlaceholder.mjs'
 
 function generatePattern(alias: string | string[]): RegExp {
   if (alias instanceof Array) {
@@ -9,7 +9,7 @@ function generatePattern(alias: string | string[]): RegExp {
   }
 }
 
-export const AriaMetaVars: Record<string, IAriaMetaVar> = {
+export const AriaMetaVars: Record<string, IAriaPlaceholder> = {
   title: {
     alias: 'title',
     pattern: generatePattern('title'),
