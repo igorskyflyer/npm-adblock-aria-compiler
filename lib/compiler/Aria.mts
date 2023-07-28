@@ -299,10 +299,9 @@ export class Aria {
 
       AriaLog.newline()
 
-      const template: Buffer = readFileSync(templatePath)
-      const contents: string = template.toString()
+      const template: string = readFileSync(templatePath, { encoding: 'utf-8' })
 
-      this.parse(contents)
+      this.parse(template)
 
       const meta: IAriaMeta | null = parseMeta(templatePath)
 

@@ -137,7 +137,7 @@ export class AriaAst {
 
           try {
             if (path && this.#pathExists(path)) {
-              let header: string = new NormalizedString(readFileSync(path).toString()).value
+              let header: string = new NormalizedString(readFileSync(path, { encoding: 'utf-8' })).value
               header = injectVersionPlaceholder(header)
               contents += this.#block(header)
             } else {
@@ -155,7 +155,7 @@ export class AriaAst {
 
           try {
             if (path && this.#pathExists(path)) {
-              const filter: string = new NormalizedString(readFileSync(path).toString()).value
+              const filter: string = new NormalizedString(readFileSync(path, { encoding: 'utf-8' })).value
               contents += filter
             } else {
               throw AriaLog.ariaError(AriaException.filterNotFound, -1, path)
@@ -182,7 +182,7 @@ export class AriaAst {
               placeholders.lastModified!.value = getCurrentISOTime()
 
               if (this.#pathExists(path)) {
-                const oldFile: string = new NormalizedString(readFileSync(path).toString()).value
+                const oldFile: string = new NormalizedString(readFileSync(path, { encoding: 'utf-8' })).value
                 const oldVersion: string = constructVersion(oldFile, this.meta.versioning || this.versioning)
                 placeholders.version!.value = oldVersion
               } else {
