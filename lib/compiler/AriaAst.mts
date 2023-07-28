@@ -182,7 +182,7 @@ export class AriaAst {
               placeholders.lastModified!.value = getCurrentISOTime()
 
               if (this.#pathExists(path)) {
-                const oldFile: string = new NormalizedString(readFileSync(path).toString()).value
+                const oldFile: string = new NormalizedString(readFileSync(path, { encoding: 'utf-8' })).value
                 const oldVersion: string = constructVersion(oldFile, this.meta.versioning || this.versioning)
                 placeholders.version!.value = oldVersion
               } else {
