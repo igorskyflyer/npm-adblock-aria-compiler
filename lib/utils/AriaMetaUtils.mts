@@ -15,7 +15,7 @@ export function parseMeta(templatePath: AriaTemplatePath): IAriaMeta | null {
 
   try {
     const metaPath: string | null = getMetaPath(templatePath)
-    const contents: string = readFileSync(metaPath!).toString()
+    const contents: string = readFileSync(metaPath!, { encoding: 'utf-8' })
     const json: any = JSON.parse(contents)
 
     // we copy only the props we need
