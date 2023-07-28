@@ -155,7 +155,7 @@ export class AriaAst {
 
           try {
             if (path && this.#pathExists(path)) {
-              const filter: string = new NormalizedString(readFileSync(path).toString()).value
+              const filter: string = new NormalizedString(readFileSync(path, { encoding: 'utf-8' })).value
               contents += filter
             } else {
               throw AriaLog.ariaError(AriaException.filterNotFound, -1, path)
