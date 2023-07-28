@@ -9,7 +9,7 @@ function generatePattern(alias: string | string[]): RegExp {
   }
 }
 
-export const AriaPlaceholderData: Record<string, IAriaPlaceholder> = {
+export const AriaCompileVar: Record<string, IAriaPlaceholder> = {
   filename: {
     alias: 'file',
     pattern: generatePattern('file'),
