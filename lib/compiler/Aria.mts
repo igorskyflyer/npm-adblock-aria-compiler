@@ -11,7 +11,7 @@ import { IAriaMeta } from '../models/IAriaMeta.mjs'
 import { IAriaNode } from '../models/IAriaNode.mjs'
 import { IAriaOptions } from '../models/IAriaOptions.mjs'
 import { AriaLog } from '../utils/AriaLog.mjs'
-import { getMetaPath, hasMeta, parseMeta } from '../utils/AriaMetaUtils.mjs'
+import { getMetaPath, hasMeta, parseMeta } from '../utils/AriaVarUtils.mjs'
 import { AriaAst } from './AriaAst.mjs'
 import { AriaKeywords } from './AriaKeywords.mjs'
 
