@@ -7,10 +7,8 @@ import { IAriaNode } from '../models/IAriaNode.mjs'
 import { AriaNodeType } from '../models/AriaNodeType.mjs'
 import { AriaTemplatePath } from '../models/AriaTemplatePath.mjs'
 import { IAriaMeta } from '../models/IAriaMeta.mjs'
-import { IAriaPlaceholders } from '../models/IAriaPlaceholders.mjs'
 import { IAriaState } from '../models/IAriaState.mjs'
 import { AriaLog } from '../utils/AriaLog.mjs'
-import { AriaPlaceholderData } from '../utils/AriaCompileVar.mjs'
 import {
   AriaVersioning,
   constructVersion,
@@ -21,6 +19,8 @@ import {
 } from '../utils/AriaVersioning.mjs'
 import { AriaException } from '../errors/AriaException.mjs'
 import chalk from 'chalk'
+import { IAriaVar } from '../models/IAriaVar.mjs'
+import { createVars } from '../utils/AriaVarUtils.mjs'
 
 export class AriaAst {
   #nodes: IAriaNode[]
@@ -173,28 +173,32 @@ export class AriaAst {
           try {
             if (path) {
               const filename: string = parse(path).name
-              const placeholders: IAriaPlaceholders = AriaPlaceholderData
+              const variables: IAriaVar = createVars()
 
-              placeholders.filename!.value = this.meta.title || filename
-              placeholders.description!.value = this.meta.description! ?? ''
-              placeholders.version!.value = ''
-              placeholders.entries!.value = 0
-              placeholders.lastModified!.value = getCurrentISOTime()
+              // meta vars
+              variables.title = this.meta.title ?? ''
+              variables.description = this.meta.description ?? ''
+
+              // compile vars
+              variables.filename = filename
+              variables.version = ''
+              variables.entries = 0
+              variables.lastModified = getCurrentISOTime()
 
               if (this.#pathExists(path)) {
                 const oldFile: string = new NormalizedString(readFileSync(path, { encoding: 'utf-8' })).value
                 const oldVersion: string = constructVersion(oldFile, this.meta.versioning || this.versioning)
-                placeholders.version!.value = oldVersion
+                variables.version = oldVersion
               } else {
                 contents = transformHeader(contents, this.versioning)
               }
 
-              placeholders.entries!.value = countRules(contents)
+              variables.entries = countRules(contents)
 
-              contents = replacePlaceholders(contents, placeholders)
+              contents = replacePlaceholders(contents, variables)
               writeFileSync(path, new NormalizedString(contents).value, { encoding: 'utf8', flag: 'w' })
 
-              AriaLog.textSuccess(`written ${chalk.bold(placeholders.entries?.value)} rules to "${parse(path).base}"`)
+              AriaLog.textSuccess(`written ${chalk.bold(variables.entries)} rules to "${parse(path).base}"`)
             } else {
               throw AriaLog.ariaError(AriaException.exportInvalid)
             }
