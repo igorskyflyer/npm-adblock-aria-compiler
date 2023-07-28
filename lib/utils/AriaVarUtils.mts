@@ -1,6 +1,7 @@
 import { accessSync, readFileSync } from 'node:fs'
 import { IAriaMeta } from '../models/IAriaMeta.mjs'
 import { AriaTemplatePath } from '../models/AriaTemplatePath.mjs'
+import { IAriaVar } from '../models/IAriaVar.mjs'
 
 export function parseMeta(templatePath: AriaTemplatePath): IAriaMeta | null {
   const meta: IAriaMeta = {}
@@ -15,14 +16,19 @@ export function parseMeta(templatePath: AriaTemplatePath): IAriaMeta | null {
 
   try {
     const metaPath: string | null = getMetaPath(templatePath)
-    const contents: string = readFileSync(metaPath!, { encoding: 'utf-8' })
-    const json: any = JSON.parse(contents)
 
-    // we copy only the props we need
-    // and disccard everything else
-    meta.title = json.title ?? ''
-    meta.description = json.description ?? ''
-    meta.versioning = json.versioning ?? 'auto'
+    if (typeof metaPath === 'string') {
+      const contents: string = readFileSync(metaPath, { encoding: 'utf-8' })
+      const json: any = JSON.parse(contents)
+
+      // we copy only the props we need
+      // and disccard everything else
+      meta.title = json.title ?? ''
+      meta.description = json.description ?? ''
+      meta.versioning = json.versioning ?? 'auto'
+    } else {
+      return null
+    }
   } catch {
     return null
   }
@@ -35,7 +41,7 @@ export function getMetaPath(templatePath: AriaTemplatePath): string | null {
     return null
   }
 
-  return templatePath.replace(/(.*)\..*$/i, '$1.meta.json')
+  return templatePath.replace(/(.*)\..*$/i, '$1.adbm')
 }
 
 export function hasMeta(templatePath: AriaTemplatePath): boolean {
@@ -60,4 +66,15 @@ function fileExists(filePath: string): boolean {
   }
 
   return true
+}
+
+export function createVars(): IAriaVar {
+  return {
+    title: '',
+    description: '',
+    filename: '',
+    version: '',
+    lastModified: '',
+    entries: 0,
+  }
 }

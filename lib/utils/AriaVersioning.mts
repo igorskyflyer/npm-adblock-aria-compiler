@@ -1,8 +1,8 @@
 import { Keppo } from '@igor.dvlpr/keppo'
-import { AriaPlaceholderData } from './AriaPlaceholderData.mjs'
-import { IAriaPlaceholders } from '../models/IAriaPlaceholders.mjs'
-import { IAriaPlaceholder } from '../models/IAriaPlaceholder.mjs'
 import { AriaHeaderVersion } from '../models/AriaHeaderVersion.mjs'
+import { IAriaVar } from '../models/IAriaVar.mjs'
+import { AriaMetaVars } from './AriaMetaVar.mjs'
+import { AriaCompileVar } from './AriaCompileVar.mjs'
 
 const semVerPattern: RegExp = /! Version:\s*(\d+\.\d+\.\d+)/gim
 const timestampPattern: RegExp = /! Version:\s*(\d+)$/gim
@@ -108,23 +108,25 @@ export function injectVersionPlaceholder(header: string): string {
       header += '\n'
     }
 
-    header += '! Version: $(version)'
+    header += '! Version: $version'
   }
 
   return header
 }
 
-export function replacePlaceholders(header: string, placeholders: IAriaPlaceholders): string {
+export function replacePlaceholders(header: string, data: IAriaVar): string {
   if (typeof header !== 'string') {
     return ''
   }
 
-  const entries: [string, IAriaPlaceholder][] = Object.entries(AriaPlaceholderData)
+  // meta variables
+  for (const [key, placeholder] of Object.entries(AriaMetaVars)) {
+    header = header.replace(placeholder.pattern, data[key])
+  }
 
-  for (const [key, placeholder] of entries) {
-    const placeholderReplace: string = `! ${placeholder.label}: ${placeholders[key].value}`
-
-    header = header.replace(placeholder.pattern, placeholderReplace)
+  // compile variables
+  for (const [key, placeholder] of Object.entries(AriaCompileVar)) {
+    header = header.replace(placeholder.pattern, data[key])
   }
 
   return header
