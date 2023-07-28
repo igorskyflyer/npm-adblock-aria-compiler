@@ -10,8 +10,8 @@ function generatePattern(alias: string | string[]): RegExp {
 }
 
 export const AriaMetaVars: Record<string, IAriaMetaVar> = {
-  filename: {
-    alias: 'file',
+  title: {
+    alias: 'title',
     pattern: generatePattern('title'),
     value: '',
   },
