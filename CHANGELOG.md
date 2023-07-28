@@ -7,6 +7,8 @@
 # 1.0.1 - 28-Jul-2023
 
 - \[fix]: encode all files as UTF-8 ([#4](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/4))
+- \[fix]: meta and compile variables mixup ([#6](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/6))
+- \[dev]: upgrade TypeScript
 
 <br>
 
