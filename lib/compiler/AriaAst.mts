@@ -137,7 +137,7 @@ export class AriaAst {
 
           try {
             if (path && this.#pathExists(path)) {
-              let header: string = new NormalizedString(readFileSync(path).toString()).value
+              let header: string = new NormalizedString(readFileSync(path, { encoding: 'utf-8' })).value
               header = injectVersionPlaceholder(header)
               contents += this.#block(header)
             } else {
