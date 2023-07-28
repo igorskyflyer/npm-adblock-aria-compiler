@@ -1,25 +1,23 @@
-import { IAriaPlaceholder } from '../models/IAriaPlaceholder.mjs'
+import { IAriaMetaVar } from '../models/IAriaMetaVar.mjs'
 
-function generatePattern(label: string, alias: string | string[]): RegExp {
+function generatePattern(alias: string | string[]): RegExp {
   if (alias instanceof Array) {
     const allAliases: string = alias.join('|')
-    return new RegExp(`! ${label}: \\$\\{(?:${allAliases})\\}$`, 'gim')
+    return new RegExp(`\\$\\{(?:${allAliases})\\}`, 'gim')
   } else {
-    return new RegExp(`! ${label}: \\$\\{${alias}\\}$`, 'gim')
+    return new RegExp(`\\$\\{${alias}\\}`, 'gim')
   }
 }
 
-export const AriaMetaVars: Record<string, IAriaPlaceholder> = {
+export const AriaMetaVars: Record<string, IAriaMetaVar> = {
   filename: {
-    label: 'Title',
     alias: 'file',
-    pattern: generatePattern('Title', 'title'),
+    pattern: generatePattern('title'),
     value: '',
   },
   description: {
-    label: 'Description',
     alias: ['description', 'about'],
-    pattern: generatePattern('Description', ['description', 'about']),
+    pattern: generatePattern(['description', 'about']),
     value: '',
   },
 }
