@@ -1,5 +1,5 @@
 import { Keppo } from '@igor.dvlpr/keppo'
-import { AriaPlaceholderData } from './AriaPlaceholderData.mjs'
+import { AriaPlaceholderData } from './AriaCompileVar.mjs'
 import { IAriaPlaceholders } from '../models/IAriaPlaceholders.mjs'
 import { IAriaPlaceholder } from '../models/IAriaPlaceholder.mjs'
 import { AriaHeaderVersion } from '../models/AriaHeaderVersion.mjs'
