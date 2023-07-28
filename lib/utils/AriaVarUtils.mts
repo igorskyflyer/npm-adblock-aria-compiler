@@ -1,6 +1,7 @@
 import { accessSync, readFileSync } from 'node:fs'
 import { IAriaMeta } from '../models/IAriaMeta.mjs'
 import { AriaTemplatePath } from '../models/AriaTemplatePath.mjs'
+import { IAriaVar } from '../models/IAriaVar.mjs'
 
 export function parseMeta(templatePath: AriaTemplatePath): IAriaMeta | null {
   const meta: IAriaMeta = {}
@@ -65,4 +66,15 @@ function fileExists(filePath: string): boolean {
   }
 
   return true
+}
+
+export function createVars(): IAriaVar {
+  return {
+    title: '',
+    description: '',
+    filename: '',
+    version: '',
+    lastModified: '',
+    entries: 0,
+  }
 }
