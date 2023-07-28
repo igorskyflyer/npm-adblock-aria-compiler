@@ -1,4 +1,5 @@
 export interface IAriaVar {
+  [key: string]: any
   // meta variables
   title: string
   description: string
