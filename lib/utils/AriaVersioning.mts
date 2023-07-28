@@ -122,9 +122,7 @@ export function replacePlaceholders(header: string, placeholders: IAriaPlacehold
   const entries: [string, IAriaPlaceholder][] = Object.entries(AriaPlaceholderData)
 
   for (const [key, placeholder] of entries) {
-    const placeholderReplace: string = `! ${placeholder.label}: ${placeholders[key].value}`
-
-    header = header.replace(placeholder.pattern, placeholderReplace)
+    header = header.replace(placeholder.pattern, placeholders[key].value)
   }
 
   return header
