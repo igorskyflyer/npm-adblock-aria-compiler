@@ -4,3 +4,5 @@ data/**
 output/**
 assets/*.afdesign
 ast.json
+*.tgz
+*.zip
