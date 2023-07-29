@@ -100,6 +100,18 @@ export class Aria {
           throw AriaLog.ariaError(AriaException.importPath, this.#sourceLine(), this.#char)
         }
       } else {
+        if (this.#char === '\\') {
+          this.#read()
+
+          // @ts-ignore
+          if (this.#char === "'") {
+            path += "'"
+            continue
+          } else {
+            throw AriaLog.ariaError(AriaException.unterminatedPath, this.#sourceLine())
+          }
+        }
+
         if (this.#char === "'") {
           shouldCapture = false
           closedString = true
