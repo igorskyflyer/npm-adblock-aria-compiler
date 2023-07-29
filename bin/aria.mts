@@ -13,7 +13,7 @@ import { isArgsEmpty } from '../lib/utils/AriaCliUtil.mjs'
 import { AriaLog } from '../lib/utils/AriaLog.mjs'
 import { AriaException } from '../lib/errors/AriaException.mjs'
 
-const ariaVersion: string = '1.0.0 (e856673)'
+const ariaVersion: string = '1.0.2'
 const program = new Command()
 
 AriaLog.text(chalk.bold(figlet.textSync('ARIA', 'Slant')))
