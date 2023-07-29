@@ -15,6 +15,10 @@
 			"preLaunchTask": "tsc",
 			"outFiles": [
 				"${workspaceFolder}/dist/**/*.mjs"
+			],
+			"args": [
+				"-f",
+				"./data/test.adbt"
 			]
 		}
 	]
