@@ -4,6 +4,12 @@
 
 <br>
 
+## 1.0.3 - 29-Jul-2023
+
+- \[fix]: handle single quotes `'` in file paths
+
+<br>
+
 ## 1.0.2 - 29-Jul-2023
 
 - add performance information to CLI output
