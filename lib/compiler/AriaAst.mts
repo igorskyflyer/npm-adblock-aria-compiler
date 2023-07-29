@@ -21,6 +21,7 @@ import { AriaException } from '../errors/AriaException.mjs'
 import chalk from 'chalk'
 import { IAriaVar } from '../models/IAriaVar.mjs'
 import { createVars } from '../utils/AriaVarUtils.mjs'
+import { AriaPerformance } from '../utils/AriaPerformance.mjs'
 
 export class AriaAst {
   #nodes: IAriaNode[]
@@ -114,7 +115,10 @@ export class AriaAst {
       return false
     }
 
+    const perf: AriaPerformance = new AriaPerformance()
     let contents = ''
+
+    perf.startProfiling()
 
     for (let i = 0; i < this.#nodesCount; i++) {
       const node = this.#nodes[i]
@@ -198,7 +202,9 @@ export class AriaAst {
               contents = replacePlaceholders(contents, variables)
               writeFileSync(path, new NormalizedString(contents).value, { encoding: 'utf8', flag: 'w' })
 
-              AriaLog.textSuccess(`written ${chalk.bold(variables.entries)} rules to "${parse(path).base}"`)
+              const time: string = perf.endProfiling()
+
+              AriaLog.textSuccess(`written ${chalk.bold(variables.entries)} rules to "${parse(path).base}" in ${time}`)
             } else {
               throw AriaLog.ariaError(AriaException.exportInvalid)
             }
