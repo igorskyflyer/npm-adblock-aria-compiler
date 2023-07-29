@@ -4,6 +4,12 @@
 
 <br>
 
+## 1.0.2 - 29-Jul-2023
+
+- add performance information to CLI output
+
+<br>
+
 ## 1.0.1 - 28-Jul-2023
 
 - \[fix]: encode all files as UTF-8 ([#4](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/4))
