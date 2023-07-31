@@ -259,7 +259,7 @@ export class Aria {
         }
 
         if (this.#buffer === AriaKeywords.export) {
-          if (this.#ast.state.exports === 1) {
+          if (this.#ast.state.exports.length === 1) {
             throw AriaLog.ariaError(AriaException.oneExportOnly, this.#sourceLine())
           }
 
