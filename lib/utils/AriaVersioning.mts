@@ -14,8 +14,7 @@ function hasPattern(header: string, pattern: RegExp): boolean {
     return false
   }
 
-  const match: RegExpMatchArray | null = header.match(pattern)
-  return match !== null && match.length === 1
+  return pattern.test(header)
 }
 
 function getData(header: string, pattern: RegExp): string {
@@ -128,17 +127,28 @@ export function replacePlaceholders(header: string, data: IAriaVar): string {
   return header
 }
 
-export function transformHeader(header: string, mode: AriaVersioning): string {
-  if (typeof header !== 'string') {
-    return ''
-  }
+export function transformHeader(header: string, newVersion: string): string
+export function transformHeader(header: string, mode: AriaVersioning): string
 
-  const newVersion: string = constructVersion(header, mode)
+export function transformHeader(header: string, version: any): string {
+  {
+    if (typeof header !== 'string') {
+      return ''
+    }
 
-  if (hasVersion(header)) {
-    return header.replace(versionPattern, `! Version: ${newVersion}`)
-  } else {
-    return `${header}\n! Version: ${newVersion}`
+    let newVersion: string
+
+    if (typeof version === 'string') {
+      newVersion = version
+    } else {
+      newVersion = constructVersion(header, version)
+    }
+
+    if (hasVersion(header)) {
+      return header.replace(versionPattern, `! Version: ${newVersion}`)
+    } else {
+      return `${header}\n! Version: ${newVersion}`
+    }
   }
 }
 
