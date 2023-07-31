@@ -44,7 +44,7 @@ npm i "@igor.dvlpr/aria"
 
 💡 This file only documents `Aria CLI`-related API.
 
-You should read the official [ADBT API](https://github.com/igorskyflyer/file-formats/blob/main/adbt/README.md) documentation for more information on how ADBT works, its syntax and usage.
+You should read the official [ADBT API](https://github.com/igorskyflyer/vscode-adbt) documentation for more information on how ADBT works, its syntax and usage.
 
 <br>
 
