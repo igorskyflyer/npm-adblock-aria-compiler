@@ -1,4 +1,4 @@
 export interface IAriaState {
-  imports: number
-  exports: number
+  imports: string[]
+  exports: string[]
 }
