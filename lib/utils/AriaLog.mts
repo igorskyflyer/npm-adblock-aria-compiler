@@ -2,6 +2,7 @@ import chalk from 'chalk'
 import { AriaLogLevel } from '../models/AriaLogLevel.mjs'
 import { AriaError } from '../errors/AriaError.mjs'
 import { IAriaExceptionInfo } from '../errors/IAriaExceptionInfo.mjs'
+import { zing } from '@igor.dvlpr/zing'
 
 export class AriaLog {
   static shouldLog: boolean = false
@@ -16,8 +17,8 @@ export class AriaLog {
     console.log(text)
   }
 
-  static textWarning(message: any): void {
-    console.warn(`${chalk.bgHex('#1369BD').bold(' WARNING ')} ${chalk.dim(message)}`)
+  static textWarning(message: any, ...rest: any[]): void {
+    console.warn(`${chalk.bgHex('#1369BD').bold(' WARNING ')} ${chalk.dim(zing(message, rest))}`)
   }
 
   static textError(message: any): void {
