@@ -35,7 +35,7 @@ export class AriaAst {
   constructor() {
     this.#nodesCount = 0
     this.#nodes = []
-    this.#state = { imports: 0, exports: 0 }
+    this.#state = { imports: [], exports: [] }
     this.templatePath = '' as AriaTemplatePath
     this.versioning = 'auto'
     this.meta = { description: '', title: '', versioning: 'auto' }
@@ -78,10 +78,12 @@ export class AriaAst {
   }
 
   public addNode(node: IAriaNode): void {
-    if (node.type === AriaNodeType.nodeImport) {
-      this.#state.imports++
-    } else if (node.type === AriaNodeType.nodeExport) {
-      this.#state.exports++
+    if (typeof node.value === 'string') {
+      if (node.type === AriaNodeType.nodeImport) {
+        this.#state.imports.push(node.value)
+      } else if (node.type === AriaNodeType.nodeExport) {
+        this.#state.exports.push(node.value)
+      }
     }
 
     this.#nodes.push(node)
@@ -108,7 +110,7 @@ export class AriaAst {
   public compile(): boolean {
     if (this.#nodesCount === 0) return true
 
-    if (this.#state.exports === 0) {
+    if (this.#state.exports.length === 0) {
       AriaLog.textError(AriaException.exportNotSpecified.message)
       AriaLog.newline()
       AriaLog.text('Aborting the compilation...')
