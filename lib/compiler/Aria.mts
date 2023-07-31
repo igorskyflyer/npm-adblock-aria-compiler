@@ -144,7 +144,13 @@ export class Aria {
 
   #parseImport(): boolean {
     const path: string = this.#parsePath()
-    this.#ast.addNode(this.#node(AriaNodeType.nodeImport, path))
+
+    if (!this.#ast.state.imports.includes(path)) {
+      this.#ast.addNode(this.#node(AriaNodeType.nodeImport, path))
+    } else {
+      AriaLog.textWarning(AriaException.importedAlready.message, path)
+      AriaLog.newline()
+    }
 
     return true
   }
@@ -259,7 +265,7 @@ export class Aria {
         }
 
         if (this.#buffer === AriaKeywords.export) {
-          if (this.#ast.state.exports === 1) {
+          if (this.#ast.state.exports.length === 1) {
             throw AriaLog.ariaError(AriaException.oneExportOnly, this.#sourceLine())
           }
 

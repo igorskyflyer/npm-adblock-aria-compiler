@@ -57,4 +57,8 @@ export const AriaException: Record<string, IAriaExceptionInfo> = {
     id: '013',
     message: 'couldn\'t export to file "{0}"',
   },
+  importedAlready: {
+    id: '014',
+    message: "filter file '{0}' was already included. Consider removing this import.",
+  },
 } as const
