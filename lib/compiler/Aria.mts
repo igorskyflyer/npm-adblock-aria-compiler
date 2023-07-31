@@ -144,7 +144,13 @@ export class Aria {
 
   #parseImport(): boolean {
     const path: string = this.#parsePath()
-    this.#ast.addNode(this.#node(AriaNodeType.nodeImport, path))
+
+    if (!this.#ast.state.imports.includes(path)) {
+      this.#ast.addNode(this.#node(AriaNodeType.nodeImport, path))
+    } else {
+      AriaLog.textWarning(AriaException.importedAlready.message, path)
+      AriaLog.newline()
+    }
 
     return true
   }
