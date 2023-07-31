@@ -100,10 +100,6 @@ export function constructVersion(header: string, mode: AriaVersioning): string {
 
 export function injectVersionPlaceholder(header: string): string {
   if (!hasVersion(header)) {
-    if (header.at(0) !== '\n') {
-      header = `\n${header}`
-    }
-
     if (header.at(-1) !== '\n') {
       header += '\n'
     }
