@@ -162,14 +162,16 @@ export class AriaAst {
           const path: string | undefined = node.value
 
           try {
-            if (path && this.#pathExists(path)) {
-              const filter: string = new NormalizedString(readFileSync(path, { encoding: 'utf-8' })).value
-              contents += filter
-            } else {
-              throw AriaLog.ariaError(AriaException.filterNotFound, -1, path)
+            if (typeof path === 'string') {
+              if (this.#pathExists(path)) {
+                const filter: string = new NormalizedString(readFileSync(path, { encoding: 'utf-8' })).value
+                contents += filter
+              } else {
+                throw AriaLog.ariaError(AriaException.filterNotFound, -1, path)
+              }
             }
           } catch {
-            throw AriaLog.ariaError(AriaException.filterRead, -1, path)
+            throw AriaLog.ariaError(AriaException.filterRead, -1, 'N/A')
           }
 
           break
