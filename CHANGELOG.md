@@ -4,6 +4,13 @@
 
 <br>
 
+## 1.1.1 - 01-Aug-2023
+
+- **fix**: don't prepend whitespace when injecting headers
+- **fix**: version placeholder was injected even when a version is defined
+
+<br>
+
 ## 1.1.0 - 31-Jul-2023
 
 - **feat**: don't include already included filter lists
