@@ -142,15 +142,17 @@ export class AriaAst {
           const path: string | undefined = node.value
 
           try {
-            if (path && this.#pathExists(path)) {
-              let header: string = new NormalizedString(readFileSync(path, { encoding: 'utf-8' })).value
-              header = injectVersionPlaceholder(header)
-              contents += this.#block(header)
-            } else {
-              throw AriaLog.ariaError(AriaException.headerRead, -1, resolve(path!))
+            if (typeof path === 'string') {
+              if (this.#pathExists(path)) {
+                let header: string = new NormalizedString(readFileSync(path, { encoding: 'utf-8' })).value
+                header = injectVersionPlaceholder(header)
+                contents += this.#block(header)
+              } else {
+                throw AriaLog.ariaError(AriaException.headerRead, -1, resolve(path))
+              }
             }
           } catch {
-            throw AriaLog.ariaError(AriaException.headerRead, -1, resolve(path!))
+            throw AriaLog.ariaError(AriaException.headerRead, -1, 'N/A')
           }
 
           break
@@ -160,14 +162,16 @@ export class AriaAst {
           const path: string | undefined = node.value
 
           try {
-            if (path && this.#pathExists(path)) {
-              const filter: string = new NormalizedString(readFileSync(path, { encoding: 'utf-8' })).value
-              contents += filter
-            } else {
-              throw AriaLog.ariaError(AriaException.filterNotFound, -1, path)
+            if (typeof path === 'string') {
+              if (this.#pathExists(path)) {
+                const filter: string = new NormalizedString(readFileSync(path, { encoding: 'utf-8' })).value
+                contents += filter
+              } else {
+                throw AriaLog.ariaError(AriaException.filterNotFound, -1, path)
+              }
             }
           } catch {
-            throw AriaLog.ariaError(AriaException.filterRead, -1, path)
+            throw AriaLog.ariaError(AriaException.filterRead, -1, 'N/A')
           }
 
           break
@@ -177,7 +181,7 @@ export class AriaAst {
           const path: string | undefined = node.value
 
           try {
-            if (path) {
+            if (typeof path === 'string') {
               const filename: string = parse(path).name
               const variables: IAriaVar = createVars()
 
@@ -190,18 +194,19 @@ export class AriaAst {
               variables.version = ''
               variables.entries = 0
               variables.lastModified = getCurrentISOTime()
+              variables.entries = countRules(contents)
 
               if (this.#pathExists(path)) {
                 const oldFile: string = new NormalizedString(readFileSync(path, { encoding: 'utf-8' })).value
-                const oldVersion: string = constructVersion(oldFile, this.meta.versioning || this.versioning)
-                variables.version = oldVersion
+                const newVersion: string = constructVersion(oldFile, this.meta.versioning || this.versioning)
+                variables.version = newVersion
+                contents = transformHeader(contents, newVersion)
               } else {
                 contents = transformHeader(contents, this.versioning)
               }
 
-              variables.entries = countRules(contents)
-
               contents = replacePlaceholders(contents, variables)
+
               writeFileSync(path, new NormalizedString(contents).value, { encoding: 'utf8', flag: 'w' })
 
               const time: string = perf.endProfiling()
