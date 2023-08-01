@@ -6,13 +6,15 @@ import { AriaCompileVar } from './AriaCompileVar.mjs'
 
 const semVerPattern: RegExp = /! Version:\s*(\d+\.\d+\.\d+)/gim
 const timestampPattern: RegExp = /! Version:\s*(\d+)$/gim
-const versionPlaceholderPattern: RegExp = /! Version: \$\(version\)$/gim
+const versionPlaceholderPattern: RegExp = /! Version: \$version$/gim
 const versionPattern: RegExp = /! Version:.*$/gim
 
 function hasPattern(header: string, pattern: RegExp): boolean {
   if (typeof header !== 'string') {
     return false
   }
+
+  pattern.lastIndex = 0
 
   return pattern.test(header)
 }
@@ -21,6 +23,8 @@ function getData(header: string, pattern: RegExp): string {
   if (typeof header !== 'string') {
     return ''
   }
+
+  pattern.lastIndex = 0
 
   const data: RegExpExecArray | null = pattern.exec(header)
 
