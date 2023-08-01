@@ -142,15 +142,17 @@ export class AriaAst {
           const path: string | undefined = node.value
 
           try {
-            if (path && this.#pathExists(path)) {
-              let header: string = new NormalizedString(readFileSync(path, { encoding: 'utf-8' })).value
-              header = injectVersionPlaceholder(header)
-              contents += this.#block(header)
-            } else {
-              throw AriaLog.ariaError(AriaException.headerRead, -1, resolve(path!))
+            if (typeof path === 'string') {
+              if (this.#pathExists(path)) {
+                let header: string = new NormalizedString(readFileSync(path, { encoding: 'utf-8' })).value
+                header = injectVersionPlaceholder(header)
+                contents += this.#block(header)
+              } else {
+                throw AriaLog.ariaError(AriaException.headerRead, -1, resolve(path))
+              }
             }
           } catch {
-            throw AriaLog.ariaError(AriaException.headerRead, -1, resolve(path!))
+            throw AriaLog.ariaError(AriaException.headerRead, -1, 'N/A')
           }
 
           break
