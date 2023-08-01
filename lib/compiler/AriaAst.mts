@@ -181,7 +181,7 @@ export class AriaAst {
           const path: string | undefined = node.value
 
           try {
-            if (path) {
+            if (typeof path === 'string') {
               const filename: string = parse(path).name
               const variables: IAriaVar = createVars()
 
