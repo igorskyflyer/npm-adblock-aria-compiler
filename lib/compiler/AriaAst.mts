@@ -190,18 +190,19 @@ export class AriaAst {
               variables.version = ''
               variables.entries = 0
               variables.lastModified = getCurrentISOTime()
+              variables.entries = countRules(contents)
 
               if (this.#pathExists(path)) {
                 const oldFile: string = new NormalizedString(readFileSync(path, { encoding: 'utf-8' })).value
-                const oldVersion: string = constructVersion(oldFile, this.meta.versioning || this.versioning)
-                variables.version = oldVersion
+                const newVersion: string = constructVersion(oldFile, this.meta.versioning || this.versioning)
+                variables.version = newVersion
+                contents = transformHeader(contents, newVersion)
               } else {
                 contents = transformHeader(contents, this.versioning)
               }
 
-              variables.entries = countRules(contents)
-
               contents = replacePlaceholders(contents, variables)
+
               writeFileSync(path, new NormalizedString(contents).value, { encoding: 'utf8', flag: 'w' })
 
               const time: string = perf.endProfiling()
