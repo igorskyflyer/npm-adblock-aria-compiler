@@ -104,8 +104,8 @@ export class Aria {
           this.#read()
 
           // @ts-ignore
-          if (this.#char === "'") {
-            path += "'"
+          if (this.#char === "'" || this.#char === '\\') {
+            path += this.#char
             continue
           } else {
             throw AriaLog.ariaError(AriaException.unterminatedPath, this.#sourceLine())
