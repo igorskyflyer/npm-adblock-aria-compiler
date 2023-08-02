@@ -11,7 +11,7 @@ export class AriaPerformance {
 
   endProfiling(): string {
     const time: string = (performance.now() - this.#timestamp).toFixed(2)
-    const result = `${time}ms 💫`
+    const result = `${time}ms`
 
     return result
   }
