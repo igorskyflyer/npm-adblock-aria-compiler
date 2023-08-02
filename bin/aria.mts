@@ -7,23 +7,18 @@ import { Command, Option } from 'commander'
 import figlet from 'figlet'
 import { exit } from 'process'
 import { Aria } from '../lib/compiler/Aria.mjs'
+import { AriaException } from '../lib/errors/AriaException.mjs'
 import { AriaAstParsed } from '../lib/models/AriaAstParsed.mjs'
 import { IAriaCliArgs } from '../lib/models/IAriaCliArgs.mjs'
-import { getVersion, isArgsEmpty } from '../lib/utils/AriaCliUtil.mjs'
+import { isArgsEmpty } from '../lib/utils/AriaCliUtil.mjs'
 import { AriaLog } from '../lib/utils/AriaLog.mjs'
-import { AriaException } from '../lib/errors/AriaException.mjs'
+import { version } from '../lib/version.mjs'
 
 const program = new Command()
 
 AriaLog.text(chalk.bold(figlet.textSync('ARIA', 'Slant')))
 
-const version = getVersion()
-let ariaVersion: string = ''
-
-if (version != null) {
-  ariaVersion = `CLI:  v${version.cli} (${version.commit})\nADBT: v${version.adbt}`
-}
-
+const ariaVersion: string = `CLI:  v${version.cli} (${version.commit})\nADBT: v${version.adbt}`
 AriaLog.text(chalk.dim.italic(`${ariaVersion}\n\n`))
 
 program.description(
