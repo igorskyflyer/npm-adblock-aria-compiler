@@ -84,6 +84,28 @@ aria -f './my-template.adbt'
 <br>
 <br>
 
+#### `Root`
+
+Set the root directory (CWD).
+
+<br>
+
+Short: `-r`  
+Long: `--root`  
+Accepts: `path: string`  
+Required: **no**
+
+Example
+
+```shell
+aria -f './my-template.adbt' --root 'D:\my-filter'
+```
+
+> 💡 Useful when passing an absolute template path or when working from a directory that's not the directory where the template file is stored.
+
+<br>
+<br>
+
 #### `Versioning`
 
 The versioning to use, can be:
