@@ -152,7 +152,7 @@ export class AriaAst {
               }
             }
           } catch {
-            throw AriaLog.ariaError(AriaException.headerRead, -1, 'N/A')
+            throw AriaLog.ariaError(AriaException.headerRead, -1, path ?? 'N/A')
           }
 
           break
