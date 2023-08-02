@@ -195,6 +195,7 @@ export class Aria {
 
     const lines: string[] = this.#source.split(/\n/gm)
     const linesCount: number = lines.length
+    let shouldParse: boolean = true
 
     AriaLog.log(`Total lines: ${linesCount}`)
     AriaLog.log(`Versioning: ${this.#ast.versioning}`)
@@ -202,6 +203,11 @@ export class Aria {
     AriaLog.newline()
 
     while (this.#lineCursor < linesCount) {
+      if (!shouldParse) {
+        AriaLog.textWarning(AriaException.unreachableNodes.message, this.#lineCursor)
+        break
+      }
+
       this.#line = lines[this.#lineCursor]
       this.#buffer = ''
 
@@ -220,6 +226,12 @@ export class Aria {
       this.#foundKeyword = false
 
       for (this.#cursorInLine = 0; this.#cursorInLine < this.#lineLength; this.#cursorInLine++) {
+        if (this.#ast.state.exports.length === 1) {
+          AriaLog.textWarning(AriaException.unreachableNodes.message, this.#lineCursor)
+          shouldParse = false
+          break
+        }
+
         this.#char = this.#line.charAt(this.#cursorInLine)
 
         if (this.#isWhitespace()) {
@@ -265,6 +277,7 @@ export class Aria {
 
           this.#parseExport()
           AriaLog.log('Found export operator')
+          shouldParse = false
           break
         }
       }
