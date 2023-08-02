@@ -61,4 +61,9 @@ export const AriaException: Record<string, IAriaExceptionInfo> = {
     id: '014',
     message: "filter file '{0}' was already included. Consider removing this import.",
   },
+  unreachableNodes: {
+    id: '015',
+    message:
+      "unreachable code detected after line {0}. A template can only end with an export statement. Consider removing or reorganizing the template's code.",
+  },
 } as const
