@@ -7,7 +7,7 @@ try {
   const packageInfo = JSON.parse(packageFile)
   const commit = execSync('git rev-parse --short=7 HEAD').toString().trim()
 
-  writeFileSync('./version', JSON.stringify({ cli: packageInfo.version, adbt: packageInfo.uses.adbt, commit }))
+  writeFileSync('./lib/version', JSON.stringify({ cli: packageInfo.version, adbt: packageInfo.uses.adbt, commit }))
   console.log('✅ Successfully tagged the release.')
   exit(0)
 } catch {
