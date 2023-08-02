@@ -3,6 +3,9 @@
 	"version": "1.2.3",
 	"description": "🧬 Meet Aria, an efficient Adblock filter list compiler, with many features that make your maintenance of Adblock filter lists a breeze! 🗡",
 	"sideEffects": false,
+	"uses": {
+		"adbt": "1.0.0"
+	},
 	"engines": {
 		"node": ">=18.0"
 	},
@@ -12,12 +15,14 @@
 		"aria": "./dist/bin/aria.mjs"
 	},
 	"files": [
+		"./version",
 		"dist"
 	],
 	"scripts": {
 		"build": "tsc",
+		"tag": "node ./scripts/tag.mjs",
 		"dev": "tsc -w --sourcemap",
-		"pub": "npm run build && npm publish --access public"
+		"pub": "npm run tag && npm run build && npm publish --access public"
 	},
 	"repository": {
 		"type": "git",
