@@ -102,14 +102,8 @@ export class Aria {
       } else {
         if (this.#char === '\\') {
           this.#read()
-
-          // @ts-ignore
-          if (this.#char === "'" || this.#char === '\\') {
-            path += this.#char
-            continue
-          } else {
-            throw AriaLog.ariaError(AriaException.unterminatedPath, this.#sourceLine())
-          }
+          path += this.#char
+          continue
         }
 
         if (this.#char === "'") {
