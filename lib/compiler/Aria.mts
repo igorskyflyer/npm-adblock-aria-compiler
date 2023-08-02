@@ -205,6 +205,7 @@ export class Aria {
     while (this.#lineCursor < linesCount) {
       if (!shouldParse) {
         AriaLog.textWarning(AriaException.unreachableNodes.message, this.#lineCursor)
+        AriaLog.newline()
         break
       }
 
@@ -228,6 +229,8 @@ export class Aria {
       for (this.#cursorInLine = 0; this.#cursorInLine < this.#lineLength; this.#cursorInLine++) {
         if (this.#ast.state.exports.length === 1) {
           AriaLog.textWarning(AriaException.unreachableNodes.message, this.#lineCursor)
+          AriaLog.newline()
+
           shouldParse = false
           break
         }
