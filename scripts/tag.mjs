@@ -14,6 +14,6 @@ try {
   console.log('✅ Successfully tagged the release.')
   exit(0)
 } catch {
-  console.error("❌ Couldn't tag the release")
+  console.error("❌ Couldn't tag the release.")
   exit(1)
 }
