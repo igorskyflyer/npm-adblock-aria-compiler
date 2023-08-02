@@ -4,6 +4,16 @@
 
 <br>
 
+## 1.2.5 - 02-Aug-2023
+
+- **fix**: always output absolute export path
+- **feat**: log execution time ([#28](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/28))
+- **feat**: use [ADBT v1.0.1](https://github.com/igorskyflyer/file-format-adbt/releases/tag/v1.0.1)
+  - **feat**: unreachable code detection
+- **docs**: update ADBT API link
+
+<br>
+
 ## 1.2.4 - 02-Aug-2023
 
 - **dev**: use automated version tagging
