@@ -4,6 +4,12 @@
 
 <br>
 
+## 1.2.4 - 02-Aug-2023
+
+- **dev**: use automated version tagging
+
+<br>
+
 ## 1.2.3 - 02-Aug-2023
 
 - **fix**: incorrect CLI version
