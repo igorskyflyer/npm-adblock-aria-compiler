@@ -8,4 +8,5 @@ export interface IAriaCliArgs {
   log?: boolean
   tree?: boolean
   versioning?: AriaVersioning
+  root?: string
 }
