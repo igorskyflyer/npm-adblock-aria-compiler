@@ -4,22 +4,29 @@
 
 <br>
 
+## 1.1.2 - 02-Aug-2023
+
+- **fix**: sourceline wrong numbering
+- **fix**: String escaping
+
+<br>
+
 ## 1.1.1 - 01-Aug-2023
 
-- **fix**: don't prepend whitespace when injecting headers
-- **fix**: version placeholder was injected even when a version is defined
+- **fix**: version placeholder was injected even when a version is defined ([#14](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/14))
+- **fix**: don't prepend whitespace when injecting headers ([#12](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/12))
 
 <br>
 
 ## 1.1.0 - 31-Jul-2023
 
-- **feat**: don't include already included filter lists
+- **feat**: don't include already included filter lists ([#10](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/10))
 
 <br>
 
 ## 1.0.3 - 29-Jul-2023
 
-- **fix**: handle single quotes `'` in file paths
+- **fix**: handle single quotes `'` in file paths ([#8](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/8))
 
 <br>
 
