@@ -4,6 +4,12 @@
 
 <br>
 
+## 1.2.3 - 02-Aug-2023
+
+- **fix**: incorrect CLI version
+
+<br>
+
 ## 1.2.2 - 02-Aug-2023
 
 - **fix**: enable passing of relative template paths while using a `root` absolute path ([#24](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/24))
