@@ -4,12 +4,17 @@
 
 <br>
 
-## 1.1.2 - 02-Aug-2023
+## 1.2.0 - 02-Aug-2023
 
-- **fix**: sourceline wrong numbering
-- **fix**: String escaping
+- **feat**: root directory option
+- **fix**: cwd path ([#23](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/23))
 
 <br>
+
+## 1.1.2 - 02-Aug-2023
+
+- **fix**: sourceline wrong numbering ([#18](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/18))
+- **fix**: String escaping ([#17](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/17))
 
 ## 1.1.1 - 01-Aug-2023
 
