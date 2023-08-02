@@ -251,25 +251,25 @@ export class Aria {
 
         if (this.#buffer === AriaKeywords.commentInternal) {
           this.#foundKeyword = true
-          AriaLog.log(`Found internal comment at char(${this.#cursorInLine}), skipping line`)
+          AriaLog.log(`Found an internal comment, skipping line`)
           break
         }
 
         if (this.#buffer === AriaKeywords.commentExported) {
           this.#parseComment()
-          AriaLog.log('Found exported comment')
+          AriaLog.log('Found an exported comment')
           break
         }
 
         if (this.#buffer === AriaKeywords.headerImport) {
           this.#parseHeaderImport()
-          AriaLog.log('Found header import operator')
+          AriaLog.log('Found a header import')
           break
         }
 
         if (this.#buffer === AriaKeywords.import) {
           this.#parseImport()
-          AriaLog.log('Found import operator')
+          AriaLog.log('Found an import')
           break
         }
 
@@ -279,7 +279,7 @@ export class Aria {
           }
 
           this.#parseExport()
-          AriaLog.log('Found export operator')
+          AriaLog.log('Found an export operator')
           shouldParse = false
           break
         }
