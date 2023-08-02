@@ -16,7 +16,6 @@
 	],
 	"scripts": {
 		"build": "tsc",
-		"ver": "git rev-parse --short=7 HEAD",
 		"dev": "tsc -w --sourcemap",
 		"pub": "npm run build && npm publish --access public"
 	},
