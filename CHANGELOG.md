@@ -4,6 +4,14 @@
 
 <br>
 
+## 1.2.1 - 02-Aug-2023
+
+- **docs**: update API
+
+<br>
+
+<br>
+
 ## 1.2.0 - 02-Aug-2023
 
 - **feat**: root directory option
