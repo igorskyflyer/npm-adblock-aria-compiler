@@ -248,3 +248,37 @@ aria --help
 ```
 
 > 💡 This flag works the same as calling `aria` on its own - with 0 arguments.
+
+---
+
+## 🪪 License
+
+Licensed under the MIT license which is available here, [MIT license](https://github.com/igorskyflyer/file-formats/blob/main/adbt/LICENSE).
+
+---
+
+## 🧬 Related
+
+[ADBT](https://github.com/igorskyflyer/vscode-adbt)
+
+> _📜 Provides ADBT (Adblock template) support in Visual Studio Code. 🪅_
+
+[@igor.dvlpr/adblock-filter-counter](https://www.npmjs.com/package/@igor.dvlpr/adblock-filter-counter)
+
+> _🐲 A dead simple npm module that counts Adblock filter rules.🦘_
+
+[@igor.dvlpr/keppo](https://www.npmjs.com/package/@igor.dvlpr/keppo)
+
+> _🎡 Parse, manage, compare and output SemVer-compatible version numbers. 🧮_
+
+[@igor.dvlpr/normalized-string](https://www.npmjs.com/package/@igor.dvlpr/normalized-string)
+
+> _💊 NormalizedString provides you with a String type with consistent line-endings, guaranteed. 📮_
+
+[@igor.dvlpr/zing](https://www.npmjs.com/package/@igor.dvlpr/zing)
+
+> _🐌 Zing is a C# style String formatter for JavaScript that empowers Strings with positional arguments. 🚀_
+
+[AdVoid](https://github.com/igorskyflyer/ad-void)
+
+> _✈ AdVoid is an efficient AdBlock filter that blocks ads, trackers, malware and a lot more if you want it to! 👾_
