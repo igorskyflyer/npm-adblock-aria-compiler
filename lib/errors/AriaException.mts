@@ -1,6 +1,4 @@
-import { IAriaExceptionInfo } from './IAriaExceptionInfo.mjs'
-
-export const AriaException: Record<string, IAriaExceptionInfo> = {
+export const AriaException = {
   native: {
     id: '000',
     message: '{0}',
