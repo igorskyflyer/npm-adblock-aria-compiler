@@ -13,11 +13,11 @@ import { isArgsEmpty } from '../lib/utils/AriaCliUtil.mjs'
 import { AriaLog } from '../lib/utils/AriaLog.mjs'
 import { AriaException } from '../lib/errors/AriaException.mjs'
 
-const ariaVersion: string = '1.1.2 (70c4c54)'
+const ariaVersion: string = `CLI:  v1.2.0 (70c4c54)\nADBT: v1.0.0`
 const program = new Command()
 
 AriaLog.text(chalk.bold(figlet.textSync('ARIA', 'Slant')))
-AriaLog.text(chalk.dim.italic(`v${ariaVersion}\n\n`))
+AriaLog.text(chalk.dim.italic(`${ariaVersion}\n\n`))
 
 program.description(
   chalk.italic(
@@ -27,6 +27,7 @@ program.description(
 
 program
   .option('-f, --file <path>', 'input template file')
+  .option('-r, --root <path>', 'set root directory (CWD)')
   .option('-d, --dry', 'do a dry-run and print the resulting AST')
   .option('-t, --tree', 'print the resulting AST')
   .option('-l, --log', 'enable compilation logging')
@@ -51,7 +52,7 @@ const aria: Aria = new Aria({
   versioning: cliArgs.versioning ?? 'auto',
 })
 
-const ast: AriaAstParsed = aria.parseFile(cliArgs.file)
+const ast: AriaAstParsed = aria.parseFile(cliArgs.file, cliArgs.root)
 
 if (ast) {
   if (cliArgs.dry || cliArgs.tree) {
