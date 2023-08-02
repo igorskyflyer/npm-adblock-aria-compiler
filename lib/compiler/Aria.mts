@@ -281,9 +281,13 @@ export class Aria {
     return this.#ast
   }
 
-  parseFile(templatePath: AriaTemplatePath): AriaAst | undefined {
+  parseFile(templatePath: AriaTemplatePath, root?: string): AriaAst | undefined {
     if (typeof templatePath !== 'string') {
       throw AriaLog.ariaError(AriaException.noTemplate)
+    }
+
+    if (typeof root !== 'string') {
+      root = process.cwd()
     }
 
     if (!this.#pathExists(templatePath)) {
@@ -291,6 +295,7 @@ export class Aria {
     }
 
     try {
+      AriaLog.text(`Resolved root directory: ${resolve(root)}`)
       AriaLog.text(`Resolved template: ${resolve(templatePath)}`)
 
       const metaPath: string = getMetaPath(templatePath) as string
@@ -320,6 +325,9 @@ export class Aria {
       if (meta != null) {
         this.#ast.meta = meta
       }
+
+      this.#ast.root = root
+      this.#ast.templatePath = templatePath
 
       return this.#ast
     } catch (e: any) {
