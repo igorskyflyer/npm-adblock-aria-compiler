@@ -9,14 +9,21 @@ import { exit } from 'process'
 import { Aria } from '../lib/compiler/Aria.mjs'
 import { AriaAstParsed } from '../lib/models/AriaAstParsed.mjs'
 import { IAriaCliArgs } from '../lib/models/IAriaCliArgs.mjs'
-import { isArgsEmpty } from '../lib/utils/AriaCliUtil.mjs'
+import { getVersion, isArgsEmpty } from '../lib/utils/AriaCliUtil.mjs'
 import { AriaLog } from '../lib/utils/AriaLog.mjs'
 import { AriaException } from '../lib/errors/AriaException.mjs'
 
-const ariaVersion: string = `CLI:  v1.2.3 (49be2d5)\nADBT: v1.0.0`
 const program = new Command()
 
 AriaLog.text(chalk.bold(figlet.textSync('ARIA', 'Slant')))
+
+const version = getVersion()
+let ariaVersion: string = ''
+
+if (version != null) {
+  ariaVersion = `CLI:  v${version.cli} (${version.commit})\nADBT: v${version.adbt}`
+}
+
 AriaLog.text(chalk.dim.italic(`${ariaVersion}\n\n`))
 
 program.description(
