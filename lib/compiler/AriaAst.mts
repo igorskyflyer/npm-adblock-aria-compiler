@@ -220,9 +220,7 @@ export class AriaAst {
 
               writeFileSync(finalPath, new NormalizedString(contents).value, { encoding: 'utf8', flag: 'w' })
 
-              const time: string = perf.endProfiling()
-
-              AriaLog.textSuccess(`written ${chalk.bold(variables.entries)} rules to "${parse(path).base}" in ${time}`)
+              AriaLog.textSuccess(`written ${chalk.bold(variables.entries)} rules to "${parse(path).base}".`)
             } else {
               throw AriaLog.ariaError(AriaException.exportInvalid)
             }
@@ -234,6 +232,11 @@ export class AriaAst {
         }
       }
     }
+
+    const time: string = perf.endProfiling()
+
+    AriaLog.newline()
+    AriaLog.text(chalk.dim(`🚀 Finished in ${time} 💫`))
 
     return true
   }
