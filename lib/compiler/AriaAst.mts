@@ -220,7 +220,7 @@ export class AriaAst {
 
               writeFileSync(finalPath, new NormalizedString(contents).value, { encoding: 'utf8', flag: 'w' })
 
-              AriaLog.textSuccess(`written ${chalk.bold(variables.entries)} rules to "${parse(path).base}".`)
+              AriaLog.textSuccess(`written ${chalk.bold(variables.entries)} rules to "${finalPath}".`)
             } else {
               throw AriaLog.ariaError(AriaException.exportInvalid)
             }
