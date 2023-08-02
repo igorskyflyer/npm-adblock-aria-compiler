@@ -2,7 +2,7 @@ import { NormalizedString } from '@igor.dvlpr/normalized-string'
 import chalk from 'chalk'
 import { PathLike, accessSync, readFileSync } from 'fs'
 import { resolve } from 'node:path'
-import { parse } from 'path'
+import { isAbsolute, join, parse } from 'path'
 import { AriaError } from '../errors/AriaError.mjs'
 import { AriaException } from '../errors/AriaException.mjs'
 import { AriaNodeType } from '../models/AriaNodeType.mjs'
@@ -288,6 +288,10 @@ export class Aria {
 
     if (typeof root !== 'string') {
       root = process.cwd()
+    } else {
+      if (!isAbsolute(templatePath)) {
+        templatePath = join(root, templatePath) as AriaTemplatePath
+      }
     }
 
     if (!this.#pathExists(templatePath)) {
