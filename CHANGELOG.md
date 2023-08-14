@@ -94,4 +94,4 @@
 
 ## 1.0.0 - 27-Jul-2023
 
-- initial release 🎉
+- **🚀 launch**: initial release 🎉
