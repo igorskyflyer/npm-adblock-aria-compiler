@@ -89,7 +89,11 @@ export class Aria {
 
     while (this.#read()) {
       if (closedString) {
-        throw AriaLog.ariaError(AriaException.extraneousInput, this.#sourceLine(), path)
+        throw AriaLog.ariaError(
+          AriaException.extraneousInput,
+          this.#sourceLine(),
+          path
+        )
       }
 
       if (!shouldCapture) {
@@ -97,7 +101,11 @@ export class Aria {
         if (this.#char === "'") {
           shouldCapture = true
         } else {
-          throw AriaLog.ariaError(AriaException.importPath, this.#sourceLine(), this.#char)
+          throw AriaLog.ariaError(
+            AriaException.importPath,
+            this.#sourceLine(),
+            this.#char
+          )
         }
       } else {
         if (this.#char === '\\') {
@@ -116,7 +124,10 @@ export class Aria {
     }
 
     if (!closedString) {
-      throw AriaLog.ariaError(AriaException.unterminatedPath, this.#sourceLine())
+      throw AriaLog.ariaError(
+        AriaException.unterminatedPath,
+        this.#sourceLine()
+      )
     }
 
     return path
@@ -193,7 +204,7 @@ export class Aria {
     this.#reset()
     this.#source = new NormalizedString(source).value
 
-    const lines: string[] = this.#source.split(/\n/gm)
+    const lines: string[] = this.#source.trimEnd().split(/\n/gm)
     const linesCount: number = lines.length
     let shouldParse: boolean = true
 
@@ -204,7 +215,10 @@ export class Aria {
 
     while (this.#lineCursor < linesCount) {
       if (!shouldParse) {
-        AriaLog.textWarning(AriaException.unreachableNodes.message, this.#lineCursor)
+        AriaLog.textWarning(
+          AriaException.unreachableNodes.message,
+          this.#lineCursor
+        )
         AriaLog.newline()
         break
       }
@@ -226,9 +240,16 @@ export class Aria {
       this.#lineLength = this.#line.length
       this.#foundKeyword = false
 
-      for (this.#cursorInLine = 0; this.#cursorInLine < this.#lineLength; this.#cursorInLine++) {
+      for (
+        this.#cursorInLine = 0;
+        this.#cursorInLine < this.#lineLength;
+        this.#cursorInLine++
+      ) {
         if (this.#ast.state.exports.length === 1) {
-          AriaLog.textWarning(AriaException.unreachableNodes.message, this.#lineCursor)
+          AriaLog.textWarning(
+            AriaException.unreachableNodes.message,
+            this.#lineCursor
+          )
           AriaLog.newline()
 
           shouldParse = false
@@ -275,7 +296,10 @@ export class Aria {
 
         if (this.#buffer === AriaKeywords.export) {
           if (this.#ast.state.exports.length === 1) {
-            throw AriaLog.ariaError(AriaException.oneExportOnly, this.#sourceLine())
+            throw AriaLog.ariaError(
+              AriaException.oneExportOnly,
+              this.#sourceLine()
+            )
           }
 
           this.#parseExport()
@@ -297,7 +321,10 @@ export class Aria {
     return this.#ast
   }
 
-  parseFile(templatePath: AriaTemplatePath, root?: string): AriaAst | undefined {
+  parseFile(
+    templatePath: AriaTemplatePath,
+    root?: string
+  ): AriaAst | undefined {
     if (typeof templatePath !== 'string') {
       throw AriaLog.ariaError(AriaException.noTemplate)
     }
