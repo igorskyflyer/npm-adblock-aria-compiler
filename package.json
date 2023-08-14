@@ -1,6 +1,6 @@
 {
 	"name": "@igor.dvlpr/aria",
-	"version": "1.2.5",
+	"version": "1.2.6",
 	"description": "🧬 Meet Aria, an efficient Adblock filter list compiler, with many features that make your maintenance of Adblock filter lists a breeze! 🗡",
 	"sideEffects": false,
 	"uses": {
@@ -58,7 +58,7 @@
 		"@igor.dvlpr/adblock-filter-counter": "^1.0.0",
 		"@igor.dvlpr/keppo": "^1.1.0",
 		"@igor.dvlpr/normalized-string": "^1.0.1",
-		"@igor.dvlpr/zing": "^1.0.2",
+		"@igor.dvlpr/zing": "^2.0.0",
 		"chalk": "^5.3.0",
 		"commander": "^11.0.0",
 		"figlet": "^1.6.0"
