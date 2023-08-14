@@ -131,10 +131,14 @@ export function replacePlaceholders(header: string, data: IAriaVar): string {
   return header
 }
 
+function isAriaVersioning(version: string): version is AriaVersioning {
+  return ['auto', 'semver', 'timestamp'].includes(version.toLowerCase())
+}
+
 export function transformHeader(header: string, newVersion: string): string
 export function transformHeader(header: string, mode: AriaVersioning): string
 
-export function transformHeader(header: string, version: any): string {
+export function transformHeader(header: string, version: string): string {
   {
     if (typeof header !== 'string') {
       return ''
@@ -142,10 +146,10 @@ export function transformHeader(header: string, version: any): string {
 
     let newVersion: string
 
-    if (typeof version === 'string') {
-      newVersion = version
-    } else {
+    if (isAriaVersioning(version)) {
       newVersion = constructVersion(header, version)
+    } else {
+      newVersion = version
     }
 
     if (hasVersion(header)) {
