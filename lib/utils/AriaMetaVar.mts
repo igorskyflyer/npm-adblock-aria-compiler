@@ -13,16 +13,13 @@ export const AriaMetaVars: Record<string, IAriaPlaceholder> = {
   title: {
     alias: 'title',
     pattern: generatePattern('title'),
-    value: '',
   },
   description: {
     alias: ['description', 'about'],
     pattern: generatePattern(['description', 'about']),
-    value: '',
   },
   expires: {
     alias: 'expires',
     pattern: generatePattern('expires'),
-    value: '',
   },
 }
