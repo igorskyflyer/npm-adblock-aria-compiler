@@ -26,6 +26,7 @@ export function parseMeta(templatePath: AriaTemplatePath): IAriaMeta | null {
       meta.title = json.title ?? ''
       meta.description = json.description ?? ''
       meta.versioning = json.versioning ?? 'auto'
+      meta.expires = json.expires ?? ''
     } else {
       return null
     }
@@ -76,5 +77,6 @@ export function createVars(): IAriaVar {
     version: '',
     lastModified: '',
     entries: 0,
+    expires: '',
   }
 }
