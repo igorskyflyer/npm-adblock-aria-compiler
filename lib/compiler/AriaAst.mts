@@ -215,6 +215,7 @@ export class AriaAst {
               // meta vars
               variables.title = this.meta.title ?? ''
               variables.description = this.meta.description ?? ''
+              variables.expires = this.meta.expires ?? ''
 
               // compile vars
               variables.filename = filename
