@@ -9,7 +9,7 @@
 - **🪅 feat**: use [ADBT v1.1.0](https://github.com/igorskyflyer/file-format-adbt/releases/tag/v1.1.0) which brings:
   - **🪅 feat**: support for Expires meta variable ([#38](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/38))
 - **🪅 feat**: log changes of the export file ([#36](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/36))
-- **💻 dev**: remove value property for placeholders
+- **💻 dev**: remove **`value`** property for placeholders
 
 <br>
 
