@@ -4,6 +4,15 @@
 
 <br>
 
+## 1.4.0 - 19-Aug-2023
+
+- **🪅 feat**: use [ADBT v1.1.0](https://github.com/igorskyflyer/file-format-adbt/releases/tag/v1.1.0) which brings:
+  - **🪅 feat**: support for Expires meta variable ([#38](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/38))
+- **🪅 feat**: log changes of the export file ([#36](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/36))
+- **💻 dev**: remove value property for placeholders
+
+<br>
+
 ## 1.3.0 - 14-Aug-2023
 
 - **🪅 feat**: add support for absolute paths for header, include and export ([#30](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/30))
