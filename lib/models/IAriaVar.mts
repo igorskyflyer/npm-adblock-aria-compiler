@@ -3,6 +3,7 @@ export interface IAriaVar {
   // meta variables
   title: string
   description: string
+  expires: string
   // compile variables
   filename: string
   version: string

@@ -22,10 +22,11 @@ export function parseMeta(templatePath: AriaTemplatePath): IAriaMeta | null {
       const json: any = JSON.parse(contents)
 
       // we copy only the props we need
-      // and disccard everything else
+      // and discard everything else
       meta.title = json.title ?? ''
       meta.description = json.description ?? ''
       meta.versioning = json.versioning ?? 'auto'
+      meta.expires = json.expires ?? ''
     } else {
       return null
     }
@@ -76,5 +77,6 @@ export function createVars(): IAriaVar {
     version: '',
     lastModified: '',
     entries: 0,
+    expires: '',
   }
 }

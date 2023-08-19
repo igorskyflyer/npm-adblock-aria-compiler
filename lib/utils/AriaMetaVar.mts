@@ -20,4 +20,9 @@ export const AriaMetaVars: Record<string, IAriaPlaceholder> = {
     pattern: generatePattern(['description', 'about']),
     value: '',
   },
+  expires: {
+    alias: 'expires',
+    pattern: generatePattern('expires'),
+    value: '',
+  },
 }
