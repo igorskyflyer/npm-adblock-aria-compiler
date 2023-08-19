@@ -102,7 +102,10 @@ export class AriaAst {
         path = join(path, '.json') as AriaAstPath
       }
 
-      writeFileSync(path, JSON.stringify(this.#nodes), { encoding: 'utf8', flag: 'w' })
+      writeFileSync(path, JSON.stringify(this.#nodes), {
+        encoding: 'utf8',
+        flag: 'w',
+      })
       return true
     } catch {}
 
@@ -156,11 +159,17 @@ export class AriaAst {
               const finalPath: string = this.#applyRoot(path)
 
               if (this.#pathExists(finalPath)) {
-                let header: string = new NormalizedString(readFileSync(finalPath, { encoding: 'utf-8' })).value
+                let header: string = new NormalizedString(
+                  readFileSync(finalPath, { encoding: 'utf-8' })
+                ).value
                 header = injectVersionPlaceholder(header)
                 contents += this.#block(header)
               } else {
-                throw AriaLog.ariaError(AriaException.headerRead, -1, resolve(path))
+                throw AriaLog.ariaError(
+                  AriaException.headerRead,
+                  -1,
+                  resolve(path)
+                )
               }
             }
           } catch {
@@ -178,7 +187,9 @@ export class AriaAst {
               const finalPath: string = this.#applyRoot(path)
 
               if (this.#pathExists(finalPath)) {
-                const filter: string = new NormalizedString(readFileSync(finalPath, { encoding: 'utf-8' })).value
+                const filter: string = new NormalizedString(
+                  readFileSync(finalPath, { encoding: 'utf-8' })
+                ).value
                 contents += filter
               } else {
                 throw AriaLog.ariaError(AriaException.filterNotFound, -1, path)
@@ -199,6 +210,7 @@ export class AriaAst {
               const filename: string = parse(path).name
               const variables: IAriaVar = createVars()
               const finalPath: string = this.#applyRoot(path)
+              let oldCount: number = -1
 
               // meta vars
               variables.title = this.meta.title ?? ''
@@ -212,19 +224,35 @@ export class AriaAst {
               variables.entries = countRules(contents)
 
               if (this.#pathExists(finalPath)) {
-                const oldFile: string = new NormalizedString(readFileSync(finalPath, { encoding: 'utf-8' })).value
-                const newVersion: string = constructVersion(oldFile, this.meta.versioning || this.versioning)
+                const oldFile: string = new NormalizedString(
+                  readFileSync(finalPath, { encoding: 'utf-8' })
+                ).value
+                const newVersion: string = constructVersion(
+                  oldFile,
+                  this.meta.versioning || this.versioning
+                )
                 variables.version = newVersion
                 contents = transformHeader(contents, newVersion)
+                oldCount = countRules(oldFile)
               } else {
                 contents = transformHeader(contents, this.versioning)
               }
 
               contents = replacePlaceholders(contents, variables)
 
-              writeFileSync(finalPath, new NormalizedString(contents).value, { encoding: 'utf8', flag: 'w' })
+              writeFileSync(finalPath, new NormalizedString(contents).value, {
+                encoding: 'utf8',
+                flag: 'w',
+              })
 
-              AriaLog.textSuccess(`written ${chalk.bold(variables.entries)} rules to "${finalPath}".`)
+              AriaLog.textSuccess(
+                `written ${chalk.bold(
+                  variables.entries
+                )} rules ${AriaLog.formatChanges(
+                  oldCount,
+                  variables.entries
+                )} to "${finalPath}".`
+              )
             } else {
               throw AriaLog.ariaError(AriaException.exportInvalid)
             }
