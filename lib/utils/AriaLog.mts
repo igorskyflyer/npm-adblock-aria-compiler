@@ -18,7 +18,11 @@ export class AriaLog {
   }
 
   static textWarning(message: any, ...rest: any[]): void {
-    console.warn(`${chalk.bgHex('#1369BD').bold(' WARNING ')} ${chalk.dim(zing(message, rest))}`)
+    console.warn(
+      `${chalk.bgHex('#1369BD').bold(' WARNING ')} ${chalk.dim(
+        zing(message, rest)
+      )}`
+    )
   }
 
   static textError(message: any): void {
@@ -37,7 +41,29 @@ export class AriaLog {
     this.log()
   }
 
-  static ariaError(info: IAriaExceptionInfo, lineCursor: number = -1, ...args: any[]): AriaError {
+  static ariaError(
+    info: IAriaExceptionInfo,
+    lineCursor: number = -1,
+    ...args: any[]
+  ): AriaError {
     return new AriaError(info, lineCursor, args)
+  }
+
+  static formatChanges(before: number, after: number): string {
+    if (after <= 0) {
+      return `${chalk.dim('(no changes)')}`
+    }
+
+    if (before < 0) {
+      return `(${chalk.greenBright(`+${after}`)})`
+    }
+
+    if (before < after) {
+      return `(${chalk.greenBright(`+${after - before}`)})`
+    } else if (before > after) {
+      return `(${chalk.redBright(`-${before - after}`)})`
+    } else {
+      return `${chalk.dim('(no changes)')}`
+    }
   }
 }
