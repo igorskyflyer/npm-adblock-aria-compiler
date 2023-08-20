@@ -1,1 +1,1 @@
-export const version = { cli: '1.4.0', adbt: '1.1.0', commit: 'b763c68' }
+export const version = { cli: '1.5.0', adbt: '1.2.0', commit: '83f50f9' }
