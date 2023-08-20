@@ -34,7 +34,10 @@ program
   .option('-t, --tree', 'print the resulting AST')
   .option('-l, --log', 'enable compilation logging')
   .addOption(
-    new Option('-v, --versioning <type>', 'the versioning to use, default: auto').choices(['auto', 'semver', 'timestamp'])
+    new Option(
+      '-v, --versioning <type>',
+      'the versioning to use, default: auto'
+    ).choices(['auto', 'semver', 'timestamp'])
   )
   .parse(process.argv)
 
@@ -57,9 +60,13 @@ const aria: Aria = new Aria({
 const ast: AriaAstParsed = aria.parseFile(cliArgs.file, cliArgs.root)
 
 if (ast) {
-  if (cliArgs.dry || cliArgs.tree) {
+  if (cliArgs.dry) {
     AriaLog.text(ast.nodes)
   } else {
     ast.compile()
+
+    if (cliArgs.tree) {
+      AriaLog.text(ast.nodes)
+    }
   }
 }
