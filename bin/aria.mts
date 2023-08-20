@@ -64,7 +64,9 @@ if (ast) {
     AriaLog.text(ast.nodes)
   } else {
     if (cliArgs.tree) {
+      AriaLog.text('AST')
       AriaLog.text(ast.nodes)
+      AriaLog.newline()
     }
 
     ast.compile()
