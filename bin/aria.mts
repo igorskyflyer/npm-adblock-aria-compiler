@@ -63,10 +63,10 @@ if (ast) {
   if (cliArgs.dry) {
     AriaLog.text(ast.nodes)
   } else {
-    ast.compile()
-
     if (cliArgs.tree) {
       AriaLog.text(ast.nodes)
     }
+
+    ast.compile()
   }
 }
