@@ -22,7 +22,6 @@ import chalk from 'chalk'
 import { IAriaVar } from '../models/IAriaVar.mjs'
 import { createVars } from '../utils/AriaVarUtils.mjs'
 import { AriaPerformance } from '../utils/AriaPerformance.mjs'
-import { time } from 'node:console'
 
 export class AriaAst {
   #nodes: IAriaNode[]
