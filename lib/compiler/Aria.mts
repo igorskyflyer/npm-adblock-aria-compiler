@@ -141,7 +141,12 @@ export class Aria {
   }
 
   #parseTag(): boolean {
-    const tagDescription: string = this.parseString()
+    let tagDescription: string = ''
+
+    if (this.#line.trim().length > 3) {
+      tagDescription = this.parseString()
+    }
+
     this.#ast.addNode(this.#node(AriaNodeType.nodeTag, tagDescription))
 
     return true
