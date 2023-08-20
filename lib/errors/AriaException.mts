@@ -13,11 +13,11 @@ export const AriaException = {
   },
   extraneousInput: {
     id: '003',
-    message: 'extraneous input found after the import path "{0}"',
+    message: 'extraneous input found after the string "{0}"',
   },
-  importPath: {
+  includePath: {
     id: '004',
-    message: 'expected a string path for import but found "{0}"',
+    message: 'expected a string path for including but found "{0}"',
   },
   unterminatedPath: {
     id: '005',
@@ -55,9 +55,10 @@ export const AriaException = {
     id: '013',
     message: 'couldn\'t export to file "{0}"',
   },
-  importedAlready: {
+  includedAlready: {
     id: '014',
-    message: "filter file '{0}' was already included. Consider removing this import.",
+    message:
+      "filter file '{0}' was already included. Consider removing this include.",
   },
   unreachableNodes: {
     id: '015',

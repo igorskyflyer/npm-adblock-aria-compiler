@@ -82,7 +82,7 @@ export class AriaAst {
 
   public addNode(node: IAriaNode): void {
     if (typeof node.value === 'string') {
-      if (node.type === AriaNodeType.nodeImport) {
+      if (node.type === AriaNodeType.nodeInclude) {
         this.#state.imports.push(node.value)
       } else if (node.type === AriaNodeType.nodeExport) {
         this.#state.exports.push(node.value)
@@ -189,7 +189,7 @@ export class AriaAst {
           break
         }
 
-        case AriaNodeType.nodeImport: {
+        case AriaNodeType.nodeInclude: {
           const path: string | undefined = node.value
 
           try {
