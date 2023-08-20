@@ -6,4 +6,5 @@ export const AriaKeywords = {
   export: 'export',
   newLine: 'nl',
   tag: 'tag',
+  import: 'import',
 } as const
