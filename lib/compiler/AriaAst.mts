@@ -22,6 +22,7 @@ import chalk from 'chalk'
 import { IAriaVar } from '../models/IAriaVar.mjs'
 import { createVars } from '../utils/AriaVarUtils.mjs'
 import { AriaPerformance } from '../utils/AriaPerformance.mjs'
+import { time } from 'node:console'
 
 export class AriaAst {
   #nodes: IAriaNode[]
@@ -30,8 +31,8 @@ export class AriaAst {
   templatePath: AriaTemplatePath
   root: string
   meta: IAriaMeta
-
   versioning: AriaVersioning
+  tagsCounter: number
 
   constructor() {
     this.#nodesCount = 0
@@ -41,6 +42,7 @@ export class AriaAst {
     this.root = ''
     this.versioning = 'auto'
     this.meta = { description: '', title: '', versioning: 'auto' }
+    this.tagsCounter = 0
   }
 
   #pathExists(path: PathLike): boolean {
@@ -147,6 +149,13 @@ export class AriaAst {
         case AriaNodeType.nodeComment: {
           if (node.value) {
             contents += this.#block(`! ${node.value}`)
+          }
+          break
+        }
+
+        case AriaNodeType.nodeTag: {
+          if (node.value) {
+            contents += this.#block(`! {@${this.tagsCounter++}} ${node.value}`)
           }
           break
         }
