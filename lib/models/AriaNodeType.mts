@@ -1,7 +1,7 @@
 export enum AriaNodeType {
   nodeComment = 'Aria.Comment',
   nodeHeader = 'Aria.Header',
-  nodeImport = 'Aria.Import',
+  nodeInclude = 'Aria.Include',
   nodeExport = 'Aria.Export',
   nodeNewLine = 'Aria.Newline',
   nodeTag = 'Aria.Tag',
