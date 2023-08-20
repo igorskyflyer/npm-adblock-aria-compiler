@@ -5,4 +5,5 @@ export const AriaKeywords = {
   headerImport: 'header',
   export: 'export',
   newLine: 'nl',
+  tag: 'tag',
 } as const
