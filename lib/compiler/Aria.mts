@@ -82,17 +82,17 @@ export class Aria {
     return this.#line.substring(start, end)
   }
 
-  #parsePath(): string {
+  parseString(): string {
     let shouldCapture: boolean = false
     let closedString: boolean = false
-    let path: string = ''
+    let result: string = ''
 
     while (this.#read()) {
       if (closedString) {
         throw AriaLog.ariaError(
           AriaException.extraneousInput,
           this.#sourceLine(),
-          path
+          result
         )
       }
 
@@ -110,7 +110,7 @@ export class Aria {
       } else {
         if (this.#char === '\\') {
           this.#read()
-          path += this.#char
+          result += this.#char
           continue
         }
 
@@ -118,7 +118,7 @@ export class Aria {
           shouldCapture = false
           closedString = true
         } else {
-          path += this.#char
+          result += this.#char
         }
       }
     }
@@ -130,7 +130,7 @@ export class Aria {
       )
     }
 
-    return path
+    return result
   }
 
   #parseComment(): boolean {
@@ -140,15 +140,27 @@ export class Aria {
     return true
   }
 
+  #parseTag(): boolean {
+    let tagDescription: string = ''
+
+    if (this.#line.trim().length > 3) {
+      tagDescription = this.parseString()
+    }
+
+    this.#ast.addNode(this.#node(AriaNodeType.nodeTag, tagDescription))
+
+    return true
+  }
+
   #parseHeaderImport(): boolean {
-    const path: string = this.#parsePath()
+    const path: string = this.parseString()
     this.#ast.addNode(this.#node(AriaNodeType.nodeHeader, path))
 
     return true
   }
 
   #parseImport(): boolean {
-    const path: string = this.#parsePath()
+    const path: string = this.parseString()
 
     if (!this.#ast.state.imports.includes(path)) {
       this.#ast.addNode(this.#node(AriaNodeType.nodeImport, path))
@@ -161,7 +173,7 @@ export class Aria {
   }
 
   #parseExport(): boolean {
-    const path: string = this.#parsePath()
+    const path: string = this.parseString()
     const flags: string[] = []
 
     this.#ast.addNode(this.#node(AriaNodeType.nodeExport, path, flags))
@@ -279,6 +291,12 @@ export class Aria {
         if (this.#buffer === AriaKeywords.commentExported) {
           this.#parseComment()
           AriaLog.log('Found an exported comment')
+          break
+        }
+
+        if (this.#buffer === AriaKeywords.tag) {
+          this.#parseTag()
+          AriaLog.log('Found a tag')
           break
         }
 
