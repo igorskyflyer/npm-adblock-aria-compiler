@@ -140,6 +140,13 @@ export class Aria {
     return true
   }
 
+  #parseTag(): boolean {
+    const tagDescription: string = this.#parsePath()
+    this.#ast.addNode(this.#node(AriaNodeType.nodeTag, tagDescription))
+
+    return true
+  }
+
   #parseHeaderImport(): boolean {
     const path: string = this.#parsePath()
     this.#ast.addNode(this.#node(AriaNodeType.nodeHeader, path))
@@ -279,6 +286,12 @@ export class Aria {
         if (this.#buffer === AriaKeywords.commentExported) {
           this.#parseComment()
           AriaLog.log('Found an exported comment')
+          break
+        }
+
+        if (this.#buffer === AriaKeywords.tag) {
+          this.#parseTag()
+          AriaLog.log('Found a tag')
           break
         }
 
