@@ -389,8 +389,6 @@ export class Aria {
         )
       }
 
-      AriaLog.newline()
-
       const template: string = readFileSync(templatePath, { encoding: 'utf-8' })
 
       this.parse(template)
