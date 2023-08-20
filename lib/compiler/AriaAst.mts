@@ -189,7 +189,8 @@ export class AriaAst {
           break
         }
 
-        case AriaNodeType.nodeInclude: {
+        case AriaNodeType.nodeInclude:
+        case AriaNodeType.nodeImport: {
           const path: string | undefined = node.value
 
           try {
@@ -200,6 +201,11 @@ export class AriaAst {
                 const filter: string = new NormalizedString(
                   readFileSync(finalPath, { encoding: 'utf-8' })
                 ).value
+
+                if (node.type === AriaNodeType.nodeImport) {
+                  contents += `! *** ${path} ***\n`
+                }
+
                 contents += filter
               } else {
                 throw AriaLog.ariaError(AriaException.filterNotFound, -1, path)
