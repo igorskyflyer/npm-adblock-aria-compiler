@@ -85,14 +85,14 @@ export class Aria {
   parseString(): string {
     let shouldCapture: boolean = false
     let closedString: boolean = false
-    let path: string = ''
+    let result: string = ''
 
     while (this.#read()) {
       if (closedString) {
         throw AriaLog.ariaError(
           AriaException.extraneousInput,
           this.#sourceLine(),
-          path
+          result
         )
       }
 
@@ -110,7 +110,7 @@ export class Aria {
       } else {
         if (this.#char === '\\') {
           this.#read()
-          path += this.#char
+          result += this.#char
           continue
         }
 
@@ -118,7 +118,7 @@ export class Aria {
           shouldCapture = false
           closedString = true
         } else {
-          path += this.#char
+          result += this.#char
         }
       }
     }
@@ -130,7 +130,7 @@ export class Aria {
       )
     }
 
-    return path
+    return result
   }
 
   #parseComment(): boolean {
