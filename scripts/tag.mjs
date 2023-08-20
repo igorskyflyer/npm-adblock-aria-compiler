@@ -9,7 +9,7 @@ try {
 
   writeFileSync(
     './lib/version.mts',
-    `export const version = { cli: '${packageInfo.version}', adbt: '${packageInfo.uses.adbt}', commit: '${commit}' }`
+    `export const version = { cli: '${packageInfo.version}', adbt: '${packageInfo.uses.adbt}', commit: '${commit}' }\r\n`
   )
   console.log('✅ Successfully tagged the release.')
   exit(0)
