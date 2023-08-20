@@ -155,6 +155,8 @@ export class AriaAst {
         case AriaNodeType.nodeTag: {
           if (node.value) {
             contents += this.#block(`! {@${this.tagsCounter++}} ${node.value}`)
+          } else {
+            contents += this.#block(`! {@${this.tagsCounter++}}`)
           }
           break
         }
