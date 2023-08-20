@@ -4,4 +4,5 @@ export enum AriaNodeType {
   nodeImport = 'Aria.Import',
   nodeExport = 'Aria.Export',
   nodeNewLine = 'Aria.Newline',
+  nodeTag = 'Aria.Tag',
 }
