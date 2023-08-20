@@ -102,7 +102,7 @@ export class Aria {
           shouldCapture = true
         } else {
           throw AriaLog.ariaError(
-            AriaException.importPath,
+            AriaException.includePath,
             this.#sourceLine(),
             this.#char
           )
@@ -159,13 +159,13 @@ export class Aria {
     return true
   }
 
-  #parseImport(): boolean {
+  #parseInclude(): boolean {
     const path: string = this.parseString()
 
     if (!this.#ast.state.imports.includes(path)) {
-      this.#ast.addNode(this.#node(AriaNodeType.nodeImport, path))
+      this.#ast.addNode(this.#node(AriaNodeType.nodeInclude, path))
     } else {
-      AriaLog.textWarning(AriaException.importedAlready.message, path)
+      AriaLog.textWarning(AriaException.includedAlready.message, path)
       AriaLog.newline()
     }
 
@@ -306,9 +306,9 @@ export class Aria {
           break
         }
 
-        if (this.#buffer === AriaKeywords.import) {
-          this.#parseImport()
-          AriaLog.log('Found an import')
+        if (this.#buffer === AriaKeywords.include) {
+          this.#parseInclude()
+          AriaLog.log('Found an include')
           break
         }
 
