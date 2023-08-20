@@ -4,6 +4,18 @@
 
 <br>
 
+## 1.5.0 - 20-Aug-2023
+
+- **🪅 feat**: add the **`import`** statement ([#45](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/45))
+  > **`import`** statements behave exactly the same as **`include`** but prepend the file path of the included filter (as a comment)
+- **🪅 feat**: add the **`tag`** statement ([#40](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/40))
+  > Introduce a tagging system; special comments that get inserted in the resulting filter file, for easier navigation, search, etc.
+  >
+  > _🌟 Inspired by [AdVoid](https://github.com/igorskyflyer/ad-void)'s way of navigation._
+- **✅ fix**: when passing the **`-t`** flag, the input template wasn't being compiled
+
+<br>
+
 ## 1.4.0 - 19-Aug-2023
 
 - **🪅 feat**: use [ADBT v1.1.0](https://github.com/igorskyflyer/file-format-adbt/releases/tag/v1.1.0) which brings:
