@@ -5,11 +5,17 @@ import { resolve } from 'node:path'
 import { isAbsolute, join, parse } from 'path'
 import { AriaError } from '../errors/AriaError.mjs'
 import { AriaException } from '../errors/AriaException.mjs'
+import { AriaFlag } from '../models/AriaFlag.mjs'
 import { AriaNodeType } from '../models/AriaNodeType.mjs'
 import { AriaTemplatePath } from '../models/AriaTemplatePath.mjs'
+import { IAriaFlag } from '../models/IAriaFlag.mjs'
 import { IAriaMeta } from '../models/IAriaMeta.mjs'
 import { IAriaNode } from '../models/IAriaNode.mjs'
 import { IAriaOptions } from '../models/IAriaOptions.mjs'
+import {
+  IAriaStatement,
+  createAriaStatement,
+} from '../models/IAriaStatement.mjs'
 import { AriaLog } from '../utils/AriaLog.mjs'
 import { getMetaPath, hasMeta, parseMeta } from '../utils/AriaVarUtils.mjs'
 import { AriaAst } from './AriaAst.mjs'
@@ -49,7 +55,7 @@ export class Aria {
     return this.#lineCursor + 1
   }
 
-  #node(type: AriaNodeType, value?: string, flags?: string[]): IAriaNode {
+  #node(type: AriaNodeType, value?: string, flags?: IAriaFlag[]): IAriaNode {
     this.#foundKeyword = true
 
     const node: IAriaNode = {
@@ -82,18 +88,85 @@ export class Aria {
     return this.#line.substring(start, end)
   }
 
-  parseString(): string {
+  #parseFlags(input: string): IAriaFlag[] {
+    const flags: IAriaFlag[] = []
+
+    if (typeof input !== 'string') {
+      return flags
+    }
+
+    input = input.trim()
+
+    const count: number = input.length
+
+    if (count === 0) {
+      return flags
+    }
+
+    const values: string[] = input.split('=')
+
+    if (values.length === 0) {
+      return flags
+    } else {
+      const flagProbe: string = values[0].trim()
+
+      if (flagProbe in AriaFlag) {
+        const flag: IAriaFlag = AriaFlag[flagProbe]
+
+        if (flag.allowsParams) {
+          let param: string = values[1]
+
+          if (!param) {
+            if (!flag.defaultValue || flag.defaultValue.length === 0) {
+              throw new Error('No param value!')
+            } else {
+              param = flag.defaultValue
+            }
+          } else {
+            param = param.trim()
+          }
+
+          if (flag.paramValues) {
+            if (flag.paramValues.indexOf(param) > -1) {
+              flag.actualValue = param
+            } else {
+              throw new Error(
+                `Invalid param value for ${
+                  flag.name
+                } flag, allowed values: ${flag.paramValues.toString()}`
+              )
+            }
+          }
+        }
+
+        flags.push(flag)
+      } else {
+        throw new Error(`Unknown flag ${flagProbe}`)
+      }
+    }
+
+    console.log(flags[0])
+
+    return flags
+  }
+
+  parseString(allowsFlags: boolean = false): IAriaStatement {
+    const result: IAriaStatement = createAriaStatement()
     let shouldCapture: boolean = false
     let closedString: boolean = false
-    let result: string = ''
 
     while (this.#read()) {
       if (closedString) {
-        throw AriaLog.ariaError(
-          AriaException.extraneousInput,
-          this.#sourceLine(),
-          result
-        )
+        if (allowsFlags) {
+          result.flags = this.#parseFlags(this.#chunk(this.#cursorInLine))
+          break
+        } else {
+          throw AriaLog.ariaError(
+            AriaException.extraneousInput,
+            this.#sourceLine(),
+            result.value
+          )
+        }
       }
 
       if (!shouldCapture) {
@@ -110,7 +183,7 @@ export class Aria {
       } else {
         if (this.#char === '\\') {
           this.#read()
-          result += this.#char
+          result.value += this.#char
           continue
         }
 
@@ -118,7 +191,7 @@ export class Aria {
           shouldCapture = false
           closedString = true
         } else {
-          result += this.#char
+          result.value += this.#char
         }
       }
     }
@@ -144,7 +217,7 @@ export class Aria {
     let tagDescription: string = ''
 
     if (this.#line.trim().length > 3) {
-      tagDescription = this.parseString()
+      tagDescription = this.parseString().value
     }
 
     this.#ast.addNode(this.#node(AriaNodeType.nodeTag, tagDescription))
@@ -153,20 +226,25 @@ export class Aria {
   }
 
   #parseHeaderImport(): boolean {
-    const path: string = this.parseString()
+    const path: string = this.parseString().value
     this.#ast.addNode(this.#node(AriaNodeType.nodeHeader, path))
 
     return true
   }
 
   #parseInclude(isImport: boolean = false): boolean {
-    const path: string = this.parseString()
+    const statement: IAriaStatement = this.parseString(true)
+    const path: string = statement.value
 
     if (!this.#ast.state.imports.includes(path)) {
       if (isImport) {
-        this.#ast.addNode(this.#node(AriaNodeType.nodeImport, path))
+        this.#ast.addNode(
+          this.#node(AriaNodeType.nodeImport, path, statement.flags)
+        )
       } else {
-        this.#ast.addNode(this.#node(AriaNodeType.nodeInclude, path))
+        this.#ast.addNode(
+          this.#node(AriaNodeType.nodeInclude, path, statement.flags)
+        )
       }
     } else {
       AriaLog.textWarning(AriaException.includedAlready.message, path)
@@ -177,10 +255,12 @@ export class Aria {
   }
 
   #parseExport(): boolean {
-    const path: string = this.parseString()
-    const flags: string[] = []
+    const statement: IAriaStatement = this.parseString(true)
+    const path: string = statement.value
 
-    this.#ast.addNode(this.#node(AriaNodeType.nodeExport, path, flags))
+    this.#ast.addNode(
+      this.#node(AriaNodeType.nodeExport, path, statement.flags)
+    )
 
     return true
   }
