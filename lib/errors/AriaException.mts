@@ -19,9 +19,9 @@ export const AriaException = {
     id: '004',
     message: 'expected a string path for including but found "{0}"',
   },
-  unterminatedPath: {
+  unterminatedString: {
     id: '005',
-    message: 'unterminated file path string',
+    message: 'unterminated string',
   },
   oneExportOnly: {
     id: '006',
