@@ -145,8 +145,6 @@ export class Aria {
       }
     }
 
-    console.log(flags[0])
-
     return flags
   }
 
