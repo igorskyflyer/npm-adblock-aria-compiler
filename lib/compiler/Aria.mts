@@ -198,7 +198,7 @@ export class Aria {
 
     if (!closedString) {
       throw AriaLog.ariaError(
-        AriaException.unterminatedPath,
+        AriaException.unterminatedString,
         this.#sourceLine()
       )
     }
