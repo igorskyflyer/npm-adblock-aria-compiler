@@ -17,7 +17,7 @@ import {
   replacePlaceholders,
   transformHeader,
 } from '../utils/AriaVersioning.mjs'
-import { AriaException } from '../errors/AriaException.mjs'
+import { AriaException } from '../errors/AriaStrings.mjs'
 import chalk from 'chalk'
 import { IAriaVar } from '../models/IAriaVar.mjs'
 import { createVars } from '../utils/AriaVarUtils.mjs'
