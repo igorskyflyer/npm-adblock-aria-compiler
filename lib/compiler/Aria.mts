@@ -113,6 +113,8 @@ export class Aria {
       if (flagProbe in AriaFlag) {
         const flag: IAriaFlag = AriaFlag[flagProbe]
 
+        this.#cursorInLine += flagProbe.length + 1
+
         if (flag.allowsParams) {
           let param: string = values[1]
 
@@ -127,9 +129,14 @@ export class Aria {
           }
 
           if (flag.paramValues) {
-            if (flag.paramValues.indexOf(param) > -1) {
+            // user provided value
+            if (flag.paramValues[0] === '*') {
+              flag.actualValue = this.parseString(true).value
+            } else if (flag.paramValues.indexOf(param) > -1) {
+              // only allowed values
               flag.actualValue = param
             } else {
+              // unknown value
               throw new Error(
                 `Invalid param value for ${
                   flag.name
@@ -156,7 +163,6 @@ export class Aria {
     while (this.#read()) {
       if (closedString) {
         if (allowsFlags) {
-          result.flags = this.#parseFlags(this.#chunk(this.#cursorInLine))
           break
         } else {
           throw AriaLog.ariaError(
@@ -234,6 +240,8 @@ export class Aria {
     const statement: IAriaStatement = this.parseString(true)
     const path: string = statement.value
 
+    statement.flags = this.#parseFlags(this.#chunk(this.#cursorInLine))
+
     if (!this.#ast.state.imports.includes(path)) {
       if (isImport) {
         this.#ast.addNode(
@@ -256,9 +264,7 @@ export class Aria {
     const statement: IAriaStatement = this.parseString(true)
     const path: string = statement.value
 
-    this.#ast.addNode(
-      this.#node(AriaNodeType.nodeExport, path, statement.flags)
-    )
+    this.#ast.addNode(this.#node(AriaNodeType.nodeExport, path, []))
 
     return true
   }
