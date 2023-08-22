@@ -23,7 +23,7 @@ export const AriaFlag: Record<string, IAriaFlag> = {
   append: {
     name: 'append',
     allowsParams: true,
-    paramValues: [''],
+    paramValues: ['*'],
     defaultValue: '',
   },
 } as const
