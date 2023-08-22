@@ -1,15 +1,21 @@
+import { AriaFlag } from '../models/AriaFlag.mjs'
 import { AriaItemType } from '../models/flags/AriaItemType.mjs'
 import { AriaSortBy } from '../models/flags/AriaSortBy.mjs'
-import { AriaStripKind } from '../models/flags/AriaStripKind.mjs'
+
+type AriaTransformResult = string | undefined
+export type AriaTransform = keyof typeof AriaFlag
 
 const expModifiers: RegExp = /\$.*$/gim
 const expComments: RegExp = /^[\s\t]*!.*/gim
 
-type AriaTransformResult = string | undefined
-
-function applyTransform(
+function transform(
   source: string,
-  transform: (item: string, itemKind: AriaItemType) => AriaTransformResult
+  transform: (
+    item: string,
+    itemKind: AriaItemType,
+    index: number,
+    items: string[]
+  ) => AriaTransformResult
 ): string {
   if (typeof source !== 'string' || typeof transform !== 'function') {
     return ''
@@ -33,7 +39,12 @@ function applyTransform(
       itemKind = AriaItemType.rule
     }
 
-    const transformed: string | undefined = transform(lines[i], itemKind)
+    const transformed: string | undefined = transform(
+      lines[i],
+      itemKind,
+      i,
+      lines
+    )
 
     if (transformed) {
       result.push(transformed)
@@ -43,23 +54,41 @@ function applyTransform(
   return result.join('\n')
 }
 
-export function sort(source: string, sortBy: AriaSortBy): string {
+export function sort(source: string, sortBy: AriaSortBy = 'asc'): string {
   if (typeof source !== 'string') {
     return ''
   }
 
-  const lines: string[] = source.split('\n')
+  let lines: string[] = source.split('\n')
 
-  if (sortBy === 'desc') {
-  } else {
+  if (lines.length === 0) {
+    return ''
   }
 
-  return lines.join('\n')
+  lines = lines.filter((line: string) => {
+    if (line.indexOf('!') !== 0) {
+      return line
+    }
+  })
+
+  if (sortBy === 'desc') {
+    return lines
+      .sort((a, b) => {
+        return a.toLowerCase() < b.toLowerCase() ? 1 : -1
+      })
+      .join('\n')
+  } else {
+    return lines
+      .sort((a, b) => {
+        return a.toLowerCase() < b.toLowerCase() ? -1 : 1
+      })
+      .join('\n')
+  }
 }
 export function dedupe(source: string): string {
   const tmp: string[] = []
 
-  return applyTransform(
+  return transform(
     source,
     (item: string, itemKind: AriaItemType): AriaTransformResult => {
       if (itemKind === AriaItemType.comment) {
@@ -78,18 +107,18 @@ export function dedupe(source: string): string {
 }
 
 export function trim(source: string): string {
-  return applyTransform(source, (item: string, _): AriaTransformResult => {
+  return transform(source, (item: string): AriaTransformResult => {
     return item.trim()
   })
 }
 
-export function strip(source: string, strip: number): string {
-  if (strip !== AriaStripKind.modifiers && strip !== AriaStripKind.comments) {
+export function strip(source: string, strip: string): string {
+  if (strip !== 'modifiers' && strip !== 'comments') {
     return ''
   }
 
-  if (strip === AriaStripKind.modifiers) {
-    return applyTransform(
+  if (strip === 'modifiers') {
+    return transform(
       source,
       (item: string, itemKind: AriaItemType): AriaTransformResult => {
         if (itemKind === AriaItemType.rule) {
@@ -99,8 +128,8 @@ export function strip(source: string, strip: number): string {
         return item
       }
     )
-  } else if (strip === AriaStripKind.comments) {
-    return applyTransform(
+  } else if (strip === 'comments') {
+    return transform(
       source,
       (item: string, itemKind: AriaItemType): AriaTransformResult => {
         if (itemKind === AriaItemType.comment) {
@@ -120,7 +149,7 @@ export function append(source: string, value: string): string {
     return source
   }
 
-  return applyTransform(
+  return transform(
     source,
     (item: string, itemKind: AriaItemType): AriaTransformResult => {
       if (itemKind !== AriaItemType.comment) {
@@ -130,4 +159,24 @@ export function append(source: string, value: string): string {
       }
     }
   )
+}
+
+const flagTransformers: Record<string, Function> = {
+  sort,
+  dedupe,
+  trim,
+  strip,
+  append,
+}
+
+export function applyTransform(
+  transformName: AriaTransform,
+  source: string,
+  param?: any
+): string {
+  if (transformName in flagTransformers) {
+    return flagTransformers[transformName](source, param)
+  }
+
+  return source
 }
