@@ -1,14 +1,19 @@
 import { countRules } from '@igor.dvlpr/adblock-filter-counter'
 import { NormalizedString } from '@igor.dvlpr/normalized-string'
+import chalk from 'chalk'
 import { PathLike, accessSync, readFileSync, writeFileSync } from 'node:fs'
 import { isAbsolute, join, parse, resolve } from 'node:path'
+import { AriaException } from '../errors/AriaStrings.mjs'
 import { AriaAstPath } from '../models/AriaAstPath.mjs'
-import { IAriaNode } from '../models/IAriaNode.mjs'
 import { AriaNodeType } from '../models/AriaNodeType.mjs'
 import { AriaTemplatePath } from '../models/AriaTemplatePath.mjs'
 import { IAriaMeta } from '../models/IAriaMeta.mjs'
+import { IAriaNode } from '../models/IAriaNode.mjs'
 import { IAriaState } from '../models/IAriaState.mjs'
+import { IAriaVar } from '../models/IAriaVar.mjs'
 import { AriaLog } from '../utils/AriaLog.mjs'
+import { AriaPerformance } from '../utils/AriaPerformance.mjs'
+import { createVars } from '../utils/AriaVarUtils.mjs'
 import {
   AriaVersioning,
   constructVersion,
@@ -17,11 +22,8 @@ import {
   replacePlaceholders,
   transformHeader,
 } from '../utils/AriaVersioning.mjs'
-import { AriaException } from '../errors/AriaStrings.mjs'
-import chalk from 'chalk'
-import { IAriaVar } from '../models/IAriaVar.mjs'
-import { createVars } from '../utils/AriaVarUtils.mjs'
-import { AriaPerformance } from '../utils/AriaPerformance.mjs'
+import { IAriaFlag } from '../models/IAriaFlag.mjs'
+import { applyTransform } from '../utils/AriaTransform.mjs'
 
 export class AriaAst {
   #nodes: IAriaNode[]
@@ -198,12 +200,31 @@ export class AriaAst {
               const finalPath: string = this.#applyRoot(path)
 
               if (this.#pathExists(finalPath)) {
-                const filter: string = new NormalizedString(
+                let filter: string = new NormalizedString(
                   readFileSync(finalPath, { encoding: 'utf-8' })
                 ).value
 
                 if (node.type === AriaNodeType.nodeImport) {
                   contents += `! *** ${path} ***\n`
+                }
+
+                if (node.flags) {
+                  const count: number = node.flags.length
+
+                  for (let i = 0; i < count; i++) {
+                    const flag: IAriaFlag = node.flags[i]
+                    const transformName: string = flag.name
+
+                    if (flag.allowsParams) {
+                      filter = applyTransform(
+                        transformName,
+                        filter,
+                        flag.actualValue
+                      )
+                    } else {
+                      filter = applyTransform(transformName, filter)
+                    }
+                  }
                 }
 
                 contents += filter
