@@ -1,7 +1,7 @@
 import chalk from 'chalk'
 import { AriaLogLevel } from '../models/AriaLogLevel.mjs'
 import { AriaError } from '../errors/AriaError.mjs'
-import { IAriaExceptionInfo } from '../errors/IAriaExceptionInfo.mjs'
+import { IAriaMessageData } from '../errors/IAriaMessageData.mjs'
 import { zing } from '@igor.dvlpr/zing'
 
 export class AriaLog {
@@ -42,7 +42,7 @@ export class AriaLog {
   }
 
   static ariaError(
-    info: IAriaExceptionInfo,
+    info: IAriaMessageData,
     lineCursor: number = -1,
     ...args: any[]
   ): AriaError {
