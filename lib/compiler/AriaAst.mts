@@ -212,14 +212,14 @@ export class AriaAst {
                   const count: number = node.actions.length
 
                   for (let i = 0; i < count; i++) {
-                    const flag: IAriaAction = node.actions[i]
-                    const transformName: string = flag.name
+                    const action: IAriaAction = node.actions[i]
+                    const transformName: string = action.name
 
-                    if (flag.allowsParams) {
+                    if (action.allowsParams) {
                       filter = applyTransform(
                         transformName,
                         filter,
-                        flag.actualValue
+                        action.actualValue
                       )
                     } else {
                       filter = applyTransform(transformName, filter)
