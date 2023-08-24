@@ -92,11 +92,11 @@ export class Aria {
     return this.#line.substring(start, end)
   }
 
-  #parseFlags(input: string): IAriaAction[] {
-    const flags: IAriaAction[] = []
+  #parseActions(input: string): IAriaAction[] {
+    const actions: IAriaAction[] = []
 
     if (typeof input !== 'string') {
-      return flags
+      return actions
     }
 
     input = input.trim()
@@ -104,69 +104,69 @@ export class Aria {
     const count: number = input.length
 
     if (count === 0) {
-      return flags
+      return actions
     }
 
     const values: string[] = input.split('=')
 
     if (values.length === 0) {
-      return flags
+      return actions
     } else {
-      const flagProbe: string = values[0].trim()
+      const probeAction: string = values[0].trim()
 
-      if (flagProbe in AriaAction) {
-        const flag: IAriaAction = AriaAction[flagProbe]
+      if (probeAction in AriaAction) {
+        const action: IAriaAction = AriaAction[probeAction]
 
-        this.#cursorInLine += flagProbe.length + 1
+        this.#cursorInLine += probeAction.length + 1
 
-        if (flag.allowsParams) {
+        if (action.allowsParams) {
           let param: string = values[1]
 
           if (!param) {
-            if (!flag.defaultValue || flag.defaultValue.length === 0) {
+            if (!action.defaultValue || action.defaultValue.length === 0) {
               throw new Error('No param value!')
             } else {
-              param = flag.defaultValue
+              param = action.defaultValue
             }
           } else {
             param = param.trim()
           }
 
-          if (flag.paramValues) {
+          if (action.paramValues) {
             // user provided value
-            if (flag.paramValues[0] === '*') {
-              flag.actualValue = this.parseString(true).value
-            } else if (flag.paramValues.indexOf(param) > -1) {
+            if (action.paramValues[0] === '*') {
+              action.actualValue = this.parseString(true).value
+            } else if (action.paramValues.indexOf(param) > -1) {
               // only allowed values
-              flag.actualValue = param
+              action.actualValue = param
             } else {
               // unknown value
               throw new Error(
                 `Invalid param value for ${
-                  flag.name
-                } flag, allowed values: ${flag.paramValues.toString()}`
+                  action.name
+                } action, allowed values: ${action.paramValues.toString()}`
               )
             }
           }
         }
 
-        flags.push(flag)
+        actions.push(action)
       } else {
-        throw new Error(`Unknown flag ${flagProbe}`)
+        throw new Error(`Unknown flag ${probeAction}`)
       }
     }
 
-    return flags
+    return actions
   }
 
-  parseString(allowsFlags: boolean = false): IAriaStatement {
+  parseString(allowActions: boolean = false): IAriaStatement {
     const result: IAriaStatement = createAriaStatement()
     let shouldCapture: boolean = false
     let closedString: boolean = false
 
     while (this.#read()) {
       if (closedString) {
-        if (allowsFlags) {
+        if (allowActions) {
           break
         } else {
           throw AriaLog.ariaError(
@@ -244,7 +244,7 @@ export class Aria {
     const statement: IAriaStatement = this.parseString(true)
     const path: string = statement.value
 
-    statement.flags = this.#parseFlags(this.#chunk(this.#cursorInLine))
+    statement.flags = this.#parseActions(this.#chunk(this.#cursorInLine))
 
     if (!this.#ast.state.imports.includes(path)) {
       if (isImport) {
