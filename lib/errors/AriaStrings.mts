@@ -65,4 +65,16 @@ export const AriaException = {
     message:
       "unreachable code detected after line {0}. A template can only end with an export statement. Consider removing or reorganizing the template's code.",
   },
+  actionNoParam: {
+    id: '016',
+    message: 'action {0} requires a param value but none was provided.',
+  },
+  actionInvalidParam: {
+    id: '017',
+    message: 'invalid param value for {0} action, allowed values: {1}',
+  },
+  actionUnknownAction: {
+    id: '018',
+    message: 'unknown action: {0}',
+  },
 } as const
