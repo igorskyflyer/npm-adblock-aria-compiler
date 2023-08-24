@@ -5,5 +5,5 @@ export interface IAriaNode {
   type: AriaNodeType
   line: number
   value?: string
-  flags?: IAriaAction[]
+  actions?: IAriaAction[]
 }
