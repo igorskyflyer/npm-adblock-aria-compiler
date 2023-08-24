@@ -26,7 +26,7 @@
 
 <br>
 
-> You can read more about [Actions](https://github.com/igorskyflyer/file-format-adbt#actions) in the official ADBT documentation.
+> You can read more about [Actions](https://github.com/igorskyflyer/file-format-adbt#-actions) in the official ADBT documentation.
 
 <br>
 
