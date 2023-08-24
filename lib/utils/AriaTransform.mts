@@ -161,7 +161,7 @@ export function append(source: string, value: string): string {
   )
 }
 
-const flagTransformers: Record<string, Function> = {
+const actionTransformers: Record<string, Function> = {
   sort,
   dedupe,
   trim,
@@ -174,8 +174,8 @@ export function applyTransform(
   source: string,
   param?: any
 ): string {
-  if (transformName in flagTransformers) {
-    return flagTransformers[transformName](source, param)
+  if (transformName in actionTransformers) {
+    return actionTransformers[transformName](source, param)
   }
 
   return source
