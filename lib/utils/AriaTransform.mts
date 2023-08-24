@@ -1,9 +1,9 @@
-import { AriaFlag } from '../models/AriaFlag.mjs'
+import { AriaAction } from '../models/AriaAction.mjs'
 import { AriaItemType } from '../models/flags/AriaItemType.mjs'
 import { AriaSortBy } from '../models/flags/AriaSortBy.mjs'
 
 type AriaTransformResult = string | undefined
-export type AriaTransform = keyof typeof AriaFlag
+export type AriaTransform = keyof typeof AriaAction
 
 const expModifiers: RegExp = /\$.*$/gim
 const expComments: RegExp = /^[\s\t]*!.*/gim
