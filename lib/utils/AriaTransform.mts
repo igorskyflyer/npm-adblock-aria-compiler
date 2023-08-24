@@ -1,6 +1,6 @@
 import { AriaAction } from '../models/AriaAction.mjs'
-import { AriaItemType } from '../models/flags/AriaItemType.mjs'
-import { AriaSortBy } from '../models/flags/AriaSortBy.mjs'
+import { AriaItemType } from '../models/actions/AriaItemType.mjs'
+import { AriaSortBy } from '../models/actions/AriaSortBy.mjs'
 
 type AriaTransformResult = string | undefined
 export type AriaTransform = keyof typeof AriaAction
