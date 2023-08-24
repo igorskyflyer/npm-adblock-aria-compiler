@@ -22,7 +22,7 @@ import {
   replacePlaceholders,
   transformHeader,
 } from '../utils/AriaVersioning.mjs'
-import { IAriaFlag } from '../models/IAriaFlag.mjs'
+import { IAriaAction } from '../models/IAriaAction.mjs'
 import { applyTransform } from '../utils/AriaTransform.mjs'
 
 export class AriaAst {
@@ -212,7 +212,7 @@ export class AriaAst {
                   const count: number = node.flags.length
 
                   for (let i = 0; i < count; i++) {
-                    const flag: IAriaFlag = node.flags[i]
+                    const flag: IAriaAction = node.flags[i]
                     const transformName: string = flag.name
 
                     if (flag.allowsParams) {
