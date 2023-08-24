@@ -12,6 +12,8 @@
   - [**`include`**](https://github.com/igorskyflyer/file-format-adbt#include),
   - [**`import`**](https://github.com/igorskyflyer/file-format-adbt#import)
 
+<br>
+
 > 💡Actions allow you to invoke a certain function when including/importing filter list files.
 >
 > Supported actions:
