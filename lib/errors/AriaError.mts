@@ -1,14 +1,14 @@
 import { zing } from '@igor.dvlpr/zing'
-import { IAriaExceptionInfo } from './IAriaExceptionInfo.mjs'
+import { IAriaMessageData } from './IAriaMessageData.mjs'
 import chalk from 'chalk'
 
 export class AriaError extends Error {
   #name: string
   #args: any[]
-  #info: IAriaExceptionInfo
+  #info: IAriaMessageData
   #line: number
 
-  constructor(info: IAriaExceptionInfo, line: number, ...args: any[]) {
+  constructor(info: IAriaMessageData, line: number, ...args: any[]) {
     super(info.message)
     this.#name = 'AR'
     this.#args = args
@@ -19,11 +19,18 @@ export class AriaError extends Error {
   formatError(): string {
     if (this.#line > -1) {
       return zing(
-        `${chalk.italic.bold(`${this.#name}${this.#info.id}`)} at line ${this.#line}: ${this.#info.message}`,
+        `${chalk.italic.bold(`${this.#name}${this.#info.id}`)} at line ${
+          this.#line
+        }: ${this.#info.message}`,
         ...this.#args
       )
     } else {
-      return zing(`${chalk.italic.bold(`${this.#name}${this.#info.id}`)}: ${this.#info.message}`, ...this.#args)
+      return zing(
+        `${chalk.italic.bold(`${this.#name}${this.#info.id}`)}: ${
+          this.#info.message
+        }`,
+        ...this.#args
+      )
     }
   }
 }
