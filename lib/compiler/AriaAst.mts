@@ -3,7 +3,7 @@ import { NormalizedString } from '@igor.dvlpr/normalized-string'
 import chalk from 'chalk'
 import { PathLike, accessSync, readFileSync, writeFileSync } from 'node:fs'
 import { isAbsolute, join, parse, resolve } from 'node:path'
-import { AriaException } from '../errors/AriaStrings.mjs'
+import { AriaString } from '../errors/AriaString.mjs'
 import { AriaAstPath } from '../models/AriaAstPath.mjs'
 import { AriaNodeType } from '../models/AriaNodeType.mjs'
 import { AriaTemplatePath } from '../models/AriaTemplatePath.mjs'
@@ -127,7 +127,7 @@ export class AriaAst {
     if (this.#nodesCount === 0) return true
 
     if (this.#state.exports.length === 0) {
-      AriaLog.textError(AriaException.exportNotSpecified.message)
+      AriaLog.textError(AriaString.exportNotSpecified.message)
       AriaLog.newline()
       AriaLog.text('Aborting the compilation...')
       return false
@@ -178,14 +178,14 @@ export class AriaAst {
                 contents += this.#block(header)
               } else {
                 throw AriaLog.ariaError(
-                  AriaException.headerRead,
+                  AriaString.headerRead,
                   -1,
                   resolve(path)
                 )
               }
             }
           } catch {
-            throw AriaLog.ariaError(AriaException.headerRead, -1, path ?? 'N/A')
+            throw AriaLog.ariaError(AriaString.headerRead, -1, path ?? 'N/A')
           }
 
           break
@@ -229,11 +229,11 @@ export class AriaAst {
 
                 contents += filter
               } else {
-                throw AriaLog.ariaError(AriaException.filterNotFound, -1, path)
+                throw AriaLog.ariaError(AriaString.filterNotFound, -1, path)
               }
             }
           } catch {
-            throw AriaLog.ariaError(AriaException.filterRead, -1, 'N/A')
+            throw AriaLog.ariaError(AriaString.filterRead, -1, 'N/A')
           }
 
           break
@@ -292,10 +292,10 @@ export class AriaAst {
                 )} to "${finalPath}".`
               )
             } else {
-              throw AriaLog.ariaError(AriaException.exportInvalid)
+              throw AriaLog.ariaError(AriaString.exportInvalid)
             }
           } catch {
-            throw AriaLog.ariaError(AriaException.exportUnsuccessful, -1, path)
+            throw AriaLog.ariaError(AriaString.exportUnsuccessful, -1, path)
           }
 
           break
