@@ -124,7 +124,11 @@ export class Aria {
 
           if (!param) {
             if (!action.defaultValue || action.defaultValue.length === 0) {
-              throw new Error('No param value!')
+              throw AriaLog.ariaError(
+                AriaException.actionNoParam,
+                this.#sourceLine(),
+                action.name
+              )
             } else {
               param = action.defaultValue
             }
@@ -141,10 +145,11 @@ export class Aria {
               action.actualValue = param
             } else {
               // unknown value
-              throw new Error(
-                `Invalid param value for ${
-                  action.name
-                } action, allowed values: ${action.paramValues.toString()}`
+              throw AriaLog.ariaError(
+                AriaException.actionInvalidParam,
+                this.#sourceLine(),
+                action.name,
+                action.paramValues.toString()
               )
             }
           }
@@ -152,7 +157,10 @@ export class Aria {
 
         actions.push(action)
       } else {
-        throw new Error(`Unknown action ${probeAction}`)
+        throw AriaLog.ariaError(
+          AriaException.actionUnknownAction,
+          this.#sourceLine()
+        )
       }
     }
 
