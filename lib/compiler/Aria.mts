@@ -152,7 +152,7 @@ export class Aria {
 
         actions.push(action)
       } else {
-        throw new Error(`Unknown flag ${probeAction}`)
+        throw new Error(`Unknown action ${probeAction}`)
       }
     }
 
@@ -244,16 +244,16 @@ export class Aria {
     const statement: IAriaStatement = this.parseString(true)
     const path: string = statement.value
 
-    statement.flags = this.#parseActions(this.#chunk(this.#cursorInLine))
+    statement.actions = this.#parseActions(this.#chunk(this.#cursorInLine))
 
     if (!this.#ast.state.imports.includes(path)) {
       if (isImport) {
         this.#ast.addNode(
-          this.#node(AriaNodeType.nodeImport, path, statement.flags)
+          this.#node(AriaNodeType.nodeImport, path, statement.actions)
         )
       } else {
         this.#ast.addNode(
-          this.#node(AriaNodeType.nodeInclude, path, statement.flags)
+          this.#node(AriaNodeType.nodeInclude, path, statement.actions)
         )
       }
     } else {
