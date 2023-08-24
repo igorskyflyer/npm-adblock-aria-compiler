@@ -1,8 +1,8 @@
-import { IAriaFlag } from './IAriaFlag.mjs'
+import { IAriaAction } from './IAriaAction.mjs'
 
 export interface IAriaStatement {
   value: string
-  flags: IAriaFlag[]
+  flags: IAriaAction[]
 }
 
 export function createAriaStatement(): IAriaStatement {
