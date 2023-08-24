@@ -55,7 +55,11 @@ export class Aria {
     return this.#lineCursor + 1
   }
 
-  #node(type: AriaNodeType, value?: string, flags?: IAriaAction[]): IAriaNode {
+  #node(
+    type: AriaNodeType,
+    value?: string,
+    actions?: IAriaAction[]
+  ): IAriaNode {
     this.#foundKeyword = true
 
     const node: IAriaNode = {
@@ -67,8 +71,8 @@ export class Aria {
       node.value = value
     }
 
-    if (flags instanceof Array && flags.length > 0) {
-      node.flags = flags
+    if (actions instanceof Array && actions.length > 0) {
+      node.actions = actions
     }
 
     return node
