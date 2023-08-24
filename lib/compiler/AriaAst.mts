@@ -208,11 +208,11 @@ export class AriaAst {
                   contents += `! *** ${path} ***\n`
                 }
 
-                if (node.flags) {
-                  const count: number = node.flags.length
+                if (node.actions) {
+                  const count: number = node.actions.length
 
                   for (let i = 0; i < count; i++) {
-                    const flag: IAriaAction = node.flags[i]
+                    const flag: IAriaAction = node.actions[i]
                     const transformName: string = flag.name
 
                     if (flag.allowsParams) {
