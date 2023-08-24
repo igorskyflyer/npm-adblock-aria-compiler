@@ -2,9 +2,9 @@ import { IAriaAction } from './IAriaAction.mjs'
 
 export interface IAriaStatement {
   value: string
-  flags: IAriaAction[]
+  actions: IAriaAction[]
 }
 
 export function createAriaStatement(): IAriaStatement {
-  return { value: '', flags: [] }
+  return { value: '', actions: [] }
 }
