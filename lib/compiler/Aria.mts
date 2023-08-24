@@ -5,10 +5,10 @@ import { resolve } from 'node:path'
 import { isAbsolute, join, parse } from 'path'
 import { AriaError } from '../errors/AriaError.mjs'
 import { AriaException } from '../errors/AriaStrings.mjs'
-import { AriaFlag } from '../models/AriaFlag.mjs'
+import { AriaAction } from '../models/AriaAction.mjs'
 import { AriaNodeType } from '../models/AriaNodeType.mjs'
 import { AriaTemplatePath } from '../models/AriaTemplatePath.mjs'
-import { IAriaFlag } from '../models/IAriaFlag.mjs'
+import { IAriaAction } from '../models/IAriaAction.mjs'
 import { IAriaMeta } from '../models/IAriaMeta.mjs'
 import { IAriaNode } from '../models/IAriaNode.mjs'
 import { IAriaOptions } from '../models/IAriaOptions.mjs'
@@ -55,7 +55,7 @@ export class Aria {
     return this.#lineCursor + 1
   }
 
-  #node(type: AriaNodeType, value?: string, flags?: IAriaFlag[]): IAriaNode {
+  #node(type: AriaNodeType, value?: string, flags?: IAriaAction[]): IAriaNode {
     this.#foundKeyword = true
 
     const node: IAriaNode = {
@@ -88,8 +88,8 @@ export class Aria {
     return this.#line.substring(start, end)
   }
 
-  #parseFlags(input: string): IAriaFlag[] {
-    const flags: IAriaFlag[] = []
+  #parseFlags(input: string): IAriaAction[] {
+    const flags: IAriaAction[] = []
 
     if (typeof input !== 'string') {
       return flags
@@ -110,8 +110,8 @@ export class Aria {
     } else {
       const flagProbe: string = values[0].trim()
 
-      if (flagProbe in AriaFlag) {
-        const flag: IAriaFlag = AriaFlag[flagProbe]
+      if (flagProbe in AriaAction) {
+        const flag: IAriaAction = AriaAction[flagProbe]
 
         this.#cursorInLine += flagProbe.length + 1
 

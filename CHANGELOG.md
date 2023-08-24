@@ -4,6 +4,30 @@
 
 <br>
 
+## 1.6.0 - 22-Aug-2023
+
+### [ADBT v1.3.0](https://github.com/igorskyflyer/file-format-adbt/releases/tag/v1.3.0)
+
+- **🪅 feat**: add support for statement actions ([#48](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/48)), currently available for:
+  - [**`include`**](https://github.com/igorskyflyer/file-format-adbt#include),
+  - [**`import`**](https://github.com/igorskyflyer/file-format-adbt#import)
+
+> 💡Actions allow you to invoke a certain function when including/importing filter list files.
+>
+> Supported actions:
+>
+> - trim (trims whitespace for each line from the included filter list file)
+> - dedupe (removes duplicates from the included filter list file)
+> - sort (sorts lines from the included filter list file)
+> - append (appends an arbitrary string to each line from the included filter list file)
+> - strip (strips a certain element of each line from the included filter list file)
+
+<br>
+
+> You can read more about [Actions](https://github.com/igorskyflyer/file-format-adbt#actions) in the official ADBT documentation.
+
+<br>
+
 ## 1.5.0 - 20-Aug-2023
 
 ### [ADBT v1.2.0](https://github.com/igorskyflyer/file-format-adbt/releases/tag/v1.2.0)
