@@ -4,7 +4,7 @@ import { PathLike, accessSync, readFileSync } from 'fs'
 import { resolve } from 'node:path'
 import { isAbsolute, join, parse } from 'path'
 import { AriaError } from '../errors/AriaError.mjs'
-import { AriaException } from '../errors/AriaStrings.mjs'
+import { AriaString } from '../errors/AriaString.mjs'
 import { AriaAction } from '../models/AriaAction.mjs'
 import { AriaNodeType } from '../models/AriaNodeType.mjs'
 import { AriaTemplatePath } from '../models/AriaTemplatePath.mjs'
@@ -125,7 +125,7 @@ export class Aria {
           if (!param) {
             if (!action.defaultValue || action.defaultValue.length === 0) {
               throw AriaLog.ariaError(
-                AriaException.actionNoParam,
+                AriaString.actionNoParam,
                 this.#sourceLine(),
                 action.name
               )
@@ -146,7 +146,7 @@ export class Aria {
             } else {
               // unknown value
               throw AriaLog.ariaError(
-                AriaException.actionInvalidParam,
+                AriaString.actionInvalidParam,
                 this.#sourceLine(),
                 action.name,
                 action.paramValues.toString()
@@ -158,7 +158,7 @@ export class Aria {
         actions.push(action)
       } else {
         throw AriaLog.ariaError(
-          AriaException.actionUnknownAction,
+          AriaString.actionUnknownAction,
           this.#sourceLine()
         )
       }
@@ -178,7 +178,7 @@ export class Aria {
           break
         } else {
           throw AriaLog.ariaError(
-            AriaException.extraneousInput,
+            AriaString.extraneousInput,
             this.#sourceLine(),
             result.value
           )
@@ -191,7 +191,7 @@ export class Aria {
           shouldCapture = true
         } else {
           throw AriaLog.ariaError(
-            AriaException.includePath,
+            AriaString.includePath,
             this.#sourceLine(),
             this.#char
           )
@@ -213,10 +213,7 @@ export class Aria {
     }
 
     if (!closedString) {
-      throw AriaLog.ariaError(
-        AriaException.unterminatedString,
-        this.#sourceLine()
-      )
+      throw AriaLog.ariaError(AriaString.unterminatedString, this.#sourceLine())
     }
 
     return result
@@ -265,7 +262,7 @@ export class Aria {
         )
       }
     } else {
-      AriaLog.textWarning(AriaException.includedAlready.message, path)
+      AriaLog.textWarning(AriaString.includedAlready.message, path)
       AriaLog.newline()
     }
 
@@ -328,7 +325,7 @@ export class Aria {
     while (this.#lineCursor < linesCount) {
       if (!shouldParse) {
         AriaLog.textWarning(
-          AriaException.unreachableNodes.message,
+          AriaString.unreachableNodes.message,
           this.#lineCursor
         )
         AriaLog.newline()
@@ -359,7 +356,7 @@ export class Aria {
       ) {
         if (this.#ast.state.exports.length === 1) {
           AriaLog.textWarning(
-            AriaException.unreachableNodes.message,
+            AriaString.unreachableNodes.message,
             this.#lineCursor
           )
           AriaLog.newline()
@@ -421,7 +418,7 @@ export class Aria {
         if (this.#buffer === AriaKeywords.export) {
           if (this.#ast.state.exports.length === 1) {
             throw AriaLog.ariaError(
-              AriaException.oneExportOnly,
+              AriaString.oneExportOnly,
               this.#sourceLine()
             )
           }
@@ -450,7 +447,7 @@ export class Aria {
     root?: string
   ): AriaAst | undefined {
     if (typeof templatePath !== 'string') {
-      throw AriaLog.ariaError(AriaException.noTemplate)
+      throw AriaLog.ariaError(AriaString.noTemplate)
     }
 
     if (typeof root !== 'string') {
@@ -462,7 +459,7 @@ export class Aria {
     }
 
     if (!this.#pathExists(templatePath)) {
-      throw AriaLog.ariaError(AriaException.noTemplate)
+      throw AriaLog.ariaError(AriaString.noTemplate)
     }
 
     try {
