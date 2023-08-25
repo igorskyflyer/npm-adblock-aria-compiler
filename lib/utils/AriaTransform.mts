@@ -51,7 +51,13 @@ function transform(
     }
   }
 
-  return result.join('\n')
+  let transformedValue: string = result.join('\n')
+
+  if (transformedValue.at(-1)) {
+    transformedValue += '\n'
+  }
+
+  return transformedValue
 }
 
 export function sort(source: string, sortBy: AriaSortBy = 'asc'): string {
