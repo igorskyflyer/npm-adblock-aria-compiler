@@ -20,7 +20,7 @@ export class AriaLog {
   static textWarning(message: any, ...rest: any[]): void {
     console.warn(
       `${chalk.bgHex('#1369BD').bold(' WARNING ')} ${chalk.dim(
-        zing(message, rest)
+        zing(message, ...rest)
       )}`
     )
   }
