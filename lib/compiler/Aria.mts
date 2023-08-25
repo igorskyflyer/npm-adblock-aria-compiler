@@ -19,13 +19,14 @@ import {
 import { AriaLog } from '../utils/AriaLog.mjs'
 import { getMetaPath, hasMeta, parseMeta } from '../utils/AriaVarUtils.mjs'
 import { AriaAst } from './AriaAst.mjs'
-import { AriaKeywords } from './AriaKeywords.mjs'
+import { AriaKeywords, getLongestKeyword } from './AriaKeywords.mjs'
 
 export class Aria {
   #source: string
   // global
   #line: string
   #char: string
+  #shouldParse: boolean
 
   // per-line
   #lineCursor: number
@@ -47,6 +48,7 @@ export class Aria {
     this.#lineLength = 0
     this.#ast = new AriaAst()
     this.#ast.versioning = options.versioning ?? 'auto'
+    this.#shouldParse = true
 
     AriaLog.shouldLog = options.shouldLog ?? false
   }
@@ -262,6 +264,8 @@ export class Aria {
         )
       }
     } else {
+      this.#foundKeyword = true
+
       AriaLog.textWarning(AriaString.includedAlready.message, path)
       AriaLog.newline()
     }
@@ -287,6 +291,7 @@ export class Aria {
     this.#cursorInLine = 0
     this.#lineCursor = 0
     this.#lineLength = 0
+    this.#shouldParse = true
 
     const oldHeaderVersion = this.#ast.versioning
     this.#ast = new AriaAst()
@@ -315,7 +320,7 @@ export class Aria {
 
     const lines: string[] = this.#source.trimEnd().split(/\n/gm)
     const linesCount: number = lines.length
-    let shouldParse: boolean = true
+    const longestKeyword: number = getLongestKeyword().length
 
     AriaLog.log(`Total lines: ${linesCount}`)
     AriaLog.log(`Versioning: ${this.#ast.versioning}`)
@@ -323,7 +328,7 @@ export class Aria {
     AriaLog.newline()
 
     while (this.#lineCursor < linesCount) {
-      if (!shouldParse) {
+      if (!this.#shouldParse) {
         AriaLog.textWarning(
           AriaString.unreachableNodes.message,
           this.#lineCursor
@@ -354,6 +359,12 @@ export class Aria {
         this.#cursorInLine < this.#lineLength;
         this.#cursorInLine++
       ) {
+        const bufferLength: number = this.#buffer.length
+
+        if (bufferLength > longestKeyword) {
+          throw AriaLog.ariaError(AriaString.syntaxError, this.#sourceLine())
+        }
+
         if (this.#ast.state.exports.length === 1) {
           AriaLog.textWarning(
             AriaString.unreachableNodes.message,
@@ -361,7 +372,7 @@ export class Aria {
           )
           AriaLog.newline()
 
-          shouldParse = false
+          this.#shouldParse = false
           break
         }
 
@@ -425,13 +436,13 @@ export class Aria {
 
           this.#parseExport()
           AriaLog.log('Found an export operator')
-          shouldParse = false
+          this.#shouldParse = false
           break
         }
       }
 
       if (!this.#foundKeyword) {
-        AriaLog.log('No valid identifier found', 'warn')
+        throw AriaLog.ariaError(AriaString.syntaxError, this.#sourceLine())
       }
 
       AriaLog.logNewline()
