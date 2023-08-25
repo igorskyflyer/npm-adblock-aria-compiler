@@ -233,7 +233,7 @@ export class AriaAst {
               }
             }
           } catch {
-            throw AriaLog.ariaError(AriaString.filterRead, -1, 'N/A')
+            throw AriaLog.ariaError(AriaString.filterRead, -1, path ?? 'N/A')
           }
 
           break
