@@ -4,6 +4,13 @@
 
 <br>
 
+## 1.6.1 - 22-Aug-2023
+
+- **✅ fix**: fix an error when no action is provided, ([#50](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/50))
+- **✅ fix**: fix an error when passing multiple values for error logging, ([#51](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/51))
+
+<br>
+
 ## 1.6.0 - 22-Aug-2023
 
 ### [ADBT v1.3.0](https://github.com/igorskyflyer/file-format-adbt/releases/tag/v1.3.0)
