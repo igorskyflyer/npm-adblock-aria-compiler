@@ -46,7 +46,7 @@ export class AriaLog {
     lineCursor: number = -1,
     ...args: any[]
   ): AriaError {
-    return new AriaError(info, lineCursor, args)
+    return new AriaError(info, lineCursor, ...args)
   }
 
   static formatChanges(before: number, after: number): string {
