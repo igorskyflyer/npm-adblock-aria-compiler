@@ -84,7 +84,10 @@ export class AriaAst {
 
   public addNode(node: IAriaNode): void {
     if (typeof node.value === 'string') {
-      if (node.type === AriaNodeType.nodeInclude) {
+      if (
+        node.type === AriaNodeType.nodeInclude ||
+        node.type === AriaNodeType.nodeImport
+      ) {
         this.#state.imports.push(node.value)
       } else if (node.type === AriaNodeType.nodeExport) {
         this.#state.exports.push(node.value)
