@@ -77,4 +77,8 @@ export const AriaString = {
     id: '018',
     message: 'unknown action: {0}',
   },
+  syntaxError: {
+    id: '019',
+    message: 'syntax error, unsupported identifier',
+  },
 } as const
