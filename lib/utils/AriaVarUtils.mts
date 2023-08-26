@@ -4,6 +4,8 @@ import { AriaTemplatePath } from '../models/AriaTemplatePath.mjs'
 import { IAriaMeta } from '../models/IAriaMeta.mjs'
 import { IAriaVar } from '../models/IAriaVar.mjs'
 
+const patternExpires = /! Expires:.*\(update frequency\)$/i
+
 export function parseMeta(templatePath: AriaTemplatePath): IAriaMeta | null {
   const meta: IAriaMeta = {}
 
@@ -68,6 +70,20 @@ function fileExists(filePath: string): boolean {
   }
 
   return true
+}
+
+export function amendExpires(expires: string | undefined): string {
+  if (typeof expires !== 'string') {
+    return ''
+  }
+
+  expires = expires.trim()
+
+  if (!patternExpires.test(expires)) {
+    expires += ' (update frequency)'
+  }
+
+  return expires
 }
 
 export function createVars(): IAriaVar {
