@@ -1,6 +1,7 @@
+import { u } from '@igor.dvlpr/upath'
 import { accessSync, readFileSync } from 'node:fs'
-import { IAriaMeta } from '../models/IAriaMeta.mjs'
 import { AriaTemplatePath } from '../models/AriaTemplatePath.mjs'
+import { IAriaMeta } from '../models/IAriaMeta.mjs'
 import { IAriaVar } from '../models/IAriaVar.mjs'
 
 export function parseMeta(templatePath: AriaTemplatePath): IAriaMeta | null {
@@ -18,7 +19,7 @@ export function parseMeta(templatePath: AriaTemplatePath): IAriaMeta | null {
     const metaPath: string | null = getMetaPath(templatePath)
 
     if (typeof metaPath === 'string') {
-      const contents: string = readFileSync(metaPath, { encoding: 'utf-8' })
+      const contents: string = readFileSync(u(metaPath), { encoding: 'utf-8' })
       const json: any = JSON.parse(contents)
 
       // we copy only the props we need
@@ -61,7 +62,7 @@ export function hasMeta(templatePath: AriaTemplatePath): boolean {
 
 function fileExists(filePath: string): boolean {
   try {
-    accessSync(filePath)
+    accessSync(u(filePath))
   } catch {
     return false
   }
