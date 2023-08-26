@@ -81,4 +81,8 @@ export const AriaString = {
     id: '019',
     message: 'syntax error, unsupported identifier',
   },
+  syntaxOrder: {
+    id: '020',
+    message: 'syntax error, "{0}" is not allowed after "{1}"',
+  },
 } as const

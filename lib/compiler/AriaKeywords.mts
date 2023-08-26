@@ -1,3 +1,5 @@
+import { AriaNodeType } from '../models/AriaNodeType.mjs'
+
 export const AriaKeywords = {
   commentInternal: '@',
   commentExported: '#',
@@ -24,4 +26,36 @@ export function getLongestKeyword(): string {
   }
 
   return result
+}
+
+export function getKeywordFromType(node: AriaNodeType): string {
+  switch (node) {
+    case AriaNodeType.nodeComment: {
+      return 'comment'
+    }
+
+    case AriaNodeType.nodeExport: {
+      return 'export'
+    }
+
+    case AriaNodeType.nodeHeader: {
+      return 'header'
+    }
+
+    case AriaNodeType.nodeImport: {
+      return 'import'
+    }
+
+    case AriaNodeType.nodeInclude: {
+      return 'include'
+    }
+
+    case AriaNodeType.nodeNewLine: {
+      return 'nl'
+    }
+
+    case AriaNodeType.nodeTag: {
+      return 'tag'
+    }
+  }
 }

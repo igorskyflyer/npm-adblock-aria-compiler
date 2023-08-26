@@ -24,6 +24,8 @@ import {
 } from '../utils/AriaVersioning.mjs'
 import { IAriaAction } from '../models/IAriaAction.mjs'
 import { applyTransform } from '../utils/AriaTransform.mjs'
+import { canAddNode } from './AriaOrder.mjs'
+import { getKeywordFromType } from './AriaKeywords.mjs'
 
 export class AriaAst {
   #nodes: IAriaNode[]
@@ -82,7 +84,20 @@ export class AriaAst {
     return this.#state
   }
 
-  public addNode(node: IAriaNode): void {
+  public addNode(node: IAriaNode, sourceline: number): void {
+    if (this.nodesCount > 1) {
+      const previous: IAriaNode | undefined = this.nodes.at(-1)
+
+      if (previous && !canAddNode(node, previous)) {
+        throw AriaLog.ariaError(
+          AriaString.syntaxOrder,
+          sourceline,
+          getKeywordFromType(node.type),
+          getKeywordFromType(previous.type)
+        )
+      }
+    }
+
     if (typeof node.value === 'string') {
       if (
         node.type === AriaNodeType.nodeInclude ||
