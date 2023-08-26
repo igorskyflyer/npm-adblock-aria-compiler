@@ -4,14 +4,18 @@
 
 <br>
 
-## 1.6.1 - 22-Aug-2023
+## v1.6.1
+
+_22-Aug-2023_
 
 - **✅ fix**: fix an error when no action is provided, ([#50](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/50))
 - **✅ fix**: fix an error when passing multiple values for error logging, ([#51](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/51))
 
 <br>
 
-## 1.6.0 - 22-Aug-2023
+## v1.6.0
+
+_22-Aug-2023_
 
 ### [ADBT v1.3.0](https://github.com/igorskyflyer/file-format-adbt/releases/tag/v1.3.0)
 
@@ -37,7 +41,9 @@
 
 <br>
 
-## 1.5.0 - 20-Aug-2023
+## v1.5.0
+
+_20-Aug-2023_
 
 ### [ADBT v1.2.0](https://github.com/igorskyflyer/file-format-adbt/releases/tag/v1.2.0)
 
@@ -54,7 +60,9 @@
 
 <br>
 
-## 1.4.0 - 19-Aug-2023
+## v1.4.0
+
+_19-Aug-2023_
 
 ### [ADBT v1.1.0](https://github.com/igorskyflyer/file-format-adbt/releases/tag/v1.1.0)
 
@@ -67,7 +75,9 @@
 
 <br>
 
-## 1.3.0 - 14-Aug-2023
+## v1.3.0
+
+_14-Aug-2023_
 
 - **🪅 feat**: add support for absolute paths for header, include and export ([#30](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/30))
 - **✅ fix**: literal versioning type leak into the exported file ([#32](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/32))
@@ -76,7 +86,9 @@
 
 <br>
 
-## 1.2.5 - 02-Aug-2023
+## v1.2.5
+
+_02-Aug-2023_
 
 - **✅ fix**: always output absolute export path
 - **🪅 feat**: log execution time ([#28](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/28))
@@ -86,68 +98,90 @@
 
 <br>
 
-## 1.2.4 - 02-Aug-2023
+## v1.2.4
+
+_02-Aug-2023_
 
 - **💻 dev**: use automated version tagging
 
 <br>
 
-## 1.2.3 - 02-Aug-2023
+## v1.2.3
+
+_02-Aug-2023_
 
 - **✅ fix**: incorrect CLI version
 
 <br>
 
-## 1.2.2 - 02-Aug-2023
+## v1.2.2
+
+_02-Aug-2023_
 
 - **✅ fix**: enable passing of relative template paths while using a `root` absolute path ([#24](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/24))
 
 <br>
 
-## 1.2.1 - 02-Aug-2023
+## v1.2.1
+
+_02-Aug-2023_
 
 - **📜 docs**: update API
 
 <br>
 
-## 1.2.0 - 02-Aug-2023
+## v1.2.0
+
+_02-Aug-2023_
 
 - **🪅 feat**: root directory option
 - **✅ fix**: cwd path ([#23](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/23))
 
 <br>
 
-## 1.1.2 - 02-Aug-2023
+## v1.1.2
+
+_02-Aug-2023_
 
 - **✅ fix**: sourceline wrong numbering ([#18](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/18))
 - **✅ fix**: String escaping ([#17](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/17))
 
-## 1.1.1 - 01-Aug-2023
+## v1.1.1
+
+_01-Aug-2023_
 
 - **✅ fix**: version placeholder was injected even when a version is defined ([#14](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/14))
 - **✅ fix**: don't prepend whitespace when injecting headers ([#12](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/12))
 
 <br>
 
-## 1.1.0 - 31-Jul-2023
+## v1.1.0
+
+_31-Jul-2023_
 
 - **🪅 feat**: don't include already included filter lists ([#10](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/10))
 
 <br>
 
-## 1.0.3 - 29-Jul-2023
+## v1.0.3
+
+_29-Jul-2023_
 
 - **✅ fix**: handle single quotes `'` in file paths ([#8](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/8))
 
 <br>
 
-## 1.0.2 - 29-Jul-2023
+## v1.0.2
+
+_29-Jul-2023_
 
 - **🪅 feat**: add performance information to CLI output
 
 <br>
 
-## 1.0.1 - 28-Jul-2023
+## v1.0.1
+
+_28-Jul-2023_
 
 - **✅ fix**: encode all files as UTF-8 ([#4](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/4))
 - **✅ fix**: meta and compile variables mixup ([#6](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/6))
@@ -155,6 +189,8 @@
 
 <br>
 
-## 1.0.0 - 27-Jul-2023
+## v1.0.0
+
+_27-Jul-2023_
 
 - **🚀 launch**: initial release 🎉
