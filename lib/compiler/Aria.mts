@@ -146,7 +146,7 @@ export class Aria {
           if (action.paramValues) {
             // user provided value
             if (action.paramValues[0] === '*') {
-              action.actualValue = this.parseString(true).value
+              action.actualValue = this.#parseString(true).value
             } else if (action.paramValues.indexOf(param) > -1) {
               // only allowed values
               action.actualValue = param
@@ -174,7 +174,7 @@ export class Aria {
     return actions
   }
 
-  parseString(allowActions: boolean = false): IAriaStatement {
+  #parseString(allowActions: boolean = false): IAriaStatement {
     const result: IAriaStatement = createAriaStatement()
     let shouldCapture: boolean = false
     let closedString: boolean = false
@@ -240,7 +240,7 @@ export class Aria {
     let tagDescription: string = ''
 
     if (this.#line.trim().length > 3) {
-      tagDescription = this.parseString().value
+      tagDescription = this.#parseString().value
     }
 
     this.#ast.addNode(
@@ -252,7 +252,7 @@ export class Aria {
   }
 
   #parseHeaderImport(): boolean {
-    const path: string = this.parseString().value
+    const path: string = this.#parseString().value
     this.#ast.addNode(
       this.#node(AriaNodeType.nodeHeader, path),
       this.#sourceLine()
@@ -262,7 +262,7 @@ export class Aria {
   }
 
   #parseInclude(isImport: boolean = false): boolean {
-    const statement: IAriaStatement = this.parseString(true)
+    const statement: IAriaStatement = this.#parseString(true)
     const path: string = statement.value
 
     statement.actions = this.#parseActions(this.#chunk(this.#cursorInLine + 1))
@@ -290,7 +290,7 @@ export class Aria {
   }
 
   #parseExport(): boolean {
-    const statement: IAriaStatement = this.parseString(true)
+    const statement: IAriaStatement = this.#parseString(true)
     const path: string = statement.value
 
     this.#ast.addNode(
