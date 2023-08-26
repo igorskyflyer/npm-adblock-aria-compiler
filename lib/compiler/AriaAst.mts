@@ -16,7 +16,7 @@ import { IAriaVar } from '../models/IAriaVar.mjs'
 import { AriaLog } from '../utils/AriaLog.mjs'
 import { AriaPerformance } from '../utils/AriaPerformance.mjs'
 import { applyTransform } from '../utils/AriaTransform.mjs'
-import { createVars } from '../utils/AriaVarUtils.mjs'
+import { amendExpires, createVars } from '../utils/AriaVarUtils.mjs'
 import {
   AriaVersioning,
   constructVersion,
@@ -275,7 +275,7 @@ export class AriaAst {
               // meta vars
               variables.title = this.meta.title ?? ''
               variables.description = this.meta.description ?? ''
-              variables.expires = this.meta.expires ?? ''
+              variables.expires = amendExpires(this.meta.expires) ?? ''
 
               // compile vars
               variables.filename = filename
