@@ -8,6 +8,7 @@ const semVerPattern: RegExp = /! Version:\s*(\d+\.\d+\.\d+)/gim
 const timestampPattern: RegExp = /! Version:\s*(\d+)$/gim
 const versionPlaceholderPattern: RegExp = /! Version: \$version$/gim
 const versionPattern: RegExp = /! Version:.*$/gim
+const entriesPattern: RegExp = /! Entries:.*$/gim
 
 function hasPattern(header: string, pattern: RegExp): boolean {
   if (typeof header !== 'string') {
@@ -52,7 +53,13 @@ function hasVersionPlaceholder(header: string): boolean {
 }
 
 function hasVersion(header: string): boolean {
-  return hasSemVer(header) || hasTimestamp(header) || hasVersionPlaceholder(header)
+  return (
+    hasSemVer(header) || hasTimestamp(header) || hasVersionPlaceholder(header)
+  )
+}
+
+function hasEntries(header: string): boolean {
+  return hasPattern(header, entriesPattern)
 }
 
 function getHeaderSemVer(header: string): AriaHeaderVersion {
@@ -77,7 +84,9 @@ export function getCurrentISOTime(): string {
   const offsetHours: string = Math.floor(Math.abs(timeZoneOffset) / 60)
     .toString()
     .padStart(2, '0')
-  const offsetMinutes: string = (Math.abs(timeZoneOffset) % 60).toString().padStart(2, '0')
+  const offsetMinutes: string = (Math.abs(timeZoneOffset) % 60)
+    .toString()
+    .padStart(2, '0')
   const offsetSign: string = timeZoneOffset >= 0 ? '-' : '+'
 
   const offsetString: string = `${offsetSign}${offsetHours}:${offsetMinutes}`
@@ -108,6 +117,18 @@ export function injectVersionPlaceholder(header: string): string {
     }
 
     header += '! Version: $version'
+  }
+
+  return header
+}
+
+export function injectEntriesPlaceholder(header: string): string {
+  if (!hasEntries(header)) {
+    if (header.at(-1) !== '\n') {
+      header += '\n'
+    }
+
+    header += '! Entries: $entries'
   }
 
   return header
