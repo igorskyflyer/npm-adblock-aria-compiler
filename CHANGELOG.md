@@ -8,6 +8,10 @@
 
 _27-Aug-2023_
 
+- **🪅 feat**: always add `Entries` field to the metadata of the compiled filter file ([#64](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/64))
+- **🪅 feat**: make all user input paths universal, i.e. allow all OS' to use forward slash as a path separator ([#62](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/62))  
+  _🌟 Via [uPath](https://www.npmjs.com/package/@igor.dvlpr/upath)_
+
 - **🪅 feat**: add order of statements ([#60](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/60)) - keeps track of order of statements (nodes) in the input template, e.g.
 
   - disallow all statements after an [`export`](https://github.com/igorskyflyer/file-format-adbt#export),
