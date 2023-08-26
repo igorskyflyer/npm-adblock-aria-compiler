@@ -18,7 +18,11 @@ import {
   createAriaStatement,
 } from '../models/IAriaStatement.mjs'
 import { AriaLog } from '../utils/AriaLog.mjs'
-import { getMetaPath, hasMeta, parseMeta } from '../utils/AriaVarUtils.mjs'
+import {
+  getMetaPath,
+  hasMeta,
+  parseExternalMeta,
+} from '../utils/AriaVarUtils.mjs'
 import { AriaAst } from './AriaAst.mjs'
 import { AriaKeywords, getLongestKeyword } from './AriaKeywords.mjs'
 
@@ -516,7 +520,7 @@ export class Aria {
 
       this.parse(template)
 
-      const meta: IAriaMeta | null = parseMeta(templatePath)
+      const meta: IAriaMeta | null = parseExternalMeta(templatePath)
 
       if (meta != null) {
         this.#ast.meta = meta
