@@ -436,6 +436,12 @@ export class Aria {
           break
         }
 
+        if (this.#buffer === AriaKeywords.meta) {
+          this.#parseString()
+          AriaLog.log('Found a meta')
+          break
+        }
+
         if (this.#buffer === AriaKeywords.include) {
           this.#parseInclude()
           AriaLog.log('Found an include')
