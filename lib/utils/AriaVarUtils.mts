@@ -6,7 +6,9 @@ import { IAriaVar } from '../models/IAriaVar.mjs'
 
 const patternExpires = /! Expires:.*\(update frequency\)$/i
 
-export function parseMeta(templatePath: AriaTemplatePath): IAriaMeta | null {
+export function parseExternalMeta(
+  templatePath: AriaTemplatePath
+): IAriaMeta | null {
   const meta: IAriaMeta = {}
 
   if (typeof templatePath !== 'string') {
