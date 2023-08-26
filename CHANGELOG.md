@@ -9,11 +9,12 @@
 _27-Aug-2023_
 
 - **🪅 feat**: add order of statements ([#60](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/60)) - keeps track of order of statements (nodes) in the input template, e.g.
+
   - disallow all statements after an [`export`](https://github.com/igorskyflyer/file-format-adbt#export),
   - a [`header`](https://github.com/igorskyflyer/file-format-adbt#header) statement cannot appear after an [`include`](https://github.com/igorskyflyer/file-format-adbt#include)/[`import`](https://github.com/igorskyflyer/file-format-adbt#import),
   - etc.
 
-Also, throw when order is not correct.
+  Also, throw when order is not correct.
 
 <br>
 
