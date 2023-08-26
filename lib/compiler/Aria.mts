@@ -20,7 +20,7 @@ import {
 import { AriaLog } from '../utils/AriaLog.mjs'
 import {
   getMetaPath,
-  hasMeta,
+  hasMetaFile,
   parseExternalMeta,
 } from '../utils/AriaVarUtils.mjs'
 import { AriaAst } from './AriaAst.mjs'
@@ -502,7 +502,7 @@ export class Aria {
 
       const metaPath: string = getMetaPath(templatePath) as string
 
-      if (hasMeta(templatePath)) {
+      if (hasMetaFile(templatePath)) {
         AriaLog.text(`Resolved meta: ${resolve(metaPath)}`)
       } else {
         AriaLog.text(`Resolved meta: N/A`)
