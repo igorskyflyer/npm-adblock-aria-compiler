@@ -1,6 +1,7 @@
 import { NormalizedString } from '@igor.dvlpr/normalized-string'
+import { u } from '@igor.dvlpr/upath'
 import chalk from 'chalk'
-import { PathLike, accessSync, readFileSync } from 'fs'
+import { accessSync, readFileSync } from 'fs'
 import { resolve } from 'node:path'
 import { isAbsolute, join, parse } from 'path'
 import { AriaError } from '../errors/AriaError.mjs'
@@ -316,9 +317,9 @@ export class Aria {
     return this.#char === ' ' || this.#char === '\t'
   }
 
-  #pathExists(path: PathLike): boolean {
+  #pathExists(path: string): boolean {
     try {
-      accessSync(path)
+      accessSync(u(path))
       return true
     } catch {}
     return false
@@ -482,7 +483,7 @@ export class Aria {
       root = process.cwd()
     } else {
       if (!isAbsolute(templatePath)) {
-        templatePath = join(root, templatePath) as AriaTemplatePath
+        templatePath = join(u(root), templatePath) as AriaTemplatePath
       }
     }
 
@@ -491,6 +492,7 @@ export class Aria {
     }
 
     try {
+      templatePath = u(templatePath) as AriaTemplatePath
       AriaLog.text(`Resolved root directory: ${resolve(root)}`)
       AriaLog.text(`Resolved template: ${resolve(templatePath)}`)
 
