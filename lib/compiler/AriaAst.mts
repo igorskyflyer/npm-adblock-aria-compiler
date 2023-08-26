@@ -1,18 +1,21 @@
 import { countRules } from '@igor.dvlpr/adblock-filter-counter'
 import { NormalizedString } from '@igor.dvlpr/normalized-string'
+import { u } from '@igor.dvlpr/upath'
 import chalk from 'chalk'
-import { PathLike, accessSync, readFileSync, writeFileSync } from 'node:fs'
+import { accessSync, readFileSync, writeFileSync } from 'node:fs'
 import { isAbsolute, join, parse, resolve } from 'node:path'
 import { AriaString } from '../errors/AriaString.mjs'
 import { AriaAstPath } from '../models/AriaAstPath.mjs'
 import { AriaNodeType } from '../models/AriaNodeType.mjs'
 import { AriaTemplatePath } from '../models/AriaTemplatePath.mjs'
+import { IAriaAction } from '../models/IAriaAction.mjs'
 import { IAriaMeta } from '../models/IAriaMeta.mjs'
 import { IAriaNode } from '../models/IAriaNode.mjs'
 import { IAriaState } from '../models/IAriaState.mjs'
 import { IAriaVar } from '../models/IAriaVar.mjs'
 import { AriaLog } from '../utils/AriaLog.mjs'
 import { AriaPerformance } from '../utils/AriaPerformance.mjs'
+import { applyTransform } from '../utils/AriaTransform.mjs'
 import { createVars } from '../utils/AriaVarUtils.mjs'
 import {
   AriaVersioning,
@@ -22,10 +25,8 @@ import {
   replacePlaceholders,
   transformHeader,
 } from '../utils/AriaVersioning.mjs'
-import { IAriaAction } from '../models/IAriaAction.mjs'
-import { applyTransform } from '../utils/AriaTransform.mjs'
-import { canAddNode } from './AriaOrder.mjs'
 import { getKeywordFromType } from './AriaKeywords.mjs'
+import { canAddNode } from './AriaOrder.mjs'
 
 export class AriaAst {
   #nodes: IAriaNode[]
@@ -48,9 +49,9 @@ export class AriaAst {
     this.tagsCounter = 0
   }
 
-  #pathExists(path: PathLike): boolean {
+  #pathExists(path: string): boolean {
     try {
-      accessSync(path)
+      accessSync(u(path))
       return true
     } catch {}
     return false
@@ -119,6 +120,8 @@ export class AriaAst {
     }
 
     try {
+      path = u(path) as AriaAstPath
+
       if (!path.toLowerCase().endsWith('.json')) {
         path = join(path, '.json') as AriaAstPath
       }
@@ -135,10 +138,10 @@ export class AriaAst {
 
   #applyRoot(filepath: string): string {
     if (isAbsolute(filepath)) {
-      return filepath
+      return u(filepath)
     }
 
-    return join(this.root, filepath)
+    return u(join(this.root, filepath))
   }
 
   public compile(): boolean {
