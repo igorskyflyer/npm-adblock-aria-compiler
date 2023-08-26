@@ -223,7 +223,10 @@ export class Aria {
 
   #parseComment(): boolean {
     const comment: string = this.#chunk(1).trim()
-    this.#ast.addNode(this.#node(AriaNodeType.nodeComment, comment))
+    this.#ast.addNode(
+      this.#node(AriaNodeType.nodeComment, comment),
+      this.#sourceLine()
+    )
 
     return true
   }
@@ -235,14 +238,20 @@ export class Aria {
       tagDescription = this.parseString().value
     }
 
-    this.#ast.addNode(this.#node(AriaNodeType.nodeTag, tagDescription))
+    this.#ast.addNode(
+      this.#node(AriaNodeType.nodeTag, tagDescription),
+      this.#sourceLine()
+    )
 
     return true
   }
 
   #parseHeaderImport(): boolean {
     const path: string = this.parseString().value
-    this.#ast.addNode(this.#node(AriaNodeType.nodeHeader, path))
+    this.#ast.addNode(
+      this.#node(AriaNodeType.nodeHeader, path),
+      this.#sourceLine()
+    )
 
     return true
   }
@@ -256,11 +265,13 @@ export class Aria {
     if (!this.#ast.state.imports.includes(path)) {
       if (isImport) {
         this.#ast.addNode(
-          this.#node(AriaNodeType.nodeImport, path, statement.actions)
+          this.#node(AriaNodeType.nodeImport, path, statement.actions),
+          this.#sourceLine()
         )
       } else {
         this.#ast.addNode(
-          this.#node(AriaNodeType.nodeInclude, path, statement.actions)
+          this.#node(AriaNodeType.nodeInclude, path, statement.actions),
+          this.#sourceLine()
         )
       }
     } else {
@@ -277,7 +288,10 @@ export class Aria {
     const statement: IAriaStatement = this.parseString(true)
     const path: string = statement.value
 
-    this.#ast.addNode(this.#node(AriaNodeType.nodeExport, path, []))
+    this.#ast.addNode(
+      this.#node(AriaNodeType.nodeExport, path, []),
+      this.#sourceLine()
+    )
 
     return true
   }
@@ -385,7 +399,10 @@ export class Aria {
         this.#buffer += this.#char
 
         if (this.#buffer === AriaKeywords.newLine) {
-          this.#ast.addNode(this.#node(AriaNodeType.nodeNewLine))
+          this.#ast.addNode(
+            this.#node(AriaNodeType.nodeNewLine),
+            this.#sourceLine()
+          )
           AriaLog.log('Found an explicit new line')
           break
         }
