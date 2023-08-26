@@ -9,6 +9,7 @@ export const AriaKeywords = {
   newLine: 'nl',
   tag: 'tag',
   import: 'import',
+  meta: 'meta',
 } as const
 
 export function getLongestKeyword(): string {
@@ -56,6 +57,10 @@ export function getKeywordFromType(node: AriaNodeType): string {
 
     case AriaNodeType.nodeTag: {
       return 'tag'
+    }
+
+    case AriaNodeType.nodeMeta: {
+      return 'meta'
     }
   }
 }
