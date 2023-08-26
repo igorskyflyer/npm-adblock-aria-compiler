@@ -8,6 +8,7 @@
 
 <p align="right"><em>27-Aug-2023</em></p>
 
+- **🪅 feat**: always amend the `Expires` field to the metadata of the compiled filter file, add `(update frequency)` if not present ([#66](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/66))
 - **🪅 feat**: always add `Entries` field to the metadata of the compiled filter file ([#64](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/64))
 - **🪅 feat**: make all user input paths universal, i.e. allow all OS' to use forward slash as a path separator ([#62](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/62))  
   _🌟 Via [uPath](https://www.npmjs.com/package/@igor.dvlpr/upath)_
