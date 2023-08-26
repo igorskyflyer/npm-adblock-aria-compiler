@@ -16,6 +16,11 @@ _27-Aug-2023_
 
   Also, throw when order is not correct.
 
+- **🪅 feat**: detect unsupported identifiers/code ([#58](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/58))
+- **✅ fix**: import paths not being tracked ([#56](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/56))
+- **✅ fix**: actions remove final newline ([#54](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/54))
+- **✅ fix**: filter path not available in logs ([#52](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/52))
+
 <br>
 
 ## v1.6.1
