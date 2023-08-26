@@ -15,7 +15,7 @@ export function parseExternalMeta(
     return null
   }
 
-  if (!hasMeta(templatePath)) {
+  if (!hasMetaFile(templatePath)) {
     return null
   }
 
@@ -50,7 +50,7 @@ export function getMetaPath(templatePath: AriaTemplatePath): string | null {
   return templatePath.replace(/(.*)\..*$/i, '$1.adbm')
 }
 
-export function hasMeta(templatePath: AriaTemplatePath): boolean {
+export function hasMetaFile(templatePath: AriaTemplatePath): boolean {
   if (typeof templatePath !== 'string') {
     return false
   }
