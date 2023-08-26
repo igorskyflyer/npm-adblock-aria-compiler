@@ -6,7 +6,7 @@
 
 ## v2.0.0
 
-_27-Aug-2023_
+<em align="right">27-Aug-2023</em>
 
 - **🪅 feat**: always add `Entries` field to the metadata of the compiled filter file ([#64](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/64))
 - **🪅 feat**: make all user input paths universal, i.e. allow all OS' to use forward slash as a path separator ([#62](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/62))  
