@@ -13,10 +13,20 @@ export const AriaOrder = {
     'Aria.Import',
     'Aria.Export',
   ],
+  'Aria.Meta': [
+    'Aria.Meta',
+    'Aria.Comment',
+    'Aria.Tag',
+    'Aria.Newline',
+    'Aria.Include',
+    'Aria.Import',
+    'Aria.Export',
+  ],
   'Aria.Include': [
     'Aria.Comment',
     'Aria.Tag',
     'Aria.Include',
+    'Aria.Meta',
     'Aria.Newline',
     'Aria.Import',
     'Aria.Export',
@@ -24,6 +34,7 @@ export const AriaOrder = {
   'Aria.Import': [
     'Aria.Import',
     'Aria.Tag',
+    'Aria.Meta',
     'Aria.Newline',
     'Aria.Include',
     'Aria.Export',
