@@ -21,6 +21,7 @@ import {
   AriaVersioning,
   constructVersion,
   getCurrentISOTime,
+  injectEntriesPlaceholder,
   injectVersionPlaceholder,
   replacePlaceholders,
   transformHeader,
@@ -196,6 +197,7 @@ export class AriaAst {
                   readFileSync(finalPath, { encoding: 'utf-8' })
                 ).value
                 header = injectVersionPlaceholder(header)
+                header = injectEntriesPlaceholder(header)
                 contents += this.#block(header)
               } else {
                 throw AriaLog.ariaError(
