@@ -24,6 +24,7 @@
   > _🌟 Via [uPath](https://www.npmjs.com/package/@igor.dvlpr/upath)_
 
 - **🪅 feat**: detect unsupported identifiers/code ([#58](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/58))
+- **✅ fix**: refactor nodes logging ([#70](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/70))
 - **✅ fix**: import paths not being tracked ([#56](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/56))
 - **✅ fix**: actions remove final newline ([#54](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/54))
 - **✅ fix**: filter path not available in logs ([#52](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/52))
