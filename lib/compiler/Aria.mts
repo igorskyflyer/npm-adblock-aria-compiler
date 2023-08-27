@@ -284,7 +284,6 @@ export class Aria {
       this.#foundKeyword = true
 
       AriaLog.textWarning(AriaString.includedAlready.message, path)
-      AriaLog.newline()
     }
 
     return true
@@ -454,38 +453,38 @@ export class Aria {
         }
 
         if (this.#buffer === AriaKeywords.commentExported) {
-          this.#parseComment()
           AriaLog.log('Found an exported comment')
+          this.#parseComment()
           break
         }
 
         if (this.#buffer === AriaKeywords.tag) {
-          this.#parseTag()
           AriaLog.log('Found a tag')
+          this.#parseTag()
           break
         }
 
         if (this.#buffer === AriaKeywords.headerImport) {
-          this.#parseHeaderImport()
           AriaLog.log('Found a header import')
+          this.#parseHeaderImport()
           break
         }
 
         if (this.#buffer === AriaKeywords.meta) {
-          this.#parseMeta()
           AriaLog.log('Found a meta')
+          this.#parseMeta()
           break
         }
 
         if (this.#buffer === AriaKeywords.include) {
-          this.#parseInclude()
           AriaLog.log('Found an include')
+          this.#parseInclude()
           break
         }
 
         if (this.#buffer === AriaKeywords.import) {
-          this.#parseInclude(true)
           AriaLog.log('Found an import')
+          this.#parseInclude(true)
           break
         }
 
@@ -497,8 +496,8 @@ export class Aria {
             )
           }
 
-          this.#parseExport()
           AriaLog.log('Found an export operator')
+          this.#parseExport()
           this.#shouldParse = false
           break
         }
