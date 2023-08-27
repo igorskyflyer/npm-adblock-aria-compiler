@@ -6,14 +6,16 @@ import { IAriaVar } from '../models/IAriaVar.mjs'
 
 const patternExpires = /! Expires:.*\(update frequency\)$/i
 
-export function parseMeta(templatePath: AriaTemplatePath): IAriaMeta | null {
+export function parseExternalMeta(
+  templatePath: AriaTemplatePath
+): IAriaMeta | null {
   const meta: IAriaMeta = {}
 
   if (typeof templatePath !== 'string') {
     return null
   }
 
-  if (!hasMeta(templatePath)) {
+  if (!hasMetaFile(templatePath)) {
     return null
   }
 
@@ -48,7 +50,7 @@ export function getMetaPath(templatePath: AriaTemplatePath): string | null {
   return templatePath.replace(/(.*)\..*$/i, '$1.adbm')
 }
 
-export function hasMeta(templatePath: AriaTemplatePath): boolean {
+export function hasMetaFile(templatePath: AriaTemplatePath): boolean {
   if (typeof templatePath !== 'string') {
     return false
   }

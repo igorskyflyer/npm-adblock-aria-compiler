@@ -7,6 +7,7 @@ import { isAbsolute, join, parse } from 'path'
 import { AriaError } from '../errors/AriaError.mjs'
 import { AriaString } from '../errors/AriaString.mjs'
 import { AriaAction } from '../models/AriaAction.mjs'
+import { AriaInlineMeta } from '../models/AriaInlineMeta.mjs'
 import { AriaNodeType } from '../models/AriaNodeType.mjs'
 import { AriaTemplatePath } from '../models/AriaTemplatePath.mjs'
 import { IAriaAction } from '../models/IAriaAction.mjs'
@@ -18,7 +19,11 @@ import {
   createAriaStatement,
 } from '../models/IAriaStatement.mjs'
 import { AriaLog } from '../utils/AriaLog.mjs'
-import { getMetaPath, hasMeta, parseMeta } from '../utils/AriaVarUtils.mjs'
+import {
+  getMetaPath,
+  hasMetaFile,
+  parseExternalMeta,
+} from '../utils/AriaVarUtils.mjs'
 import { AriaAst } from './AriaAst.mjs'
 import { AriaKeywords, getLongestKeyword } from './AriaKeywords.mjs'
 
@@ -142,7 +147,7 @@ export class Aria {
           if (action.paramValues) {
             // user provided value
             if (action.paramValues[0] === '*') {
-              action.actualValue = this.parseString(true).value
+              action.actualValue = this.#parseString(true).value
             } else if (action.paramValues.indexOf(param) > -1) {
               // only allowed values
               action.actualValue = param
@@ -170,7 +175,7 @@ export class Aria {
     return actions
   }
 
-  parseString(allowActions: boolean = false): IAriaStatement {
+  #parseString(allowActions: boolean = false): IAriaStatement {
     const result: IAriaStatement = createAriaStatement()
     let shouldCapture: boolean = false
     let closedString: boolean = false
@@ -236,7 +241,7 @@ export class Aria {
     let tagDescription: string = ''
 
     if (this.#line.trim().length > 3) {
-      tagDescription = this.parseString().value
+      tagDescription = this.#parseString().value
     }
 
     this.#ast.addNode(
@@ -248,7 +253,7 @@ export class Aria {
   }
 
   #parseHeaderImport(): boolean {
-    const path: string = this.parseString().value
+    const path: string = this.#parseString().value
     this.#ast.addNode(
       this.#node(AriaNodeType.nodeHeader, path),
       this.#sourceLine()
@@ -258,7 +263,7 @@ export class Aria {
   }
 
   #parseInclude(isImport: boolean = false): boolean {
-    const statement: IAriaStatement = this.parseString(true)
+    const statement: IAriaStatement = this.#parseString(true)
     const path: string = statement.value
 
     statement.actions = this.#parseActions(this.#chunk(this.#cursorInLine + 1))
@@ -285,8 +290,42 @@ export class Aria {
     return true
   }
 
+  #parseMeta(): boolean {
+    const inlineMeta: string[] = this.#line.split('=')
+
+    if (inlineMeta.length < 2) {
+      throw AriaLog.ariaError(AriaString.metaInvalidValue, this.#sourceLine())
+    }
+
+    let metaProp: string = inlineMeta[0].replace(/^meta/i, '')
+    const metaLength: number = metaProp.length
+
+    metaProp = metaProp.trim()
+
+    if (metaProp in AriaInlineMeta) {
+      this.#cursorInLine += metaLength + 1
+
+      const metaValue: IAriaStatement = this.#parseString()
+
+      this.#ast.addNode(
+        this.#node(AriaNodeType.nodeMeta, '', [
+          { name: metaProp, allowsParams: true, actualValue: metaValue.value },
+        ]),
+        this.#sourceLine()
+      )
+    } else {
+      throw AriaLog.ariaError(
+        AriaString.metaInvalidProp,
+        this.#sourceLine(),
+        metaProp
+      )
+    }
+
+    return true
+  }
+
   #parseExport(): boolean {
-    const statement: IAriaStatement = this.parseString(true)
+    const statement: IAriaStatement = this.#parseString(true)
     const path: string = statement.value
 
     this.#ast.addNode(
@@ -432,6 +471,12 @@ export class Aria {
           break
         }
 
+        if (this.#buffer === AriaKeywords.meta) {
+          this.#parseMeta()
+          AriaLog.log('Found a meta')
+          break
+        }
+
         if (this.#buffer === AriaKeywords.include) {
           this.#parseInclude()
           AriaLog.log('Found an include')
@@ -498,7 +543,7 @@ export class Aria {
 
       const metaPath: string = getMetaPath(templatePath) as string
 
-      if (hasMeta(templatePath)) {
+      if (hasMetaFile(templatePath)) {
         AriaLog.text(`Resolved meta: ${resolve(metaPath)}`)
       } else {
         AriaLog.text(`Resolved meta: N/A`)
@@ -516,7 +561,7 @@ export class Aria {
 
       this.parse(template)
 
-      const meta: IAriaMeta | null = parseMeta(templatePath)
+      const meta: IAriaMeta | null = parseExternalMeta(templatePath)
 
       if (meta != null) {
         this.#ast.meta = meta

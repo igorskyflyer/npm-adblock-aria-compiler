@@ -6,6 +6,7 @@ import { accessSync, readFileSync, writeFileSync } from 'node:fs'
 import { isAbsolute, join, parse, resolve } from 'node:path'
 import { AriaString } from '../errors/AriaString.mjs'
 import { AriaAstPath } from '../models/AriaAstPath.mjs'
+import { AriaInlineMeta } from '../models/AriaInlineMeta.mjs'
 import { AriaNodeType } from '../models/AriaNodeType.mjs'
 import { AriaTemplatePath } from '../models/AriaTemplatePath.mjs'
 import { IAriaAction } from '../models/IAriaAction.mjs'
@@ -214,6 +215,20 @@ export class AriaAst {
           break
         }
 
+        case AriaNodeType.nodeMeta: {
+          if (node.actions && node.actions.length === 1) {
+            const metaAction: IAriaAction = node.actions[0]
+            const metaProp: string = metaAction.name
+
+            if (metaProp in AriaInlineMeta && metaAction.actualValue) {
+              AriaInlineMeta[metaProp as keyof typeof AriaInlineMeta] =
+                metaAction.actualValue
+            }
+          }
+
+          break
+        }
+
         case AriaNodeType.nodeInclude:
         case AriaNodeType.nodeImport: {
           const path: string | undefined = node.value
@@ -272,10 +287,15 @@ export class AriaAst {
               const finalPath: string = this.#applyRoot(path)
               let oldCount: number = -1
 
-              // meta vars
+              // external meta vars
               variables.title = this.meta.title ?? ''
               variables.description = this.meta.description ?? ''
               variables.expires = amendExpires(this.meta.expires) ?? ''
+
+              // inline meta vars
+              variables.title = AriaInlineMeta.title ?? ''
+              variables.description = AriaInlineMeta.description ?? ''
+              variables.expires = amendExpires(AriaInlineMeta.expires) ?? ''
 
               // compile vars
               variables.filename = filename

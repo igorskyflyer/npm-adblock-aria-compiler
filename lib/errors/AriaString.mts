@@ -85,4 +85,12 @@ export const AriaString = {
     id: '020',
     message: 'syntax error, "{0}" is not allowed after "{1}"',
   },
+  metaInvalidValue: {
+    id: '021',
+    message: 'no value provided for the meta',
+  },
+  metaInvalidProp: {
+    id: '022',
+    message: 'invalid meta property {0}',
+  },
 } as const
