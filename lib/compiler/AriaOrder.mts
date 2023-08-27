@@ -9,6 +9,7 @@ export const AriaOrder = {
     'Aria.Tag',
     'Aria.Newline',
     'Aria.Header',
+    'Aria.Meta',
     'Aria.Include',
     'Aria.Import',
     'Aria.Export',
