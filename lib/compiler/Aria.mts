@@ -7,6 +7,7 @@ import { isAbsolute, join, parse } from 'path'
 import { AriaError } from '../errors/AriaError.mjs'
 import { AriaString } from '../errors/AriaString.mjs'
 import { AriaAction } from '../models/AriaAction.mjs'
+import { AriaInlineMeta } from '../models/AriaInlineMeta.mjs'
 import { AriaNodeType } from '../models/AriaNodeType.mjs'
 import { AriaTemplatePath } from '../models/AriaTemplatePath.mjs'
 import { IAriaAction } from '../models/IAriaAction.mjs'
@@ -289,6 +290,40 @@ export class Aria {
     return true
   }
 
+  #parseMeta(): boolean {
+    const inlineMeta: string[] = this.#line.split('=')
+
+    if (inlineMeta.length < 2) {
+      throw AriaLog.ariaError(AriaString.metaInvalidValue, this.#sourceLine())
+    }
+
+    let metaProp: string = inlineMeta[0].replace(/^meta/i, '')
+    const metaLength: number = metaProp.length
+
+    metaProp = metaProp.trim()
+
+    if (metaProp in AriaInlineMeta) {
+      this.#cursorInLine += metaLength + 1
+
+      const metaValue: IAriaStatement = this.#parseString()
+
+      this.#ast.addNode(
+        this.#node(AriaNodeType.nodeMeta, '', [
+          { name: metaProp, allowsParams: true, actualValue: metaValue.value },
+        ]),
+        this.#sourceLine()
+      )
+    } else {
+      throw AriaLog.ariaError(
+        AriaString.metaInvalidProp,
+        this.#sourceLine(),
+        metaProp
+      )
+    }
+
+    return true
+  }
+
   #parseExport(): boolean {
     const statement: IAriaStatement = this.#parseString(true)
     const path: string = statement.value
@@ -437,7 +472,7 @@ export class Aria {
         }
 
         if (this.#buffer === AriaKeywords.meta) {
-          this.#parseString()
+          this.#parseMeta()
           AriaLog.log('Found a meta')
           break
         }
