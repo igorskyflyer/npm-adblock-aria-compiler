@@ -368,6 +368,35 @@ export class Aria {
     return false
   }
 
+  #validateStatement(): void {
+    let cursor: number = this.#cursorInLine + 1
+    let char: string | undefined = this.#line.at(cursor)
+
+    if (!char) {
+      return
+    }
+
+    let buffer: string = ''
+
+    while (cursor < this.#lineLength) {
+      if (char === ' ' || char === '\t') {
+        if (buffer.length > 0) {
+          throw AriaLog.ariaError(
+            AriaString.syntaxError,
+            this.#sourceLine(),
+            `${this.#buffer}${buffer}`
+          )
+        }
+
+        break
+      }
+
+      buffer += char
+      cursor++
+      char = this.#line.at(cursor)
+    }
+  }
+
   get ast(): AriaAst {
     return this.#ast
   }
@@ -448,30 +477,39 @@ export class Aria {
         this.#buffer += this.#char
 
         if (this.#buffer === AriaKeywords.headerImport) {
+          this.#validateStatement()
           AriaLog.log('Found a header import')
           this.#parseHeaderImport()
           break
         }
 
         if (this.#buffer === AriaKeywords.meta) {
+          this.#validateStatement()
+
           AriaLog.log('Found a meta')
           this.#parseMeta()
           break
         }
 
         if (this.#buffer === AriaKeywords.include) {
+          this.#validateStatement()
+
           AriaLog.log('Found an include')
           this.#parseInclude()
           break
         }
 
         if (this.#buffer === AriaKeywords.import) {
+          this.#validateStatement()
+
           AriaLog.log('Found an import')
           this.#parseInclude(true)
           break
         }
 
         if (this.#buffer === AriaKeywords.newLine) {
+          this.#validateStatement()
+
           this.#ast.addNode(
             this.#node(AriaNodeType.nodeNewLine),
             this.#sourceLine()
@@ -493,12 +531,16 @@ export class Aria {
         }
 
         if (this.#buffer === AriaKeywords.tag) {
+          this.#validateStatement()
+
           AriaLog.log('Found a tag')
           this.#parseTag()
           break
         }
 
         if (this.#buffer === AriaKeywords.export) {
+          this.#validateStatement()
+
           if (this.#ast.state.exports.length === 1) {
             throw AriaLog.ariaError(
               AriaString.oneExportOnly,
