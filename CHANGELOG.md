@@ -6,6 +6,8 @@
 
 ## v2.0.0
 
+_🌟 Major release_
+
 <p align="right"><em>28-Aug-2023</em></p>
 
 - **🪅 feat** **\[BREAKING]**: enforce order of statements ([#60](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/60))
