@@ -8,14 +8,18 @@
 
 <p align="right"><em>28-Aug-2023</em></p>
 
-- **🪅 feat** **\[BREAKING]**: enforce order of statements ([#60](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/60)) - keeps track of order of statements (nodes) in the input template and enforces rules, thus keeping the integrity and validity of the exported Adblock filter file, i.e.:
+- **🪅 feat** **\[BREAKING]**: enforce order of statements ([#60](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/60))
 
-  - a [`header`](https://github.com/igorskyflyer/file-format-adbt#header) statement cannot appear after a [`meta`](https://github.com/metaigorskyflyer/file-format-adbt#meta) statement
-  - a [`header`](https://github.com/igorskyflyer/file-format-adbt#header) statement cannot appear after an [`include`](https://github.com/igorskyflyer/file-format-adbt#include)/[`import`](https://github.com/igorskyflyer/file-format-adbt#import), statement
-  - a [`meta`](https://github.com/igorskyflyer/file-format-adbt#meta) statement cannot appear after an [`include`](https://github.com/igorskyflyer/file-format-adbt#include)/[`import`](https://github.com/igorskyflyer/file-format-adbt#import), statement
-  - **`no statements`** can appear after an [`export`](https://github.com/igorskyflyer/file-format-adbt#export) statement.
+> 💡 Keeps track of order of statements (nodes) in the input template and enforces rules, thus keeping the integrity and validity of the exported Adblock filter file.
 
-  Will `throw` when order is not correct.
+The following rules are enforced:
+
+- a [`header`](https://github.com/igorskyflyer/file-format-adbt#header) statement cannot appear after a [`meta`](https://github.com/metaigorskyflyer/file-format-adbt#meta) statement
+- a [`header`](https://github.com/igorskyflyer/file-format-adbt#header) statement cannot appear after an [`include`](https://github.com/igorskyflyer/file-format-adbt#include)/[`import`](https://github.com/igorskyflyer/file-format-adbt#import), statement
+- a [`meta`](https://github.com/igorskyflyer/file-format-adbt#meta) statement cannot appear after an [`include`](https://github.com/igorskyflyer/file-format-adbt#include)/[`import`](https://github.com/igorskyflyer/file-format-adbt#import), statement
+- **`no statements`** can appear after an [`export`](https://github.com/igorskyflyer/file-format-adbt#export) statement.
+
+Will `throw` when order is not correct.
 
 - **🪅 feat**: evaluate statements eagerly ([#74](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/74))
 - **🪅 feat**: reorganise order of nodes detection by usage/order of statements ([#72](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/72))
