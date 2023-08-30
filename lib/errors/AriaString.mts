@@ -115,4 +115,8 @@ export const AriaString = {
     id: '027',
     message: 'Found an import',
   },
+  nodeLogNewline: {
+    id: '028',
+    message: 'Found an explicit new line',
+  },
 } as const
