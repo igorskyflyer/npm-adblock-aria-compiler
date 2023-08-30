@@ -1,7 +1,5 @@
-import { assert as chai } from 'chai'
+import { describe, test, expect } from 'vitest'
 
 describe('🧪 aria-compiler tests 🧪', () => {
-  it('#1 should return ', () => {
-    //
-  })
+  test('#1 should return ', () => {})
 })
