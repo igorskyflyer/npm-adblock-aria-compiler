@@ -4,7 +4,7 @@ import { AriaTemplatePath } from '../models/AriaTemplatePath.mjs'
 import { IAriaMeta } from '../models/IAriaMeta.mjs'
 import { IAriaVar } from '../models/IAriaVar.mjs'
 
-const patternExpires = /! Expires:.*\(update frequency\)$/i
+const patternExpires = /.*\(update frequency\)$/i
 
 export function parseExternalMeta(
   templatePath: AriaTemplatePath
