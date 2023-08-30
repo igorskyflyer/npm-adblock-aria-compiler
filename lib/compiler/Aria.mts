@@ -479,7 +479,7 @@ export class Aria {
 
         if (this.#buffer === AriaKeywords.headerImport) {
           this.#validateStatement()
-          AriaLog.log(AriaString.nodeLogHeader)
+          AriaLog.log(AriaString.nodeLogHeader.message)
           this.#parseHeaderImport()
           break
         }
@@ -487,7 +487,7 @@ export class Aria {
         if (this.#buffer === AriaKeywords.meta) {
           this.#validateStatement()
 
-          AriaLog.log(AriaString.nodeLogMeta)
+          AriaLog.log(AriaString.nodeLogMeta.message)
           this.#parseMeta()
 
           if (this.#ast.getNodes(AriaNodeType.nodeMeta).length === 1) {
@@ -502,7 +502,7 @@ export class Aria {
         if (this.#buffer === AriaKeywords.include) {
           this.#validateStatement()
 
-          AriaLog.log(AriaString.nodeLogInclude)
+          AriaLog.log(AriaString.nodeLogInclude.message)
           this.#parseInclude()
           break
         }
@@ -510,7 +510,7 @@ export class Aria {
         if (this.#buffer === AriaKeywords.import) {
           this.#validateStatement()
 
-          AriaLog.log(AriaString.nodeLogImport)
+          AriaLog.log(AriaString.nodeLogImport.message)
           this.#parseInclude(true)
           break
         }
@@ -522,7 +522,7 @@ export class Aria {
             this.#node(AriaNodeType.nodeNewLine),
             this.#sourceLine()
           )
-          AriaLog.log(AriaString.nodeLogNewline)
+          AriaLog.log(AriaString.nodeLogNewline.message)
           break
         }
 
