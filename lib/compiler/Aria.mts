@@ -289,6 +289,7 @@ export class Aria {
       this.#foundKeyword = true
 
       AriaLog.textWarning(AriaString.includedAlready.message, path)
+      AriaLog.newline()
     }
 
     return true
@@ -493,6 +494,7 @@ export class Aria {
             AriaLog.textInfo(
               `Detected inline meta, header metadata will be overridden.`
             )
+            AriaLog.newline()
           }
           break
         }
