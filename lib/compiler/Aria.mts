@@ -437,6 +437,30 @@ export class Aria {
 
         this.#buffer += this.#char
 
+        if (this.#buffer === AriaKeywords.headerImport) {
+          AriaLog.log('Found a header import')
+          this.#parseHeaderImport()
+          break
+        }
+
+        if (this.#buffer === AriaKeywords.meta) {
+          AriaLog.log('Found a meta')
+          this.#parseMeta()
+          break
+        }
+
+        if (this.#buffer === AriaKeywords.include) {
+          AriaLog.log('Found an include')
+          this.#parseInclude()
+          break
+        }
+
+        if (this.#buffer === AriaKeywords.import) {
+          AriaLog.log('Found an import')
+          this.#parseInclude(true)
+          break
+        }
+
         if (this.#buffer === AriaKeywords.newLine) {
           this.#ast.addNode(
             this.#node(AriaNodeType.nodeNewLine),
@@ -461,30 +485,6 @@ export class Aria {
         if (this.#buffer === AriaKeywords.tag) {
           AriaLog.log('Found a tag')
           this.#parseTag()
-          break
-        }
-
-        if (this.#buffer === AriaKeywords.headerImport) {
-          AriaLog.log('Found a header import')
-          this.#parseHeaderImport()
-          break
-        }
-
-        if (this.#buffer === AriaKeywords.meta) {
-          AriaLog.log('Found a meta')
-          this.#parseMeta()
-          break
-        }
-
-        if (this.#buffer === AriaKeywords.include) {
-          AriaLog.log('Found an include')
-          this.#parseInclude()
-          break
-        }
-
-        if (this.#buffer === AriaKeywords.import) {
-          AriaLog.log('Found an import')
-          this.#parseInclude(true)
           break
         }
 
