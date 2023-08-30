@@ -94,4 +94,9 @@ export const AriaString = {
     id: '022',
     message: 'invalid meta property {0}',
   },
+  headerMissing: {
+    id: '023',
+    message:
+      'no header statement found, consider adding one since metadata is required for an Adblock filter file to be valid.',
+  },
 } as const
