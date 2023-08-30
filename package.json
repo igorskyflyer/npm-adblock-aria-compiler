@@ -21,6 +21,8 @@
 		"build": "tsc",
 		"tag": "node ./scripts/tag.mjs",
 		"dev": "tsc -w --sourcemap",
+		"test": "vitest run",
+		"coverage": "vitest run --coverage",
 		"pub": "npm run tag && npm run build && npm publish --access public"
 	},
 	"repository": {
@@ -52,7 +54,9 @@
 	"devDependencies": {
 		"@types/figlet": "^1.5.6",
 		"@types/node": "^18.0.0",
-		"typescript": "5.2.2"
+		"@vitest/coverage-istanbul": "^0.34.3",
+		"typescript": "5.2.2",
+		"vitest": "^0.34.3"
 	},
 	"dependencies": {
 		"@igor.dvlpr/adblock-filter-counter": "^1.0.0",
