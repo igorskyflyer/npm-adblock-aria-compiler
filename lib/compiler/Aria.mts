@@ -556,7 +556,7 @@ export class Aria {
             )
           }
 
-          AriaLog.log('Found an export operator')
+          AriaLog.log(AriaString.nodeLogExport.message)
           this.#parseExport()
           this.#shouldParse = false
           break
