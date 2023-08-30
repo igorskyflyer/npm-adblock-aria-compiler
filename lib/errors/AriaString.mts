@@ -79,7 +79,7 @@ export const AriaString = {
   },
   syntaxError: {
     id: '019',
-    message: 'syntax error, unsupported identifier',
+    message: 'syntax error, unsupported identifier "{0}"',
   },
   syntaxOrder: {
     id: '020',
