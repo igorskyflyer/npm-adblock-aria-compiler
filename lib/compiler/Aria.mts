@@ -420,7 +420,11 @@ export class Aria {
           this.#buffer.length === MINIMUM_IDENTIFIER_LENGTH &&
           !minimumIdentifier.includes(this.#buffer)
         ) {
-          throw AriaLog.ariaError(AriaString.syntaxError, this.#sourceLine())
+          throw AriaLog.ariaError(
+            AriaString.syntaxError,
+            this.#sourceLine(),
+            this.#buffer
+          )
         }
 
         if (this.#ast.state.exports.length === 1) {
@@ -509,7 +513,11 @@ export class Aria {
       }
 
       if (!this.#foundKeyword) {
-        throw AriaLog.ariaError(AriaString.syntaxError, this.#sourceLine())
+        throw AriaLog.ariaError(
+          AriaString.syntaxError,
+          this.#sourceLine(),
+          this.#buffer
+        )
       }
 
       AriaLog.logNewline()
