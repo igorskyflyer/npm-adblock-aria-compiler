@@ -488,6 +488,14 @@ export class Aria {
 
           AriaLog.log('Found a meta')
           this.#parseMeta()
+
+          if (this.#ast.getNodes(AriaNodeType.nodeMeta).length === 1) {
+            AriaLog.text(
+              chalk.dim(
+                `Detected inline meta, header metadata will be overridden.`
+              )
+            )
+          }
           break
         }
 
@@ -599,9 +607,9 @@ export class Aria {
       const metaPath: string = getMetaPath(templatePath) as string
 
       if (hasMetaFile(templatePath)) {
-        AriaLog.text(`Resolved meta: ${resolve(metaPath)}`)
+        AriaLog.text(`Resolved external meta: ${resolve(metaPath)}`)
       } else {
-        AriaLog.text(`Resolved meta: N/A`)
+        AriaLog.text(`Resolved external meta: N/A`)
         AriaLog.newline()
         AriaLog.textWarning(
           `${chalk.dim(

@@ -89,6 +89,14 @@ export class AriaAst {
     return false
   }
 
+  #applyRoot(filepath: string): string {
+    if (isAbsolute(filepath)) {
+      return u(filepath)
+    }
+
+    return u(join(this.root, filepath))
+  }
+
   get nodesCount(): number {
     return this.#nodesCount
   }
@@ -99,6 +107,22 @@ export class AriaAst {
 
   get state(): IAriaState {
     return this.#state
+  }
+
+  public getNodes(node: AriaNodeType): IAriaNode[] {
+    if (this.#nodesCount === 0) {
+      return []
+    }
+
+    const result: IAriaNode[] = []
+
+    for (let i = 0; i < this.#nodesCount; i++) {
+      if (this.nodes[i].type === node) {
+        result.push(this.nodes[i])
+      }
+    }
+
+    return result
   }
 
   public addNode(node: IAriaNode, sourceline: number): void {
@@ -150,14 +174,6 @@ export class AriaAst {
     } catch {}
 
     return false
-  }
-
-  #applyRoot(filepath: string): string {
-    if (isAbsolute(filepath)) {
-      return u(filepath)
-    }
-
-    return u(join(this.root, filepath))
   }
 
   public compile(): boolean {
