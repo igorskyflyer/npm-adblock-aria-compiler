@@ -127,4 +127,8 @@ export const AriaString = {
     id: '030',
     message: 'Found an exported comment',
   },
+  nodeLogTag: {
+    id: '031',
+    message: 'Found a tag',
+  },
 } as const
