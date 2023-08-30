@@ -21,6 +21,7 @@ The following rules are enforced:
 
 Will `throw` when order is not correct.
 
+- **🪅 feat**: add info logging method ([#86](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/86))
 - **🪅 feat**: log presence of inline meta ([#84](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/84))
 - **🪅 feat**: validate statements, catch edge-cases ([#82](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/82))
 - **🪅 feat**: detect and warn when no header/metadata is present ([#80](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/80))
@@ -34,6 +35,7 @@ Will `throw` when order is not correct.
   > _🌟 Via [uPath](https://www.npmjs.com/package/@igor.dvlpr/upath)_
 
 - **🪅 feat**: detect unsupported identifiers/code ([#58](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/58))
+- **✅ fix**: change warning text background color
 - **✅ fix**: log unsupported identifiers ([#76](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/76))
 - **✅ fix**: refactor nodes logging ([#70](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/70))
 - **✅ fix**: import paths not being tracked ([#56](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/56))
