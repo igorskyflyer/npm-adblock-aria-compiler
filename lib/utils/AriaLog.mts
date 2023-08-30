@@ -3,6 +3,7 @@ import { AriaLogLevel } from '../models/AriaLogLevel.mjs'
 import { AriaError } from '../errors/AriaError.mjs'
 import { IAriaMessageData } from '../errors/IAriaMessageData.mjs'
 import { zing } from '@igor.dvlpr/zing'
+import { AriaString } from '../errors/AriaString.mjs'
 
 export class AriaLog {
   static shouldLog: boolean = false
@@ -59,7 +60,7 @@ export class AriaLog {
 
   static formatChanges(before: number, after: number): string {
     if (after <= 0) {
-      return `${chalk.dim('(no changes)')}`
+      return `${chalk.dim(AriaString.logNoChanges.message)}`
     }
 
     if (before < 0) {
@@ -71,7 +72,7 @@ export class AriaLog {
     } else if (before > after) {
       return `(${chalk.redBright(`-${before - after}`)})`
     } else {
-      return `${chalk.dim('(no changes)')}`
+      return `${chalk.dim(AriaString.logNoChanges.message)}`
     }
   }
 }
