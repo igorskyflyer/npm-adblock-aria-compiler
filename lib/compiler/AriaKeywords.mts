@@ -12,21 +12,15 @@ export const AriaKeywords = {
   meta: 'meta',
 } as const
 
-export function getLongestKeyword(): string {
-  let longest: number = 0
-  let result: string = ''
+export const MINIMUM_IDENTIFIER_LENGTH: number = 3
 
-  for (const prop in AriaKeywords) {
-    const keyword: string = AriaKeywords[prop as keyof typeof AriaKeywords]
-    const count: number = keyword.length
-
-    if (count > longest) {
-      longest = count
-      result = keyword
-    }
-  }
-
-  return result
+export function getMinimumKeywordIdentifier(): string[] {
+  return Object.keys(AriaKeywords).map((prop: string, _) => {
+    return AriaKeywords[prop as keyof typeof AriaKeywords].substring(
+      0,
+      MINIMUM_IDENTIFIER_LENGTH
+    )
+  })
 }
 
 export function getKeywordFromType(node: AriaNodeType): string {
