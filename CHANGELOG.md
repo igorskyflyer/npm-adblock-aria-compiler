@@ -4,7 +4,7 @@
 
 <br>
 
-## v2.0.0
+## 🌟 v2.0.0
 
 <p align="right"><em>28-Aug-2023</em></p>
 
@@ -230,7 +230,7 @@ Will `throw` when order is not correct.
 
 <br>
 
-## v1.0.0
+## 🌟 v1.0.0
 
 <p align="right"><em>27-Jul-2023</em></p>
 
