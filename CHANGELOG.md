@@ -26,7 +26,7 @@ The following rules are enforced:
 - **🪅 feat**: validate statements, catch edge-cases ([#82](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/82))
 - **🪅 feat**: detect and warn when no header/metadata is present ([#80](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/80))
 - **🪅 feat**: evaluate statements eagerly ([#74](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/74))
-- **🪅 feat**: reorganise order of nodes detection by usage/order of statements ([#72](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/72))
+- **🪅 feat**: reorganize order of nodes detection by usage/order of statements ([#72](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/72))
 - **🪅 feat**: add [`meta`](https://github.com/metaigorskyflyer/file-format-adbt#meta) statement and support for inline meta ([#68](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/68))
   > 💡 Has highest priority when setting metadata.
 - **🪅 feat**: always amend the `Expires` field of the metadata of the compiled filter file, add _"(update frequency)"_ if not present ([#66](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/66))
