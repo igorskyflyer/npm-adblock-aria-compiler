@@ -14,9 +14,9 @@
 
 The following rules are enforced:
 
-- a [`header`](https://github.com/igorskyflyer/file-format-adbt#header) statement cannot appear after a [`meta`](https://github.com/metaigorskyflyer/file-format-adbt#meta) statement
-- a [`header`](https://github.com/igorskyflyer/file-format-adbt#header) statement cannot appear after an [`include`](https://github.com/igorskyflyer/file-format-adbt#include)/[`import`](https://github.com/igorskyflyer/file-format-adbt#import), statement
-- a [`meta`](https://github.com/igorskyflyer/file-format-adbt#meta) statement cannot appear after an [`include`](https://github.com/igorskyflyer/file-format-adbt#include)/[`import`](https://github.com/igorskyflyer/file-format-adbt#import), statement
+- a [`header`](https://github.com/igorskyflyer/file-format-adbt#header) statement cannot appear after a [`meta`](https://github.com/metaigorskyflyer/file-format-adbt#meta) statement,
+- a [`header`](https://github.com/igorskyflyer/file-format-adbt#header) statement cannot appear after an [`include`](https://github.com/igorskyflyer/file-format-adbt#include)/[`import`](https://github.com/igorskyflyer/file-format-adbt#import) statement,
+- a [`meta`](https://github.com/igorskyflyer/file-format-adbt#meta) statement cannot appear after an [`include`](https://github.com/igorskyflyer/file-format-adbt#include)/[`import`](https://github.com/igorskyflyer/file-format-adbt#import) statement,
 - **`no statements`** can appear after an [`export`](https://github.com/igorskyflyer/file-format-adbt#export) statement.
 
 Will `throw` when order is not correct.
