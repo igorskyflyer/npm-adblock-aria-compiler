@@ -42,6 +42,7 @@ The following rules are enforced:
 - **✅ fix**: import paths not being tracked ([#56](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/56))
 - **✅ fix**: actions remove final newline ([#54](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/54))
 - **✅ fix**: filter path not available in logs ([#52](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/52))
+- **✅ fix**: fix messages formatting ([#88](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/88))
 - **✅ fix**: various fixes to strings used in logging
 - **💻 dev**: invert node orders ([#78](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/78))
 - **💻 dev**: add tests and coverage
