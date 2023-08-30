@@ -119,4 +119,8 @@ export const AriaString = {
     id: '028',
     message: 'Found an explicit new line',
   },
+  nodeLogInternalComment: {
+    id: '029',
+    message: 'Found an internal comment, skipping line',
+  },
 } as const
