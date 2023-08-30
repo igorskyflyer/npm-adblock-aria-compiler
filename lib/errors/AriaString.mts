@@ -103,4 +103,8 @@ export const AriaString = {
     id: '024',
     message: 'Found a header import',
   },
+  nodeLogMeta: {
+    id: '025',
+    message: 'Found a meta',
+  },
 } as const
