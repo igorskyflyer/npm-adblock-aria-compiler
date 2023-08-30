@@ -487,7 +487,7 @@ export class Aria {
         if (this.#buffer === AriaKeywords.meta) {
           this.#validateStatement()
 
-          AriaLog.log('Found a meta')
+          AriaLog.log(AriaString.nodeLogMeta)
           this.#parseMeta()
 
           if (this.#ast.getNodes(AriaNodeType.nodeMeta).length === 1) {
