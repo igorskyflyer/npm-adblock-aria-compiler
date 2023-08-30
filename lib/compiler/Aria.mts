@@ -25,7 +25,11 @@ import {
   parseExternalMeta,
 } from '../utils/AriaVarUtils.mjs'
 import { AriaAst } from './AriaAst.mjs'
-import { AriaKeywords, getLongestKeyword } from './AriaKeywords.mjs'
+import {
+  AriaKeywords,
+  MINIMUM_IDENTIFIER_LENGTH,
+  getMinimumKeywordIdentifier,
+} from './AriaKeywords.mjs'
 
 export class Aria {
   #source: string
@@ -373,7 +377,7 @@ export class Aria {
 
     const lines: string[] = this.#source.trimEnd().split(/\n/gm)
     const linesCount: number = lines.length
-    const longestKeyword: number = getLongestKeyword().length
+    const minimumIdentifier: string[] = getMinimumKeywordIdentifier()
 
     AriaLog.log(`Total lines: ${linesCount}`)
     AriaLog.log(`Versioning: ${this.#ast.versioning}`)
@@ -412,9 +416,10 @@ export class Aria {
         this.#cursorInLine < this.#lineLength;
         this.#cursorInLine++
       ) {
-        const bufferLength: number = this.#buffer.length
-
-        if (bufferLength > longestKeyword) {
+        if (
+          this.#buffer.length === MINIMUM_IDENTIFIER_LENGTH &&
+          !minimumIdentifier.includes(this.#buffer)
+        ) {
           throw AriaLog.ariaError(AriaString.syntaxError, this.#sourceLine())
         }
 
