@@ -45,6 +45,7 @@ The following rules are enforced:
 - **✅ fix**: fix messages formatting ([#88](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/88))
 - **✅ fix**: various fixes to strings used in logging
 - **💻 dev**: invert node orders ([#78](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/78))
+- **💻 dev**: externalize strings ([#90](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/90))
 - **💻 dev**: add tests and coverage
 
 <br>
