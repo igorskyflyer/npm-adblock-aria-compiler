@@ -510,7 +510,7 @@ export class Aria {
         if (this.#buffer === AriaKeywords.import) {
           this.#validateStatement()
 
-          AriaLog.log('Found an import')
+          AriaLog.log(AriaString.nodeLogImport)
           this.#parseInclude(true)
           break
         }
