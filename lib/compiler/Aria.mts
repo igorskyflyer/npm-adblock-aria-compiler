@@ -199,6 +199,7 @@ export class Aria {
 
       if (!shouldCapture) {
         if (this.#isWhitespace()) continue
+
         if (this.#char === "'") {
           shouldCapture = true
         } else {
