@@ -1,45 +1,14 @@
 import { IAriaNode } from '../models/IAriaNode.mjs'
 
+// not allowed after the node
 export const AriaOrder = {
   'Aria.Comment': [],
   'Aria.Tag': [],
   'Aria.Newline': [],
-  'Aria.Header': [
-    'Aria.Comment',
-    'Aria.Tag',
-    'Aria.Newline',
-    'Aria.Header',
-    'Aria.Meta',
-    'Aria.Include',
-    'Aria.Import',
-    'Aria.Export',
-  ],
-  'Aria.Meta': [
-    'Aria.Meta',
-    'Aria.Comment',
-    'Aria.Tag',
-    'Aria.Newline',
-    'Aria.Include',
-    'Aria.Import',
-    'Aria.Export',
-  ],
-  'Aria.Include': [
-    'Aria.Comment',
-    'Aria.Tag',
-    'Aria.Include',
-    'Aria.Meta',
-    'Aria.Newline',
-    'Aria.Import',
-    'Aria.Export',
-  ],
-  'Aria.Import': [
-    'Aria.Import',
-    'Aria.Tag',
-    'Aria.Meta',
-    'Aria.Newline',
-    'Aria.Include',
-    'Aria.Export',
-  ],
+  'Aria.Header': [],
+  'Aria.Meta': ['Aria.Header'],
+  'Aria.Include': ['Aria.Header', 'Aria.Meta'],
+  'Aria.Import': ['Aria.Header', 'Aria.Meta'],
   'Aria.Export': null,
 } as const
 
@@ -55,7 +24,7 @@ export function canAddNode(current: IAriaNode, previous: IAriaNode): boolean {
       return true
     }
 
-    return order.includes(current.type)
+    return !order.includes(current.type)
   }
 
   return true
