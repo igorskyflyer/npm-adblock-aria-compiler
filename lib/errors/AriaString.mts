@@ -99,4 +99,8 @@ export const AriaString = {
     message:
       'no header statement found, consider adding one since metadata is required for an Adblock filter file to be valid.',
   },
+  nodeLogHeader: {
+    id: '024',
+    message: 'Found a header import',
+  },
 } as const
