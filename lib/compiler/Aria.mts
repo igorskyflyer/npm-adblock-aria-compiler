@@ -522,7 +522,7 @@ export class Aria {
             this.#node(AriaNodeType.nodeNewLine),
             this.#sourceLine()
           )
-          AriaLog.log('Found an explicit new line')
+          AriaLog.log(AriaString.nodeLogNewline)
           break
         }
 
