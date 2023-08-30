@@ -541,7 +541,7 @@ export class Aria {
         if (this.#buffer === AriaKeywords.tag) {
           this.#validateStatement()
 
-          AriaLog.log('Found a tag')
+          AriaLog.log(AriaString.nodeLogTag.message)
           this.#parseTag()
           break
         }
