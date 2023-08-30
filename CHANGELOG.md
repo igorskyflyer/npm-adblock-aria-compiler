@@ -19,7 +19,7 @@ The following rules are enforced:
 - a [`meta`](https://github.com/igorskyflyer/file-format-adbt#meta) statement cannot appear after an [`include`](https://github.com/igorskyflyer/file-format-adbt#include)/[`import`](https://github.com/igorskyflyer/file-format-adbt#import) statement,
 - **`no statements`** can appear after an [`export`](https://github.com/igorskyflyer/file-format-adbt#export) statement.
 
-Will `throw` when order is not correct.
+  Will `throw` when order is not correct.
 
 - **🪅 feat**: add info logging method ([#86](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/86))
 - **🪅 feat**: log presence of inline meta ([#84](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/84))
