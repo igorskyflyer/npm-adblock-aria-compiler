@@ -40,7 +40,7 @@ Will `throw` when order is not correct.
 - **✅ fix**: actions remove final newline ([#54](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/54))
 - **✅ fix**: filter path not available in logs ([#52](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/52))
 - **✅ fix**: various fixes to strings used in logging
-- **💻 dev**: invert node orders([#78](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/78))
+- **💻 dev**: invert node orders ([#78](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/78))
 - **💻 dev**: add tests and coverage
 
 <br>
