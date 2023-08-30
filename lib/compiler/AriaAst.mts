@@ -75,6 +75,20 @@ export class AriaAst {
     return value
   }
 
+  #hasNode(node: AriaNodeType): boolean {
+    if (this.#nodesCount === 0) {
+      return false
+    }
+
+    for (let i = 0; i < this.#nodesCount; i++) {
+      if (this.#nodes.at(i)?.type === node) {
+        return true
+      }
+    }
+
+    return false
+  }
+
   get nodesCount(): number {
     return this.#nodesCount
   }
@@ -154,6 +168,11 @@ export class AriaAst {
       AriaLog.newline()
       AriaLog.text('Aborting the compilation...')
       return false
+    }
+
+    if (!this.#hasNode(AriaNodeType.nodeHeader)) {
+      AriaLog.textWarning(AriaString.headerMissing.message)
+      AriaLog.newline()
     }
 
     const perf: AriaPerformance = new AriaPerformance()
