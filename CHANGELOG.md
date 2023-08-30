@@ -21,6 +21,7 @@ The following rules are enforced:
 
 Will `throw` when order is not correct.
 
+- **🪅 feat**: log presence of inline meta ([#84](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/84))
 - **🪅 feat**: validate statements, catch edge-cases ([#82](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/82))
 - **🪅 feat**: detect and warn when no header/metadata is present ([#80](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/80))
 - **🪅 feat**: evaluate statements eagerly ([#74](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/74))
