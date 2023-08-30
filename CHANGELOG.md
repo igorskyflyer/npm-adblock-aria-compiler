@@ -16,6 +16,7 @@
 
   Also, throw when order is not correct.
 
+- **🪅 feat**: reorganise order of nodes detection by usage/order of statements ([#72](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/72))
 - **🪅 feat**: add support for inline meta, has highest priority when setting metadata ([#68](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/68))
 - **🪅 feat**: always amend the `Expires` field to the metadata of the compiled filter file, add _"(update frequency)"_ if not present ([#66](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/66))
 - **🪅 feat**: always add `Entries` field to the metadata of the compiled filter file ([#64](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/64))
