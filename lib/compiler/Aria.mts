@@ -203,7 +203,7 @@ export class Aria {
           shouldCapture = true
         } else {
           throw AriaLog.ariaError(
-            AriaString.includePath,
+            AriaString.expectedString,
             this.#sourceLine(),
             this.#char
           )
