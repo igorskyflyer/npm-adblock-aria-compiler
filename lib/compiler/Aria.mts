@@ -490,10 +490,8 @@ export class Aria {
           this.#parseMeta()
 
           if (this.#ast.getNodes(AriaNodeType.nodeMeta).length === 1) {
-            AriaLog.text(
-              chalk.dim(
-                `Detected inline meta, header metadata will be overridden.`
-              )
+            AriaLog.textInfo(
+              `Detected inline meta, header metadata will be overridden.`
             )
           }
           break

@@ -25,6 +25,14 @@ export class AriaLog {
     )
   }
 
+  static textInfo(message: any, ...rest: any[]): void {
+    console.warn(
+      `${chalk.bgHex('#728FCE').bold(' INFO ')} ${chalk.dim(
+        zing(message, ...rest)
+      )}`
+    )
+  }
+
   static textError(message: any): void {
     console.error(`${chalk.bgHex('#8B0000').bold(' ERROR ')} ${message}`)
   }
