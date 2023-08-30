@@ -12,8 +12,8 @@
 
   - a [`header`](https://github.com/igorskyflyer/file-format-adbt#header) statement cannot appear after a [`meta`](https://github.com/metaigorskyflyer/file-format-adbt#meta) statement
   - a [`header`](https://github.com/igorskyflyer/file-format-adbt#header) statement cannot appear after an [`include`](https://github.com/igorskyflyer/file-format-adbt#include)/[`import`](https://github.com/igorskyflyer/file-format-adbt#import), statement
-    - a [`meta`](https://github.com/igorskyflyer/file-format-adbt#meta) statement cannot appear after an [`include`](https://github.com/igorskyflyer/file-format-adbt#include)/[`import`](https://github.com/igorskyflyer/file-format-adbt#import), statement
-  - disallow all statements after an [`export`](https://github.com/igorskyflyer/file-format-adbt#export)
+  - a [`meta`](https://github.com/igorskyflyer/file-format-adbt#meta) statement cannot appear after an [`include`](https://github.com/igorskyflyer/file-format-adbt#include)/[`import`](https://github.com/igorskyflyer/file-format-adbt#import), statement
+  - no statements can appear after an [`export`](https://github.com/igorskyflyer/file-format-adbt#export) statement.
 
   Also, throw when order is not correct.
 
