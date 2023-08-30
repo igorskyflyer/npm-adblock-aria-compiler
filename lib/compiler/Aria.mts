@@ -599,9 +599,9 @@ export class Aria {
       const metaPath: string = getMetaPath(templatePath) as string
 
       if (hasMetaFile(templatePath)) {
-        AriaLog.text(`Resolved meta: ${resolve(metaPath)}`)
+        AriaLog.text(`Resolved external meta: ${resolve(metaPath)}`)
       } else {
-        AriaLog.text(`Resolved meta: N/A`)
+        AriaLog.text(`Resolved external meta: N/A`)
         AriaLog.newline()
         AriaLog.textWarning(
           `${chalk.dim(
