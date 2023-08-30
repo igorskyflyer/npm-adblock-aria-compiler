@@ -111,4 +111,8 @@ export const AriaString = {
     id: '026',
     message: 'Found an include',
   },
+  nodeLogImport: {
+    id: '027',
+    message: 'Found an import',
+  },
 } as const
