@@ -528,7 +528,7 @@ export class Aria {
 
         if (this.#buffer === AriaKeywords.commentInternal) {
           this.#foundKeyword = true
-          AriaLog.log(`Found an internal comment, skipping line`)
+          AriaLog.log(AriaString.nodeLogInternalComment.message)
           break
         }
 
