@@ -533,7 +533,7 @@ export class Aria {
         }
 
         if (this.#buffer === AriaKeywords.commentExported) {
-          AriaLog.log('Found an exported comment')
+          AriaLog.log(AriaString.nodeLogExportedComment.message)
           this.#parseComment()
           break
         }
