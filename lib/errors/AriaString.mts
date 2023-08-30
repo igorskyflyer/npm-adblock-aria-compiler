@@ -135,4 +135,8 @@ export const AriaString = {
     id: '032',
     message: 'Found an export',
   },
+  logNoChanges: {
+    id: '033',
+    message: '(no changes)',
+  },
 } as const
