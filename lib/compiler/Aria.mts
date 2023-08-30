@@ -502,7 +502,7 @@ export class Aria {
         if (this.#buffer === AriaKeywords.include) {
           this.#validateStatement()
 
-          AriaLog.log('Found an include')
+          AriaLog.log(AriaString.nodeLogInclude)
           this.#parseInclude()
           break
         }
