@@ -131,4 +131,8 @@ export const AriaString = {
     id: '031',
     message: 'Found a tag',
   },
+  nodeLogExport: {
+    id: '032',
+    message: 'Found an export',
+  },
 } as const
