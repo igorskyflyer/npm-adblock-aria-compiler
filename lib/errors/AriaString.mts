@@ -15,9 +15,9 @@ export const AriaString = {
     id: '003',
     message: 'extraneous input found after the string "{0}"',
   },
-  includePath: {
+  expectedString: {
     id: '004',
-    message: 'expected a string path for including but found "{0}"',
+    message: 'expected a valid string but found "{0}"',
   },
   unterminatedString: {
     id: '005',
@@ -63,11 +63,12 @@ export const AriaString = {
   unreachableNodes: {
     id: '015',
     message:
-      "unreachable code detected after line {0}. A template can only end with an export statement. Consider removing or reorganizing the template's code.",
+      "unreachable code detected after line {0}. A template can only end with an export statement. Consider removing it or reorganizing the template's code.",
   },
   actionNoParam: {
     id: '016',
-    message: 'action {0} requires a param value but none was provided.',
+    message:
+      'action {0} requires a value for its parameter but none was provided.',
   },
   actionInvalidParam: {
     id: '017',
@@ -75,7 +76,7 @@ export const AriaString = {
   },
   actionUnknownAction: {
     id: '018',
-    message: 'unknown action: {0}',
+    message: 'unknown action "{0}"',
   },
   syntaxError: {
     id: '019',
