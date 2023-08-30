@@ -479,7 +479,7 @@ export class Aria {
 
         if (this.#buffer === AriaKeywords.headerImport) {
           this.#validateStatement()
-          AriaLog.log('Found a header import')
+          AriaLog.log(AriaString.nodeLogHeader.message)
           this.#parseHeaderImport()
           break
         }
@@ -487,7 +487,7 @@ export class Aria {
         if (this.#buffer === AriaKeywords.meta) {
           this.#validateStatement()
 
-          AriaLog.log('Found a meta')
+          AriaLog.log(AriaString.nodeLogMeta.message)
           this.#parseMeta()
 
           if (this.#ast.getNodes(AriaNodeType.nodeMeta).length === 1) {
@@ -502,7 +502,7 @@ export class Aria {
         if (this.#buffer === AriaKeywords.include) {
           this.#validateStatement()
 
-          AriaLog.log('Found an include')
+          AriaLog.log(AriaString.nodeLogInclude.message)
           this.#parseInclude()
           break
         }
@@ -510,7 +510,7 @@ export class Aria {
         if (this.#buffer === AriaKeywords.import) {
           this.#validateStatement()
 
-          AriaLog.log('Found an import')
+          AriaLog.log(AriaString.nodeLogImport.message)
           this.#parseInclude(true)
           break
         }
@@ -522,18 +522,18 @@ export class Aria {
             this.#node(AriaNodeType.nodeNewLine),
             this.#sourceLine()
           )
-          AriaLog.log('Found an explicit new line')
+          AriaLog.log(AriaString.nodeLogNewline.message)
           break
         }
 
         if (this.#buffer === AriaKeywords.commentInternal) {
           this.#foundKeyword = true
-          AriaLog.log(`Found an internal comment, skipping line`)
+          AriaLog.log(AriaString.nodeLogInternalComment.message)
           break
         }
 
         if (this.#buffer === AriaKeywords.commentExported) {
-          AriaLog.log('Found an exported comment')
+          AriaLog.log(AriaString.nodeLogExportedComment.message)
           this.#parseComment()
           break
         }
@@ -541,7 +541,7 @@ export class Aria {
         if (this.#buffer === AriaKeywords.tag) {
           this.#validateStatement()
 
-          AriaLog.log('Found a tag')
+          AriaLog.log(AriaString.nodeLogTag.message)
           this.#parseTag()
           break
         }
@@ -556,7 +556,7 @@ export class Aria {
             )
           }
 
-          AriaLog.log('Found an export operator')
+          AriaLog.log(AriaString.nodeLogExport.message)
           this.#parseExport()
           this.#shouldParse = false
           break

@@ -99,4 +99,48 @@ export const AriaString = {
     message:
       'no header statement found, consider adding one since metadata is required for an Adblock filter file to be valid.',
   },
+  nodeLogHeader: {
+    id: '024',
+    message: 'Found a header import',
+  },
+  nodeLogMeta: {
+    id: '025',
+    message: 'Found a meta',
+  },
+  nodeLogInclude: {
+    id: '026',
+    message: 'Found an include',
+  },
+  nodeLogImport: {
+    id: '027',
+    message: 'Found an import',
+  },
+  nodeLogNewline: {
+    id: '028',
+    message: 'Found an explicit new line',
+  },
+  nodeLogInternalComment: {
+    id: '029',
+    message: 'Found an internal comment, skipping line',
+  },
+  nodeLogExportedComment: {
+    id: '030',
+    message: 'Found an exported comment',
+  },
+  nodeLogTag: {
+    id: '031',
+    message: 'Found a tag',
+  },
+  nodeLogExport: {
+    id: '032',
+    message: 'Found an export',
+  },
+  logNoChanges: {
+    id: '033',
+    message: '(no changes)',
+  },
+  abortCompilation: {
+    id: '034',
+    message: 'Aborting the compilation...',
+  },
 } as const
