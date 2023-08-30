@@ -479,7 +479,7 @@ export class Aria {
 
         if (this.#buffer === AriaKeywords.headerImport) {
           this.#validateStatement()
-          AriaLog.log('Found a header import')
+          AriaLog.log(AriaString.nodeLogHeader)
           this.#parseHeaderImport()
           break
         }
