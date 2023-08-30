@@ -1,5 +1,6 @@
 import { AriaNodeType } from '../models/AriaNodeType.mjs'
 
+export const MINIMUM_IDENTIFIER_LENGTH: number = 3
 export const AriaKeywords = {
   commentInternal: '@',
   commentExported: '#',
@@ -11,8 +12,6 @@ export const AriaKeywords = {
   import: 'import',
   meta: 'meta',
 } as const
-
-export const MINIMUM_IDENTIFIER_LENGTH: number = 3
 
 export function getMinimumKeywordIdentifier(): string[] {
   return Object.keys(AriaKeywords).map((prop: string, _) => {
