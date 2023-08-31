@@ -328,9 +328,17 @@ export class AriaAst {
               variables.expires = amendExpires(this.meta.expires) ?? ''
 
               // inline meta vars
-              variables.title = AriaInlineMeta.title ?? ''
-              variables.description = AriaInlineMeta.description ?? ''
-              variables.expires = amendExpires(AriaInlineMeta.expires) ?? ''
+              if (AriaInlineMeta.title.length > 0) {
+                variables.title = AriaInlineMeta.title
+              }
+
+              if (AriaInlineMeta.description.length > 0) {
+                variables.description = AriaInlineMeta.description
+              }
+
+              if (AriaInlineMeta.expires.length > 0) {
+                variables.expires = amendExpires(AriaInlineMeta.expires)
+              }
 
               // compile vars
               variables.filename = filename
