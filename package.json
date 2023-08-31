@@ -1,6 +1,6 @@
 {
 	"name": "@igor.dvlpr/aria",
-	"version": "2.0.0",
+	"version": "2.0.1",
 	"description": "🧬 Meet Aria, an efficient Adblock filter list compiler, with many features that make your maintenance of Adblock filter lists a breeze! 🗡",
 	"sideEffects": false,
 	"uses": {
