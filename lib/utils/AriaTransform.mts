@@ -71,6 +71,8 @@ export function sort(source: string, sortBy: AriaSortBy = 'asc'): string {
     return ''
   }
 
+  let result: string = ''
+
   lines = lines.filter((line: string) => {
     if (line.indexOf('!') !== 0) {
       return line
@@ -78,18 +80,22 @@ export function sort(source: string, sortBy: AriaSortBy = 'asc'): string {
   })
 
   if (sortBy === 'desc') {
-    return lines
-      .sort((a, b) => {
-        return a.toLowerCase() < b.toLowerCase() ? 1 : -1
-      })
-      .join('\n')
+    lines = lines.sort((a, b) => {
+      return a.toLowerCase() < b.toLowerCase() ? 1 : -1
+    })
   } else {
-    return lines
-      .sort((a, b) => {
-        return a.toLowerCase() < b.toLowerCase() ? -1 : 1
-      })
-      .join('\n')
+    lines = lines.sort((a, b) => {
+      return a.toLowerCase() < b.toLowerCase() ? -1 : 1
+    })
   }
+
+  result = lines.join('\n')
+
+  if (result.at(-1)) {
+    result += '\n'
+  }
+
+  return result
 }
 export function dedupe(source: string): string {
   const tmp: string[] = []
