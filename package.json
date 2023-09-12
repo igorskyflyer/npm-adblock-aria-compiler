@@ -61,6 +61,7 @@
 	"dependencies": {
 		"@igor.dvlpr/adblock-filter-counter": "^1.0.0",
 		"@igor.dvlpr/keppo": "^1.1.0",
+		"@igor.dvlpr/my-file-path": "^1.0.1",
 		"@igor.dvlpr/normalized-string": "^1.0.1",
 		"@igor.dvlpr/upath": "^2.1.2",
 		"@igor.dvlpr/zing": "^2.0.0",
