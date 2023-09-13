@@ -4,6 +4,17 @@
 
 <br>
 
+## v2.0.2
+
+<p align="right"><em>13-Sep-2023</em></p>
+
+- **🪅 feat**: log line number of an already included filter file ([#102](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/102))
+- **✅ fix**: add a newline when transforming source only when needed ([#98](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/98))
+- **✅ fix**: sort actions strips final newline ([#96](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/96))
+- **💻 dev**: make external meta message an info, not a warning ([#100](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/100))
+
+<br>
+
 ## v2.0.1
 
 <p align="right"><em>31-Aug-2023</em></p>
