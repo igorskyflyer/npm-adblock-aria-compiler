@@ -611,7 +611,7 @@ export class Aria {
       } else {
         AriaLog.text(`Resolved external meta: N/A`)
         AriaLog.newline()
-        AriaLog.textWarning(
+        AriaLog.textInfo(
           `${chalk.dim(
             `meta file could not be resolved, if necessary, create a file named ${chalk.bold.white(
               parse(metaPath).base
