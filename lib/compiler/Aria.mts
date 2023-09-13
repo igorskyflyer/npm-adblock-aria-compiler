@@ -288,7 +288,11 @@ export class Aria {
     } else {
       this.#foundKeyword = true
 
-      AriaLog.textWarning(AriaString.includedAlready.message, path)
+      AriaLog.textWarning(
+        AriaString.includedAlready.message,
+        path,
+        this.#sourceLine()
+      )
       AriaLog.newline()
     }
 
