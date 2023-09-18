@@ -364,6 +364,10 @@ export class AriaAst {
 
               contents = replacePlaceholders(contents, variables)
 
+              if (contents.at(-1) !== '\n') {
+                contents += '\n'
+              }
+
               writeFileSync(finalPath, new NormalizedString(contents).value, {
                 encoding: 'utf8',
                 flag: 'w',
