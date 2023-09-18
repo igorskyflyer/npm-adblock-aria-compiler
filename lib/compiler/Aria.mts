@@ -105,10 +105,10 @@ export class Aria {
   }
 
   #parseActions(input: string): IAriaAction[] {
-    const actions: IAriaAction[] = []
+    const result: IAriaAction[] = []
 
     if (typeof input !== 'string') {
-      return actions
+      return result
     }
 
     input = input.trim()
@@ -116,67 +116,83 @@ export class Aria {
     const count: number = input.length
 
     if (count === 0) {
-      return actions
+      return result
     }
 
-    const values: string[] = input.split('=')
+    const actions: string[] = input.split(',')
+    const actionsCount = actions.length
 
-    if (values.length === 0) {
-      return actions
-    } else {
-      const probeAction: string = values[0].trim()
+    // multiple actions
+    if (actionsCount > 0) {
+      for (let i = 0; i < actionsCount; i++) {
+        const values: string[] = actions[i].split('=')
+        const valuesCount: number = values.length
+        let foundParam: boolean = false
 
-      if (probeAction in AriaAction) {
-        const action: IAriaAction = AriaAction[probeAction]
+        for (let j = 0; j < valuesCount; j++) {
+          if (foundParam) {
+            break
+          }
 
-        this.#cursorInLine += probeAction.length + 1
+          const probeAction: string = values[j].trim()
 
-        if (action.allowsParams) {
-          let param: string = values[1]
+          if (probeAction in AriaAction) {
+            const action: IAriaAction = AriaAction[probeAction]
 
-          if (!param) {
-            if (!action.defaultValue || action.defaultValue.length === 0) {
-              throw AriaLog.ariaError(
-                AriaString.actionNoParam,
-                this.#sourceLine(),
-                action.name
-              )
+            this.#cursorInLine += probeAction.length + 1
+
+            if (action.allowsParams) {
+              let param: string = values[1]
+
+              foundParam = true
+
+              if (!param) {
+                if (!action.defaultValue || action.defaultValue.length === 0) {
+                  throw AriaLog.ariaError(
+                    AriaString.actionNoParam,
+                    this.#sourceLine(),
+                    action.name
+                  )
+                } else {
+                  param = action.defaultValue
+                }
+              } else {
+                param = param.trim()
+              }
+
+              if (action.paramValues) {
+                // user provided value
+                if (action.paramValues[0] === '*') {
+                  action.actualValue = this.#parseString(true).value
+                } else if (action.paramValues.indexOf(param) > -1) {
+                  // only allowed values
+                  action.actualValue = param
+                } else {
+                  // unknown value
+                  throw AriaLog.ariaError(
+                    AriaString.actionInvalidParam,
+                    this.#sourceLine(),
+                    action.name,
+                    action.paramValues.toString()
+                  )
+                }
+              }
+
+              result.push(action)
             } else {
-              param = action.defaultValue
+              result.push(action)
             }
           } else {
-            param = param.trim()
-          }
-
-          if (action.paramValues) {
-            // user provided value
-            if (action.paramValues[0] === '*') {
-              action.actualValue = this.#parseString(true).value
-            } else if (action.paramValues.indexOf(param) > -1) {
-              // only allowed values
-              action.actualValue = param
-            } else {
-              // unknown value
-              throw AriaLog.ariaError(
-                AriaString.actionInvalidParam,
-                this.#sourceLine(),
-                action.name,
-                action.paramValues.toString()
-              )
-            }
+            throw AriaLog.ariaError(
+              AriaString.actionUnknownAction,
+              this.#sourceLine()
+            )
           }
         }
-
-        actions.push(action)
-      } else {
-        throw AriaLog.ariaError(
-          AriaString.actionUnknownAction,
-          this.#sourceLine()
-        )
       }
     }
 
-    return actions
+    return result
   }
 
   #parseString(allowActions: boolean = false): IAriaStatement {
