@@ -287,9 +287,11 @@ export class Aria {
     const statement: IAriaStatement = this.#parseString(true)
     const path: string = statement.value
 
-    statement.actions = this.#parseActions(this.#chunk(this.#cursorInLine + 1))
-
     if (!this.#ast.state.imports.includes(path)) {
+      statement.actions = this.#parseActions(
+        this.#chunk(this.#cursorInLine + 1)
+      )
+
       if (isImport) {
         this.#ast.addNode(
           this.#node(AriaNodeType.nodeImport, path, statement.actions),
