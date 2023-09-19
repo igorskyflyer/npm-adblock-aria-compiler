@@ -288,6 +288,12 @@ export class AriaAst {
                     const action: IAriaAction = node.actions[i]
                     const transformName: string = action.name
 
+                    AriaLog.log(
+                      AriaString.actionApplying.message,
+                      transformName,
+                      path
+                    )
+
                     if (action.allowsParams) {
                       filter = applyTransform(
                         transformName,
@@ -301,6 +307,7 @@ export class AriaAst {
                 }
 
                 contents += filter
+                AriaLog.logNewline()
               } else {
                 throw AriaLog.ariaError(AriaString.filterNotFound, -1, path)
               }
