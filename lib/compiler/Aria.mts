@@ -684,7 +684,7 @@ export class Aria {
         AriaLog.newline()
         AriaLog.textInfo(
           `${chalk.dim(
-            `meta file could not be resolved, if necessary, create a file named ${chalk.bold.white(
+            `Meta file could not be resolved, if necessary, create a file named ${chalk.bold.white(
               parse(metaPath).base
             )} for extra customizability of the output filter file.`
           )}`
