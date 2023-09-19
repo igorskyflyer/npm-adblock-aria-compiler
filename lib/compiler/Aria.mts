@@ -137,7 +137,7 @@ export class Aria {
           const probeAction: string = values[j].trim()
 
           if (probeAction in AriaAction) {
-            const action: IAriaAction = AriaAction[probeAction]
+            let action: IAriaAction = { ...AriaAction[probeAction] }
 
             this.#cursorInLine += probeAction.length + 1
 
