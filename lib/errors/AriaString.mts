@@ -143,4 +143,8 @@ export const AriaString = {
     id: '034',
     message: 'Aborting the compilation...',
   },
+  actionApplying: {
+    id: '035',
+    message: 'Applying {0} action to "{1}"...',
+  },
 } as const
