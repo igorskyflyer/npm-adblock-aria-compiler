@@ -1,16 +1,15 @@
-import chalk from 'chalk'
-import { AriaLogLevel } from '../models/AriaLogLevel.mjs'
-import { AriaError } from '../errors/AriaError.mjs'
-import { IAriaMessageData } from '../errors/IAriaMessageData.mjs'
 import { zing } from '@igor.dvlpr/zing'
+import chalk from 'chalk'
+import { AriaError } from '../errors/AriaError.mjs'
 import { AriaString } from '../errors/AriaString.mjs'
+import { IAriaMessageData } from '../errors/IAriaMessageData.mjs'
 
 export class AriaLog {
   static shouldLog: boolean = false
 
-  static log(message: any = '', logLevel: AriaLogLevel = 'log'): void {
+  static log(message: any = '', ...rest: any[]): void {
     if (this.shouldLog) {
-      console[logLevel](message)
+      console.log(zing(message, ...rest))
     }
   }
 
