@@ -381,7 +381,7 @@ export class AriaAst {
               })
 
               AriaLog.textSuccess(
-                `written ${chalk.bold(
+                `Written ${chalk.bold(
                   variables.entries
                 )} rules ${AriaLog.formatChanges(
                   oldCount,
