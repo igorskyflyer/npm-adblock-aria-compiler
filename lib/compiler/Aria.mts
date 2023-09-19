@@ -205,7 +205,8 @@ export class Aria {
           } else {
             throw AriaLog.ariaError(
               AriaString.actionUnknownAction,
-              this.#sourceLine()
+              this.#sourceLine(),
+              probeAction
             )
           }
         }
