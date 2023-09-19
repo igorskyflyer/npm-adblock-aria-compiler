@@ -149,6 +149,6 @@ export const AriaString = {
   },
   actionDuplicate: {
     id: '036',
-    message: 'Duplicate {0} action, ignoring new occurrence.',
+    message: 'Duplicate {0} action, ignoring the new occurrence.',
   },
 } as const
