@@ -19,7 +19,7 @@ const program = new Command()
 AriaLog.text(chalk.bold(figlet.textSync('ARIA', 'Slant')))
 
 const ariaVersion: string = `CLI:  v${version.cli} (${version.commit})\nADBT: v${version.adbt}`
-AriaLog.text(chalk.dim.italic(`${ariaVersion}\n\n`))
+AriaLog.text(chalk.dim.italic(`${ariaVersion}\n`))
 
 program.description(
   chalk.italic(
