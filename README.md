@@ -5,7 +5,7 @@ Adblock template (`ADBT`) compiler
 <div align="center">
 	<img src="https://raw.githubusercontent.com/igorskyflyer/npm-adblock-aria-compiler/main/assets/aria.png" alt="Aria compiler">
 	<br>
-<em>🧬 Meet <code>Aria</code>, an efficient Adblock filter list compiler, with many features that make your maintenance of Adblock filter lists a breeze! 🗡</em>
+<em>🧬 Meet <code>Aria</code>, an efficient Adblock filter list compiler, with many features that make your maintenance of Adblock filter lists a breeze! 🦖</em>
 </div>
 
 <br>
