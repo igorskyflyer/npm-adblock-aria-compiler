@@ -58,7 +58,7 @@ export const AriaString = {
   includedAlready: {
     id: '014',
     message:
-      'Filter file "{0}" found at line {1} was already included. Consider removing this include.',
+      'Filter file "{0}" found at line {1} was ignored because it was already included. Consider removing this include.',
   },
   unreachableNodes: {
     id: '015',
