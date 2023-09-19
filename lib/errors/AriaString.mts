@@ -151,4 +151,8 @@ export const AriaString = {
     id: '036',
     message: 'Duplicate {0} action, ignoring the new occurrence.',
   },
+  actionTrailingComma: {
+    id: '037',
+    message: 'Trailing comma for the Action found on line {0}.',
+  },
 } as const
