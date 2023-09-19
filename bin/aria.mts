@@ -23,7 +23,7 @@ AriaLog.text(chalk.dim.italic(`${ariaVersion}\n`))
 
 program.description(
   chalk.italic(
-    '🧬 Meet Aria, an efficient Adblock filter list compiler, with many features that make your maintenance of Adblock filter lists a breeze! 🗡'
+    '🧬 Meet Aria, an efficient Adblock filter list compiler, with many features that make your maintenance of Adblock filter lists a breeze! 🦖'
   )
 )
 
