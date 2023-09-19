@@ -157,7 +157,7 @@ export class Aria {
           }
 
           if (probeAction in AriaAction) {
-            let action: IAriaAction = { ...AriaAction[probeAction] }
+            const action: IAriaAction = { ...AriaAction[probeAction] }
 
             this.#cursorInLine += probeAction.length + 1
 
@@ -203,11 +203,19 @@ export class Aria {
               result.push(action)
             }
           } else {
-            throw AriaLog.ariaError(
-              AriaString.actionUnknownAction,
-              this.#sourceLine(),
-              probeAction
-            )
+            if (probeAction.length > 0) {
+              throw AriaLog.ariaError(
+                AriaString.actionUnknownAction,
+                this.#sourceLine(),
+                probeAction
+              )
+            } else {
+              AriaLog.textWarning(
+                AriaString.actionTrailingComma.message,
+                this.#sourceLine()
+              )
+              AriaLog.newline()
+            }
           }
         }
       }
