@@ -435,7 +435,7 @@ export class Aria {
     AriaLog.log(`Total lines: ${linesCount}`)
     AriaLog.log(`Versioning: ${this.#ast.versioning}`)
 
-    AriaLog.newline()
+    AriaLog.logNewline()
 
     while (this.#lineCursor < linesCount) {
       if (!this.#shouldParse) {
@@ -457,6 +457,7 @@ export class Aria {
       if (this.#line.trim().length === 0) {
         AriaLog.log(`Blank line, skipping`)
         AriaLog.logNewline()
+
         this.#lineCursor++
         continue
       }
@@ -501,7 +502,10 @@ export class Aria {
 
         if (this.#buffer === AriaKeywords.headerImport) {
           this.#validateStatement()
+
           AriaLog.log(AriaString.nodeLogHeader.message)
+          AriaLog.logNewline()
+
           this.#parseHeaderImport()
           break
         }
@@ -510,6 +514,8 @@ export class Aria {
           this.#validateStatement()
 
           AriaLog.log(AriaString.nodeLogMeta.message)
+          AriaLog.logNewline()
+
           this.#parseMeta()
 
           if (this.#ast.getNodes(AriaNodeType.nodeMeta).length === 1) {
@@ -525,6 +531,8 @@ export class Aria {
           this.#validateStatement()
 
           AriaLog.log(AriaString.nodeLogInclude.message)
+          AriaLog.logNewline()
+
           this.#parseInclude()
           break
         }
@@ -533,6 +541,8 @@ export class Aria {
           this.#validateStatement()
 
           AriaLog.log(AriaString.nodeLogImport.message)
+          AriaLog.logNewline()
+
           this.#parseInclude(true)
           break
         }
@@ -544,18 +554,26 @@ export class Aria {
             this.#node(AriaNodeType.nodeNewLine),
             this.#sourceLine()
           )
+
           AriaLog.log(AriaString.nodeLogNewline.message)
+          AriaLog.logNewline()
+
           break
         }
 
         if (this.#buffer === AriaKeywords.commentInternal) {
           this.#foundKeyword = true
+
           AriaLog.log(AriaString.nodeLogInternalComment.message)
+          AriaLog.logNewline()
+
           break
         }
 
         if (this.#buffer === AriaKeywords.commentExported) {
           AriaLog.log(AriaString.nodeLogExportedComment.message)
+          AriaLog.logNewline()
+
           this.#parseComment()
           break
         }
@@ -564,6 +582,8 @@ export class Aria {
           this.#validateStatement()
 
           AriaLog.log(AriaString.nodeLogTag.message)
+          AriaLog.logNewline()
+
           this.#parseTag()
           break
         }
@@ -579,6 +599,8 @@ export class Aria {
           }
 
           AriaLog.log(AriaString.nodeLogExport.message)
+          AriaLog.logNewline()
+
           this.#parseExport()
           this.#shouldParse = false
           break
@@ -592,8 +614,6 @@ export class Aria {
           this.#buffer
         )
       }
-
-      AriaLog.logNewline()
 
       this.#lineCursor++
     }
@@ -640,6 +660,7 @@ export class Aria {
             )} for extra customizability of the output filter file.`
           )}`
         )
+        AriaLog.newline()
       }
 
       const template: string = readFileSync(templatePath, { encoding: 'utf-8' })
