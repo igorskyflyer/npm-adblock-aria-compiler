@@ -104,6 +104,21 @@ export class Aria {
     return this.#line.substring(start, end)
   }
 
+  #hasAction(actions: IAriaAction[], action: string): boolean {
+    const actionsCount: number = actions.length
+    let result: boolean = false
+
+    if (actionsCount > 0) {
+      for (let i = 0; i < actionsCount; i++) {
+        if (actions[i].name === action) {
+          return true
+        }
+      }
+    }
+
+    return result
+  }
+
   #parseActions(input: string): IAriaAction[] {
     const result: IAriaAction[] = []
 
@@ -122,7 +137,6 @@ export class Aria {
     const actions: string[] = input.split(',')
     const actionsCount = actions.length
 
-    // multiple actions
     if (actionsCount > 0) {
       for (let i = 0; i < actionsCount; i++) {
         const values: string[] = actions[i].split('=')
@@ -135,6 +149,12 @@ export class Aria {
           }
 
           const probeAction: string = values[j].trim()
+
+          if (this.#hasAction(result, probeAction)) {
+            AriaLog.textWarning(AriaString.actionDuplicate.message, probeAction)
+            AriaLog.newline()
+            break
+          }
 
           if (probeAction in AriaAction) {
             let action: IAriaAction = { ...AriaAction[probeAction] }
