@@ -7,4 +7,5 @@ export enum AriaNodeType {
   nodeTag = 'Aria.Tag',
   nodeImport = 'Aria.Import',
   nodeMeta = 'Aria.Meta',
+  nodeImplement = 'Aria.Implement',
 }
