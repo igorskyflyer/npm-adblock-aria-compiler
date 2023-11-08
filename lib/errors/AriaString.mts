@@ -159,4 +159,8 @@ export const AriaString = {
     id: '038',
     message: 'Found an implement.',
   },
+  oneImplementOnly: {
+    id: '039',
+    message: 'Only 1 implement can exist per template.',
+  },
 } as const
