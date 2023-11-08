@@ -11,6 +11,7 @@ export const AriaKeywords = {
   tag: 'tag',
   import: 'import',
   meta: 'meta',
+  implement: 'implement',
 } as const
 
 export function getMinimumKeywordIdentifier(): string[] {
@@ -54,6 +55,10 @@ export function getKeywordFromType(node: AriaNodeType): string {
 
     case AriaNodeType.nodeMeta: {
       return 'meta'
+    }
+
+    case AriaNodeType.nodeImplement: {
+      return 'implement'
     }
   }
 }
