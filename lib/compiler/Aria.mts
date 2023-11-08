@@ -592,6 +592,13 @@ export class Aria {
         if (this.#buffer === AriaKeywords.implement) {
           this.#validateStatement()
 
+          if (this.#ast.state.hasImplement) {
+            throw AriaLog.ariaError(
+              AriaString.oneImplementOnly,
+              this.#sourceLine()
+            )
+          }
+
           AriaLog.log(AriaString.nodeLogImplement.message)
           AriaLog.logNewline()
 
