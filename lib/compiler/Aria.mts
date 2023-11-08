@@ -312,6 +312,19 @@ export class Aria {
     return true
   }
 
+  #parseImplement(): boolean {
+    const statement: IAriaStatement = this.#parseString(true)
+    const path: string = statement.value
+
+    this.#ast.addNode(
+      this.#node(AriaNodeType.nodeImplement, path),
+      this.#sourceLine()
+    )
+
+    this.#foundKeyword = true
+    return true
+  }
+
   #parseInclude(isImport: boolean = false): boolean {
     const statement: IAriaStatement = this.#parseString(true)
     const path: string = statement.value
@@ -573,6 +586,16 @@ export class Aria {
           AriaLog.logNewline()
 
           this.#parseInclude(true)
+          break
+        }
+
+        if (this.#buffer === AriaKeywords.implement) {
+          this.#validateStatement()
+
+          AriaLog.log(AriaString.nodeLogImplement.message)
+          AriaLog.logNewline()
+
+          this.#parseImplement()
           break
         }
 
