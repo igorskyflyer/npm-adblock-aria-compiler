@@ -154,6 +154,8 @@ export class AriaAst {
         this.#state.imports.push(node.value)
       } else if (node.type === AriaNodeType.nodeExport) {
         this.#state.exports.push(node.value)
+      } else if (node.type === AriaNodeType.nodeImplement) {
+        this.#state.hasImplement = true
       }
     }
 
