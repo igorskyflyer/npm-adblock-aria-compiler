@@ -44,7 +44,7 @@ export class AriaAst {
   constructor() {
     this.#nodesCount = 0
     this.#nodes = []
-    this.#state = { imports: [], exports: [] }
+    this.#state = { imports: [], exports: [], hasImplement: false }
     this.templatePath = '' as AriaTemplatePath
     this.root = ''
     this.versioning = 'auto'
