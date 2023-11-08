@@ -155,4 +155,8 @@ export const AriaString = {
     id: '037',
     message: 'Trailing comma for the Action found on line {0}.',
   },
+  nodeLogImplement: {
+    id: '038',
+    message: 'Found an implement.',
+  },
 } as const
