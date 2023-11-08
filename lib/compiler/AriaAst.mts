@@ -27,6 +27,7 @@ import {
   replacePlaceholders,
   transformHeader,
 } from '../utils/AriaVersioning.mjs'
+import { Aria } from './Aria.mjs'
 import { getKeywordFromType } from './AriaKeywords.mjs'
 import { canAddNode } from './AriaOrder.mjs'
 
@@ -97,6 +98,12 @@ export class AriaAst {
     return u(join(this.root, filepath))
   }
 
+  #removeNodes(nodeTypes: AriaNodeType[]): IAriaNode[] {
+    return this.nodes.filter((current: IAriaNode) => {
+      return !nodeTypes.includes(current.type)
+    })
+  }
+
   get nodesCount(): number {
     return this.#nodesCount
   }
@@ -152,6 +159,14 @@ export class AriaAst {
 
     this.#nodes.push(node)
     this.#nodesCount++
+  }
+
+  public addNodes(nodes: IAriaNode[]): void {
+    const count: number = nodes.length
+
+    for (let i = 0; i < count; i++) {
+      this.addNode(nodes[i], -1)
+    }
   }
 
   public export(path: AriaAstPath): boolean {
@@ -315,6 +330,34 @@ export class AriaAst {
           } catch {
             throw AriaLog.ariaError(AriaString.filterRead, -1, path ?? 'N/A')
           }
+
+          break
+        }
+
+        case AriaNodeType.nodeImplement: {
+          const path: string | undefined = node.value
+
+          try {
+            if (typeof path === 'string') {
+              const templatePath: string = this.#applyRoot(path)
+
+              if (this.#pathExists(templatePath)) {
+                const instance: Aria = new Aria({})
+                const parsed: AriaAst | undefined = instance.parseFile(
+                  templatePath as AriaTemplatePath
+                )
+
+                if (parsed) {
+                  this.addNodes(
+                    parsed.#removeNodes([
+                      AriaNodeType.nodeExport,
+                      AriaNodeType.nodeImplement,
+                    ])
+                  )
+                }
+              }
+            }
+          } catch {}
 
           break
         }
