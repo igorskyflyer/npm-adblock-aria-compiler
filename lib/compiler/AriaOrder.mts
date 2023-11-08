@@ -9,7 +9,7 @@ export const AriaOrder = {
   'Aria.Meta': ['Aria.Implement', 'Aria.Header'],
   'Aria.Include': ['Aria.Implement', 'Aria.Header', 'Aria.Meta'],
   'Aria.Import': ['Aria.Implement', 'Aria.Header', 'Aria.Meta'],
-  'Aria.Implement': [],
+  'Aria.Implement': ['Aria.Implement'],
   'Aria.Export': null,
 } as const
 
