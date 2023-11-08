@@ -5,10 +5,11 @@ export const AriaOrder = {
   'Aria.Comment': [],
   'Aria.Tag': [],
   'Aria.Newline': [],
-  'Aria.Header': [],
-  'Aria.Meta': ['Aria.Header'],
-  'Aria.Include': ['Aria.Header', 'Aria.Meta'],
-  'Aria.Import': ['Aria.Header', 'Aria.Meta'],
+  'Aria.Header': ['Aria.Implement'],
+  'Aria.Meta': ['Aria.Implement', 'Aria.Header'],
+  'Aria.Include': ['Aria.Implement', 'Aria.Header', 'Aria.Meta'],
+  'Aria.Import': ['Aria.Implement', 'Aria.Header', 'Aria.Meta'],
+  'Aria.Implement': [],
   'Aria.Export': null,
 } as const
 
