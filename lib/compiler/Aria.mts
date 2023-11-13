@@ -4,7 +4,6 @@ import chalk from 'chalk'
 import { accessSync, readFileSync } from 'fs'
 import { resolve } from 'node:path'
 import { isAbsolute, join, parse } from 'path'
-import { AriaError } from '../errors/AriaError.mjs'
 import { AriaString } from '../errors/AriaString.mjs'
 import { AriaAction } from '../models/AriaAction.mjs'
 import { AriaInlineMeta } from '../models/AriaInlineMeta.mjs'
@@ -168,7 +167,7 @@ export class Aria {
 
               if (!param) {
                 if (!action.defaultValue || action.defaultValue.length === 0) {
-                  throw AriaLog.ariaError(
+                  throw AriaLog.ariaThrow(
                     AriaString.actionNoParam,
                     this.#sourceLine(),
                     action.name
@@ -189,7 +188,7 @@ export class Aria {
                   action.actualValue = param
                 } else {
                   // unknown value
-                  throw AriaLog.ariaError(
+                  throw AriaLog.ariaThrow(
                     AriaString.actionInvalidParam,
                     this.#sourceLine(),
                     action.name,
@@ -204,7 +203,7 @@ export class Aria {
             }
           } else {
             if (probeAction.length > 0) {
-              throw AriaLog.ariaError(
+              throw AriaLog.ariaThrow(
                 AriaString.actionUnknownAction,
                 this.#sourceLine(),
                 probeAction
@@ -234,7 +233,7 @@ export class Aria {
         if (allowActions) {
           break
         } else {
-          throw AriaLog.ariaError(
+          throw AriaLog.ariaThrow(
             AriaString.extraneousInput,
             this.#sourceLine(),
             result.value
@@ -248,7 +247,7 @@ export class Aria {
         if (this.#char === "'") {
           shouldCapture = true
         } else {
-          throw AriaLog.ariaError(
+          throw AriaLog.ariaThrow(
             AriaString.expectedString,
             this.#sourceLine(),
             this.#char
@@ -271,7 +270,7 @@ export class Aria {
     }
 
     if (!closedString) {
-      throw AriaLog.ariaError(AriaString.unterminatedString, this.#sourceLine())
+      throw AriaLog.ariaThrow(AriaString.unterminatedString, this.#sourceLine())
     }
 
     return result
@@ -317,7 +316,7 @@ export class Aria {
     const path: string = statement.value
 
     if (resolve(path) === resolve(this.#ast.templatePath)) {
-      throw AriaLog.ariaError(AriaString.recursiveImplement, this.#sourceLine())
+      throw AriaLog.ariaThrow(AriaString.recursiveImplement, this.#sourceLine())
     }
 
     this.#ast.addNode(
@@ -367,7 +366,7 @@ export class Aria {
     const inlineMeta: string[] = this.#line.split('=')
 
     if (inlineMeta.length < 2) {
-      throw AriaLog.ariaError(AriaString.metaInvalidValue, this.#sourceLine())
+      throw AriaLog.ariaThrow(AriaString.metaInvalidValue, this.#sourceLine())
     }
 
     let metaProp: string = inlineMeta[0].replace(/^meta/i, '')
@@ -387,7 +386,7 @@ export class Aria {
         this.#sourceLine()
       )
     } else {
-      throw AriaLog.ariaError(
+      throw AriaLog.ariaThrow(
         AriaString.metaInvalidProp,
         this.#sourceLine(),
         metaProp
@@ -451,7 +450,7 @@ export class Aria {
     while (cursor < this.#lineLength) {
       if (char === ' ' || char === '\t') {
         if (buffer.length > 0) {
-          throw AriaLog.ariaError(
+          throw AriaLog.ariaThrow(
             AriaString.syntaxError,
             this.#sourceLine(),
             `${this.#buffer}${buffer}`
@@ -521,7 +520,7 @@ export class Aria {
           this.#buffer.length === MINIMUM_IDENTIFIER_LENGTH &&
           !minimumIdentifier.includes(this.#buffer)
         ) {
-          throw AriaLog.ariaError(
+          throw AriaLog.ariaThrow(
             AriaString.syntaxError,
             this.#sourceLine(),
             this.#buffer
@@ -598,7 +597,7 @@ export class Aria {
           this.#validateStatement()
 
           if (this.#ast.state.hasImplement) {
-            throw AriaLog.ariaError(
+            throw AriaLog.ariaThrow(
               AriaString.oneImplementOnly,
               this.#sourceLine()
             )
@@ -656,7 +655,7 @@ export class Aria {
           this.#validateStatement()
 
           if (this.#ast.state.exports.length === 1) {
-            throw AriaLog.ariaError(
+            throw AriaLog.ariaThrow(
               AriaString.oneExportOnly,
               this.#sourceLine()
             )
@@ -672,7 +671,7 @@ export class Aria {
       }
 
       if (!this.#foundKeyword) {
-        throw AriaLog.ariaError(
+        throw AriaLog.ariaThrow(
           AriaString.syntaxError,
           this.#sourceLine(),
           this.#buffer
@@ -690,7 +689,7 @@ export class Aria {
     root?: string
   ): AriaAst | undefined {
     if (typeof templatePath !== 'string') {
-      throw AriaLog.ariaError(AriaString.noTemplate)
+      throw AriaLog.ariaThrow(AriaString.noTemplate)
     }
 
     if (typeof root !== 'string') {
@@ -702,7 +701,7 @@ export class Aria {
     }
 
     if (!this.#pathExists(templatePath)) {
-      throw AriaLog.ariaError(AriaString.noTemplate)
+      throw AriaLog.ariaThrow(AriaString.noTemplate)
     }
 
     try {
@@ -746,15 +745,3 @@ export class Aria {
     }
   }
 }
-
-function handleUncaughtException(error: Error) {
-  if (error instanceof AriaError) {
-    AriaLog.textError(error.formatError())
-  } else {
-    AriaLog.textError(error)
-  }
-
-  process.exit(1)
-}
-
-process.on('uncaughtException', handleUncaughtException)
