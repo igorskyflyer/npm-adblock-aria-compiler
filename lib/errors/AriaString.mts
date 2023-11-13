@@ -167,4 +167,8 @@ export const AriaString = {
     id: '040',
     message: 'A template file cannot implement itself.',
   },
+  implementNotFound: {
+    id: '041',
+    message: 'The referenced template file to implement cannot be found.',
+  },
 } as const
