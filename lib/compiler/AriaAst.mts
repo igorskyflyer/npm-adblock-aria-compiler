@@ -341,12 +341,12 @@ export class AriaAst {
 
           try {
             if (typeof path === 'string') {
-              const templatePath: string = this.#applyRoot(path)
+              const finalPath: string = this.#applyRoot(path)
 
-              if (this.#pathExists(templatePath)) {
+              if (this.#pathExists(finalPath)) {
                 const instance: Aria = new Aria({})
                 const parsed: AriaAst | undefined = instance.parseFile(
-                  templatePath as AriaTemplatePath
+                  finalPath as AriaTemplatePath
                 )
 
                 if (parsed) {
@@ -357,6 +357,8 @@ export class AriaAst {
                     ])
                   )
                 }
+              } else {
+                throw AriaLog.ariaError(AriaString.implementNotFound)
               }
             }
           } catch {}
