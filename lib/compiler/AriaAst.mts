@@ -358,7 +358,7 @@ export class AriaAst {
                   )
                 }
               } else {
-                throw AriaLog.ariaThrow(AriaString.implementNotFound)
+                throw AriaLog.ariaThrow(AriaString.implementNotFound, node.line)
               }
             }
           } catch {}
