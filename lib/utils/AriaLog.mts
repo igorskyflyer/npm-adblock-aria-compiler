@@ -49,12 +49,13 @@ export class AriaLog {
     this.log()
   }
 
-  static ariaError(
+  static ariaThrow(
     info: IAriaMessageData,
     lineCursor: number = -1,
     ...args: any[]
   ): AriaError {
-    return new AriaError(info, lineCursor, ...args)
+    AriaLog.textError(new AriaError(info, lineCursor, ...args).formatError())
+    process.exit(1)
   }
 
   static formatChanges(before: number, after: number): string {
