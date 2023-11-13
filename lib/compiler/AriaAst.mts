@@ -137,7 +137,7 @@ export class AriaAst {
       const previous: IAriaNode | undefined = this.nodes.at(-1)
 
       if (previous && !canAddNode(node, previous)) {
-        throw AriaLog.ariaError(
+        throw AriaLog.ariaThrow(
           AriaString.syntaxOrder,
           sourceline,
           getKeywordFromType(node.type),
@@ -253,7 +253,7 @@ export class AriaAst {
                 header = injectEntriesPlaceholder(header)
                 contents += this.#block(header)
               } else {
-                throw AriaLog.ariaError(
+                throw AriaLog.ariaThrow(
                   AriaString.headerRead,
                   -1,
                   resolve(path)
@@ -261,7 +261,7 @@ export class AriaAst {
               }
             }
           } catch {
-            throw AriaLog.ariaError(AriaString.headerRead, -1, path ?? 'N/A')
+            throw AriaLog.ariaThrow(AriaString.headerRead, -1, path ?? 'N/A')
           }
 
           break
@@ -326,11 +326,11 @@ export class AriaAst {
                 contents += filter
                 AriaLog.logNewline()
               } else {
-                throw AriaLog.ariaError(AriaString.filterNotFound, -1, path)
+                throw AriaLog.ariaThrow(AriaString.filterNotFound, -1, path)
               }
             }
           } catch {
-            throw AriaLog.ariaError(AriaString.filterRead, -1, path ?? 'N/A')
+            throw AriaLog.ariaThrow(AriaString.filterRead, -1, path ?? 'N/A')
           }
 
           break
@@ -358,7 +358,7 @@ export class AriaAst {
                   )
                 }
               } else {
-                throw AriaLog.ariaError(AriaString.implementNotFound)
+                throw AriaLog.ariaThrow(AriaString.implementNotFound)
               }
             }
           } catch {}
@@ -436,10 +436,10 @@ export class AriaAst {
                 )} to "${finalPath}".`
               )
             } else {
-              throw AriaLog.ariaError(AriaString.exportInvalid)
+              throw AriaLog.ariaThrow(AriaString.exportInvalid)
             }
           } catch {
-            throw AriaLog.ariaError(AriaString.exportUnsuccessful, -1, path)
+            throw AriaLog.ariaThrow(AriaString.exportUnsuccessful, -1, path)
           }
 
           break
