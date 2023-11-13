@@ -163,4 +163,8 @@ export const AriaString = {
     id: '039',
     message: 'Only 1 implement can exist per template.',
   },
+  recursiveImplement: {
+    id: '040',
+    message: 'A template file cannot implement itself.',
+  },
 } as const
