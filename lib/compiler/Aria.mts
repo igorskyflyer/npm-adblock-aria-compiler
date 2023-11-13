@@ -316,6 +316,10 @@ export class Aria {
     const statement: IAriaStatement = this.#parseString(true)
     const path: string = statement.value
 
+    if (resolve(path) === resolve(this.#ast.templatePath)) {
+      throw AriaLog.ariaError(AriaString.recursiveImplement, this.#sourceLine())
+    }
+
     this.#ast.addNode(
       this.#node(AriaNodeType.nodeImplement, path),
       this.#sourceLine()
@@ -405,6 +409,7 @@ export class Aria {
     return true
   }
 
+  // @ts-ignore
   #reset(): void {
     this.#source = ''
     this.#line = ''
@@ -467,7 +472,7 @@ export class Aria {
   }
 
   parse(source: string): AriaAst {
-    this.#reset()
+    // this.#reset()
     this.#source = new NormalizedString(source).value
 
     const lines: string[] = this.#source.trimEnd().split(/\n/gm)
@@ -705,10 +710,19 @@ export class Aria {
       AriaLog.text(`Resolved root directory: ${resolve(root)}`)
       AriaLog.text(`Resolved template: ${resolve(templatePath)}`)
 
+      this.#ast.root = root
+      this.#ast.templatePath = templatePath
+
       const metaPath: string = getMetaPath(templatePath) as string
 
       if (hasMetaFile(templatePath)) {
         AriaLog.text(`Resolved external meta: ${resolve(metaPath)}`)
+
+        const meta: IAriaMeta | null = parseExternalMeta(templatePath)
+
+        if (meta != null) {
+          this.#ast.meta = meta
+        }
       } else {
         AriaLog.text(`Resolved external meta: N/A`)
         AriaLog.newline()
@@ -725,15 +739,6 @@ export class Aria {
       const template: string = readFileSync(templatePath, { encoding: 'utf-8' })
 
       this.parse(template)
-
-      const meta: IAriaMeta | null = parseExternalMeta(templatePath)
-
-      if (meta != null) {
-        this.#ast.meta = meta
-      }
-
-      this.#ast.root = root
-      this.#ast.templatePath = templatePath
 
       return this.#ast
     } catch (e: any) {
