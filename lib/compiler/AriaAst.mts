@@ -344,7 +344,7 @@ export class AriaAst {
               const finalPath: string = this.#applyRoot(path)
 
               if (this.#pathExists(finalPath)) {
-                const instance: Aria = new Aria({})
+                const instance: Aria = new Aria({ shouldLog: false })
                 const parsed: AriaAst | undefined = instance.parseFile(
                   finalPath as AriaTemplatePath
                 )
