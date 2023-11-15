@@ -159,6 +159,8 @@ export class AriaAst {
       }
     }
 
+    node.index = this.#nodesCount
+
     this.#nodes.push(node)
     this.#nodesCount++
   }
@@ -214,7 +216,7 @@ export class AriaAst {
     perf.startProfiling()
 
     for (let i = 0; i < this.#nodesCount; i++) {
-      const node = this.#nodes[i]
+      const node: IAriaNode = this.#nodes[i]
 
       switch (node.type) {
         case AriaNodeType.nodeNewLine: {
