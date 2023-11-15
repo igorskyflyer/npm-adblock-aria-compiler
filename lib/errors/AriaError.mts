@@ -1,6 +1,6 @@
 import { zing } from '@igor.dvlpr/zing'
-import { IAriaMessageData } from './IAriaMessageData.mjs'
 import chalk from 'chalk'
+import { IAriaMessageData } from './IAriaMessageData.mjs'
 
 export class AriaError extends Error {
   #name: string
