@@ -6,4 +6,5 @@ export interface IAriaNode {
   line: number
   value?: string
   actions?: IAriaAction[]
+  index: number
 }
