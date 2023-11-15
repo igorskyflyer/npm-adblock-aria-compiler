@@ -76,6 +76,7 @@ export class Aria {
     const node: IAriaNode = {
       type,
       line: this.#sourceLine(),
+      index: -1,
     }
 
     if (typeof value === 'string') {
@@ -493,6 +494,8 @@ export class Aria {
         break
       }
 
+      let skipLine: boolean = false
+
       this.#line = lines[this.#lineCursor]
       this.#buffer = ''
 
@@ -516,6 +519,10 @@ export class Aria {
         this.#cursorInLine < this.#lineLength;
         this.#cursorInLine++
       ) {
+        if (skipLine) {
+          break
+        }
+
         if (
           this.#buffer.length === MINIMUM_IDENTIFIER_LENGTH &&
           !minimumIdentifier.includes(this.#buffer)
@@ -546,127 +553,129 @@ export class Aria {
 
         this.#buffer += this.#char
 
-        if (this.#buffer === AriaKeywords.headerImport) {
-          this.#validateStatement()
+        switch (this.#buffer) {
+          case AriaKeywords.headerImport: {
+            this.#validateStatement()
 
-          AriaLog.log(AriaString.nodeLogHeader.message)
-          AriaLog.logNewline()
+            AriaLog.log(AriaString.nodeLogHeader.message)
+            AriaLog.logNewline()
 
-          this.#parseHeaderImport()
-          break
-        }
-
-        if (this.#buffer === AriaKeywords.meta) {
-          this.#validateStatement()
-
-          AriaLog.log(AriaString.nodeLogMeta.message)
-          AriaLog.logNewline()
-
-          this.#parseMeta()
-
-          if (this.#ast.getNodes(AriaNodeType.nodeMeta).length === 1) {
-            AriaLog.textInfo(
-              'Detected inline meta, header and external metadata will be overridden.'
-            )
-            AriaLog.newline()
+            this.#parseHeaderImport()
+            break
           }
-          break
-        }
 
-        if (this.#buffer === AriaKeywords.include) {
-          this.#validateStatement()
+          case AriaKeywords.meta: {
+            this.#validateStatement()
 
-          AriaLog.log(AriaString.nodeLogInclude.message)
-          AriaLog.logNewline()
+            AriaLog.log(AriaString.nodeLogMeta.message)
+            AriaLog.logNewline()
 
-          this.#parseInclude()
-          break
-        }
+            this.#parseMeta()
 
-        if (this.#buffer === AriaKeywords.import) {
-          this.#validateStatement()
+            if (this.#ast.getNodes(AriaNodeType.nodeMeta).length === 1) {
+              AriaLog.textInfo(
+                'Detected inline meta, header and external metadata will be overridden.'
+              )
+              AriaLog.newline()
+            }
+            break
+          }
 
-          AriaLog.log(AriaString.nodeLogImport.message)
-          AriaLog.logNewline()
+          case AriaKeywords.include: {
+            this.#validateStatement()
 
-          this.#parseInclude(true)
-          break
-        }
+            AriaLog.log(AriaString.nodeLogInclude.message)
+            AriaLog.logNewline()
 
-        if (this.#buffer === AriaKeywords.implement) {
-          this.#validateStatement()
+            this.#parseInclude()
+            break
+          }
 
-          if (this.#ast.state.hasImplement) {
-            throw AriaLog.ariaThrow(
-              AriaString.oneImplementOnly,
+          case AriaKeywords.import: {
+            this.#validateStatement()
+
+            AriaLog.log(AriaString.nodeLogImport.message)
+            AriaLog.logNewline()
+
+            this.#parseInclude(true)
+            break
+          }
+
+          case AriaKeywords.implement: {
+            this.#validateStatement()
+
+            if (this.#ast.state.hasImplement) {
+              throw AriaLog.ariaThrow(
+                AriaString.oneImplementOnly,
+                this.#sourceLine()
+              )
+            }
+
+            AriaLog.log(AriaString.nodeLogImplement.message)
+            AriaLog.logNewline()
+
+            this.#parseImplement()
+            break
+          }
+
+          case AriaKeywords.newLine: {
+            this.#validateStatement()
+
+            this.#ast.addNode(
+              this.#node(AriaNodeType.nodeNewLine),
               this.#sourceLine()
             )
+
+            AriaLog.log(AriaString.nodeLogNewline.message)
+            AriaLog.logNewline()
+
+            break
           }
 
-          AriaLog.log(AriaString.nodeLogImplement.message)
-          AriaLog.logNewline()
-
-          this.#parseImplement()
-          break
-        }
-
-        if (this.#buffer === AriaKeywords.newLine) {
-          this.#validateStatement()
-
-          this.#ast.addNode(
-            this.#node(AriaNodeType.nodeNewLine),
-            this.#sourceLine()
-          )
-
-          AriaLog.log(AriaString.nodeLogNewline.message)
-          AriaLog.logNewline()
-
-          break
-        }
-
-        if (this.#buffer === AriaKeywords.commentInternal) {
-          this.#foundKeyword = true
-
-          AriaLog.log(AriaString.nodeLogInternalComment.message)
-          AriaLog.logNewline()
-
-          break
-        }
-
-        if (this.#buffer === AriaKeywords.commentExported) {
-          AriaLog.log(AriaString.nodeLogExportedComment.message)
-          AriaLog.logNewline()
-
-          this.#parseComment()
-          break
-        }
-
-        if (this.#buffer === AriaKeywords.tag) {
-          this.#validateStatement()
-
-          AriaLog.log(AriaString.nodeLogTag.message)
-          AriaLog.logNewline()
-
-          this.#parseTag()
-          break
-        }
-
-        if (this.#buffer === AriaKeywords.export) {
-          this.#validateStatement()
-
-          if (this.#ast.state.exports.length === 1) {
-            throw AriaLog.ariaThrow(
-              AriaString.oneExportOnly,
-              this.#sourceLine()
-            )
+          case AriaKeywords.commentInternal: {
+            this.#foundKeyword = true
+            AriaLog.log(AriaString.nodeLogInternalComment.message)
+            AriaLog.logNewline()
+            skipLine = true
+            break
           }
 
-          AriaLog.log(AriaString.nodeLogExport.message)
-          AriaLog.logNewline()
+          case AriaKeywords.commentExported: {
+            AriaLog.log(AriaString.nodeLogExportedComment.message)
+            AriaLog.logNewline()
 
-          this.#parseExport()
-          this.#shouldParse = false
-          break
+            this.#parseComment()
+            skipLine = true
+            break
+          }
+
+          case AriaKeywords.tag: {
+            this.#validateStatement()
+
+            AriaLog.log(AriaString.nodeLogTag.message)
+            AriaLog.logNewline()
+
+            this.#parseTag()
+            break
+          }
+
+          case AriaKeywords.export: {
+            this.#validateStatement()
+
+            if (this.#ast.state.exports.length === 1) {
+              throw AriaLog.ariaThrow(
+                AriaString.oneExportOnly,
+                this.#sourceLine()
+              )
+            }
+
+            AriaLog.log(AriaString.nodeLogExport.message)
+            AriaLog.logNewline()
+
+            this.#parseExport()
+            this.#shouldParse = false
+            break
+          }
         }
       }
 
