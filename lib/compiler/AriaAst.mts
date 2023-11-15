@@ -450,7 +450,7 @@ export class AriaAst {
     const time: string = perf.endProfiling()
 
     AriaLog.newline()
-    AriaLog.text(chalk.dim(`🚀 Finished in ${time} 💫`))
+    AriaLog.text(chalk.dim(`🚀 Compiled in ${time} 💫`))
 
     return true
   }
