@@ -7,7 +7,7 @@ import { Command, Option } from 'commander'
 import figlet from 'figlet'
 import { exit } from 'process'
 import { Aria } from '../lib/compiler/Aria.mjs'
-import { AriaString } from '../lib/errors/AriaString.mjs'
+import { AriaErrorString } from '../lib/errors/AriaErrorString.mjs'
 import { AriaAstParsed } from '../lib/models/AriaAstParsed.mjs'
 import { IAriaCliArgs } from '../lib/models/IAriaCliArgs.mjs'
 import { isArgsEmpty } from '../lib/utils/AriaCliUtil.mjs'
@@ -45,7 +45,7 @@ const cliArgs: IAriaCliArgs = program.opts()
 
 if (typeof cliArgs.file !== 'string' || cliArgs.file.length === 0) {
   if (!isArgsEmpty(cliArgs)) {
-    throw AriaLog.ariaThrow(AriaString.templateMissing)
+    throw AriaLog.ariaThrow(AriaErrorString.templateMissing)
   } else {
     program.help()
     exit(0)
