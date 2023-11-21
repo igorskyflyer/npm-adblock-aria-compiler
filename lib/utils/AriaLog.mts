@@ -3,11 +3,28 @@ import chalk from 'chalk'
 import { AriaError } from '../errors/AriaError.mjs'
 import { AriaString, AriaStringType } from '../errors/AriaString.mjs'
 import { IAriaMessageData } from '../errors/IAriaMessageData.mjs'
+import {
+  ARIA_UI_BG_ERROR_BG,
+  ARIA_UI_BG_INFORMATION_BG,
+  ARIA_UI_BG_SUCCESS_BG,
+  ARIA_UI_BG_WARNING_BG
+} from './AriaUi.mjs'
 
-type PrintableMessage = AriaStringType | string | any
+type InternalMessage = AriaStringType | string
+type UnwrappedMessage = string | null
 
 export class AriaLog {
   static shouldLog: boolean = false
+
+  private static unwrapMessage(data: InternalMessage): UnwrappedMessage {
+    if (typeof data === 'string') {
+      return data
+    } else if ('message' in data) {
+      return data.message
+    } else {
+      return null
+    }
+  }
 
   static log(message: any = '', ...rest: any[]): void {
     if (this.shouldLog) {
@@ -15,51 +32,50 @@ export class AriaLog {
     }
   }
 
-  static text(data: PrintableMessage = '', ...rest: any[]): void {
-    if (typeof data === 'string') {
-      console.log(zing(data, ...rest))
-    } else if ('message' in data) {
-      console.log(zing(data.message, ...rest))
+  static text(data: InternalMessage = '', ...rest: any[]): void {
+    const message: UnwrappedMessage = this.unwrapMessage(data)
+
+    if (message !== null) {
+      console.log(zing(message, ...rest))
     } else {
       console.log(data)
     }
   }
 
-  static warning(data: PrintableMessage, ...rest: any[]): void {
-    let warningMessage: string
+  static warning(data: InternalMessage, ...rest: any[]): void {
+    let message: UnwrappedMessage = this.unwrapMessage(data)
 
-    if (typeof data === 'string') {
-      warningMessage = data
-    } else if ('message' in data) {
-      warningMessage = data.message
+    if (message !== null) {
+      message = zing(message, ...rest)
     } else {
-      console.warn(
-        `${chalk.bgHex('#EE9A4D').bold(' WARNING ')} ${chalk.dim(data)}`
-      )
-      return
+      message = data as string
     }
 
     console.warn(
-      `${chalk.bgHex('#EE9A4D').bold(' WARNING ')} ${chalk.dim(
-        zing(warningMessage, ...rest)
+      `${chalk.bgHex(ARIA_UI_BG_WARNING_BG).bold(' WARNING ')} ${chalk.dim(
+        message
       )}`
     )
   }
 
   static textInfo(message: any, ...rest: any[]): void {
     console.warn(
-      `${chalk.bgHex('#728FCE').bold(' INFO ')} ${chalk.dim(
+      `${chalk.bgHex(ARIA_UI_BG_INFORMATION_BG).bold(' INFO ')} ${chalk.dim(
         zing(message, ...rest)
       )}`
     )
   }
 
   static textError(message: any): void {
-    console.error(`${chalk.bgHex('#8B0000').bold(' ERROR ')} ${message}`)
+    console.error(
+      `${chalk.bgHex(ARIA_UI_BG_ERROR_BG).bold(' ERROR ')} ${message}`
+    )
   }
 
   static textSuccess(message: any): void {
-    console.log(`${chalk.bgHex('#008000').bold(' SUCCESS ')} ${message}`)
+    console.log(
+      `${chalk.bgHex(ARIA_UI_BG_SUCCESS_BG).bold(' SUCCESS ')} ${message}`
+    )
   }
 
   static newline(): void {
