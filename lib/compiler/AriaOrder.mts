@@ -10,7 +10,7 @@ export const AriaOrder = {
   'Aria.Include': ['Aria.Implement', 'Aria.Header', 'Aria.Meta'],
   'Aria.Import': ['Aria.Implement', 'Aria.Header', 'Aria.Meta'],
   'Aria.Implement': ['Aria.Implement'],
-  'Aria.Export': null,
+  'Aria.Export': null
 } as const
 
 export function canAddNode(current: IAriaNode, previous: IAriaNode): boolean {
