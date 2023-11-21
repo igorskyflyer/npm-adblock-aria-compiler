@@ -188,5 +188,9 @@ export const AriaString = {
   resolvedMetaFile: {
     id: '044',
     message: 'Resolved root directory: {0}'
+  },
+  resolvedTemplate: {
+    id: '045',
+    message: 'Resolved template: {0}'
   }
 } as const
