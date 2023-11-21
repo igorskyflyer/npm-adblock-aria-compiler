@@ -210,7 +210,7 @@ export class Aria {
               )
             } else {
               AriaLog.warning(
-                AriaErrorString.actionTrailingComma.message,
+                AriaErrorString.actionTrailingComma,
                 this.#sourceLine()
               )
               AriaLog.newline()
@@ -371,11 +371,7 @@ export class Aria {
     } else {
       this.#foundKeyword = true
 
-      AriaLog.warning(
-        AriaErrorString.includedAlready.message,
-        path,
-        this.#sourceLine()
-      )
+      AriaLog.warning(AriaErrorString.includedAlready, path, this.#sourceLine())
       AriaLog.newline()
     }
 
@@ -751,7 +747,7 @@ export class Aria {
         AriaLog.text(AriaErrorString.resolvedMeta, 'N/A')
         AriaLog.newline()
         AriaLog.info(
-          AriaErrorString.metaFileRecommendation.message,
+          AriaErrorString.metaFileRecommendation,
           parse(metaPath).base
         )
         AriaLog.newline()
