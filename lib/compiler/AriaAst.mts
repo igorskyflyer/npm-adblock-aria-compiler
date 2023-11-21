@@ -14,6 +14,7 @@ import { IAriaMeta } from '../models/IAriaMeta.mjs'
 import { IAriaNode } from '../models/IAriaNode.mjs'
 import { IAriaState } from '../models/IAriaState.mjs'
 import { IAriaVar } from '../models/IAriaVar.mjs'
+import { ARIA_CODE_LINE_FEED } from '../utils/AriaConst.mjs'
 import { AriaLog } from '../utils/AriaLog.mjs'
 import { AriaPerformance } from '../utils/AriaPerformance.mjs'
 import { applyTransform } from '../utils/AriaTransform.mjs'
@@ -25,9 +26,8 @@ import {
   injectEntriesPlaceholder,
   injectVersionPlaceholder,
   replacePlaceholders,
-  transformHeader,
+  transformHeader
 } from '../utils/AriaVersioning.mjs'
-import { Aria } from './Aria.mjs'
 import { getKeywordFromType } from './AriaKeywords.mjs'
 import { canAddNode } from './AriaOrder.mjs'
 
@@ -69,7 +69,7 @@ export class AriaAst {
       return ''
     }
 
-    if (value.charCodeAt(value.length - 1) !== 10) {
+    if (value.charCodeAt(value.length - 1) !== ARIA_CODE_LINE_FEED) {
       return `${value}\n`
     }
 
@@ -98,7 +98,7 @@ export class AriaAst {
     return u(join(this.root, filepath))
   }
 
-  #removeNodes(nodeTypes: AriaNodeType[]): IAriaNode[] {
+  removeNodes(nodeTypes: AriaNodeType[]): IAriaNode[] {
     return this.nodes.filter((current: IAriaNode) => {
       return !nodeTypes.includes(current.type)
     })
@@ -165,11 +165,17 @@ export class AriaAst {
     this.#nodesCount++
   }
 
-  public addNodes(nodes: IAriaNode[]): void {
+  public implementNodes(
+    target: IAriaNode,
+    nodes: IAriaNode[],
+    sourceline: number
+  ): void {
     const count: number = nodes.length
 
+    target.subnodes = new AriaAst()
+
     for (let i = 0; i < count; i++) {
-      this.addNode(nodes[i], -1)
+      target.subnodes.addNode(nodes[i], sourceline)
     }
   }
 
@@ -187,7 +193,7 @@ export class AriaAst {
 
       writeFileSync(path, JSON.stringify(this.#nodes), {
         encoding: 'utf8',
-        flag: 'w',
+        flag: 'w'
       })
       return true
     } catch {}
@@ -338,35 +344,35 @@ export class AriaAst {
           break
         }
 
-        case AriaNodeType.nodeImplement: {
-          const path: string | undefined = node.value
+        // case AriaNodeType.nodeImplement: {
+        //   // const path: string | undefined = node.value
 
-          try {
-            if (typeof path === 'string') {
-              const finalPath: string = this.#applyRoot(path)
+        //   // try {
+        //   //   if (typeof path === 'string') {
+        //   //     const finalPath: string = this.#applyRoot(path)
 
-              if (this.#pathExists(finalPath)) {
-                const instance: Aria = new Aria({ shouldLog: false })
-                const parsed: AriaAst | undefined = instance.parseFile(
-                  finalPath as AriaTemplatePath
-                )
+        //   //     if (this.#pathExists(finalPath)) {
+        //   //       const instance: Aria = new Aria({ shouldLog: false })
+        //   //       const parsed: AriaAst | undefined = instance.parseFile(
+        //   //         finalPath as AriaTemplatePath
+        //   //       )
 
-                if (parsed) {
-                  this.addNodes(
-                    parsed.#removeNodes([
-                      AriaNodeType.nodeExport,
-                      AriaNodeType.nodeImplement,
-                    ])
-                  )
-                }
-              } else {
-                throw AriaLog.ariaThrow(AriaString.implementNotFound, node.line)
-              }
-            }
-          } catch {}
+        //   //       if (parsed) {
+        //   //         this.addNodes(
+        //   //           parsed.removeNodes([
+        //   //             AriaNodeType.nodeExport,
+        //   //             AriaNodeType.nodeImplement,
+        //   //           ])
+        //   //         )
+        //   //       }
+        //   //     } else {
+        //   //       throw AriaLog.ariaThrow(AriaString.implementNotFound, node.line)
+        //   //     }
+        //   //   }
+        //   // } catch {}
 
-          break
-        }
+        //   break
+        // }
 
         case AriaNodeType.nodeExport: {
           const path: string | undefined = node.value
@@ -426,7 +432,7 @@ export class AriaAst {
 
               writeFileSync(finalPath, new NormalizedString(contents).value, {
                 encoding: 'utf8',
-                flag: 'w',
+                flag: 'w'
               })
 
               AriaLog.textSuccess(
