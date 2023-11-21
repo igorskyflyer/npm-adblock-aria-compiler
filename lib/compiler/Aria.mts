@@ -3,7 +3,7 @@ import { u } from '@igor.dvlpr/upath'
 import { accessSync, readFileSync } from 'fs'
 import { resolve } from 'node:path'
 import { isAbsolute, join, parse } from 'path'
-import { AriaString } from '../errors/AriaString.mjs'
+import { AriaErrorString } from '../errors/AriaErrorString.mjs'
 import { AriaAction } from '../models/AriaAction.mjs'
 import { AriaInlineMeta } from '../models/AriaInlineMeta.mjs'
 import { AriaNodeType } from '../models/AriaNodeType.mjs'
@@ -150,7 +150,7 @@ export class Aria {
           const probeAction: string = values[j].trim()
 
           if (this.#hasAction(result, probeAction)) {
-            AriaLog.warning(AriaString.actionDuplicate, probeAction)
+            AriaLog.warning(AriaErrorString.actionDuplicate, probeAction)
             AriaLog.newline()
             break
           }
@@ -168,7 +168,7 @@ export class Aria {
               if (!param) {
                 if (!action.defaultValue || action.defaultValue.length === 0) {
                   throw AriaLog.ariaThrow(
-                    AriaString.actionNoParam,
+                    AriaErrorString.actionNoParam,
                     this.#sourceLine(),
                     action.name
                   )
@@ -189,7 +189,7 @@ export class Aria {
                 } else {
                   // unknown value
                   throw AriaLog.ariaThrow(
-                    AriaString.actionInvalidParam,
+                    AriaErrorString.actionInvalidParam,
                     this.#sourceLine(),
                     action.name,
                     action.paramValues.toString()
@@ -204,13 +204,13 @@ export class Aria {
           } else {
             if (probeAction.length > 0) {
               throw AriaLog.ariaThrow(
-                AriaString.actionUnknownAction,
+                AriaErrorString.actionUnknownAction,
                 this.#sourceLine(),
                 probeAction
               )
             } else {
               AriaLog.warning(
-                AriaString.actionTrailingComma.message,
+                AriaErrorString.actionTrailingComma.message,
                 this.#sourceLine()
               )
               AriaLog.newline()
@@ -234,7 +234,7 @@ export class Aria {
           break
         } else {
           throw AriaLog.ariaThrow(
-            AriaString.extraneousInput,
+            AriaErrorString.extraneousInput,
             this.#sourceLine(),
             result.value
           )
@@ -248,7 +248,7 @@ export class Aria {
           shouldCapture = true
         } else {
           throw AriaLog.ariaThrow(
-            AriaString.expectedString,
+            AriaErrorString.expectedString,
             this.#sourceLine(),
             this.#char
           )
@@ -270,7 +270,10 @@ export class Aria {
     }
 
     if (!closedString) {
-      throw AriaLog.ariaThrow(AriaString.unterminatedString, this.#sourceLine())
+      throw AriaLog.ariaThrow(
+        AriaErrorString.unterminatedString,
+        this.#sourceLine()
+      )
     }
 
     return result
@@ -316,7 +319,10 @@ export class Aria {
     const path: string = statement.value
 
     if (resolve(path) === resolve(this.#ast.templatePath)) {
-      throw AriaLog.ariaThrow(AriaString.recursiveImplement, this.#sourceLine())
+      throw AriaLog.ariaThrow(
+        AriaErrorString.recursiveImplement,
+        this.#sourceLine()
+      )
     }
 
     const instance: Aria = new Aria({ shouldLog: false })
@@ -366,7 +372,7 @@ export class Aria {
       this.#foundKeyword = true
 
       AriaLog.warning(
-        AriaString.includedAlready.message,
+        AriaErrorString.includedAlready.message,
         path,
         this.#sourceLine()
       )
@@ -380,7 +386,10 @@ export class Aria {
     const inlineMeta: string[] = this.#line.split('=')
 
     if (inlineMeta.length < 2) {
-      throw AriaLog.ariaThrow(AriaString.metaInvalidValue, this.#sourceLine())
+      throw AriaLog.ariaThrow(
+        AriaErrorString.metaInvalidValue,
+        this.#sourceLine()
+      )
     }
 
     let metaProp: string = inlineMeta[0].replace(/^meta/i, '')
@@ -401,7 +410,7 @@ export class Aria {
       )
     } else {
       throw AriaLog.ariaThrow(
-        AriaString.metaInvalidProp,
+        AriaErrorString.metaInvalidProp,
         this.#sourceLine(),
         metaProp
       )
@@ -465,7 +474,7 @@ export class Aria {
       if (char === ' ' || char === '\t') {
         if (buffer.length > 0) {
           throw AriaLog.ariaThrow(
-            AriaString.syntaxError,
+            AriaErrorString.syntaxError,
             this.#sourceLine(),
             `${this.#buffer}${buffer}`
           )
@@ -499,7 +508,7 @@ export class Aria {
 
     while (this.#lineCursor < linesCount) {
       if (!this.#shouldParse) {
-        AriaLog.warning(AriaString.unreachableNodes, this.#lineCursor)
+        AriaLog.warning(AriaErrorString.unreachableNodes, this.#lineCursor)
         AriaLog.newline()
         break
       }
@@ -538,14 +547,14 @@ export class Aria {
           !minimumIdentifier.includes(this.#buffer)
         ) {
           throw AriaLog.ariaThrow(
-            AriaString.syntaxError,
+            AriaErrorString.syntaxError,
             this.#sourceLine(),
             this.#buffer
           )
         }
 
         if (this.#ast.state.exports.length === 1) {
-          AriaLog.warning(AriaString.unreachableNodes, this.#lineCursor)
+          AriaLog.warning(AriaErrorString.unreachableNodes, this.#lineCursor)
           AriaLog.newline()
 
           this.#shouldParse = false
@@ -564,7 +573,7 @@ export class Aria {
           case AriaKeywords.headerImport: {
             this.#validateStatement()
 
-            AriaLog.log(AriaString.nodeLogHeader)
+            AriaLog.log(AriaErrorString.nodeLogHeader)
             AriaLog.logNewline()
 
             this.#parseHeaderImport()
@@ -574,7 +583,7 @@ export class Aria {
           case AriaKeywords.meta: {
             this.#validateStatement()
 
-            AriaLog.log(AriaString.nodeLogMeta)
+            AriaLog.log(AriaErrorString.nodeLogMeta)
             AriaLog.logNewline()
 
             this.#parseMeta()
@@ -591,7 +600,7 @@ export class Aria {
           case AriaKeywords.include: {
             this.#validateStatement()
 
-            AriaLog.log(AriaString.nodeLogInclude)
+            AriaLog.log(AriaErrorString.nodeLogInclude)
             AriaLog.logNewline()
 
             this.#parseInclude()
@@ -601,7 +610,7 @@ export class Aria {
           case AriaKeywords.import: {
             this.#validateStatement()
 
-            AriaLog.log(AriaString.nodeLogImport)
+            AriaLog.log(AriaErrorString.nodeLogImport)
             AriaLog.logNewline()
 
             this.#parseInclude(true)
@@ -613,12 +622,12 @@ export class Aria {
 
             if (this.#ast.state.hasImplement) {
               throw AriaLog.ariaThrow(
-                AriaString.oneImplementOnly,
+                AriaErrorString.oneImplementOnly,
                 this.#sourceLine()
               )
             }
 
-            AriaLog.log(AriaString.nodeLogImplement)
+            AriaLog.log(AriaErrorString.nodeLogImplement)
             AriaLog.logNewline()
 
             this.#parseImplement()
@@ -633,7 +642,7 @@ export class Aria {
               this.#sourceLine()
             )
 
-            AriaLog.log(AriaString.nodeLogNewline)
+            AriaLog.log(AriaErrorString.nodeLogNewline)
             AriaLog.logNewline()
 
             break
@@ -641,14 +650,14 @@ export class Aria {
 
           case AriaKeywords.commentInternal: {
             this.#foundKeyword = true
-            AriaLog.log(AriaString.nodeLogInternalComment)
+            AriaLog.log(AriaErrorString.nodeLogInternalComment)
             AriaLog.logNewline()
             skipLine = true
             break
           }
 
           case AriaKeywords.commentExported: {
-            AriaLog.log(AriaString.nodeLogExportedComment)
+            AriaLog.log(AriaErrorString.nodeLogExportedComment)
             AriaLog.logNewline()
 
             this.#parseComment()
@@ -659,7 +668,7 @@ export class Aria {
           case AriaKeywords.tag: {
             this.#validateStatement()
 
-            AriaLog.log(AriaString.nodeLogTag)
+            AriaLog.log(AriaErrorString.nodeLogTag)
             AriaLog.logNewline()
 
             this.#parseTag()
@@ -671,12 +680,12 @@ export class Aria {
 
             if (this.#ast.state.exports.length === 1) {
               throw AriaLog.ariaThrow(
-                AriaString.oneExportOnly,
+                AriaErrorString.oneExportOnly,
                 this.#sourceLine()
               )
             }
 
-            AriaLog.log(AriaString.nodeLogExport)
+            AriaLog.log(AriaErrorString.nodeLogExport)
             AriaLog.logNewline()
 
             this.#parseExport()
@@ -688,7 +697,7 @@ export class Aria {
 
       if (!this.#foundKeyword) {
         throw AriaLog.ariaThrow(
-          AriaString.syntaxError,
+          AriaErrorString.syntaxError,
           this.#sourceLine(),
           this.#buffer
         )
@@ -705,7 +714,7 @@ export class Aria {
     root?: string
   ): AriaAst | undefined {
     if (typeof templatePath !== 'string') {
-      throw AriaLog.ariaThrow(AriaString.noTemplate)
+      throw AriaLog.ariaThrow(AriaErrorString.noTemplate)
     }
 
     if (typeof root !== 'string') {
@@ -717,12 +726,12 @@ export class Aria {
     }
 
     if (!this.#pathExists(templatePath)) {
-      throw AriaLog.ariaThrow(AriaString.noTemplate)
+      throw AriaLog.ariaThrow(AriaErrorString.noTemplate)
     }
 
     try {
       templatePath = u(templatePath) as AriaTemplatePath
-      AriaLog.text(AriaString.resolvedMetaFile, resolve(root))
+      AriaLog.text(AriaErrorString.resolvedMetaFile, resolve(root))
       AriaLog.text(resolve(templatePath))
 
       this.#ast.root = root
@@ -731,7 +740,7 @@ export class Aria {
       const metaPath: string = getMetaPath(templatePath) as string
 
       if (hasMetaFile(templatePath)) {
-        AriaLog.text(AriaString.resolvedMeta, resolve(metaPath))
+        AriaLog.text(AriaErrorString.resolvedMeta, resolve(metaPath))
 
         const meta: IAriaMeta | null = parseExternalMeta(templatePath)
 
@@ -739,10 +748,10 @@ export class Aria {
           this.#ast.meta = meta
         }
       } else {
-        AriaLog.text(AriaString.resolvedMeta, 'N/A')
+        AriaLog.text(AriaErrorString.resolvedMeta, 'N/A')
         AriaLog.newline()
         AriaLog.info(
-          AriaString.metaFileRecommendation.message,
+          AriaErrorString.metaFileRecommendation.message,
           parse(metaPath).base
         )
         AriaLog.newline()
