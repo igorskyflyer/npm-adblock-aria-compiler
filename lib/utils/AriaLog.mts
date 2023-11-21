@@ -1,7 +1,7 @@
 import { zing } from '@igor.dvlpr/zing'
 import chalk from 'chalk'
 import { AriaError } from '../errors/AriaError.mjs'
-import { AriaString } from '../errors/AriaString.mjs'
+import { AriaString, AriaStringType } from '../errors/AriaString.mjs'
 import { IAriaMessageData } from '../errors/IAriaMessageData.mjs'
 
 export class AriaLog {
@@ -13,8 +13,14 @@ export class AriaLog {
     }
   }
 
-  static text(text: any = '', ...rest: any[]): void {
-    console.log(zing(text, ...rest))
+  static text(data: string | AriaStringType | any = '', ...rest: any[]): void {
+    if (typeof data === 'string') {
+      console.log(zing(data, ...rest))
+    } else if ('message' in data) {
+      console.log(zing(data.message, ...rest))
+    } else {
+      console.log(data)
+    }
   }
 
   static textWarning(message: any, ...rest: any[]): void {
