@@ -37,12 +37,12 @@ export class AriaLog {
   }
 
   static text(data: MessageData = '', ...rest: any[]): void {
-    const message: UnwrappedMessage = this.unwrapMessage(data, rest)
+    const message: UnwrappedMessage = this.unwrapMessage(data, ...rest)
     console.log(message)
   }
 
   static warning(data: MessageData, ...rest: any[]): void {
-    const message: UnwrappedMessage = this.unwrapMessage(data, rest)
+    const message: UnwrappedMessage = this.unwrapMessage(data, ...rest)
 
     console.warn(
       `${chalk.bgHex(ARIA_UI_BG_WARNING_BG).bold(' WARNING ')} ${chalk.dim(
@@ -52,7 +52,7 @@ export class AriaLog {
   }
 
   static info(data: MessageData, ...rest: any[]): void {
-    const message: UnwrappedMessage = this.unwrapMessage(data, rest)
+    const message: UnwrappedMessage = this.unwrapMessage(data, ...rest)
 
     console.warn(
       `${chalk.bgHex(ARIA_UI_BG_INFORMATION_BG).bold(' INFO ')} ${chalk.dim(
@@ -62,7 +62,7 @@ export class AriaLog {
   }
 
   static error(data: MessageData, ...rest: any[]): void {
-    const message: UnwrappedMessage = this.unwrapMessage(data, rest)
+    const message: UnwrappedMessage = this.unwrapMessage(data, ...rest)
 
     console.error(
       `${chalk.bgHex(ARIA_UI_BG_ERROR_BG).bold(' ERROR ')} ${message}`
@@ -70,7 +70,7 @@ export class AriaLog {
   }
 
   static success(data: MessageData, ...rest: any[]): void {
-    const message: UnwrappedMessage = this.unwrapMessage(data, rest)
+    const message: UnwrappedMessage = this.unwrapMessage(data, ...rest)
 
     console.log(
       `${chalk.bgHex(ARIA_UI_BG_SUCCESS_BG).bold(' SUCCESS ')} ${message}`
