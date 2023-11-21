@@ -205,14 +205,14 @@ export class AriaAst {
     if (this.#nodesCount === 0) return true
 
     if (this.#state.exports.length === 0) {
-      AriaLog.error(AriaString.exportNotSpecified.message)
+      AriaLog.error(AriaString.exportNotSpecified)
       AriaLog.newline()
       AriaLog.text(AriaString.abortCompilation)
       return false
     }
 
     if (!this.#hasNode(AriaNodeType.nodeHeader)) {
-      AriaLog.warning(AriaString.headerMissing.message)
+      AriaLog.warning(AriaString.headerMissing)
       AriaLog.newline()
     }
 
