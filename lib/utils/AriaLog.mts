@@ -74,7 +74,7 @@ export class AriaLog {
     )
   }
 
-  static textError(data: InternalMessage, ...rest: any[]): void {
+  static error(data: InternalMessage, ...rest: any[]): void {
     let message: UnwrappedMessage = this.unwrapMessage(data)
 
     if (message !== null) {
@@ -107,7 +107,7 @@ export class AriaLog {
     lineCursor: number = -1,
     ...args: any[]
   ): AriaError {
-    AriaLog.textError(new AriaError(info, lineCursor, ...args).formatError())
+    AriaLog.error(new AriaError(info, lineCursor, ...args).formatError())
     process.exit(1)
   }
 
