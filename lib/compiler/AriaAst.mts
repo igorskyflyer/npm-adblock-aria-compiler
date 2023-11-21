@@ -212,7 +212,7 @@ export class AriaAst {
     }
 
     if (!this.#hasNode(AriaNodeType.nodeHeader)) {
-      AriaLog.textWarning(AriaString.headerMissing.message)
+      AriaLog.warning(AriaString.headerMissing.message)
       AriaLog.newline()
     }
 
