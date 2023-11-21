@@ -150,7 +150,7 @@ export class Aria {
           const probeAction: string = values[j].trim()
 
           if (this.#hasAction(result, probeAction)) {
-            AriaLog.textWarning(AriaString.actionDuplicate.message, probeAction)
+            AriaLog.warning(AriaString.actionDuplicate.message, probeAction)
             AriaLog.newline()
             break
           }
@@ -209,7 +209,7 @@ export class Aria {
                 probeAction
               )
             } else {
-              AriaLog.textWarning(
+              AriaLog.warning(
                 AriaString.actionTrailingComma.message,
                 this.#sourceLine()
               )
@@ -365,7 +365,7 @@ export class Aria {
     } else {
       this.#foundKeyword = true
 
-      AriaLog.textWarning(
+      AriaLog.warning(
         AriaString.includedAlready.message,
         path,
         this.#sourceLine()
@@ -499,10 +499,7 @@ export class Aria {
 
     while (this.#lineCursor < linesCount) {
       if (!this.#shouldParse) {
-        AriaLog.textWarning(
-          AriaString.unreachableNodes.message,
-          this.#lineCursor
-        )
+        AriaLog.warning(AriaString.unreachableNodes.message, this.#lineCursor)
         AriaLog.newline()
         break
       }
@@ -548,10 +545,7 @@ export class Aria {
         }
 
         if (this.#ast.state.exports.length === 1) {
-          AriaLog.textWarning(
-            AriaString.unreachableNodes.message,
-            this.#lineCursor
-          )
+          AriaLog.warning(AriaString.unreachableNodes.message, this.#lineCursor)
           AriaLog.newline()
 
           this.#shouldParse = false
