@@ -1,5 +1,7 @@
 import chalk from 'chalk'
 
+export type AriaStringType = keyof typeof AriaString
+
 export const AriaString = {
   native: {
     id: '000',
