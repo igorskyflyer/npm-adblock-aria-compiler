@@ -13,8 +13,8 @@ export class AriaLog {
     }
   }
 
-  static text(text: any = ''): void {
-    console.log(text)
+  static text(text: any = '', ...rest: any[]): void {
+    console.log(zing(text, ...rest))
   }
 
   static textWarning(message: any, ...rest: any[]): void {
