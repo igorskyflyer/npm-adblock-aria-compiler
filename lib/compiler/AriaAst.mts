@@ -4,6 +4,7 @@ import { u } from '@igor.dvlpr/upath'
 import chalk from 'chalk'
 import { accessSync, readFileSync, writeFileSync } from 'node:fs'
 import { isAbsolute, join, parse, resolve } from 'node:path'
+import { ARIA_UI_CODE_LINE_FEED } from '../constants/AriaUi.mjs'
 import { AriaErrorString } from '../errors/AriaErrorString.mjs'
 import { AriaAstPath } from '../models/AriaAstPath.mjs'
 import { AriaInlineMeta } from '../models/AriaInlineMeta.mjs'
@@ -14,7 +15,6 @@ import { IAriaMeta } from '../models/IAriaMeta.mjs'
 import { IAriaNode } from '../models/IAriaNode.mjs'
 import { IAriaState } from '../models/IAriaState.mjs'
 import { IAriaVar } from '../models/IAriaVar.mjs'
-import { ARIA_CODE_LINE_FEED } from '../utils/AriaConst.mjs'
 import { AriaLog } from '../utils/AriaLog.mjs'
 import { AriaPerformance } from '../utils/AriaPerformance.mjs'
 import { applyTransform } from '../utils/AriaTransform.mjs'
@@ -69,7 +69,7 @@ export class AriaAst {
       return ''
     }
 
-    if (value.charCodeAt(value.length - 1) !== ARIA_CODE_LINE_FEED) {
+    if (value.charCodeAt(value.length - 1) !== ARIA_UI_CODE_LINE_FEED) {
       return `${value}\n`
     }
 
