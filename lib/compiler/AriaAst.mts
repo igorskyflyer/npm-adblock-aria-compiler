@@ -435,7 +435,7 @@ export class AriaAst {
                 flag: 'w'
               })
 
-              AriaLog.textSuccess(
+              AriaLog.success(
                 `Written ${chalk.bold(
                   variables.entries
                 )} rules ${AriaLog.formatChanges(
