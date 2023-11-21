@@ -150,7 +150,7 @@ export class Aria {
           const probeAction: string = values[j].trim()
 
           if (this.#hasAction(result, probeAction)) {
-            AriaLog.warning(AriaString.actionDuplicate.message, probeAction)
+            AriaLog.warning(AriaString.actionDuplicate, probeAction)
             AriaLog.newline()
             break
           }
@@ -499,7 +499,7 @@ export class Aria {
 
     while (this.#lineCursor < linesCount) {
       if (!this.#shouldParse) {
-        AriaLog.warning(AriaString.unreachableNodes.message, this.#lineCursor)
+        AriaLog.warning(AriaString.unreachableNodes, this.#lineCursor)
         AriaLog.newline()
         break
       }
@@ -545,7 +545,7 @@ export class Aria {
         }
 
         if (this.#ast.state.exports.length === 1) {
-          AriaLog.warning(AriaString.unreachableNodes.message, this.#lineCursor)
+          AriaLog.warning(AriaString.unreachableNodes, this.#lineCursor)
           AriaLog.newline()
 
           this.#shouldParse = false
@@ -564,7 +564,7 @@ export class Aria {
           case AriaKeywords.headerImport: {
             this.#validateStatement()
 
-            AriaLog.log(AriaString.nodeLogHeader.message)
+            AriaLog.log(AriaString.nodeLogHeader)
             AriaLog.logNewline()
 
             this.#parseHeaderImport()
@@ -574,7 +574,7 @@ export class Aria {
           case AriaKeywords.meta: {
             this.#validateStatement()
 
-            AriaLog.log(AriaString.nodeLogMeta.message)
+            AriaLog.log(AriaString.nodeLogMeta)
             AriaLog.logNewline()
 
             this.#parseMeta()
@@ -591,7 +591,7 @@ export class Aria {
           case AriaKeywords.include: {
             this.#validateStatement()
 
-            AriaLog.log(AriaString.nodeLogInclude.message)
+            AriaLog.log(AriaString.nodeLogInclude)
             AriaLog.logNewline()
 
             this.#parseInclude()
@@ -601,7 +601,7 @@ export class Aria {
           case AriaKeywords.import: {
             this.#validateStatement()
 
-            AriaLog.log(AriaString.nodeLogImport.message)
+            AriaLog.log(AriaString.nodeLogImport)
             AriaLog.logNewline()
 
             this.#parseInclude(true)
@@ -618,7 +618,7 @@ export class Aria {
               )
             }
 
-            AriaLog.log(AriaString.nodeLogImplement.message)
+            AriaLog.log(AriaString.nodeLogImplement)
             AriaLog.logNewline()
 
             this.#parseImplement()
@@ -633,7 +633,7 @@ export class Aria {
               this.#sourceLine()
             )
 
-            AriaLog.log(AriaString.nodeLogNewline.message)
+            AriaLog.log(AriaString.nodeLogNewline)
             AriaLog.logNewline()
 
             break
@@ -641,14 +641,14 @@ export class Aria {
 
           case AriaKeywords.commentInternal: {
             this.#foundKeyword = true
-            AriaLog.log(AriaString.nodeLogInternalComment.message)
+            AriaLog.log(AriaString.nodeLogInternalComment)
             AriaLog.logNewline()
             skipLine = true
             break
           }
 
           case AriaKeywords.commentExported: {
-            AriaLog.log(AriaString.nodeLogExportedComment.message)
+            AriaLog.log(AriaString.nodeLogExportedComment)
             AriaLog.logNewline()
 
             this.#parseComment()
@@ -659,7 +659,7 @@ export class Aria {
           case AriaKeywords.tag: {
             this.#validateStatement()
 
-            AriaLog.log(AriaString.nodeLogTag.message)
+            AriaLog.log(AriaString.nodeLogTag)
             AriaLog.logNewline()
 
             this.#parseTag()
@@ -676,7 +676,7 @@ export class Aria {
               )
             }
 
-            AriaLog.log(AriaString.nodeLogExport.message)
+            AriaLog.log(AriaString.nodeLogExport)
             AriaLog.logNewline()
 
             this.#parseExport()
