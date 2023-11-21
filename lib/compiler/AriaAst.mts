@@ -318,7 +318,7 @@ export class AriaAst {
                     const transformName: string = action.name
 
                     AriaLog.log(
-                      AriaErrorString.actionApplying.message,
+                      AriaErrorString.actionApplying,
                       transformName,
                       path
                     )
