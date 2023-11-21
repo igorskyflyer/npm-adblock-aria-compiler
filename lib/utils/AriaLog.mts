@@ -1,15 +1,15 @@
 import { zing } from '@igor.dvlpr/zing'
 import chalk from 'chalk'
-import { AriaError } from '../errors/AriaError.mjs'
-import { AriaErrorString } from '../errors/AriaErrorString.mjs'
-import { IAriaMessageData } from '../errors/IAriaMessageData.mjs'
-import { AriaStringType } from '../models/AriaStringType.mjs'
 import {
   ARIA_UI_BG_ERROR_BG,
   ARIA_UI_BG_INFORMATION_BG,
   ARIA_UI_BG_SUCCESS_BG,
   ARIA_UI_BG_WARNING_BG
-} from './AriaUi.mjs'
+} from '../constants/AriaUi.mjs'
+import { AriaError } from '../errors/AriaError.mjs'
+import { AriaErrorString } from '../errors/AriaErrorString.mjs'
+import { IAriaMessageData } from '../errors/IAriaMessageData.mjs'
+import { AriaStringType } from '../models/AriaStringType.mjs'
 
 type MessageData = AriaStringType | string | Array<any>
 type UnwrappedMessage = string | Array<any>
