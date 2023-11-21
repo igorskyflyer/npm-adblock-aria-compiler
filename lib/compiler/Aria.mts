@@ -737,7 +737,7 @@ export class Aria {
       const metaPath: string = getMetaPath(templatePath) as string
 
       if (hasMetaFile(templatePath)) {
-        AriaLog.text(AriaString.resolvedMeta.message, resolve(metaPath))
+        AriaLog.text(AriaString.resolvedMeta, resolve(metaPath))
 
         const meta: IAriaMeta | null = parseExternalMeta(templatePath)
 
@@ -745,7 +745,7 @@ export class Aria {
           this.#ast.meta = meta
         }
       } else {
-        AriaLog.text(AriaString.resolvedMeta.message, 'N/A')
+        AriaLog.text(AriaString.resolvedMeta, 'N/A')
         AriaLog.newline()
         AriaLog.textInfo(
           AriaString.metaFileRecommendation.message,
