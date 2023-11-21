@@ -10,46 +10,38 @@ import {
   ARIA_UI_BG_WARNING_BG
 } from './AriaUi.mjs'
 
-type InternalMessage = AriaStringType | string
-type UnwrappedMessage = string | null
+type MessageData = AriaStringType | string | Array<any>
+type UnwrappedMessage = string | Array<any>
 
 export class AriaLog {
   static shouldLog: boolean = false
 
-  private static unwrapMessage(data: InternalMessage): UnwrappedMessage {
+  private static unwrapMessage(
+    data: MessageData,
+    ...rest: any[]
+  ): UnwrappedMessage {
     if (typeof data === 'string') {
       return data
     } else if ('message' in data) {
-      return data.message
+      return zing(data.message, ...rest)
     } else {
-      return null
+      return data
     }
   }
 
-  static log(message: any = '', ...rest: any[]): void {
+  static log(data: MessageData = '', ...rest: any[]): void {
     if (this.shouldLog) {
-      console.log(zing(message, ...rest))
+      this.text(data, rest)
     }
   }
 
-  static text(data: InternalMessage = '', ...rest: any[]): void {
-    const message: UnwrappedMessage = this.unwrapMessage(data)
-
-    if (message !== null) {
-      console.log(zing(message, ...rest))
-    } else {
-      console.log(data)
-    }
+  static text(data: MessageData = '', ...rest: any[]): void {
+    const message: UnwrappedMessage = this.unwrapMessage(data, rest)
+    console.log(message)
   }
 
-  static warning(data: InternalMessage, ...rest: any[]): void {
-    let message: UnwrappedMessage = this.unwrapMessage(data)
-
-    if (message !== null) {
-      message = zing(message, ...rest)
-    } else {
-      message = data as string
-    }
+  static warning(data: MessageData, ...rest: any[]): void {
+    const message: UnwrappedMessage = this.unwrapMessage(data, rest)
 
     console.warn(
       `${chalk.bgHex(ARIA_UI_BG_WARNING_BG).bold(' WARNING ')} ${chalk.dim(
@@ -58,14 +50,8 @@ export class AriaLog {
     )
   }
 
-  static info(data: InternalMessage, ...rest: any[]): void {
-    let message: UnwrappedMessage = this.unwrapMessage(data)
-
-    if (message !== null) {
-      message = zing(message, ...rest)
-    } else {
-      message = data as string
-    }
+  static info(data: MessageData, ...rest: any[]): void {
+    const message: UnwrappedMessage = this.unwrapMessage(data, rest)
 
     console.warn(
       `${chalk.bgHex(ARIA_UI_BG_INFORMATION_BG).bold(' INFO ')} ${chalk.dim(
@@ -74,28 +60,16 @@ export class AriaLog {
     )
   }
 
-  static error(data: InternalMessage, ...rest: any[]): void {
-    let message: UnwrappedMessage = this.unwrapMessage(data)
-
-    if (message !== null) {
-      message = zing(message, ...rest)
-    } else {
-      message = data as string
-    }
+  static error(data: MessageData, ...rest: any[]): void {
+    const message: UnwrappedMessage = this.unwrapMessage(data, rest)
 
     console.error(
       `${chalk.bgHex(ARIA_UI_BG_ERROR_BG).bold(' ERROR ')} ${message}`
     )
   }
 
-  static success(data: InternalMessage, ...rest: any[]): void {
-    let message: UnwrappedMessage = this.unwrapMessage(data)
-
-    if (message !== null) {
-      message = zing(message, ...rest)
-    } else {
-      message = data as string
-    }
+  static success(data: MessageData, ...rest: any[]): void {
+    const message: UnwrappedMessage = this.unwrapMessage(data, rest)
 
     console.log(
       `${chalk.bgHex(ARIA_UI_BG_SUCCESS_BG).bold(' SUCCESS ')} ${message}`
@@ -115,7 +89,7 @@ export class AriaLog {
     lineCursor: number = -1,
     ...args: any[]
   ): AriaError {
-    AriaLog.error(new AriaError(info, lineCursor, ...args).formatError())
+    this.error(new AriaError(info, lineCursor, ...args).formatError())
     process.exit(1)
   }
 
