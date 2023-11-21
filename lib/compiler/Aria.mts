@@ -728,7 +728,7 @@ export class Aria {
 
     try {
       templatePath = u(templatePath) as AriaTemplatePath
-      AriaLog.text(AriaString.resolvedMetaFile.message, resolve(root))
+      AriaLog.text(AriaString.resolvedMetaFile, resolve(root))
       AriaLog.text(resolve(templatePath))
 
       this.#ast.root = root
