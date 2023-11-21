@@ -58,7 +58,7 @@ export class AriaLog {
     )
   }
 
-  static textInfo(data: InternalMessage, ...rest: any[]): void {
+  static info(data: InternalMessage, ...rest: any[]): void {
     let message: UnwrappedMessage = this.unwrapMessage(data)
 
     if (message !== null) {
