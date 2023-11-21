@@ -205,7 +205,7 @@ export class AriaAst {
     if (this.#nodesCount === 0) return true
 
     if (this.#state.exports.length === 0) {
-      AriaLog.textError(AriaString.exportNotSpecified.message)
+      AriaLog.error(AriaString.exportNotSpecified.message)
       AriaLog.newline()
       AriaLog.text(AriaString.abortCompilation)
       return false
