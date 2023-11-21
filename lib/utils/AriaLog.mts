@@ -9,8 +9,9 @@ import {
 import { AriaError } from '../errors/AriaError.mjs'
 import { AriaErrorString } from '../errors/AriaErrorString.mjs'
 import { IAriaMessageData } from '../errors/IAriaMessageData.mjs'
+import { IAriaNode } from '../models/IAriaNode.mjs'
 
-type MessageData = IAriaMessageData | string | Array<any>
+type MessageData = IAriaMessageData | string | Array<IAriaNode>
 type UnwrappedMessage = string | Array<any>
 
 export class AriaLog {
