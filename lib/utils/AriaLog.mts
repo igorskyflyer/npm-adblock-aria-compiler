@@ -88,7 +88,7 @@ export class AriaLog {
     )
   }
 
-  static textSuccess(data: InternalMessage, ...rest: any[]): void {
+  static success(data: InternalMessage, ...rest: any[]): void {
     let message: UnwrappedMessage = this.unwrapMessage(data)
 
     if (message !== null) {
