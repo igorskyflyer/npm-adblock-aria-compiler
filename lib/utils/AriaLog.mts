@@ -88,7 +88,15 @@ export class AriaLog {
     )
   }
 
-  static textSuccess(message: any): void {
+  static textSuccess(data: InternalMessage, ...rest: any[]): void {
+    let message: UnwrappedMessage = this.unwrapMessage(data)
+
+    if (message !== null) {
+      message = zing(message, ...rest)
+    } else {
+      message = data as string
+    }
+
     console.log(
       `${chalk.bgHex(ARIA_UI_BG_SUCCESS_BG).bold(' SUCCESS ')} ${message}`
     )
