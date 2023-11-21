@@ -580,7 +580,7 @@ export class Aria {
             this.#parseMeta()
 
             if (this.#ast.getNodes(AriaNodeType.nodeMeta).length === 1) {
-              AriaLog.textInfo(
+              AriaLog.info(
                 'Detected inline meta, header and external metadata will be overridden.'
               )
               AriaLog.newline()
@@ -741,7 +741,7 @@ export class Aria {
       } else {
         AriaLog.text(AriaString.resolvedMeta, 'N/A')
         AriaLog.newline()
-        AriaLog.textInfo(
+        AriaLog.info(
           AriaString.metaFileRecommendation.message,
           parse(metaPath).base
         )
