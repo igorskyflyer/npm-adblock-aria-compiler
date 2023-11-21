@@ -3,7 +3,7 @@ import chalk from 'chalk'
 import { AriaError } from '../errors/AriaError.mjs'
 import { AriaErrorString } from '../errors/AriaErrorString.mjs'
 import { IAriaMessageData } from '../errors/IAriaMessageData.mjs'
-import { AriaStringType } from '../models/AriaString.mjs'
+import { AriaStringType } from '../models/AriaStringType.mjs'
 import {
   ARIA_UI_BG_ERROR_BG,
   ARIA_UI_BG_INFORMATION_BG,
