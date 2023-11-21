@@ -58,10 +58,18 @@ export class AriaLog {
     )
   }
 
-  static textInfo(message: any, ...rest: any[]): void {
+  static textInfo(data: InternalMessage, ...rest: any[]): void {
+    let message: UnwrappedMessage = this.unwrapMessage(data)
+
+    if (message !== null) {
+      message = zing(message, ...rest)
+    } else {
+      message = data as string
+    }
+
     console.warn(
       `${chalk.bgHex(ARIA_UI_BG_INFORMATION_BG).bold(' INFO ')} ${chalk.dim(
-        zing(message, ...rest)
+        message
       )}`
     )
   }
