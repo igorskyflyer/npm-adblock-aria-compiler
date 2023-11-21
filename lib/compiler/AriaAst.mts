@@ -4,7 +4,7 @@ import { u } from '@igor.dvlpr/upath'
 import chalk from 'chalk'
 import { accessSync, readFileSync, writeFileSync } from 'node:fs'
 import { isAbsolute, join, parse, resolve } from 'node:path'
-import { AriaString } from '../errors/AriaString.mjs'
+import { AriaErrorString } from '../errors/AriaErrorString.mjs'
 import { AriaAstPath } from '../models/AriaAstPath.mjs'
 import { AriaInlineMeta } from '../models/AriaInlineMeta.mjs'
 import { AriaNodeType } from '../models/AriaNodeType.mjs'
@@ -138,7 +138,7 @@ export class AriaAst {
 
       if (previous && !canAddNode(node, previous)) {
         throw AriaLog.ariaThrow(
-          AriaString.syntaxOrder,
+          AriaErrorString.syntaxOrder,
           sourceline,
           getKeywordFromType(node.type),
           getKeywordFromType(previous.type)
@@ -205,14 +205,14 @@ export class AriaAst {
     if (this.#nodesCount === 0) return true
 
     if (this.#state.exports.length === 0) {
-      AriaLog.error(AriaString.exportNotSpecified)
+      AriaLog.error(AriaErrorString.exportNotSpecified)
       AriaLog.newline()
-      AriaLog.text(AriaString.abortCompilation)
+      AriaLog.text(AriaErrorString.abortCompilation)
       return false
     }
 
     if (!this.#hasNode(AriaNodeType.nodeHeader)) {
-      AriaLog.warning(AriaString.headerMissing)
+      AriaLog.warning(AriaErrorString.headerMissing)
       AriaLog.newline()
     }
 
@@ -262,14 +262,18 @@ export class AriaAst {
                 contents += this.#block(header)
               } else {
                 throw AriaLog.ariaThrow(
-                  AriaString.headerRead,
+                  AriaErrorString.headerRead,
                   -1,
                   resolve(path)
                 )
               }
             }
           } catch {
-            throw AriaLog.ariaThrow(AriaString.headerRead, -1, path ?? 'N/A')
+            throw AriaLog.ariaThrow(
+              AriaErrorString.headerRead,
+              -1,
+              path ?? 'N/A'
+            )
           }
 
           break
@@ -314,7 +318,7 @@ export class AriaAst {
                     const transformName: string = action.name
 
                     AriaLog.log(
-                      AriaString.actionApplying.message,
+                      AriaErrorString.actionApplying.message,
                       transformName,
                       path
                     )
@@ -334,11 +338,19 @@ export class AriaAst {
                 contents += filter
                 AriaLog.logNewline()
               } else {
-                throw AriaLog.ariaThrow(AriaString.filterNotFound, -1, path)
+                throw AriaLog.ariaThrow(
+                  AriaErrorString.filterNotFound,
+                  -1,
+                  path
+                )
               }
             }
           } catch {
-            throw AriaLog.ariaThrow(AriaString.filterRead, -1, path ?? 'N/A')
+            throw AriaLog.ariaThrow(
+              AriaErrorString.filterRead,
+              -1,
+              path ?? 'N/A'
+            )
           }
 
           break
@@ -444,10 +456,14 @@ export class AriaAst {
                 )} to "${finalPath}".`
               )
             } else {
-              throw AriaLog.ariaThrow(AriaString.exportInvalid)
+              throw AriaLog.ariaThrow(AriaErrorString.exportInvalid)
             }
           } catch {
-            throw AriaLog.ariaThrow(AriaString.exportUnsuccessful, -1, path)
+            throw AriaLog.ariaThrow(
+              AriaErrorString.exportUnsuccessful,
+              -1,
+              path
+            )
           }
 
           break
