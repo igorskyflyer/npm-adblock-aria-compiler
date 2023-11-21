@@ -207,7 +207,7 @@ export class AriaAst {
     if (this.#state.exports.length === 0) {
       AriaLog.textError(AriaString.exportNotSpecified.message)
       AriaLog.newline()
-      AriaLog.text(AriaString.abortCompilation.message)
+      AriaLog.text(AriaString.abortCompilation)
       return false
     }
 
