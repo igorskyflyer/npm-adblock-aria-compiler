@@ -1,6 +1,5 @@
 import { NormalizedString } from '@igor.dvlpr/normalized-string'
 import { u } from '@igor.dvlpr/upath'
-import chalk from 'chalk'
 import { accessSync, readFileSync } from 'fs'
 import { resolve } from 'node:path'
 import { isAbsolute, join, parse } from 'path'
@@ -15,19 +14,19 @@ import { IAriaNode } from '../models/IAriaNode.mjs'
 import { IAriaOptions } from '../models/IAriaOptions.mjs'
 import {
   IAriaStatement,
-  createAriaStatement,
+  createAriaStatement
 } from '../models/IAriaStatement.mjs'
 import { AriaLog } from '../utils/AriaLog.mjs'
 import {
   getMetaPath,
   hasMetaFile,
-  parseExternalMeta,
+  parseExternalMeta
 } from '../utils/AriaVarUtils.mjs'
 import { AriaAst } from './AriaAst.mjs'
 import {
   AriaKeywords,
   MINIMUM_IDENTIFIER_LENGTH,
-  getMinimumKeywordIdentifier,
+  getMinimumKeywordIdentifier
 } from './AriaKeywords.mjs'
 
 export class Aria {
@@ -76,7 +75,7 @@ export class Aria {
     const node: IAriaNode = {
       type,
       line: this.#sourceLine(),
-      index: -1,
+      index: -1
     }
 
     if (typeof value === 'string') {
@@ -320,10 +319,24 @@ export class Aria {
       throw AriaLog.ariaThrow(AriaString.recursiveImplement, this.#sourceLine())
     }
 
-    this.#ast.addNode(
-      this.#node(AriaNodeType.nodeImplement, path),
-      this.#sourceLine()
+    const instance: Aria = new Aria({ shouldLog: false })
+    const parsed: AriaAst | undefined = instance.parseFile(
+      path as AriaTemplatePath
     )
+
+    if (parsed) {
+      const nodeTree: IAriaNode = this.#node(AriaNodeType.nodeImplement, path)
+
+      nodeTree.subnodes = new AriaAst()
+
+      nodeTree.subnodes.implementNodes(
+        nodeTree,
+        parsed.removeNodes([AriaNodeType.nodeExport]),
+        this.#sourceLine()
+      )
+
+      this.#ast.addNode(nodeTree, this.#sourceLine())
+    }
 
     this.#foundKeyword = true
     return true
@@ -382,7 +395,7 @@ export class Aria {
 
       this.#ast.addNode(
         this.#node(AriaNodeType.nodeMeta, '', [
-          { name: metaProp, allowsParams: true, actualValue: metaValue.value },
+          { name: metaProp, allowsParams: true, actualValue: metaValue.value }
         ]),
         this.#sourceLine()
       )
@@ -715,8 +728,8 @@ export class Aria {
 
     try {
       templatePath = u(templatePath) as AriaTemplatePath
-      AriaLog.text(`Resolved root directory: ${resolve(root)}`)
-      AriaLog.text(`Resolved template: ${resolve(templatePath)}`)
+      AriaLog.text(AriaString.resolvedMetaFile.message, resolve(root))
+      AriaLog.text(resolve(templatePath))
 
       this.#ast.root = root
       this.#ast.templatePath = templatePath
@@ -724,7 +737,7 @@ export class Aria {
       const metaPath: string = getMetaPath(templatePath) as string
 
       if (hasMetaFile(templatePath)) {
-        AriaLog.text(`Resolved external meta: ${resolve(metaPath)}`)
+        AriaLog.text(AriaString.resolvedMeta.message, resolve(metaPath))
 
         const meta: IAriaMeta | null = parseExternalMeta(templatePath)
 
@@ -732,14 +745,11 @@ export class Aria {
           this.#ast.meta = meta
         }
       } else {
-        AriaLog.text(`Resolved external meta: N/A`)
+        AriaLog.text(AriaString.resolvedMeta.message, 'N/A')
         AriaLog.newline()
         AriaLog.textInfo(
-          `${chalk.dim(
-            `Meta file could not be resolved, if necessary, create a file named ${chalk.bold.white(
-              parse(metaPath).base
-            )} for extra customizability of the output filter file.`
-          )}`
+          AriaString.metaFileRecommendation.message,
+          parse(metaPath).base
         )
         AriaLog.newline()
       }
