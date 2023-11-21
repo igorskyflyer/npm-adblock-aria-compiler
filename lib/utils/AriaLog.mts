@@ -4,6 +4,8 @@ import { AriaError } from '../errors/AriaError.mjs'
 import { AriaString, AriaStringType } from '../errors/AriaString.mjs'
 import { IAriaMessageData } from '../errors/IAriaMessageData.mjs'
 
+type PrintableMessage = AriaStringType | string | any
+
 export class AriaLog {
   static shouldLog: boolean = false
 
@@ -13,7 +15,7 @@ export class AriaLog {
     }
   }
 
-  static text(data: string | AriaStringType | any = '', ...rest: any[]): void {
+  static text(data: PrintableMessage = '', ...rest: any[]): void {
     if (typeof data === 'string') {
       console.log(zing(data, ...rest))
     } else if ('message' in data) {
@@ -23,10 +25,23 @@ export class AriaLog {
     }
   }
 
-  static textWarning(message: any, ...rest: any[]): void {
+  static warning(data: PrintableMessage, ...rest: any[]): void {
+    let warningMessage: string
+
+    if (typeof data === 'string') {
+      warningMessage = data
+    } else if ('message' in data) {
+      warningMessage = data.message
+    } else {
+      console.warn(
+        `${chalk.bgHex('#EE9A4D').bold(' WARNING ')} ${chalk.dim(data)}`
+      )
+      return
+    }
+
     console.warn(
       `${chalk.bgHex('#EE9A4D').bold(' WARNING ')} ${chalk.dim(
-        zing(message, ...rest)
+        zing(warningMessage, ...rest)
       )}`
     )
   }
