@@ -1,8 +1,9 @@
 import { zing } from '@igor.dvlpr/zing'
 import chalk from 'chalk'
 import { AriaError } from '../errors/AriaError.mjs'
-import { AriaString, AriaStringType } from '../errors/AriaString.mjs'
+import { AriaErrorString } from '../errors/AriaErrorString.mjs'
 import { IAriaMessageData } from '../errors/IAriaMessageData.mjs'
+import { AriaStringType } from '../models/AriaString.mjs'
 import {
   ARIA_UI_BG_ERROR_BG,
   ARIA_UI_BG_INFORMATION_BG,
@@ -95,7 +96,7 @@ export class AriaLog {
 
   static formatChanges(before: number, after: number): string {
     if (after <= 0) {
-      return `${chalk.dim(AriaString.logNoChanges.message)}`
+      return `${chalk.dim(AriaErrorString.logNoChanges.message)}`
     }
 
     if (before < 0) {
@@ -107,7 +108,7 @@ export class AriaLog {
     } else if (before > after) {
       return `(${chalk.redBright(`-${before - after}`)})`
     } else {
-      return `${chalk.dim(AriaString.logNoChanges.message)}`
+      return `${chalk.dim(AriaErrorString.logNoChanges.message)}`
     }
   }
 }
