@@ -1,6 +1,9 @@
 import chalk from 'chalk'
 
-export type AriaStringType = keyof typeof AriaString
+export type AriaStringType = {
+  id: string
+  message: string
+}
 
 export const AriaString = {
   native: {
