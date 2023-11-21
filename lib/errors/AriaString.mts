@@ -1,3 +1,5 @@
+import chalk from 'chalk'
+
 export const AriaString = {
   native: {
     id: '000',
@@ -174,5 +176,13 @@ export const AriaString = {
   resolvedMeta: {
     id: '042',
     message: 'Resolved external meta: {0}'
+  },
+  metaFileRecommendation: {
+    id: '043',
+    message: `${chalk.dim(
+      `Meta file could not be resolved, if necessary, create a file named ${chalk.bold.white(
+        '{0}'
+      )} for extra customizability of the output filter file.`
+    )}`
   }
 } as const
