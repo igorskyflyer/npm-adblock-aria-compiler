@@ -184,5 +184,9 @@ export const AriaString = {
         '{0}'
       )} for extra customizability of the output filter file.`
     )}`
+  },
+  resolvedMetaFile: {
+    id: '044',
+    message: 'Resolved root directory: {0}'
   }
 } as const
