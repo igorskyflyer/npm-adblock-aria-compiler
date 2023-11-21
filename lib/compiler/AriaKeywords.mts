@@ -11,7 +11,7 @@ export const AriaKeywords = {
   tag: 'tag',
   import: 'import',
   meta: 'meta',
-  implement: 'implement',
+  implement: 'implement'
 } as const
 
 export function getMinimumKeywordIdentifier(): string[] {
