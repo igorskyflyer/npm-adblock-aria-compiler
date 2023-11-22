@@ -395,6 +395,7 @@ export class AriaAst {
               const variables: IAriaVar = createVars()
               const finalPath: string = this.#applyRoot(path)
               let oldCount: number = -1
+              let oldLength: number = 0
 
               // external meta vars
               variables.title = this.meta.title ?? ''
@@ -432,6 +433,7 @@ export class AriaAst {
                 variables.version = newVersion
                 contents = transformHeader(contents, newVersion)
                 oldCount = countRules(oldFile)
+                oldLength = oldFile.length
               } else {
                 contents = transformHeader(contents, this.versioning)
               }
@@ -452,7 +454,9 @@ export class AriaAst {
                   variables.entries
                 )} rules ${AriaLog.formatChanges(
                   oldCount,
-                  variables.entries
+                  variables.entries,
+                  oldLength,
+                  contents.length
                 )} to "${finalPath}".`
               )
             } else {
