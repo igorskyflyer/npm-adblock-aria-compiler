@@ -94,21 +94,61 @@ export class AriaLog {
     process.exit(1)
   }
 
-  static formatChanges(before: number, after: number): string {
-    if (after <= 0) {
-      return `${chalk.dim(AriaErrorString.logNoChanges.message)}`
+  static diffToString(
+    before: number,
+    after: number,
+    label: string = '',
+    addSeparator: boolean = false
+  ): string {
+    const diff = after - before
+    let output: string = ''
+
+    switch (true) {
+      case diff > 0: {
+        output += `${chalk.greenBright(`+${diff}`)} ${chalk.dim(label)}`
+        break
+      }
+
+      case diff < 0: {
+        output += `${chalk.redBright(`${diff}`)} ${chalk.dim(label)}`
+        break
+      }
+
+      default: {
+        return output
+      }
     }
 
-    if (before < 0) {
-      return `(${chalk.greenBright(`+${after}`)})`
+    if (addSeparator) {
+      output += chalk.dim('; ')
     }
 
-    if (before < after) {
-      return `(${chalk.greenBright(`+${after - before}`)})`
-    } else if (before > after) {
-      return `(${chalk.redBright(`-${before - after}`)})`
+    return output
+  }
+
+  static formatChanges(
+    before: number,
+    after: number,
+    oldLength: number,
+    newLength: number
+  ): string {
+    let output: string = chalk.dim('(')
+    let entries: string = ''
+    let characters: string = ''
+
+    entries += this.diffToString(before, after, 'entries', true)
+    characters += this.diffToString(oldLength, newLength, 'characters')
+
+    if (entries === '' && characters === '') {
+      output += chalk.dim(AriaErrorString.logNoChanges.message)
+    } else if (entries === '' && characters !== '') {
+      output += `${chalk.dim('no changes;')} ${characters}`
     } else {
-      return `${chalk.dim(AriaErrorString.logNoChanges.message)}`
+      output += entries + characters
     }
+
+    output += chalk.dim(')')
+
+    return output
   }
 }
