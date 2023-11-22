@@ -139,7 +139,7 @@ export const AriaErrorString = {
   },
   logNoChanges: {
     id: '033',
-    message: '(no changes)'
+    message: 'no changes'
   },
   abortCompilation: {
     id: '034',
