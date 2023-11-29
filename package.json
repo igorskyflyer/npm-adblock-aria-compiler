@@ -52,6 +52,7 @@
 	},
 	"homepage": "https://github.com/igorskyflyer/npm-adblock-aria-compiler#readme",
 	"devDependencies": {
+		"@biomejs/biome": "1.4.0",
 		"@types/figlet": "^1.5.8",
 		"@types/node": "^18.0.0",
 		"@vitest/coverage-istanbul": "^0.34.6",
