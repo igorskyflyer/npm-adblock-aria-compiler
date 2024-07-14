@@ -10,6 +10,7 @@
 
 ### [ADBT v2.1.0](https://github.com/adbt-lang/adbt/releases/tag/v2.1.0)
 
+- **🪅 feat**: add the **`implement`** statement ([implement statement](https://github.com/adbt-lang/adbt#header) in ADBT)
 - **🪅 feat**: log unsupported Actions ([#119](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/119))
 - **🪅 feat**: disallow duplicate Actions ([#110](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/110))
 - **🪅 feat**: log applied Actions ([#114](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/114))
