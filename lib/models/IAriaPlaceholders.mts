@@ -1,4 +1,4 @@
-import { IAriaPlaceholder } from './IAriaPlaceholder.mjs'
+import type { IAriaPlaceholder } from './IAriaPlaceholder.mjs'
 
 export interface IAriaPlaceholders {
   [key: string]: any
