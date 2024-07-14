@@ -8,8 +8,8 @@ import {
 } from '../constants/AriaUi.mjs'
 import { AriaError } from '../errors/AriaError.mjs'
 import { AriaErrorString } from '../errors/AriaErrorString.mjs'
-import { IAriaMessageData } from '../errors/IAriaMessageData.mjs'
-import { IAriaNode } from '../models/IAriaNode.mjs'
+import type { IAriaMessageData } from '../errors/IAriaMessageData.mjs'
+import type { IAriaNode } from '../models/IAriaNode.mjs'
 
 type MessageData = IAriaMessageData | string | Array<IAriaNode>
 type UnwrappedMessage = string | Array<any>
@@ -23,46 +23,52 @@ export class AriaLog {
   ): UnwrappedMessage {
     if (typeof data === 'string') {
       return data
-    } else if ('message' in data) {
-      return zing(data.message, ...rest)
-    } else {
-      return data
     }
+
+    if ('message' in data) {
+      return zing(data.message, ...rest)
+    }
+
+    return data
   }
 
   static log(data: MessageData = '', ...rest: any[]): void {
-    if (this.shouldLog) {
-      this.text(data, rest)
+    if (AriaLog.shouldLog) {
+      AriaLog.text(data, ...rest)
     }
   }
 
   static text(data: MessageData = '', ...rest: any[]): void {
-    const message: UnwrappedMessage = this.unwrapMessage(data, ...rest)
+    const message: UnwrappedMessage = AriaLog.unwrapMessage(data, ...rest)
     console.log(message)
   }
 
   static warning(data: MessageData, ...rest: any[]): void {
-    const message: UnwrappedMessage = this.unwrapMessage(data, ...rest)
+    if (AriaLog.shouldLog) {
+      const message: UnwrappedMessage = AriaLog.unwrapMessage(data, ...rest)
 
-    console.warn(
-      `${chalk.bgHex(ARIA_UI_BG_WARNING_BG).bold(' WARNING ')} ${chalk.dim(
-        message
-      )}`
-    )
+      console.warn(
+        `${chalk.bgHex(ARIA_UI_BG_WARNING_BG).bold(' WARNING ')} ${chalk.dim(
+          message
+        )}`
+      )
+    }
   }
 
   static info(data: MessageData, ...rest: any[]): void {
-    const message: UnwrappedMessage = this.unwrapMessage(data, ...rest)
+    if (AriaLog.shouldLog) {
+      const message: UnwrappedMessage = AriaLog.unwrapMessage(data, ...rest)
 
-    console.warn(
-      `${chalk.bgHex(ARIA_UI_BG_INFORMATION_BG).bold(' INFO ')} ${chalk.dim(
-        message
-      )}`
-    )
+      console.warn(
+        `${chalk.bgHex(ARIA_UI_BG_INFORMATION_BG).bold(' INFO ')} ${chalk.dim(
+          message
+        )}`
+      )
+    }
   }
 
   static error(data: MessageData, ...rest: any[]): void {
-    const message: UnwrappedMessage = this.unwrapMessage(data, ...rest)
+    const message: UnwrappedMessage = AriaLog.unwrapMessage(data, ...rest)
 
     console.error(
       `${chalk.bgHex(ARIA_UI_BG_ERROR_BG).bold(' ERROR ')} ${message}`
@@ -70,19 +76,23 @@ export class AriaLog {
   }
 
   static success(data: MessageData, ...rest: any[]): void {
-    const message: UnwrappedMessage = this.unwrapMessage(data, ...rest)
+    if (AriaLog.shouldLog) {
+      const message: UnwrappedMessage = AriaLog.unwrapMessage(data, ...rest)
 
-    console.log(
-      `${chalk.bgHex(ARIA_UI_BG_SUCCESS_BG).bold(' SUCCESS ')} ${message}`
-    )
+      console.log(
+        `${chalk.bgHex(ARIA_UI_BG_SUCCESS_BG).bold(' SUCCESS ')} ${message}`
+      )
+    }
   }
 
   static newline(): void {
-    console.log()
+    if (AriaLog.shouldLog) {
+      console.log()
+    }
   }
 
   static logNewline(): void {
-    this.log()
+    AriaLog.log()
   }
 
   static ariaThrow(
@@ -90,7 +100,7 @@ export class AriaLog {
     lineCursor: number = -1,
     ...args: any[]
   ): AriaError {
-    this.error(new AriaError(info, lineCursor, ...args).formatError())
+    AriaLog.error(new AriaError(info, lineCursor, ...args).formatError())
     process.exit(1)
   }
 
@@ -136,8 +146,8 @@ export class AriaLog {
     let entries: string = ''
     let characters: string = ''
 
-    entries += this.diffToString(before, after, 'entries', true)
-    characters += this.diffToString(oldLength, newLength, 'characters')
+    entries += AriaLog.diffToString(before, after, 'entries', true)
+    characters += AriaLog.diffToString(oldLength, newLength, 'characters')
 
     if (entries === '' && characters === '') {
       output += chalk.dim(AriaErrorString.logNoChanges.message)
