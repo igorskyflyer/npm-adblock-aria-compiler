@@ -1,6 +1,6 @@
-import { AriaAction } from '../models/AriaAction.mjs'
+import type { AriaAction } from '../models/AriaAction.mjs'
 import { AriaItemType } from '../models/actions/AriaItemType.mjs'
-import { AriaSortBy } from '../models/actions/AriaSortBy.mjs'
+import type { AriaSortBy } from '../models/actions/AriaSortBy.mjs'
 
 type AriaTransformResult = string | undefined
 export type AriaTransform = keyof typeof AriaAction
@@ -111,9 +111,9 @@ export function dedupe(source: string): string {
       if (!tmp.includes(item)) {
         tmp.push(item)
         return item
-      } else {
-        return
       }
+
+      return
     }
   )
 }
@@ -140,7 +140,9 @@ export function strip(source: string, strip: string): string {
         return item
       }
     )
-  } else if (strip === 'comments') {
+  }
+
+  if (strip === 'comments') {
     return transform(
       source,
       (item: string, itemKind: AriaItemType): AriaTransformResult => {
@@ -151,9 +153,9 @@ export function strip(source: string, strip: string): string {
         return item
       }
     )
-  } else {
-    return ''
   }
+
+  return ''
 }
 
 export function append(source: string, value: string): string {
@@ -166,9 +168,9 @@ export function append(source: string, value: string): string {
     (item: string, itemKind: AriaItemType): AriaTransformResult => {
       if (itemKind !== AriaItemType.comment) {
         return `${item}${value}`
-      } else {
-        return item
       }
+
+      return item
     }
   )
 }
@@ -178,7 +180,7 @@ const actionTransformers: Record<string, Function> = {
   dedupe,
   trim,
   strip,
-  append,
+  append
 }
 
 export function applyTransform(
