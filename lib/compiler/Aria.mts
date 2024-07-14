@@ -1,19 +1,18 @@
 import { NormalizedString } from '@igor.dvlpr/normalized-string'
 import { u } from '@igor.dvlpr/upath'
-import { accessSync, readFileSync } from 'fs'
-import { resolve } from 'node:path'
-import { isAbsolute, join, parse } from 'path'
+import { accessSync, readFileSync } from 'node:fs'
+import { isAbsolute, join, parse, resolve } from 'node:path'
 import { AriaErrorString } from '../errors/AriaErrorString.mjs'
 import { AriaAction } from '../models/AriaAction.mjs'
 import { AriaInlineMeta } from '../models/AriaInlineMeta.mjs'
 import { AriaNodeType } from '../models/AriaNodeType.mjs'
-import { AriaTemplatePath } from '../models/AriaTemplatePath.mjs'
-import { IAriaAction } from '../models/IAriaAction.mjs'
-import { IAriaMeta } from '../models/IAriaMeta.mjs'
-import { IAriaNode } from '../models/IAriaNode.mjs'
-import { IAriaOptions } from '../models/IAriaOptions.mjs'
+import type { AriaTemplatePath } from '../models/AriaTemplatePath.mjs'
+import type { IAriaAction } from '../models/IAriaAction.mjs'
+import type { IAriaMeta } from '../models/IAriaMeta.mjs'
+import type { IAriaNode } from '../models/IAriaNode.mjs'
+import type { IAriaOptions } from '../models/IAriaOptions.mjs'
 import {
-  IAriaStatement,
+  type IAriaStatement,
   createAriaStatement
 } from '../models/IAriaStatement.mjs'
 import { AriaLog } from '../utils/AriaLog.mjs'
@@ -82,7 +81,7 @@ export class Aria {
       node.value = value
     }
 
-    if (actions instanceof Array && actions.length > 0) {
+    if (Array.isArray(actions) && actions.length > 0) {
       node.actions = actions
     }
 
@@ -105,7 +104,6 @@ export class Aria {
 
   #hasAction(actions: IAriaAction[], action: string): boolean {
     const actionsCount: number = actions.length
-    let result: boolean = false
 
     if (actionsCount > 0) {
       for (let i = 0; i < actionsCount; i++) {
@@ -115,7 +113,7 @@ export class Aria {
       }
     }
 
-    return result
+    return false
   }
 
   #parseActions(input: string): IAriaAction[] {
@@ -172,9 +170,9 @@ export class Aria {
                     this.#sourceLine(),
                     action.name
                   )
-                } else {
-                  param = action.defaultValue
                 }
+
+                param = action.defaultValue
               } else {
                 param = param.trim()
               }
@@ -208,13 +206,13 @@ export class Aria {
                 this.#sourceLine(),
                 probeAction
               )
-            } else {
-              AriaLog.warning(
-                AriaErrorString.actionTrailingComma,
-                this.#sourceLine()
-              )
-              AriaLog.newline()
             }
+
+            AriaLog.warning(
+              AriaErrorString.actionTrailingComma,
+              this.#sourceLine()
+            )
+            AriaLog.newline()
           }
         }
       }
@@ -232,13 +230,13 @@ export class Aria {
       if (closedString) {
         if (allowActions) {
           break
-        } else {
-          throw AriaLog.ariaThrow(
-            AriaErrorString.extraneousInput,
-            this.#sourceLine(),
-            result.value
-          )
         }
+
+        throw AriaLog.ariaThrow(
+          AriaErrorString.extraneousInput,
+          this.#sourceLine(),
+          result.value
+        )
       }
 
       if (!shouldCapture) {
@@ -519,7 +517,7 @@ export class Aria {
       AriaLog.log(`Processing line: ${this.#sourceLine()}`)
 
       if (this.#line.trim().length === 0) {
-        AriaLog.log(`Blank line, skipping`)
+        AriaLog.log('Blank line, skipping')
         AriaLog.logNewline()
 
         this.#lineCursor++
@@ -758,8 +756,8 @@ export class Aria {
       this.parse(template)
 
       return this.#ast
-    } catch (e: any) {
-      throw e
+    } catch (e: unknown) {
+      // throw e
     }
   }
 }
