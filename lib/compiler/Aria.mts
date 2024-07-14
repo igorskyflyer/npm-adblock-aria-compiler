@@ -323,23 +323,27 @@ export class Aria {
       )
     }
 
+    const oldLog: boolean = AriaLog.shouldLog
+
+    AriaLog.shouldLog = false
+
     const instance: Aria = new Aria({ shouldLog: false })
+
     const parsed: AriaAst | undefined = instance.parseFile(
       path as AriaTemplatePath
     )
 
+    AriaLog.shouldLog = oldLog
+
     if (parsed) {
-      const nodeTree: IAriaNode = this.#node(AriaNodeType.nodeImplement, path)
-
-      nodeTree.subnodes = new AriaAst()
-
-      nodeTree.subnodes.implementNodes(
-        nodeTree,
-        parsed.removeNodes([AriaNodeType.nodeExport]),
+      this.#ast.implementNodes(
+        parsed.removeNodes([
+          AriaNodeType.nodeExport,
+          AriaNodeType.nodeHeader,
+          AriaNodeType.nodeMeta
+        ]),
         this.#sourceLine()
       )
-
-      this.#ast.addNode(nodeTree, this.#sourceLine())
     }
 
     this.#foundKeyword = true
@@ -725,8 +729,8 @@ export class Aria {
 
     try {
       templatePath = u(templatePath) as AriaTemplatePath
-      AriaLog.text(AriaErrorString.resolvedMetaFile, resolve(root))
-      AriaLog.text(resolve(templatePath))
+      AriaLog.log(AriaErrorString.resolvedRootDir, resolve(root))
+      AriaLog.log(AriaErrorString.resolvedTemplate, resolve(templatePath))
 
       this.#ast.root = root
       this.#ast.templatePath = templatePath
@@ -734,7 +738,7 @@ export class Aria {
       const metaPath: string = getMetaPath(templatePath) as string
 
       if (hasMetaFile(templatePath)) {
-        AriaLog.text(AriaErrorString.resolvedMeta, resolve(metaPath))
+        AriaLog.log(AriaErrorString.resolvedMeta, resolve(metaPath))
 
         const meta: IAriaMeta | null = parseExternalMeta(templatePath)
 
@@ -742,7 +746,7 @@ export class Aria {
           this.#ast.meta = meta
         }
       } else {
-        AriaLog.text(AriaErrorString.resolvedMeta, 'N/A')
+        AriaLog.log(AriaErrorString.resolvedMeta, 'N/A')
         AriaLog.newline()
         AriaLog.info(
           AriaErrorString.metaFileRecommendation,
