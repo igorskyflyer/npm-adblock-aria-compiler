@@ -8,14 +8,15 @@
 
 <p align="right"><em>14-Jul-2024</em></p>
 
-- **🪅 feat**: log unsupported Actions
-- **🪅 feat**: disallow duplicate Actions
-- **🪅 feat**: log applied Actions
-- **🪅 feat**: add final newline when exporting
-- **🪅 feat**: support multiple actions per include/import (#107)
-- **🪅 feat**: detect trailing comma for Actions
+- **🪅 feat**: log unsupported Actions ([#119](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/119))
+- **🪅 feat**: disallow duplicate Actions ([#110](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/110))
+- **🪅 feat**: log applied Actions ([#114](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/114))
+- **🪅 feat**: add final newline when exporting ([#108](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/108))
+- **🪅 feat**: support multiple actions per include/import ([#106](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/106))
+- **🪅 feat**: detect trailing comma for Actions ([#121](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/121))
 
-- **✅ fix**: don't parse Actions for duplicate includes/imports
+- **✅ fix**: don't parse Actions for duplicate includes/imports ([#111](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/111))
+- **✅ fix**: fix multiple Actions overwrite ([#112](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/112))
 
 - **💻 dev**: update logging method
 
