@@ -165,17 +165,11 @@ export class AriaAst {
     this.#nodesCount++
   }
 
-  public implementNodes(
-    target: IAriaNode,
-    nodes: IAriaNode[],
-    sourceline: number
-  ): void {
+  public implementNodes(nodes: IAriaNode[], sourceline: number): void {
     const count: number = nodes.length
 
-    target.subnodes = new AriaAst()
-
     for (let i = 0; i < count; i++) {
-      target.subnodes.addNode(nodes[i], sourceline)
+      this.addNode(nodes[i], sourceline)
     }
   }
 
@@ -376,35 +370,9 @@ export class AriaAst {
           break
         }
 
-        // case AriaNodeType.nodeImplement: {
-        //   // const path: string | undefined = node.value
-
-        //   // try {
-        //   //   if (typeof path === 'string') {
-        //   //     const finalPath: string = this.#applyRoot(path)
-
-        //   //     if (this.#pathExists(finalPath)) {
-        //   //       const instance: Aria = new Aria({ shouldLog: false })
-        //   //       const parsed: AriaAst | undefined = instance.parseFile(
-        //   //         finalPath as AriaTemplatePath
-        //   //       )
-
-        //   //       if (parsed) {
-        //   //         this.addNodes(
-        //   //           parsed.removeNodes([
-        //   //             AriaNodeType.nodeExport,
-        //   //             AriaNodeType.nodeImplement,
-        //   //           ])
-        //   //         )
-        //   //       }
-        //   //     } else {
-        //   //       throw AriaLog.ariaThrow(AriaString.implementNotFound, node.line)
-        //   //     }
-        //   //   }
-        //   // } catch {}
-
-        //   break
-        // }
+        case AriaNodeType.nodeImplement: {
+          break
+        }
 
         case AriaNodeType.nodeExport: {
           const path: string | undefined = node.value
