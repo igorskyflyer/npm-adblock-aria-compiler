@@ -13,6 +13,7 @@ Adblock template (`ADBT`) compiler
 
 <div align="center">
 	<blockquote>
+		<br>
 		<h4>💖 Support further development</h4>
 		<span>I work hard for every project, including this one and your support means a lot to me!
 		<br>
@@ -25,6 +26,9 @@ Adblock template (`ADBT`) compiler
 		<br>
 		<br>
 		<a href="https://github.com/igorskyflyer"><em>@igorskyflyer</em></a>
+		<br>
+		<br>
+		<br>
 	</blockquote>
 </div>
 
@@ -263,6 +267,12 @@ aria --help
 
 ---
 
+## 📝 Changelog
+
+> ✨ Changelog is available here: [CHANGELOG.md](https://github.com/igorskyflyer/npm-adblock-aria-compiler/blob/main/CHANGELOG.md).
+
+---
+
 ## 🪪 License
 
 Licensed under the MIT license which is available here, [MIT license](https://github.com/igorskyflyer/file-formats/blob/main/adbt/LICENSE).
@@ -275,22 +285,38 @@ Licensed under the MIT license which is available here, [MIT license](https://gi
 
 > _📜 Provides ADBT (Adblock template) support in Visual Studio Code. 🪅_
 
+<br>
+
 [@igor.dvlpr/adblock-filter-counter](https://www.npmjs.com/package/@igor.dvlpr/adblock-filter-counter)
 
 > _🐲 A dead simple npm module that counts Adblock filter rules.🦘_
+
+<br>
 
 [@igor.dvlpr/keppo](https://www.npmjs.com/package/@igor.dvlpr/keppo)
 
 > _🎡 Parse, manage, compare and output SemVer-compatible version numbers. 🧮_
 
+<br>
+
 [@igor.dvlpr/normalized-string](https://www.npmjs.com/package/@igor.dvlpr/normalized-string)
 
 > _💊 NormalizedString provides you with a String type with consistent line-endings, guaranteed. 📮_
+
+<br>
 
 [@igor.dvlpr/zing](https://www.npmjs.com/package/@igor.dvlpr/zing)
 
 > _🐌 Zing is a C# style String formatter for JavaScript that empowers Strings with positional arguments. 🚀_
 
+<br>
+
 [AdVoid](https://github.com/igorskyflyer/ad-void)
 
 > _✈ AdVoid is an efficient AdBlock filter that blocks ads, trackers, malware and a lot more if you want it to! 👾_
+
+---
+
+<br>
+
+Provided by **Igor Dimitrijević** ([*@igorskyflyer*](https://github.com/igorskyflyer/)).
