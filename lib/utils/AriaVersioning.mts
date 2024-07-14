@@ -1,8 +1,8 @@
 import { Keppo } from '@igor.dvlpr/keppo'
-import { AriaHeaderVersion } from '../models/AriaHeaderVersion.mjs'
-import { IAriaVar } from '../models/IAriaVar.mjs'
-import { AriaMetaVars } from './AriaMetaVar.mjs'
+import type { AriaHeaderVersion } from '../models/AriaHeaderVersion.mjs'
+import type { IAriaVar } from '../models/IAriaVar.mjs'
 import { AriaCompileVar } from './AriaCompileVar.mjs'
+import { AriaMetaVars } from './AriaMetaVar.mjs'
 
 const semVerPattern: RegExp = /! Version:\s*(\d+\.\d+\.\d+)/gim
 const timestampPattern: RegExp = /! Version:\s*(\d+)$/gim
@@ -103,9 +103,9 @@ export function constructVersion(header: string, mode: AriaVersioning): string {
 
   if (version === null) {
     return new Keppo(1, 0, 0).toString()
-  } else {
-    version.increasePatch()
   }
+
+  version.increasePatch()
 
   return version.toString()
 }
@@ -141,12 +141,12 @@ export function replacePlaceholders(header: string, data: IAriaVar): string {
 
   // meta variables
   for (const [key, placeholder] of Object.entries(AriaMetaVars)) {
-    header = header.replace(placeholder.pattern, data[key])
+    header = header.replace(placeholder.pattern, `$1: ${data[key]}`)
   }
 
   // compile variables
   for (const [key, placeholder] of Object.entries(AriaCompileVar)) {
-    header = header.replace(placeholder.pattern, data[key])
+    header = header.replace(placeholder.pattern, `$1: ${data[key]}`)
   }
 
   return header
@@ -175,9 +175,9 @@ export function transformHeader(header: string, version: string): string {
 
     if (hasVersion(header)) {
       return header.replace(versionPattern, `! Version: ${newVersion}`)
-    } else {
-      return `${header}\n! Version: ${newVersion}`
     }
+
+    return `${header}\n! Version: ${newVersion}`
   }
 }
 
