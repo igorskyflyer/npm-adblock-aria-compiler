@@ -4,7 +4,7 @@
 	"description": "🧬 Meet Aria, an efficient Adblock filter list compiler, with many features that make your maintenance of Adblock filter lists a breeze! 🦖",
 	"sideEffects": false,
 	"uses": {
-		"adbt": "2.0.0"
+		"adbt": "2.1.0"
 	},
 	"engines": {
 		"node": ">=18.0"
@@ -14,16 +14,13 @@
 	"bin": {
 		"aria": "./dist/bin/aria.mjs"
 	},
-	"files": [
-		"dist"
-	],
+	"files": ["dist"],
 	"scripts": {
 		"build": "tsc",
 		"tag": "node ./scripts/tag.mjs",
 		"dev": "tsc -w --sourcemap",
 		"test": "vitest run",
-		"coverage": "vitest run --coverage",
-		"pub": "npm run tag && npm run build && npm publish --access public"
+		"pub": "npm run tag && git add './dist/lib/version.mjs' && git commit -m 'Tag version' && npm run build && npm publish --access public"
 	},
 	"repository": {
 		"type": "git",
@@ -42,7 +39,8 @@
 		"extension",
 		"browser",
 		"dns",
-		"ads"
+		"ads",
+		"igorskyflyer"
 	],
 	"author": "Igor Dimitrijević <igor.dvlpr@gmail.com> (https://github.com/igorskyflyer)",
 	"license": "MIT",
@@ -52,22 +50,21 @@
 	},
 	"homepage": "https://github.com/igorskyflyer/npm-adblock-aria-compiler#readme",
 	"devDependencies": {
-		"@biomejs/biome": "1.4.0",
+		"@biomejs/biome": "^1.8.3",
 		"@types/figlet": "^1.5.8",
-		"@types/node": "^18.0.0",
-		"@vitest/coverage-istanbul": "^0.34.6",
-		"typescript": "5.3.2",
-		"vitest": "^0.34.6"
+		"@types/node": "^18.19.39",
+		"typescript": "^5.5.3",
+		"vitest": "^2.0.2"
 	},
 	"dependencies": {
 		"@igor.dvlpr/adblock-filter-counter": "^1.0.0",
 		"@igor.dvlpr/keppo": "^1.1.0",
 		"@igor.dvlpr/my-file-path": "^1.0.1",
 		"@igor.dvlpr/normalized-string": "^1.0.1",
-		"@igor.dvlpr/upath": "^2.1.2",
-		"@igor.dvlpr/zing": "^2.0.0",
+		"@igor.dvlpr/upath": "^3.0.1",
+		"@igor.dvlpr/zing": "^2.0.1",
 		"chalk": "^5.3.0",
-		"commander": "^11.1.0",
+		"commander": "^12.1.0",
 		"figlet": "^1.7.0"
 	}
 }
