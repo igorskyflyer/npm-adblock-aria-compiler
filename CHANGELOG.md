@@ -28,6 +28,13 @@
 - **✅ fix**: fix multiple Actions overwrite ([#112](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/112))
 - **✅ fix**: fix message logging
 - **✅ fix**: log line number when throwing an `implement` exception
+- **✅ fix**: rename wrongly named resource string
+- **✅ fix**: fix parsing and replacing of meta variables
+- **✅ fix**: fix parsing and replacing of compile variables
+
+<br>
+
+- **💻 dev**: remove `subnodes` property of `IAriaNode`
 
 <br>
 <br>
