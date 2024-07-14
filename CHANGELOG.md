@@ -6,7 +6,7 @@
 
 ## v2.2.0
 
-<p align="right"><em>14-Jul-2024</em></p>
+<p align="right"><em>15-Jul-2024</em></p>
 
 ### [ADBT v2.1.0](https://github.com/adbt-lang/adbt/releases/tag/v2.1.0)
 
@@ -23,6 +23,7 @@
 
 <br>
 
+- **✅ fix**: meta and compiler var replacement leak ([#123](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/123))
 - **✅ fix**: don't parse Actions for duplicate includes/imports ([#111](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/111))
 - **✅ fix**: fix multiple Actions overwrite ([#112](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/112))
 - **✅ fix**: fix message logging
