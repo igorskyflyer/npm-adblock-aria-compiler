@@ -46,10 +46,10 @@ const cliArgs: IAriaCliArgs = program.opts()
 if (typeof cliArgs.file !== 'string' || cliArgs.file.length === 0) {
   if (!isArgsEmpty(cliArgs)) {
     throw AriaLog.ariaThrow(AriaErrorString.templateMissing)
-  } else {
-    program.help()
-    exit(0)
   }
+
+  program.help()
+  exit(0)
 }
 
 const aria: Aria = new Aria({
