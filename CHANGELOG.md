@@ -15,8 +15,12 @@
 - **🪅 feat**: support multiple actions per include/import ([#106](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/106))
 - **🪅 feat**: detect trailing comma for Actions ([#121](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/121))
 
+<br>
+
 - **✅ fix**: don't parse Actions for duplicate includes/imports ([#111](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/111))
 - **✅ fix**: fix multiple Actions overwrite ([#112](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/112))
+
+<br>
 
 - **💻 dev**: update logging method
 
@@ -28,8 +32,14 @@
 <p align="right"><em>13-Sep-2023</em></p>
 
 - **🪅 feat**: log line number of an already included filter file ([#102](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/102))
+
+<br>
+
 - **✅ fix**: add a newline when transforming source only when needed ([#98](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/98))
 - **✅ fix**: sort actions strips final newline ([#96](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/96))
+
+<br>
+
 - **💻 dev**: make external meta message an info, not a warning ([#100](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/100))
 
 <br>
@@ -76,6 +86,9 @@ The following rules are enforced:
   > _🌟 Via [uPath](https://www.npmjs.com/package/@igor.dvlpr/upath)_
 
 - **🪅 feat**: detect unsupported identifiers/code ([#58](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/58))
+
+<br>
+
 - **✅ fix**: change warning text background color
 - **✅ fix**: log unsupported identifiers ([#76](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/76))
 - **✅ fix**: refactor nodes logging ([#70](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/70))
@@ -84,6 +97,9 @@ The following rules are enforced:
 - **✅ fix**: filter path not available in logs ([#52](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/52))
 - **✅ fix**: fix messages formatting ([#88](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/88))
 - **✅ fix**: various fixes to strings used in logging
+
+<br>
+
 - **💻 dev**: invert node orders ([#78](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/78))
 - **💻 dev**: externalize strings ([#90](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/90))
 - **💻 dev**: add tests and coverage
@@ -162,6 +178,9 @@ The following rules are enforced:
 ### CLI
 
 - **🪅 feat**: log changes of the export file ([#36](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/36))
+
+<br>
+
 - **💻 dev**: remove **`value`** property for placeholders
 
 <br>
@@ -172,8 +191,14 @@ The following rules are enforced:
 <p align="right"><em>14-Aug-2023</em></p>
 
 - **🪅 feat**: add support for absolute paths for header, include and export ([#30](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/30))
+
+<br>
+
 - **✅ fix**: literal versioning type leak into the exported file ([#32](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/32))
 - **✅ fix**: don't trigger unreachable code warning for whitespace at the end of file ([#34](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/34))
+
+<br>
+
 - **💻 dev**: upgrade [@igor.dvlpr/zing](https://www.npmjs.com/package/@igor.dvlpr/zing)
 
 <br>
@@ -185,8 +210,14 @@ The following rules are enforced:
 
 - **🪅 feat**: log execution time ([#28](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/28))
 - **🪅 feat**: use [ADBT v1.0.1](https://github.com/igorskyflyer/file-format-adbt/releases/tag/v1.0.1)
+- **🪅 feat**: unreachable code detection
+
+<br>
+
 - **✅ fix**: always output absolute export path
-  - **🪅 feat**: unreachable code detection
+
+<br>
+
 - **📜 docs**: update ADBT API link
 
 <br>
@@ -233,6 +264,9 @@ The following rules are enforced:
 <p align="right"><em>02-Aug-2023</em></p>
 
 - **🪅 feat**: root directory option
+
+<br>
+
 - **✅ fix**: cwd path ([#23](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/23))
 
 <br>
@@ -291,6 +325,9 @@ The following rules are enforced:
 
 - **✅ fix**: encode all files as UTF-8 ([#4](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/4))
 - **✅ fix**: meta and compile variables mixup ([#6](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/6))
+
+<br>
+
 - **💻 dev**: upgrade TypeScript
 
 <br>
