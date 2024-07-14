@@ -1,29 +1,29 @@
-import { IAriaAction } from './IAriaAction.mjs'
+import type { IAriaAction } from './IAriaAction.mjs'
 
 export const AriaAction: Record<string, IAriaAction> = {
   sort: {
     name: 'sort',
     allowsParams: true,
     paramValues: ['asc', 'desc'],
-    defaultValue: 'asc',
+    defaultValue: 'asc'
   },
   dedupe: {
     name: 'dedupe',
-    allowsParams: false,
+    allowsParams: false
   },
   trim: {
     name: 'trim',
-    allowsParams: false,
+    allowsParams: false
   },
   strip: {
     name: 'strip',
     allowsParams: true,
-    paramValues: ['modifiers', 'comments'],
+    paramValues: ['modifiers', 'comments']
   },
   append: {
     name: 'append',
     allowsParams: true,
     paramValues: ['*'],
-    defaultValue: '',
-  },
+    defaultValue: ''
+  }
 } as const
