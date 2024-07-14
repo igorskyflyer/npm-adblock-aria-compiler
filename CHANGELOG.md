@@ -58,6 +58,8 @@
 
 <p align="right"><em>31-Aug-2023</em></p>
 
+### [ADBT v2.0.0](https://github.com/adbt-lang/adbt/releases/tag/v2.0.0)
+
 - **🪅 feat** **\[BREAKING]**: enforce order of statements ([#60](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/60))
 
 > 💡 Keeps track of order of statements (nodes) in the input template and enforces rules, thus keeping the integrity and validity of the exported Adblock filter file.
@@ -208,8 +210,9 @@ The following rules are enforced:
 
 <p align="right"><em>02-Aug-2023</em></p>
 
+### [ADBT v1.0.1](https://github.com/adbt-lang/adbt/releases/tag/v1.0.1)
+
 - **🪅 feat**: log execution time ([#28](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/28))
-- **🪅 feat**: use [ADBT v1.0.1](https://github.com/adbt-lang/adbt/releases/tag/v1.0.1)
 - **🪅 feat**: unreachable code detection
 
 <br>
@@ -336,5 +339,7 @@ The following rules are enforced:
 ## v1.0.0
 
 <p align="right"><em>27-Jul-2023</em></p>
+
+### [ADBT v1.0.0](https://github.com/adbt-lang/adbt/releases/tag/v1.0.0)
 
 - **🚀 launch**: initial release 🎉
