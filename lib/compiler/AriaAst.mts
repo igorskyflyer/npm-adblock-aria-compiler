@@ -6,21 +6,21 @@ import { accessSync, readFileSync, writeFileSync } from 'node:fs'
 import { isAbsolute, join, parse, resolve } from 'node:path'
 import { ARIA_UI_CODE_LINE_FEED } from '../constants/AriaUi.mjs'
 import { AriaErrorString } from '../errors/AriaErrorString.mjs'
-import { AriaAstPath } from '../models/AriaAstPath.mjs'
+import type { AriaAstPath } from '../models/AriaAstPath.mjs'
 import { AriaInlineMeta } from '../models/AriaInlineMeta.mjs'
 import { AriaNodeType } from '../models/AriaNodeType.mjs'
-import { AriaTemplatePath } from '../models/AriaTemplatePath.mjs'
-import { IAriaAction } from '../models/IAriaAction.mjs'
-import { IAriaMeta } from '../models/IAriaMeta.mjs'
-import { IAriaNode } from '../models/IAriaNode.mjs'
-import { IAriaState } from '../models/IAriaState.mjs'
-import { IAriaVar } from '../models/IAriaVar.mjs'
+import type { AriaTemplatePath } from '../models/AriaTemplatePath.mjs'
+import type { IAriaAction } from '../models/IAriaAction.mjs'
+import type { IAriaMeta } from '../models/IAriaMeta.mjs'
+import type { IAriaNode } from '../models/IAriaNode.mjs'
+import type { IAriaState } from '../models/IAriaState.mjs'
+import type { IAriaVar } from '../models/IAriaVar.mjs'
 import { AriaLog } from '../utils/AriaLog.mjs'
 import { AriaPerformance } from '../utils/AriaPerformance.mjs'
 import { applyTransform } from '../utils/AriaTransform.mjs'
 import { amendExpires, createVars } from '../utils/AriaVarUtils.mjs'
 import {
-  AriaVersioning,
+  type AriaVersioning,
   constructVersion,
   getCurrentISOTime,
   injectEntriesPlaceholder,
@@ -217,7 +217,14 @@ export class AriaAst {
     }
 
     const perf: AriaPerformance = new AriaPerformance()
-    let contents = ''
+    const variables: IAriaVar = createVars()
+
+    let contents: string = ''
+
+    // external meta vars
+    variables.title = this.meta.title ?? ''
+    variables.description = this.meta.description ?? ''
+    variables.expires = amendExpires(this.meta.expires) ?? ''
 
     perf.startProfiling()
 
@@ -254,7 +261,7 @@ export class AriaAst {
               const finalPath: string = this.#applyRoot(path)
 
               if (this.#pathExists(finalPath)) {
-                let header: string = new NormalizedString(
+                let header = new NormalizedString(
                   readFileSync(finalPath, { encoding: 'utf-8' })
                 ).value
                 header = injectVersionPlaceholder(header)
@@ -287,6 +294,19 @@ export class AriaAst {
             if (metaProp in AriaInlineMeta && metaAction.actualValue) {
               AriaInlineMeta[metaProp as keyof typeof AriaInlineMeta] =
                 metaAction.actualValue
+            }
+
+            // inline meta vars
+            if (AriaInlineMeta.title.length > 0) {
+              variables.title = AriaInlineMeta.title
+            }
+
+            if (AriaInlineMeta.description.length > 0) {
+              variables.description = AriaInlineMeta.description
+            }
+
+            if (AriaInlineMeta.expires.length > 0) {
+              variables.expires = amendExpires(AriaInlineMeta.expires)
             }
           }
 
@@ -391,32 +411,12 @@ export class AriaAst {
 
           try {
             if (typeof path === 'string') {
-              const filename: string = parse(path).name
-              const variables: IAriaVar = createVars()
               const finalPath: string = this.#applyRoot(path)
               let oldCount: number = -1
               let oldLength: number = 0
 
-              // external meta vars
-              variables.title = this.meta.title ?? ''
-              variables.description = this.meta.description ?? ''
-              variables.expires = amendExpires(this.meta.expires) ?? ''
-
-              // inline meta vars
-              if (AriaInlineMeta.title.length > 0) {
-                variables.title = AriaInlineMeta.title
-              }
-
-              if (AriaInlineMeta.description.length > 0) {
-                variables.description = AriaInlineMeta.description
-              }
-
-              if (AriaInlineMeta.expires.length > 0) {
-                variables.expires = amendExpires(AriaInlineMeta.expires)
-              }
-
               // compile vars
-              variables.filename = filename
+              variables.filename = parse(path).name
               variables.version = ''
               variables.entries = 0
               variables.lastModified = getCurrentISOTime()
@@ -430,6 +430,7 @@ export class AriaAst {
                   oldFile,
                   this.meta.versioning || this.versioning
                 )
+
                 variables.version = newVersion
                 contents = transformHeader(contents, newVersion)
                 oldCount = countRules(oldFile)
