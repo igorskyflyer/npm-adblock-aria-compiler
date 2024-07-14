@@ -17,15 +17,16 @@
 - **🪅 feat**: add final newline when exporting ([#108](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/108))
 - **🪅 feat**: support multiple actions per include/import ([#106](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/106))
 - **🪅 feat**: detect trailing comma for Actions ([#121](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/121))
+- **🪅 feat**: implement a custom diff algorithm for changes to compiled files
+- **🪅 feat**: resolve meta early (performance gain)
+- **🪅 feat**: allow only 1 `implement` per `ADBT` template
 
 <br>
 
 - **✅ fix**: don't parse Actions for duplicate includes/imports ([#111](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/111))
 - **✅ fix**: fix multiple Actions overwrite ([#112](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/112))
-
-<br>
-
-- **💻 dev**: update logging method
+- **✅ fix**: fix message logging
+- **✅ fix**: log line number when throwing an `implement` exception
 
 <br>
 <br>
