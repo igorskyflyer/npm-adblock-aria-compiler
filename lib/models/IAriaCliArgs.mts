@@ -1,5 +1,5 @@
-import { AriaVersioning } from '../utils/AriaVersioning.mjs'
-import { AriaTemplatePath } from './AriaTemplatePath.mjs'
+import type { AriaVersioning } from '../utils/AriaVersioning.mjs'
+import type { AriaTemplatePath } from './AriaTemplatePath.mjs'
 
 export interface IAriaCliArgs {
   [key: string]: any
