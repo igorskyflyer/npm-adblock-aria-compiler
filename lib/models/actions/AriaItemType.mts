@@ -1,5 +1,5 @@
 export enum AriaItemType {
-  none,
-  comment,
-  rule,
+  none = 0,
+  comment = 1,
+  rule = 2
 }
