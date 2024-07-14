@@ -26,7 +26,9 @@
 			"style": {
 				"noParameterAssign": "off",
 				"noInferrableTypes": "off"
-			}
+			},
+			"complexity": { "noStaticOnlyClass": "off", "noBannedTypes": "off" },
+			"suspicious": { "noExplicitAny": "off" }
 		}
 	}
 }
