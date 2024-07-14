@@ -7,3 +7,4 @@ assets/*.afdesign
 ast.json
 *.tgz
 *.zip
+version.mts
