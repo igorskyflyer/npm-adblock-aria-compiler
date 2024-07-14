@@ -8,6 +8,17 @@
 
 <p align="right"><em>14-Jul-2024</em></p>
 
+- **🪅 feat**: log unsupported Actions
+- **🪅 feat**: disallow duplicate Actions
+- **🪅 feat**: log applied Actions
+- **🪅 feat**: add final newline when exporting
+- **🪅 feat**: support multiple actions per include/import (#107)
+- **🪅 feat**: detect trailing comma for Actions
+
+- **✅ fix**: don't parse Actions for duplicate includes/imports
+
+- **💻 dev**: update logging method
+
 <br>
 <br>
 
