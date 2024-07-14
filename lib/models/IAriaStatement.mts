@@ -1,4 +1,4 @@
-import { IAriaAction } from './IAriaAction.mjs'
+import type { IAriaAction } from './IAriaAction.mjs'
 
 export interface IAriaStatement {
   value: string
