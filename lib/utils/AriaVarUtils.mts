@@ -1,10 +1,10 @@
 import { u } from '@igor.dvlpr/upath'
 import { accessSync, readFileSync } from 'node:fs'
-import { AriaTemplatePath } from '../models/AriaTemplatePath.mjs'
-import { IAriaMeta } from '../models/IAriaMeta.mjs'
-import { IAriaVar } from '../models/IAriaVar.mjs'
+import type { AriaTemplatePath } from '../models/AriaTemplatePath.mjs'
+import type { IAriaMeta } from '../models/IAriaMeta.mjs'
+import type { IAriaVar } from '../models/IAriaVar.mjs'
 
-const patternExpires = /.*\(update frequency\)$/i
+const patternExpires = /.*\(update frequency\)$/gi
 
 export function parseExternalMeta(
   templatePath: AriaTemplatePath
@@ -96,6 +96,6 @@ export function createVars(): IAriaVar {
     version: '',
     lastModified: '',
     entries: 0,
-    expires: '',
+    expires: ''
   }
 }
