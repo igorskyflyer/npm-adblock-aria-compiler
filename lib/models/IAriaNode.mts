@@ -1,6 +1,5 @@
-import { AriaAst } from '../compiler/AriaAst.mjs'
-import { AriaNodeType } from './AriaNodeType.mjs'
-import { IAriaAction } from './IAriaAction.mjs'
+import type { AriaNodeType } from './AriaNodeType.mjs'
+import type { IAriaAction } from './IAriaAction.mjs'
 
 export interface IAriaNode {
   type: AriaNodeType
@@ -8,5 +7,4 @@ export interface IAriaNode {
   index: number
   value?: string
   actions?: IAriaAction[]
-  subnodes?: AriaAst
 }
