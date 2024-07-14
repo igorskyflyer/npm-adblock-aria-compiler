@@ -64,10 +64,10 @@
 
 The following rules are enforced:
 
-- a [`header`](https://github.com/igorskyflyer/file-format-adbt#header) statement cannot appear after a [`meta`](https://github.com/igorskyflyer/file-format-adbt#meta) statement,
-- a [`header`](https://github.com/igorskyflyer/file-format-adbt#header) statement cannot appear after an [`include`](https://github.com/igorskyflyer/file-format-adbt#include)/[`import`](https://github.com/igorskyflyer/file-format-adbt#import) statement,
-- a [`meta`](https://github.com/igorskyflyer/file-format-adbt#meta) statement cannot appear after an [`include`](https://github.com/igorskyflyer/file-format-adbt#include)/[`import`](https://github.com/igorskyflyer/file-format-adbt#import) statement,
-- **`no statements`** can appear after an [`export`](https://github.com/igorskyflyer/file-format-adbt#export) statement.
+- a [`header`](https://github.com/adbt-lang/adbt#header) statement cannot appear after a [`meta`](https://github.com/adbt-lang/adbt#meta) statement,
+- a [`header`](https://github.com/adbt-lang/adbt#header) statement cannot appear after an [`include`](https://github.com/adbt-lang/adbt#include)/[`import`](https://github.com/adbt-lang/adbt#import) statement,
+- a [`meta`](https://github.com/adbt-lang/adbt#meta) statement cannot appear after an [`include`](https://github.com/adbt-lang/adbt#include)/[`import`](https://github.com/adbt-lang/adbt#import) statement,
+- **`no statements`** can appear after an [`export`](https://github.com/adbt-lang/adbt#export) statement.
 
   Will `throw` when order is not correct.
 
@@ -121,11 +121,11 @@ The following rules are enforced:
 
 <p align="right"><em>22-Aug-2023</em></p>
 
-### [ADBT v1.3.0](https://github.com/igorskyflyer/file-format-adbt/releases/tag/v1.3.0)
+### [ADBT v1.3.0](https://github.com/adbt-lang/adbt/releases/tag/v1.3.0)
 
 - **🪅 feat**: add support for statement actions ([#48](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/48)), currently available for:
-  - [**`include`**](https://github.com/igorskyflyer/file-format-adbt#include),
-  - [**`import`**](https://github.com/igorskyflyer/file-format-adbt#import)
+  - [**`include`**](https://github.com/adbt-lang/adbt#include),
+  - [**`import`**](https://github.com/adbt-lang/adbt#import)
 
 <br>
 <br>
@@ -142,7 +142,7 @@ The following rules are enforced:
 
 <br>
 
-> You can read more about [Actions](https://github.com/igorskyflyer/file-format-adbt#-actions) in the official ADBT documentation.
+> You can read more about [Actions](https://github.com/adbt-lang/adbt#-actions) in the official ADBT documentation.
 
 <br>
 <br>
@@ -151,7 +151,7 @@ The following rules are enforced:
 
 <p align="right"><em>20-Aug-2023</em></p>
 
-### [ADBT v1.2.0](https://github.com/igorskyflyer/file-format-adbt/releases/tag/v1.2.0)
+### [ADBT v1.2.0](https://github.com/adbt-lang/adbt/releases/tag/v1.2.0)
 
 - **🪅 feat**: implement the **`import`** statement ([#45](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/45))
   > **`import`** statements behave exactly the same as **`include`** but prepend the file path of the included filter (as a comment)
@@ -171,7 +171,7 @@ The following rules are enforced:
 
 <p align="right"><em>19-Aug-2023</em></p>
 
-### [ADBT v1.1.0](https://github.com/igorskyflyer/file-format-adbt/releases/tag/v1.1.0)
+### [ADBT v1.1.0](https://github.com/adbt-lang/adbt/releases/tag/v1.1.0)
 
 - **🪅 feat**: support for Expires meta variable ([#38](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/38))
 
@@ -209,7 +209,7 @@ The following rules are enforced:
 <p align="right"><em>02-Aug-2023</em></p>
 
 - **🪅 feat**: log execution time ([#28](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/28))
-- **🪅 feat**: use [ADBT v1.0.1](https://github.com/igorskyflyer/file-format-adbt/releases/tag/v1.0.1)
+- **🪅 feat**: use [ADBT v1.0.1](https://github.com/adbt-lang/adbt/releases/tag/v1.0.1)
 - **🪅 feat**: unreachable code detection
 
 <br>
