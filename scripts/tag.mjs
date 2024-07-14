@@ -8,7 +8,7 @@ try {
   const commit = execSync('git rev-parse --short=7 HEAD').toString().trim()
 
   writeFileSync(
-    './dist/lib/version.mjs',
+    './lib/version.mts',
     `export const version = { cli: '${packageInfo.version}', adbt: '${packageInfo.uses.adbt}', commit: '${commit}' }\r\n`
   )
   console.log('✅ Successfully tagged the release.')
