@@ -4,6 +4,13 @@
 
 <br>
 
+## v2.2.0
+
+<p align="right"><em>14-Jul-2024</em></p>
+
+<br>
+<br>
+
 ## v2.1.0
 
 <p align="right"><em>13-Sep-2023</em></p>
@@ -14,6 +21,7 @@
 - **💻 dev**: make external meta message an info, not a warning ([#100](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/100))
 
 <br>
+<br>
 
 ## v2.0.1
 
@@ -21,6 +29,7 @@
 
 - **✅ fix**: inline meta erasing external metadata ([#94](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/94))
 
+<br>
 <br>
 
 ## v2.0.0
@@ -68,6 +77,7 @@ The following rules are enforced:
 - **💻 dev**: add tests and coverage
 
 <br>
+<br>
 
 ## v1.6.1
 
@@ -76,6 +86,7 @@ The following rules are enforced:
 - **✅ fix**: fix an error when no action is provided, ([#50](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/50))
 - **✅ fix**: fix an error when passing multiple values for error logging, ([#51](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/51))
 
+<br>
 <br>
 
 ## v1.6.0
@@ -88,6 +99,7 @@ The following rules are enforced:
   - [**`include`**](https://github.com/igorskyflyer/file-format-adbt#include),
   - [**`import`**](https://github.com/igorskyflyer/file-format-adbt#import)
 
+<br>
 <br>
 
 > 💡Actions allow you to invoke a certain function when including/importing filter list files.
@@ -104,6 +116,7 @@ The following rules are enforced:
 
 > You can read more about [Actions](https://github.com/igorskyflyer/file-format-adbt#-actions) in the official ADBT documentation.
 
+<br>
 <br>
 
 ## v1.5.0
@@ -124,6 +137,7 @@ The following rules are enforced:
 - **✅ fix**: when passing the **`-t`** flag, the input template wasn't being compiled
 
 <br>
+<br>
 
 ## v1.4.0
 
@@ -139,6 +153,7 @@ The following rules are enforced:
 - **💻 dev**: remove **`value`** property for placeholders
 
 <br>
+<br>
 
 ## v1.3.0
 
@@ -149,6 +164,7 @@ The following rules are enforced:
 - **✅ fix**: don't trigger unreachable code warning for whitespace at the end of file ([#34](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/34))
 - **💻 dev**: upgrade [@igor.dvlpr/zing](https://www.npmjs.com/package/@igor.dvlpr/zing)
 
+<br>
 <br>
 
 ## v1.2.5
@@ -162,6 +178,7 @@ The following rules are enforced:
 - **📜 docs**: update ADBT API link
 
 <br>
+<br>
 
 ## v1.2.4
 
@@ -169,6 +186,7 @@ The following rules are enforced:
 
 - **💻 dev**: use automated version tagging
 
+<br>
 <br>
 
 ## v1.2.3
@@ -178,6 +196,7 @@ The following rules are enforced:
 - **✅ fix**: incorrect CLI version
 
 <br>
+<br>
 
 ## v1.2.2
 
@@ -186,6 +205,7 @@ The following rules are enforced:
 - **✅ fix**: enable passing of relative template paths while using a `root` absolute path ([#24](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/24))
 
 <br>
+<br>
 
 ## v1.2.1
 
@@ -193,6 +213,7 @@ The following rules are enforced:
 
 - **📜 docs**: update API
 
+<br>
 <br>
 
 ## v1.2.0
@@ -203,6 +224,7 @@ The following rules are enforced:
 - **✅ fix**: cwd path ([#23](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/23))
 
 <br>
+<br>
 
 ## v1.1.2
 
@@ -210,6 +232,9 @@ The following rules are enforced:
 
 - **✅ fix**: sourceline wrong numbering ([#18](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/18))
 - **✅ fix**: String escaping ([#17](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/17))
+
+<br>
+<br>
 
 ## v1.1.1
 
@@ -219,6 +244,7 @@ The following rules are enforced:
 - **✅ fix**: don't prepend whitespace when injecting headers ([#12](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/12))
 
 <br>
+<br>
 
 ## v1.1.0
 
@@ -226,6 +252,7 @@ The following rules are enforced:
 
 - **🪅 feat**: don't include already included filter lists ([#10](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/10))
 
+<br>
 <br>
 
 ## v1.0.3
@@ -235,6 +262,7 @@ The following rules are enforced:
 - **✅ fix**: handle single quotes `'` in file paths ([#8](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/8))
 
 <br>
+<br>
 
 ## v1.0.2
 
@@ -242,6 +270,7 @@ The following rules are enforced:
 
 - **🪅 feat**: add performance information to CLI output
 
+<br>
 <br>
 
 ## v1.0.1
@@ -252,6 +281,7 @@ The following rules are enforced:
 - **✅ fix**: meta and compile variables mixup ([#6](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/6))
 - **💻 dev**: upgrade TypeScript
 
+<br>
 <br>
 
 ## v1.0.0
