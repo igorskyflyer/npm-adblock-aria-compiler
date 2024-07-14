@@ -1,6 +1,6 @@
-import { execSync } from 'child_process'
-import { readFileSync, writeFileSync } from 'fs'
-import { exit } from 'process'
+import { execSync } from 'node:child_process'
+import { readFileSync, writeFileSync } from 'node:fs'
+import { exit } from 'node:process'
 
 try {
   const packageFile = readFileSync('./package.json', { encoding: 'utf-8' })
@@ -8,7 +8,7 @@ try {
   const commit = execSync('git rev-parse --short=7 HEAD').toString().trim()
 
   writeFileSync(
-    './lib/version.mts',
+    './dist/lib/version.mjs',
     `export const version = { cli: '${packageInfo.version}', adbt: '${packageInfo.uses.adbt}', commit: '${commit}' }\r\n`
   )
   console.log('✅ Successfully tagged the release.')
