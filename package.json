@@ -20,7 +20,7 @@
 		"tag": "node ./scripts/tag.mjs",
 		"dev": "tsc -w --sourcemap",
 		"test": "vitest run",
-		"pub": "npm run tag && git add './dist/lib/version.mjs' && git commit -m 'Tag version' && npm run build && npm publish --access public"
+		"pub": "npm run tag && npm run build && git add './dist/lib/version.mjs' && git commit -m 'Tag version' && npm publish --access public"
 	},
 	"repository": {
 		"type": "git",
