@@ -8,6 +8,8 @@
 
 <p align="right"><em>14-Jul-2024</em></p>
 
+### [ADBT v2.1.0](https://github.com/adbt-lang/adbt/releases/tag/v2.1.0)
+
 - **🪅 feat**: log unsupported Actions ([#119](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/119))
 - **🪅 feat**: disallow duplicate Actions ([#110](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/110))
 - **🪅 feat**: log applied Actions ([#114](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/114))
