@@ -1,6 +1,6 @@
 import { zing } from '@igor.dvlpr/zing'
 import chalk from 'chalk'
-import { IAriaMessageData } from './IAriaMessageData.mjs'
+import type { IAriaMessageData } from './IAriaMessageData.mjs'
 
 export class AriaError extends Error {
   #name: string
@@ -24,13 +24,13 @@ export class AriaError extends Error {
         }: ${this.#info.message}`,
         ...this.#args
       )
-    } else {
-      return zing(
-        `${chalk.italic.bold(`${this.#name}${this.#info.id}`)}: ${
-          this.#info.message
-        }`,
-        ...this.#args
-      )
     }
+
+    return zing(
+      `${chalk.italic.bold(`${this.#name}${this.#info.id}`)}: ${
+        this.#info.message
+      }`,
+      ...this.#args
+    )
   }
 }
