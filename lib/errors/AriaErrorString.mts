@@ -185,7 +185,7 @@ export const AriaErrorString = {
       )} for extra customizability of the output filter file.`
     )}`
   },
-  resolvedMetaFile: {
+  resolvedRootDir: {
     id: '044',
     message: 'Resolved root directory: {0}'
   },
