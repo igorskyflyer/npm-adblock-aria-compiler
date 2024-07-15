@@ -98,8 +98,7 @@ export const AriaErrorString = {
   },
   headerMissing: {
     id: '023',
-    message:
-      'No header statement found, consider adding one since metadata is required for an Adblock filter file to be valid.'
+    message: 'No header statement found, one was generated for you.'
   },
   nodeLogHeader: {
     id: '024',
