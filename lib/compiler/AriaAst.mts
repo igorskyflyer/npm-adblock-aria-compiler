@@ -22,11 +22,12 @@ import { amendExpires, createVars } from '../utils/AriaVarUtils.mjs'
 import {
   type AriaVersioning,
   constructVersion,
+  createHeader,
   getCurrentISOTime,
   injectEntriesPlaceholder,
   injectVersionPlaceholder,
   replacePlaceholders,
-  transformHeader
+  setHeaderVersion
 } from '../utils/AriaVersioning.mjs'
 import { getKeywordFromType } from './AriaKeywords.mjs'
 import { canAddNode } from './AriaOrder.mjs'
@@ -205,15 +206,20 @@ export class AriaAst {
       return false
     }
 
-    if (!this.#hasNode(AriaNodeType.nodeHeader)) {
+    const hasHeader: boolean = this.#hasNode(AriaNodeType.nodeHeader)
+    let header: string = ''
+    let contents: string = ''
+
+    if (!hasHeader) {
       AriaLog.warning(AriaErrorString.headerMissing)
       AriaLog.newline()
+      header = createHeader()
+
+      contents += this.#block(header)
     }
 
     const perf: AriaPerformance = new AriaPerformance()
     const variables: IAriaVar = createVars()
-
-    let contents: string = ''
 
     // external meta vars
     variables.title = this.meta.title ?? ''
@@ -255,11 +261,12 @@ export class AriaAst {
               const finalPath: string = this.#applyRoot(path)
 
               if (this.#pathExists(finalPath)) {
-                let header = new NormalizedString(
+                header = new NormalizedString(
                   readFileSync(finalPath, { encoding: 'utf-8' })
                 ).value
                 header = injectVersionPlaceholder(header)
                 header = injectEntriesPlaceholder(header)
+
                 contents += this.#block(header)
               } else {
                 throw AriaLog.ariaThrow(
@@ -400,11 +407,15 @@ export class AriaAst {
                 )
 
                 variables.version = newVersion
-                contents = transformHeader(contents, newVersion)
+                contents = setHeaderVersion(contents, newVersion)
                 oldCount = countRules(oldFile)
                 oldLength = oldFile.length
               } else {
-                contents = transformHeader(contents, this.versioning)
+                contents = setHeaderVersion(contents, this.versioning)
+              }
+
+              if (!hasHeader) {
+                variables.expires = amendExpires('24h')
               }
 
               contents = replacePlaceholders(contents, variables)
