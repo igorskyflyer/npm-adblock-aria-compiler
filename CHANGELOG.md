@@ -4,6 +4,19 @@
 
 <br>
 
+## v2.3.0
+
+<p align="right"><em>15-Jul-2024</em></p>
+
+- **🪅 feat**: add an auto-generated header to the compiled filter list file ([#124](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/124))
+
+<br>
+
+- **✅ fix**: don't add the version metadata if no header is present ([#125](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/125))
+
+<br>
+<br>
+
 ## v2.2.0
 
 <p align="right"><em>15-Jul-2024</em></p>
