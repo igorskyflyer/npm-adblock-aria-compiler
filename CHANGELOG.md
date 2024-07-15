@@ -9,9 +9,6 @@
 <p align="right"><em>15-Jul-2024</em></p>
 
 - **🪅 feat**: add an auto-generated header to the compiled filter list file ([#124](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/124))
-
-<br>
-
 - **✅ fix**: don't add the version metadata if no header is present ([#125](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/125))
 
 <br>
@@ -292,9 +289,6 @@ The following rules are enforced:
 <p align="right"><em>02-Aug-2023</em></p>
 
 - **🪅 feat**: root directory option
-
-<br>
-
 - **✅ fix**: cwd path ([#23](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/23))
 
 <br>
