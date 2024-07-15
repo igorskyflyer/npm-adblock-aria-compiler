@@ -156,10 +156,10 @@ function isAriaVersioning(version: string): version is AriaVersioning {
   return ['auto', 'semver', 'timestamp'].includes(version.toLowerCase())
 }
 
-export function transformHeader(header: string, newVersion: string): string
-export function transformHeader(header: string, mode: AriaVersioning): string
+export function setHeaderVersion(header: string, newVersion: string): string
+export function setHeaderVersion(header: string, mode: AriaVersioning): string
 
-export function transformHeader(header: string, version: string): string {
+export function setHeaderVersion(header: string, version: string): string {
   {
     if (typeof header !== 'string') {
       return ''
@@ -179,6 +179,16 @@ export function transformHeader(header: string, version: string): string {
 
     return `${header}\n! Version: ${newVersion}`
   }
+}
+
+export function createHeader(): string {
+  return `! Title: {title}
+! Description: {about}
+! Version: $version
+! Last modified: $now
+! Expires: {expires}
+! Entries: $entries
+`
 }
 
 export type AriaVersioning = 'semver' | 'timestamp' | 'auto'
