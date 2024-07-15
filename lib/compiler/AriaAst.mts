@@ -419,6 +419,7 @@ export class AriaAst {
               }
 
               contents = replacePlaceholders(contents, variables)
+              contents = contents.trimEnd()
 
               if (contents.at(-1) !== '\n') {
                 contents += '\n'
