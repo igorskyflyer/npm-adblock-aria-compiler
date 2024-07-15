@@ -4,6 +4,15 @@
 
 <br>
 
+## v2.3.1
+
+<p align="right"><em>16-Jul-2024</em></p>
+
+- **✅ fix**: trim filter file before exporting ([#126](https://github.com/igorskyflyer/npm-adblock-aria-compiler/issues/126))
+
+<br>
+<br>
+
 ## v2.3.0
 
 <p align="right"><em>15-Jul-2024</em></p>
