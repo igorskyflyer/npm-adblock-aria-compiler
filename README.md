@@ -275,7 +275,7 @@ aria --help
 
 ## 🪪 License
 
-Licensed under the [GPLv3 license](https://github.com/igorskyflyer/file-formats/blob/main/adbt/LICENSE).
+Licensed under the [GPLv3 license](https://github.com/igorskyflyer/npm-adblock-aria-compiler/blob/main/LICENSE).
 
 ---
 
